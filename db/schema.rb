@@ -24,7 +24,12 @@ ActiveRecord::Schema.define(version: 20181230221421) do
     t.integer "blubrry_total_downloads"
     t.string "title"
     t.string "artist"
+    t.datetime "date"
     t.boolean "file_migrated", default: false
+    t.index ["blubrry_filename"], name: "index_episodes_on_blubrry_filename"
+    t.index ["date"], name: "index_episodes_on_date"
+    t.index ["file_migrated"], name: "index_episodes_on_file_migrated"
+    t.index ["podcast_id"], name: "index_episodes_on_podcast_id"
   end
 
 end
