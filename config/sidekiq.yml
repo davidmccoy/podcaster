@@ -1,0 +1,11 @@
+:concurrency: 2
+:timeout: 8
+staging:
+  :concurrency: 2
+production:
+  :concurrency: 2
+:queues:
+  - critical
+  - default
+  - low
+  - bottom
