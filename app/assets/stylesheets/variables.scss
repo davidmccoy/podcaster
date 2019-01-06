@@ -114,6 +114,10 @@ $font-family-serif:      Georgia, Cambria, "Times New Roman", Times, serif;
   //   font-size: 0.688em;
   // }
 
+  &.btn-primary {
+    color: $white;
+  }
+
   &-primary,
   &-secondary,
   &-secondary:hover,
