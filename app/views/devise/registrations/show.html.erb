@@ -1,0 +1,16 @@
+<div class="row">
+  <div class="col-md-8 offset-md-2">
+    <h2>Profile</h2>
+    <p>
+      <%= link_to 'Edit', edit_user_registration_path, class: 'btn btn-sm btn-secondary' %>
+    <p>
+      <strong>First Name:</strong> <%= @user.first_name %>
+    </p>
+    <p>
+      <strong>Last Name:</strong> <%= @user.last_name %>
+    </p>
+    <p>
+      <strong>Email:</strong> <%= @user.email %>
+    </p>
+  </div>
+</div>

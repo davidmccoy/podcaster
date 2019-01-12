@@ -35,8 +35,9 @@ gem 'jbuilder', '~> 2.5'
 
 gem 'jquery-rails'
 
-# User control
+# User control and authorization
 gem 'devise'
+gem "pundit"
 
 # For background jobs
 gem 'sidekiq'
@@ -50,10 +51,11 @@ gem 'bootstrap', '~> 4.2.1'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  # gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   # Adds support for Capybara system testing and selenium driver
   gem 'capybara', '~> 2.13'
   gem 'selenium-webdriver'
+  gem 'pry'
 end
 
 group :development do

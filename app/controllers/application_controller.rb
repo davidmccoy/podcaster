@@ -1,8 +1,22 @@
 class ApplicationController < ActionController::Base
+  include Pundit
   protect_from_forgery with: :exception
   before_action :configure_permitted_parameters, if: :devise_controller?
 
-  protected
+  rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
+
+  private
+
+  # use Pundit to redirect after failed auth
+  def user_not_authorized
+    if current_user
+      flash[:alert] = "You are not authorized to perform this action."
+      redirect_to(request.referrer || root_path) and return
+    else
+      flash[:alert] = "You'll have to sign in before you can do that!"
+      redirect_to new_user_session_path(url: request.path) and return
+    end
+  end
 
   # ======= customize devise ======= #
 

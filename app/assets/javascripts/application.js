@@ -17,6 +17,7 @@
 //= require bootstrap
 //= require_tree .
 
+// validate forms on submission
 (function() {
   'use strict';
   window.addEventListener('load', function() {
