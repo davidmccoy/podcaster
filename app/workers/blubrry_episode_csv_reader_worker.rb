@@ -1,4 +1,4 @@
-class EpisodeCsvReaderWorker
+class BlubrryEpisodeCsvReaderWorker
   require 'csv'
   include Sidekiq::Worker
 

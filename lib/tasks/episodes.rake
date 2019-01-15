@@ -1,8 +1,12 @@
 namespace :episodes do
   desc 'Takes a CSV of episode titles, file urls, and stats and adds them to the database'
 
-  task import_from_csv: :environment do
-    EpisodeCsvReaderWorker.perform_async
+  task import_from_blubrry_csv: :environment do
+    BlubrryEpisodeCsvReaderWorker.perform_async
+  end
+
+  task import_from_libsyn_csv: :environment do
+    LibsynEpisodeCsvReaderWorker.perform_async
   end
 
   desc 'Reads mp3 files id3 tags to populate title and artist fields'

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190106234254) do
+ActiveRecord::Schema.define(version: 20190115015935) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,6 +26,7 @@ ActiveRecord::Schema.define(version: 20190106234254) do
     t.string "artist"
     t.datetime "date"
     t.boolean "file_migrated", default: false
+    t.text "description"
     t.index ["blubrry_filename"], name: "index_episodes_on_blubrry_filename"
     t.index ["date"], name: "index_episodes_on_date"
     t.index ["file_migrated"], name: "index_episodes_on_file_migrated"
