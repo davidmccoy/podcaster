@@ -10,4 +10,8 @@ class UserPolicy <  ApplicationPolicy
   def update?
     show?
   end
+
+  def destroy?
+    show?
+  end
 end

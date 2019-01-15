@@ -1,5 +1,5 @@
 class Users::RegistrationsController < Devise::RegistrationsController
-  before_action :authorize_user
+  before_action :authorize_user, except: [:new, :create]
 
   def show
     @user = current_user

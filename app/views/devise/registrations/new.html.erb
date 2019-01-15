@@ -6,12 +6,12 @@
       <%= devise_error_messages! %>
 
       <div class="form-group required">
-        <%= f.label :first_name, class: 'control-label' %>
+        <%= f.label :first_name, 'First Name', class: 'control-label' %>
         <%= f.text_field :first_name, autofocus: true, required: true, class: 'form-control' %>
       </div>
 
       <div class="form-group required">
-        <%= f.label :last_name, class: 'control-label' %>
+        <%= f.label :last_name, 'Last Name', class: 'control-label' %>
         <%= f.text_field :last_name, autofocus: false, required: true, class: 'form-control' %>
       </div>
 
