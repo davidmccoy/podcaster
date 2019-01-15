@@ -7,7 +7,7 @@ class OldFeedsController < ApplicationController
       # redirect_to active podcasts feed and return
     elsif feed_params[:podcast]
       podcast_name = feed_params[:podcast].gsub('-', ' ')
-      # podcast = Page.where('lower(name) = ?', podcast_name)
+      # podcast = Page.where('lower(name) = ?', podcast_name).first
       # redirect_to podcast feed and return
     end
   end
