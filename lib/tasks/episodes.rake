@@ -16,4 +16,13 @@ namespace :episodes do
       EpisodeTagReaderWorker.perform_async(episode.id)
     end
   end
+
+  desc 'Converts Episodes into Pages, Posts, and PodcastEpisodes'
+
+  task convert_episodes: :environment do
+    episodes = Episode.where(file_migrated: false).where.not(artist: nil)
+    episodes.find_each do |episode|
+      EpisodeConverterWorker.perform_async(episode.id)
+    end
+  end
 end
