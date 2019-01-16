@@ -10,12 +10,16 @@ Rails.application.routes.draw do
   end
 
   resources :users
+  resources :pages, path: 'podcasts' do
+    get '/feed', to: 'pages#feed'
+    resources :posts
+  end
 
   resources :episodes, only: [:create]
 
   #***|| routes for old rss feeds ||***#
   # in home controller --> '/?feed=podcast'
-  get '/feed', to: 'old_feeds#redirect'
+  get '/feed', to: 'pages#mtgcast'
   get '/topics/mtgcast-podcast-shows/retired-and-archived-podcast-shows/:podcast/feed', to: 'old_feeds#redirect'
   get '/topics/mtgcast-podcast-shows/active-podcast-shows/:podcast/feed', to: 'old_feeds#redirect'
 end

@@ -35,4 +35,8 @@ class ApplicationController < ActionController::Base
     @user ||= User.new
     authorize @user
   end
+
+  def set_page
+    @page = Page.find_by_slug(params[:page_id]) || Page.find_by_slug(params[:id])
+  end
 end

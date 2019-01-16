@@ -2,7 +2,7 @@ class HomeController < ApplicationController
   def index
     # MTGCast feed
     if feed_params[:feed] == 'podcast'
-      # redirect_to mtgcast feed and return
+      redirect_to feed_path
     end
   end
 
