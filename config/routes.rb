@@ -14,8 +14,7 @@ Rails.application.routes.draw do
   resources :episodes, only: [:create]
 
   #***|| routes for old rss feeds ||***#
-  # build into home controller --> '/?feed=podcast'
-  # '/feed?cat=4'
+  # in home controller --> '/?feed=podcast'
   get '/feed', to: 'old_feeds#redirect'
   get '/topics/mtgcast-podcast-shows/retired-and-archived-podcast-shows/:podcast/feed', to: 'old_feeds#redirect'
   get '/topics/mtgcast-podcast-shows/active-podcast-shows/:podcast/feed', to: 'old_feeds#redirect'

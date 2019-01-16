@@ -3,6 +3,8 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable,
          :trackable
 
+  has_many :pages
+
   after_create :add_to_mailchimp
 
   def name

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190115015935) do
+ActiveRecord::Schema.define(version: 20190116030433) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -31,6 +31,39 @@ ActiveRecord::Schema.define(version: 20190115015935) do
     t.index ["date"], name: "index_episodes_on_date"
     t.index ["file_migrated"], name: "index_episodes_on_file_migrated"
     t.index ["podcast_id"], name: "index_episodes_on_podcast_id"
+  end
+
+  create_table "pages", force: :cascade do |t|
+    t.integer "user_id"
+    t.string "name", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_pages_on_user_id"
+  end
+
+  create_table "podcast_episodes", force: :cascade do |t|
+    t.string "title", null: false
+    t.text "description"
+    t.string "filename"
+    t.string "external_file_url"
+    t.string "external_date"
+    t.integer "external_unique_downloads"
+    t.integer "external_total_downloads"
+    t.datetime "date"
+    t.boolean "file_migrated", default: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["file_migrated"], name: "index_podcast_episodes_on_file_migrated"
+  end
+
+  create_table "posts", force: :cascade do |t|
+    t.integer "page_id"
+    t.string "postable_type"
+    t.bigint "postable_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["page_id"], name: "index_posts_on_page_id"
+    t.index ["postable_type", "postable_id"], name: "index_posts_on_postable_type_and_postable_id"
   end
 
   create_table "users", force: :cascade do |t|
