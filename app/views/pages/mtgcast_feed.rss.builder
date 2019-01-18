@@ -9,8 +9,8 @@ xml.rss :version => "2.0", "xmlns:itunes" => "http://www.itunes.com/dtds/podcast
     # <atom:link href="http://feeds.soundcloud.com/users/soundcloud:users:299862962/sounds.rss?before=316446903" rel="next" type="application/rss+xml"/>
     xml.title 'MTGCast'
     xml.link 'https://www.mtgcast.com'
-    xml.pubDate @episodes.first.created_at.to_s(:rfc822)
-    xml.lastBuildDate @episodes.first.created_at.to_s(:rfc822)
+    xml.pubDate @date
+    xml.lastBuildDate @date
     # time to live. It's a number of minutes that indicates how long a channel can be cached before refreshing from the source
     # <ttl>60</ttl>
     xml.language 'en'
