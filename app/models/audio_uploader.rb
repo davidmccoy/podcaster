@@ -5,7 +5,7 @@ class AudioUploader < Shrine
   plugin :determine_mime_type
   plugin :add_metadata
   plugin :pretty_location
-  plugin :remote_url, max_size: 100*1024*1024
+  plugin :remote_url, max_size: 200*1024*1024
 
   # Custom validations
   Attacher.validate do
