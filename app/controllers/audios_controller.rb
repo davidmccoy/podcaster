@@ -12,7 +12,6 @@ class AudiosController < ApplicationController
       attachable_type: @post.postable.class.to_s,
       attachable_id: @post.postable.id
     }))
-    binding.pry
   end
 
   private
