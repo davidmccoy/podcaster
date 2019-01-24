@@ -1,6 +1,6 @@
 # Defines audio-specific uploading logic
 class AudioUploader < Shrine
-  require 'taglib'
+  require 'streamio-ffmpeg'
   plugin :validation_helpers
   plugin :determine_mime_type
   plugin :add_metadata
@@ -16,10 +16,8 @@ class AudioUploader < Shrine
   # Save content length in HH:MM:SS
   add_metadata :length do |io|
     length = 0
-
-    TagLib::FileRef.open(io.path) do |fileref|
-      length = fileref.audio_properties.length
-    end
+    file = FFMPEG::Movie.new(io.path)
+    length = file.duration.round
 
     hours   = length % 3600
     minutes = length / 60 % 60
