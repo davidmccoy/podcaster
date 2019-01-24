@@ -39,4 +39,8 @@ class ApplicationController < ActionController::Base
   def set_page
     @page = Page.find_by_slug(params[:page_id]) || Page.find_by_slug(params[:id])
   end
+
+  def set_post
+    @post = Post.find_by_id(params[:post_id]) || Post.find_by_id(params[:id])
+  end
 end
