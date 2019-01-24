@@ -19,7 +19,7 @@ class AudioUploader < Shrine
     file = FFMPEG::Movie.new(io.path)
     length = file.duration.round
 
-    hours   = length % 3600
+    hours   = length / 3600
     minutes = length / 60 % 60
     seconds = length % 60
 
