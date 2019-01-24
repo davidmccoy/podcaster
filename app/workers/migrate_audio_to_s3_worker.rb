@@ -12,8 +12,8 @@ class MigrateAudioToS3Worker
     audio.file_remote_url = podcast_episode.external_file_url
 
     # Use the cache prefix because file gets copied afters save
-    # audio.file.exists? might work, too
-    unless S3_PODCASTS.object("cache/#{audio.file.id}").exists?
+    # S3_PODCASTS.object("cache/#{audio.file.id}").exists? might work, too
+    unless audio.file.exists?
       raise 'audio didn\'t migrate'
     end
 
