@@ -1,0 +1,5 @@
+<%= form_with model: @audio, url: page_post_audios_path(@page, @post) do |f| %>
+  <%= f.hidden_field :file, value: @audio.cached_file_data %>
+  <%= f.file_field :file %>
+  <%= f.submit %>
+<% end %>

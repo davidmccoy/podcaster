@@ -22,3 +22,4 @@ dump.rdb
 *.DS_Store
 
 config/application.yml
+public/uploads

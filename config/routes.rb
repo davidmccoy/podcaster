@@ -12,7 +12,9 @@ Rails.application.routes.draw do
   resources :users
   resources :pages, path: 'podcasts' do
     get '/feed', to: 'pages#feed'
-    resources :posts
+    resources :posts do
+      resources :audios
+    end
   end
 
   resources :episodes, only: [:create]
