@@ -35,6 +35,10 @@ audio {
   }
 }
 
+.navbar-collapse {
+  padding-top: 0.5rem;
+}
+
 .btn-delete {
   float: right;
 }
@@ -45,6 +49,22 @@ table.table {
 
 .page-name-link {
   color: $gray-700;
+}
+
+h1 {
+  font-size: 2.126rem;
+}
+h2 {
+  font-size: 1.86025rem;
+}
+h3 {
+  font-size: 1.5945rem;
+}
+h4 {
+  font-size: 1.32875rem;
+}
+h5 {
+  font-size: 1.02875rem;
 }
 
 h1, h2, h3 {
@@ -82,6 +102,21 @@ html {
   .alert {
     top: -40px;
   }
+  h1 {
+    font-size: 2.6575rem;
+  }
+  h2 {
+    font-size: 2.126rem;
+  }
+  h3 {
+    font-size: 1.86025rem;
+  }
+  h4 {
+    font-size: 1.5945rem;
+  }
+  h5 {
+    font-size: 1.32875rem;
+  }
 }
 
 @media (min-width: 992px) {
@@ -89,6 +124,9 @@ html {
     body {
       padding-bottom: 290px;
     }
+  }
+  .navbar-collapse {
+    padding-top: 0;
   }
 }
 
