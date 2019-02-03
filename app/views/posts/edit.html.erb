@@ -14,12 +14,12 @@
             <%= postable_form.text_field :title, autofocus: true, required: true, class: 'form-control edit-post-title', value: @post.postable.title %>
           </div>
           <div>
-            <% if @post.postable.audio.first&.file&.metadata&.dig('mime_type') == 'audio/mpeg' %>
+            <% if @post.postable.podcast_episode&.file&.metadata&.dig('mime_type') == 'audio/mpeg' %>
               <audio id="player" controls>
-                <source src="<%= @post.postable.audio.first.url %>" type="audio/mp3">
+                <source src="<%= @post.postable.podcast_episode.url %>" type="audio/mp3">
               </audio>
               <p>
-                <em><%= @post.postable.audio.first.file.metadata['filename'] %></em>
+                <em><%= @post.postable.podcast_episode.file.metadata['filename'] %></em>
               </p>
             <% end %>
           </div>

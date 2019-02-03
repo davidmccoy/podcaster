@@ -7,4 +7,8 @@ class PodcastEpisode < ApplicationRecord
            foreign_key: :attachable_id
 
   accepts_nested_attributes_for :attachments
+
+  def podcast_episode
+    attachments.find_by(label: 'podcast_episode')
+  end
 end

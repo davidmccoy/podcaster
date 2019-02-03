@@ -11,10 +11,10 @@
         <em><%= @post.publish_time.localtime.strftime('%m/%d/%Y') %></em>
       </p>
       <div>
-        <% if @post.postable.audio.first&.file&.metadata&.dig('mime_type') == 'audio/mpeg' %>
+        <% if @post.postable.podcast_episode&.file&.metadata&.dig('mime_type') == 'audio/mpeg' %>
           <p>
             <audio id="player" controls>
-              <source src="<%= @post.postable.audio.first.url %>" type="audio/mp3">
+              <source src="<%= @post.postable.podcast_episode.url %>" type="audio/mp3">
             </audio>
           </p>
         <% end %>

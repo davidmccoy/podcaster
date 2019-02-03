@@ -14,7 +14,7 @@ xml.rss :version => "2.0", "xmlns:itunes" => "http://www.itunes.com/dtds/podcast
     # time to live. It's a number of minutes that indicates how long a channel can be cached before refreshing from the source
     # <ttl>60</ttl>
     xml.language 'en'
-    xml.copyright 'All rights reserved, Authorization Code 000689'
+    xml.copyright 'All rights reserved.'
     xml.webMaster 'admin@mtgcast.fm'
     xml.description @page.name
     xml.itunes :subtitle, "#{@page.name} is provided by MTGCast."
@@ -41,20 +41,20 @@ xml.rss :version => "2.0", "xmlns:itunes" => "http://www.itunes.com/dtds/podcast
      # Block from iTunes? (should only be used on items)
     # xml.itunes :block, 'no'
 
-    @page.posts.published.each do  |post|
-      next unless !post.postable.audio.empty? && post.postable.audio.first.file
+    @page.posts.published.limit(50).each do  |post|
+      next unless !post.postable.audio.empty? && post.postable.podcast_episode.file
       xml.item do
-        xml.guid({:isPermaLink => "false"}, "https://www.mtgcast.com/podcasts/#{@page.slug}/post/#{post.id}")
+        xml.guid({:isPermaLink => "false"}, "https://www.mtgcast.com/podcasts/#{@page.slug}/posts/#{post.slug}")
         xml.title post.postable.title
         xml.pubDate post.publish_time.to_s(:rfc822)
-        xml.link "https://www.mtgcast.com/podcasts/#{@page.slug}/posts/#{post.id}"
-        xml.itunes :duration, post.postable.audio.first.file.metadata['length']
+        xml.link "https://www.mtgcast.com/podcasts/#{@page.slug}/posts/#{post.slug}"
+        xml.itunes :duration, post.postable.podcast_episode&.file&.metadata&.dig('length')
         xml.itunes :author, @page.name
         xml.itunes :explicit, 'no'
         xml.itunes :summary, post.postable.description
         xml.itunes :subtitle, truncate(post.postable.description, :length => 150)
         xml.description post.postable.description
-        xml.enclosure :url => post.postable.audio.first.url, :length => post.postable.audio.first.file.metadata['size'], :type => 'audio/mpeg'
+        xml.enclosure :url => post.postable.audio&.first&.url, :length => post.postable.podcast_episode&.file&.metadata&.dig('size'), :type => post.postable.podcast_episode&.file&.metadata&.dig('mime_type')
         xml.itunes :image, href: @image
       end
     end
