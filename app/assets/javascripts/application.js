@@ -13,6 +13,9 @@
 //= require rails-ujs
 //= require turbolinks
 //= require jquery3
+//= require js.cookie
+//= require jstz
+//= require browser_timezone_rails/set_time_zone
 //= require popper
 //= require bootstrap
 //= require_tree .
@@ -35,3 +38,10 @@
     });
   }, false);
 })();
+
+// fade success messages
+window.setTimeout(function() {
+  $(".alert-success").fadeTo(500, 0).slideUp(500, function(){
+    $(this).remove();
+  });
+}, 4000);

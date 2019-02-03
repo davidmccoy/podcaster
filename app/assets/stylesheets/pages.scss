@@ -1,0 +1,21 @@
+.post-container {
+  margin: 2rem 0;
+}
+
+.pagination-container {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+@media (min-width: 550px) {
+  td {
+    &.view {
+      width: 90px;
+    }
+    &.add-new {
+      width: 170px;
+    }
+  }
+}
+

@@ -7,4 +7,10 @@ namespace :audio do
       MigrateAudioToS3Worker.perform_async(podcast_episode.id)
     end
   end
+
+  task add_labels_to_podcast_episodes: :environment do
+    Attachment.find_each do |attachment|
+      attachment.update(label: 'podcast_episode')
+    end
+  end
 end

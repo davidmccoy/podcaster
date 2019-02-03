@@ -1,0 +1,30 @@
+.uppy-ProgressBar-inner {
+  background-color: $primary;
+  box-shadow: 0 0 10px lighten($primary, 5%);
+}
+
+.uppy-FileInput-btn {
+  display: inline-block;
+  font-weight: 600;
+  font-family: "Roboto", sans-serif !important;
+  text-align: center;
+  vertical-align: middle;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  padding: 0.5rem 1.1rem !important;
+  font-size: 1.063rem !important;
+  line-height: 1.5 !important;
+  border-radius: 0.25rem !important;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  color: $white !important;
+  background-color: $primary !important;
+  border: 1px solid $primary !important;
+  &:hover {
+    background-color: darken($primary, 5%) !important;
+  }
+  &:focus {
+    outline: 2px solid $primary !important;
+  }
+}

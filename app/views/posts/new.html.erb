@@ -1,0 +1,149 @@
+<% content_for :head do %>
+  <script src="https://unpkg.com/babel-polyfill@6.26.0/dist/polyfill.min.js"></script>
+  <script src="https://unpkg.com/whatwg-fetch@2.0.3/fetch.js"></script>
+  <script src="https://transloadit.edgly.net/releases/uppy/v0.28.0/dist/uppy.min.js"></script>
+<% end %>
+<div class="row">
+  <div class="col-md-8 offset-md-2">
+    <h1><%= link_to @page.name, page_path(@page), class: 'page-name-link' %></h1>
+    <h4>Create Post</h4>
+    <div>
+      <%= form_with model: @post, url: page_posts_path(@page, @post), method: 'post', html: { class: 'needs-validation', novalidate: true } do |form| %>
+        <%= form.hidden_field :postable_type, value: 'PodcastEpisode' %>
+        <div class="form-group required">
+          <%= form.label 'postable_attributes[title]', 'Title', class: 'control-label' %>
+          <%= form.text_field 'postable_attributes[title]', autofocus: true, required: true, class: 'form-control edit-post-title', onblur: 'onTitleBlur()'%>
+          <span id="slug"></span>
+        </div>
+        <div id="audio">
+        </div>
+        <div class="file-input-container">
+          <%= form.hidden_field 'attachment[label]', required: true, value: 'podcast_episode' %>
+          <%= form.hidden_field 'attachment[file]', class: 'upload-hidden', required: true %>
+          <%= form.file_field 'attachment[file]', class: 'upload-file', accept: 'audio/mp3,audio/*;capture=microphone', style: 'display: none;' %>
+        </div>
+        <div class="form-group required hidden" style="display: none;">
+          <%= form.label 'postable_attributes[description]', 'Description', class: 'control-label' %>
+          <%= form.text_area 'postable_attributes[description]', autofocus: true, required: true, class: 'form-control' %>
+        </div>
+        <div class="form-group required hidden" style="display: none;">
+          <%= form.hidden_field :slug, autofocus: true, required: true, class: 'form-control' %>
+        </div>
+        <div class="form-group required hidden" style="display: none;">
+          <%= form.label :publish_time, 'Publish Time', class: 'control-label' %> <em><span id="timezone"></span></em>
+          <%= form.datetime_field :publish_time, autofocus: true, required: true, class: 'form-control', value: Time.now %>
+        </div>
+        <%= form.submit 'Save', class: 'btn btn-primary hidden', style: 'display: none;', disabled: 'disabled', id: 'post-save' %>
+      <% end %>
+    </div>
+  </div>
+</div>
+<script>
+  function fileUpload(fileInput) {
+    var saveButton = document.getElementById('post-save')
+
+    fileInput.style.display = 'none' // uppy will add its own file input
+
+    uppy = Uppy.Core({
+        id: fileInput.id,
+        autoProceed: true,
+        restrictions: {
+          maxNumberOfFiles: 1,
+          minNumberOfFiles: 1,
+          allowedFileTypes: ['audio/wav', 'audio/mpeg', 'audio/mp3', 'audio/mp4', 'audio/aac', 'audio/aacp']
+        }
+      })
+      .use(Uppy.FileInput, {
+        target: fileInput.parentNode,
+        pretty: true,
+        locale: {
+          strings: {
+            chooseFiles: 'Select File'
+          }
+        }
+      })
+      .use(Uppy.Informer, {
+        target: fileInput.parentNode,
+      })
+      .use(Uppy.ProgressBar, {
+        target: fileInput.parentNode,
+      })
+
+    uppy.use(Uppy.AwsS3Multipart, {
+      serverUrl: '/', // will call Shrine's presign endpoint on `/s3/params`
+    })
+
+    uppy.on('file-added', (file) => {
+      $('.hidden').show();
+      var fileUploadButton = document.querySelector('.uppy-FileInput-btn')
+      fileUploadButton
+    })
+
+
+
+    uppy.on('upload-success', function (file, data, uploadURL) {
+      saveButton.disabled = false
+
+      var fileUploadButton = document.querySelector('.uppy-FileInput-btn')
+      fileUploadButton.innerHTML = 'File Uploaded'
+
+      // fileUploadButton.disabled = true
+
+      var fileUploadContainer = document.querySelector('.uppy-FileInput-container')
+
+      var fileInputContainer = document.querySelector('.file-input-container')
+
+      var fileNameParagraph = document.createElement('div')
+      fileNameParagraph.innerHTML = '<p><strong>Audio file:</strong> <em>' + file.name + '</em></div>'
+
+      fileUploadContainer.style.display = 'none'
+      fileInputContainer.append(fileNameParagraph)
+
+      var audio = document.getElementById('audio').innerHTML = '<audio id="audio-player" controls="controls" preload="auto" src="' + uploadURL + '" type="audio/mpeg">';
+
+      // construct uploaded file data in the format that Shrine expects
+      var uploadedFileData = JSON.stringify({
+        id: uploadURL.match(/\/cache\/([^\?]+)/)[1], // extract key without prefix
+        storage: 'cache',
+        metadata: {
+          size:      file.size,
+          filename:  file.name,
+          mime_type: file.type
+        }
+      })
+
+      // set hidden field value to the uploaded file data so that it's submitted with the form as the attachment
+      var hiddenInput = fileInput.parentNode.querySelector('.upload-hidden')
+      hiddenInput.value = uploadedFileData
+    })
+
+    return uppy
+  }
+
+  var uppyAvailable = false;
+  function uppySetup() {
+    if (typeof Uppy !== "undefined" && uppyAvailable === false) {
+      uppyAvailable = true;
+      document.querySelectorAll('.upload-file').forEach(function (fileInput) {
+        fileUpload(fileInput)
+      })
+    } else {
+      setTimeout(uppySetup, 250);
+    }
+  }
+
+  function onTitleBlur() {
+    var slugInput = $('input[name="post[slug]"]')[0];
+    var slugDisplay = $('#slug')[0];
+    var postTitle = $('input[name="post[postable_attributes[title]]"]')[0];
+    var parameterizedPostTitle = postTitle.value.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,'');
+    var siteAndPostSlug = "https://www.mtgcast.com/podcasts/<%= @post.page.slug %>/"
+
+    slugInput.value =  parameterizedPostTitle + "-<%= SecureRandom.hex(5) %>";
+    slugDisplay.innerHTML = siteAndPostSlug + slugInput.value;
+  }
+
+  $(document).on('ready turbolinks:load', function() {
+    uppySetup();
+  })
+</script>

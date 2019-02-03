@@ -2,17 +2,25 @@ require 'sidekiq/web'
 
 Rails.application.routes.draw do
   mount Sidekiq::Web, at: '/sidekiq'
+  mount Shrine.uppy_s3_multipart(:cache) => "/s3"
 
   root 'home#index'
-  devise_for :users, path: 'user', controllers: { registrations: 'users/registrations' }
+  devise_for :user, path: 'user', controllers: { registrations: 'user/registrations' }
   devise_scope :user do
-    get 'user', to: 'users/registrations#show'
+    get 'user', to: 'user/registrations#show'
+    get 'user/password', to: 'user/registrations#password'
+    post 'user/update_password', to: 'user/registrations#update_password'
+    namespace 'user' do
+      resources :pages, path: 'podcasts'
+    end
   end
 
   resources :users
-  resources :pages, path: 'podcasts' do
+  get 'podcasts/recover', to: 'pages#recover'
+  post 'podcasts/recover', to: 'pages#send_recovery_email'
+  resources :pages, param: :slug, path: 'podcasts' do
     get '/feed', to: 'pages#feed'
-    resources :posts do
+    resources :posts, param: :slug do
       resources :audios
     end
   end

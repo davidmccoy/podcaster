@@ -18,7 +18,8 @@ $indigo:  #6610f2;
 // $purple:  #6f42c1;
 $purple:  #453c77;
 $pink:    #e83e8c;
-$red:     #d9534f;
+// $red:     #d9534f;
+$red:     #9a2001;
 $orange:  #fd7e14;
 $yellow:  #f0ad4e;
 $green:   #02B875;
@@ -116,6 +117,10 @@ $font-family-serif:      Georgia, Cambria, "Times New Roman", Times, serif;
 
   &.btn-primary {
     color: $white;
+  }
+
+  &.btn-light {
+    border-color: darken($light, 5%);
   }
 
   &-primary,
@@ -232,6 +237,9 @@ table,
 
 .dropdown-menu {
   font-size: 0.875em;
+  .dropdown-item {
+    color: $gray-700;
+  }
 }
 
 // Indicators ==================================================================
@@ -254,17 +262,17 @@ table,
     text-decoration: underline;
   }
 
-  &.alert-success {
-    border-color: darken($green, 5%)
-  }
+  // &.alert-success {
+  //   border-color: darken($green, 5%)
+  // }
 
-  &.alert-danger {
-    border-color: darken($red, 5%)
-  }
+  // &.alert-danger {
+  //   border-color: darken($red, 5%)
+  // }
 
-  &.alert-fixed {
-    position: fixed;
-  }
+  // &.alert-fixed {
+  //   position: fixed;
+  // }
 }
 
 .badge {
@@ -304,12 +312,12 @@ html {
   &:hover {
     box-shadow: 0 8px 17px 0 rgba(0,0,0,.2), 0 6px 20px 0 rgba(0,0,0,.19);
   }
-  &.alert-danger {
-    background-color: $danger;
-  }
-  &.alert-success {
-    background-color: $success;
-  }
+  // &.alert-danger {
+  //   background-color: $danger;
+  // }
+  // &.alert-success {
+  //   background-color: $success;
+  // }
 }
 
 // Modals =======================================================================

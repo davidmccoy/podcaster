@@ -1,0 +1,42 @@
+<div class="row">
+  <div class="col-md-8 offset-md-2">
+    <h1><%= link_to @page.name, page_path(@page), class: 'page-name-link' %></h1>
+    <h4>Edit Post</h4>
+    <p>
+      <%= link_to 'View Post', page_post_path(@page, @post), class: 'btn btn-sm btn-light' %>
+    </p>
+    <div>
+      <%= form_with model: @post, url: page_post_path(@page, @post), method: 'put' do |form| %>
+        <%= form.hidden_field :postable_type, value: @post.postable_type %>
+        <%= form.fields_for(:postable) do |postable_form| %>
+          <div class="form-group required">
+            <%= postable_form.label :title, 'Title', class: 'control-label' %>
+            <%= postable_form.text_field :title, autofocus: true, required: true, class: 'form-control edit-post-title', value: @post.postable.title %>
+          </div>
+          <div>
+            <% if @post.postable.podcast_episode&.file&.metadata&.dig('mime_type') == 'audio/mpeg' %>
+              <audio id="player" controls>
+                <source src="<%= @post.postable.podcast_episode.url %>" type="audio/mp3">
+              </audio>
+              <p>
+                <em><%= @post.postable.podcast_episode.file.metadata['filename'] %></em>
+              </p>
+            <% end %>
+          </div>
+          <div class="form-group required">
+            <%= postable_form.label :description, 'Description', class: 'control-label' %>
+            <%= postable_form.text_area :description, autofocus: true, required: true, class: 'form-control', value: @post.postable.description %>
+          </div>
+          <div class="form-group required">
+            <%= form.label :publish_time, 'Publish Time', class: 'control-label' %> <em><span id="timezone"></span></em>
+            <%= form.datetime_field :publish_time, autofocus: true, required: true, class: 'form-control', value: @post.publish_time.localtime.strftime('%Y-%m-%dT%H:%M') %>
+          </div>
+        <% end %>
+        <div class="actions">
+          <%= form.submit 'Save', class: 'btn btn-primary' %>
+          <%= link_to 'Delete Post', page_post_path(@page, @post), class: 'btn btn-danger btn-delete',  method: "delete", data: { confirm: "Are you sure you want to delete this post?" } %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

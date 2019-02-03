@@ -1,5 +1,66 @@
 <%= form_with model: @audio, url: page_post_audios_path(@page, @post) do |f| %>
-  <%= f.hidden_field :file, value: @audio.cached_file_data %>
-  <%= f.file_field :file %>
-  <%= f.submit %>
+  <div>
+    <%= f.hidden_field :file, value: @audio.cached_file_data, class: 'upload-hidden' %>
+    <%= f.file_field :file, class: 'upload-file', accept: 'audio/mp3,audio/*;capture=microphone' %>
+  </div>
+  <div>
+    <%= f.submit 'Save', id: 'file-save', class: 'btn btn-primary', disabled: 'disabled' %>
+  </div>
 <% end %>
+<script>
+  function fileUpload(fileInput) {
+    var saveButton = document.getElementById('file-save')
+
+    fileInput.style.display = 'none' // uppy will add its own file input
+
+    var uppy = Uppy.Core({
+        id: fileInput.id,
+        autoProceed: true,
+        restrictions: {
+          maxNumberOfFiles: 1,
+          minNumberOfFiles: 1,
+          allowedFileTypes: ['audio/*']
+        }
+      })
+      .use(Uppy.FileInput, {
+        target: fileInput.parentNode,
+      })
+      .use(Uppy.Informer, {
+        target: fileInput.parentNode,
+      })
+      .use(Uppy.ProgressBar, {
+        target: fileInput.parentNode,
+      })
+
+    uppy.use(Uppy.AwsS3Multipart, {
+      serverUrl: '/', // will call Shrine's presign endpoint on `/s3/params`
+    })
+
+    uppy.on('upload-success', function (file, data, uploadURL) {
+      // show image preview
+      saveButton.disabled = false
+      // URL.createObjectURL(file.data)
+
+      // construct uploaded file data in the format that Shrine expects
+      var uploadedFileData = JSON.stringify({
+        id: uploadURL.match(/\/cache\/([^\?]+)/)[1], // extract key without prefix
+        storage: 'cache',
+        metadata: {
+          size:      file.size,
+          filename:  file.name,
+          mime_type: file.type,
+        }
+      })
+
+      // set hidden field value to the uploaded file data so that it's submitted with the form as the attachment
+      var hiddenInput = fileInput.parentNode.querySelector('.upload-hidden')
+      hiddenInput.value = uploadedFileData
+    })
+
+    return uppy
+  }
+
+  document.querySelectorAll('.upload-file').forEach(function (fileInput) {
+    fileUpload(fileInput)
+  })
+</script>

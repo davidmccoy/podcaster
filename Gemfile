@@ -5,7 +5,6 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
-
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.1.5'
 # Use postgresql as the database for Active Record
@@ -56,9 +55,16 @@ gem 'gibbon'
 gem 'figaro'
 
 # Files upload
-gem 'shrine', '~> 2.0'
+gem 'shrine', '~> 2.11'
 gem 'aws-sdk-s3'
-gem 'streamio-ffmpeg'
+gem 'ffprober'
+gem 'uppy-s3_multipart', '~> 0.2'
+
+# Get client timezones
+gem 'browser-timezone-rails'
+
+# Pagination
+gem 'will_paginate', '~> 3.1.0'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

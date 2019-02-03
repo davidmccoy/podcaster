@@ -1,0 +1,30 @@
+<div class="row">
+  <div class="col-md-8 offset-md-2">
+    <h1><%= @page.name %></h1>
+    <% if current_user && policy(@page.posts.build).create? %>
+      <div>
+        <%= link_to 'Add New Post', new_page_post_path(@page), class: 'btn btn-sm btn-light' %>
+      </div>
+    <% end %>
+    <% if @page.posts %>
+      <% @posts.each do |post| %>
+        <div class="post-container">
+          <h3>
+            <%= link_to post.postable.title, page_post_path(@page, post) %>
+          </h3>
+          <p>
+            <em><%= post.publish_time.localtime.strftime('%m/%d/%Y') %></em>
+          </p>
+          <p>
+            <%= truncate(post.postable.description, length: 150) %>
+          </p>
+        </div>
+      <% end %>
+      <div class="pagination-container">
+        <%= will_paginate @posts %>
+      </div>
+    <% else %>
+      You don't have any podcasts.
+    <% end %>
+  </div>
+</div>

@@ -1,6 +1,6 @@
 class UserPolicy <  ApplicationPolicy
   def show?
-    user == record || admin?
+    user || admin?
   end
 
   def edit?
@@ -13,5 +13,13 @@ class UserPolicy <  ApplicationPolicy
 
   def destroy?
     show?
+  end
+
+  def password?
+    user || admin?
+  end
+
+  def update_password?
+    password?
   end
 end
