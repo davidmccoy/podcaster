@@ -37,10 +37,19 @@ class ApplicationController < ActionController::Base
   end
 
   def set_page
-    @page = Page.find_by_slug(params[:page_id]) || Page.find_by_slug(params[:id])
+    @page = Page.find_by_slug(params[:page_slug]) || Page.find_by_slug(params[:slug])
+  end
+  def authorize_page
+    @page ||= Page.new
+    authorize @page
   end
 
   def set_post
-    @post = Post.find_by_id(params[:post_id]) || Post.find_by_id(params[:id])
+    @post = Post.includes(:postable).find_by_slug(params[:post_slug]) || Post.includes(:postable).find_by_slug(params[:slug])
+  end
+
+  def authorize_post
+    @post ||= @page.posts.build
+    authorize @post
   end
 end

@@ -1,0 +1,27 @@
+<div class="row">
+  <div class="col-md-8 offset-md-2">
+    <h1>Recover Your Podcast</h1>
+    <%= form_with url: podcasts_recover_path, method: 'post', html: { class: 'needs-validation', novalidate: true } do |form| %>
+      <div class="form-group required">
+        <%= form.label :name, 'Your Name', class: 'control-label' %>
+        <%= form.text_field :name, autofocus: true, required: true, class: 'form-control', value: current_user&.name %>
+      </div>
+      <div class="form-group required">
+        <%= form.label :email, 'Your Name', class: 'control-label' %>
+        <%= form.email_field :email, autofocus: true, required: true, class: 'form-control', value: current_user&.email %>
+      </div>
+      <div class="form-group required">
+        <%= form.label :podcast_name, 'Podcast Name', class: 'control-label' %>
+        <%= form.select :podcast_name, @podcasts, {include_blank: true}, {class: 'form-control'} %>
+      </div>
+      <div class="form-group required">
+        <%= form.label :description, 'Explanation', class: 'control-label' %><br />
+        <p><em>Please provide as many details you can to prove that you control this podcast. Include all emails, Twitter accounts, websites, etc that are mentioned in your podcast so that we can confirm you are the actual owner.</em></p>
+        <%= form.text_area :description, autofocus: true, required: true, class: 'form-control' %>
+      </div>
+      <div class="actions">
+        <%= form.submit 'Submit', class: 'btn btn-primary' %>
+      </div>
+    <% end %>
+  </div>
+</div>

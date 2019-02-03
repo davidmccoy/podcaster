@@ -1,0 +1,36 @@
+<footer>
+  <div class="container">
+    <div class="row logo-and-menu-container">
+      <div class="col-md">
+        <div class="logo-container">
+          <%= image_tag 'mtgcast-logo-white.png', class: "logo" %>
+        </div>
+      </div>
+      <div class="col-md">
+        <div class="row">
+          <div class="col-sm">
+            <div class="links-container">
+              <ul>
+                <li>
+                  <%= link_to "Sign In", new_user_session_path %>
+                </li>
+                <li>
+                  <a href="http://www.hipstersofthecoast.com" target="_blank">Blog</a>
+                </li>
+                <li>
+                  <a href="mailto:mtgcast@hipstersofthecoast.com">Contact Us</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+  <div class="container copyright-notice-container">
+    <p>
+      Powered by Hipsters of the Coast &copy; <%= Date.today.year %>.
+    </p>
+  </div>
+</footer>

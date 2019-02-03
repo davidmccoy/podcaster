@@ -1,0 +1,44 @@
+<div class="row">
+  <div class="col-md-8 offset-md-2">
+    <h1>My Podcasts</h1>
+    <% unless @pages.empty? %>
+      <table class="table table-outer-border">
+        <thead style="display: none">
+          <tr>
+            <th>
+            </th>
+            <th>
+            </th>
+            <th>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @pages.each do |page| %>
+            <tr>
+              <td>
+                <%= link_to page.name, page_path(page) %>
+              </td>
+              <td class="view">
+                <%= link_to 'View', page_path(page), class: 'btn btn-sm btn-light' %>
+              </td>
+              <td class="add-new">
+                <%= link_to 'Add New Episode', new_page_post_path(page), class: 'btn btn-sm btn-light' %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    <% else %>
+      <p>
+        You don't have any podcasts.
+      </p>
+    <% end %>
+    <p>
+      If you previously managed a podcast on MTGCast and don't see it listed here, please <%= link_to 'contact us with this form', podcasts_recover_path %> so we can help reconnect you with your podcast.
+    </p>
+  </div>
+</div>
+<script>
+  $('.table').stacktable();
+</script>

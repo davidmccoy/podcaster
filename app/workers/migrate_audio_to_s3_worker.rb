@@ -13,9 +13,8 @@ class MigrateAudioToS3Worker
 
     # Use the cache prefix because file gets copied afters save
     # S3_PODCASTS.object("cache/#{audio.file.id}").exists? might work, too
-    unless audio.file.exists?
-      raise 'audio didn\'t migrate'
-    end
+
+    raise 'audio didn\'t migrate' unless audio.file.exists?
 
     podcast_episode.update(file_migrated: true) if audio.save
   end

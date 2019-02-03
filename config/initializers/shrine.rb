@@ -2,21 +2,27 @@ require "shrine"
 require "shrine/storage/s3"
 
 s3_options = {
-    access_key_id:      ENV['S3_KEY'],
-    secret_access_key:  ENV['S3_SECRET'],
-    region:             ENV['S3_REGION'],
-    bucket:             ENV['S3_BUCKET'],
+  access_key_id:      ENV['S3_KEY'],
+  secret_access_key:  ENV['S3_SECRET'],
+  region:             ENV['S3_REGION'],
+  bucket:             ENV['S3_BUCKET']
 }
 
 Shrine.storages = {
-  cache: Shrine::Storage::S3.new(prefix: "cache", **s3_options),
-  store: Shrine::Storage::S3.new(**s3_options),
+  cache: Shrine::Storage::S3.new(prefix: 'cache', **s3_options),
+  store: Shrine::Storage::S3.new(**s3_options)
 }
 
 Shrine.plugin :activerecord
 Shrine.plugin :cached_attachment_data
 Shrine.plugin :restore_cached_data
 Shrine.plugin :logging, logger: Rails.logger
+Shrine.plugin :uppy_s3_multipart
+Shrine.plugin :backgrounding
+
+# makes all uploaders use background jobs
+Shrine::Attacher.promote { |data| PromoteFromCacheWorker.perform_async(data) }
+Shrine::Attacher.delete { |data| DeleteFromS3Worker.perform_async(data) }
 
 # for multiple buckets
 # https://github.com/shrinerb/shrine/issues/26

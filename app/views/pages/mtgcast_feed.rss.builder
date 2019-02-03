@@ -43,17 +43,19 @@ xml.rss :version => "2.0", "xmlns:itunes" => "http://www.itunes.com/dtds/podcast
 
     @episodes.each do  |episode|
       xml.item do
-        xml.guid({:isPermaLink => "false"}, "https://www.mtgcast.com/podcasts/#{episode.page.slug}/post/#{episode.post.id}")
-        xml.title episode.title
-        xml.pubDate episode.date.to_s(:rfc822)
-        xml.link "https://www.mtgcast.com/podcasts/#{episode.page.slug}/post/#{episode.post.id}"
-        xml.itunes :duration, '01:53:52'
+        xml.guid({:isPermaLink => "false"}, "https://www.mtgcast.com/podcasts/#{episode.page.slug}/post/#{episode.id}")
+        xml.title episode.postable.title
+        xml.pubDate episode.publish_time.to_s(:rfc822)
+        xml.link "https://www.mtgcast.com/podcasts/#{episode.page.slug}/posts/#{episode.id}"
+        # TODO: These shouldn't have to handle nils
+        xml.itunes :duration, episode.postable.audio.first&.file&.metadata&.dig('length')
         xml.itunes :author, episode.page.name
         xml.itunes :explicit, 'no'
-        xml.itunes :summary, episode.description
-        xml.itunes :subtitle, truncate(episode.description, :length => 150)
-        xml.description episode.description
-        xml.enclosure :url => episode.external_file_url, :length => 42986611, :type => 'audio/mpeg'
+        xml.itunes :summary, episode.postable.description
+        xml.itunes :subtitle, truncate(episode.postable.description, :length => 150)
+        xml.description episode.postable.description
+        # TODO: These shouldn't have to handle nils
+        xml.enclosure :url => episode.postable.audio.first&.url, :length => episode.postable.audio.first&.file&.metadata&.dig('size'), :type => 'audio/mpeg'
         xml.itunes :image, href: @image
       end
     end

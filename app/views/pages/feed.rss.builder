@@ -41,19 +41,20 @@ xml.rss :version => "2.0", "xmlns:itunes" => "http://www.itunes.com/dtds/podcast
      # Block from iTunes? (should only be used on items)
     # xml.itunes :block, 'no'
 
-    @page.posts.each do  |post|
+    @page.posts.published.each do  |post|
+      next unless !post.postable.audio.empty? && post.postable.audio.first.file
       xml.item do
         xml.guid({:isPermaLink => "false"}, "https://www.mtgcast.com/podcasts/#{@page.slug}/post/#{post.id}")
         xml.title post.postable.title
-        xml.pubDate post.postable.date.to_s(:rfc822)
-        xml.link "https://www.mtgcast.com/podcasts/#{@page.slug}/post/#{post.id}"
-        xml.itunes :duration, '01:53:52'
+        xml.pubDate post.publish_time.to_s(:rfc822)
+        xml.link "https://www.mtgcast.com/podcasts/#{@page.slug}/posts/#{post.id}"
+        xml.itunes :duration, post.postable.audio.first.file.metadata['length']
         xml.itunes :author, @page.name
         xml.itunes :explicit, 'no'
         xml.itunes :summary, post.postable.description
         xml.itunes :subtitle, truncate(post.postable.description, :length => 150)
         xml.description post.postable.description
-        xml.enclosure :url => post.postable.external_file_url, :length => 42986611, :type => 'audio/mpeg'
+        xml.enclosure :url => post.postable.audio.first.url, :length => post.postable.audio.first.file.metadata['size'], :type => 'audio/mpeg'
         xml.itunes :image, href: @image
       end
     end

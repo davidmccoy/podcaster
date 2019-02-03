@@ -2,9 +2,9 @@
 class PodcastEpisode < ApplicationRecord
   has_one :post, as: :postable
   has_one :page, through: :post
-  has_many :attachments, as: :attachable
+  has_many :attachments, as: :attachable, dependent: :destroy
+  has_many :audio, -> { where(attachments: { type: 'Audio' }) },
+           foreign_key: :attachable_id
 
-  def audio
-    Audio.where(attachable_type: 'PodcastEpisode', attachable_id: id)
-  end
+  accepts_nested_attributes_for :attachments
 end

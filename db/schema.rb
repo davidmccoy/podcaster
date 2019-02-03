@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190118234520) do
+ActiveRecord::Schema.define(version: 20190202213911) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -76,8 +76,11 @@ ActiveRecord::Schema.define(version: 20190118234520) do
     t.bigint "postable_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "publish_time"
+    t.string "slug"
     t.index ["page_id"], name: "index_posts_on_page_id"
     t.index ["postable_type", "postable_id"], name: "index_posts_on_postable_type_and_postable_id"
+    t.index ["slug"], name: "index_posts_on_slug"
   end
 
   create_table "users", force: :cascade do |t|
