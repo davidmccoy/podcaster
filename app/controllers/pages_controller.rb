@@ -13,6 +13,7 @@ class PagesController < ApplicationController
   end
 
   def feed
+    @posts = @page.posts.published.includes(postable: :audio).limit(50)
     @image = ActionController::Base.helpers.asset_path('mtgcast-logo-itunes.png', host: root_url)
     @date =
       if @page.posts.published.first
@@ -25,7 +26,7 @@ class PagesController < ApplicationController
 
   def mtgcast
     @image = ActionController::Base.helpers.asset_path('mtgcast-logo-itunes.png', host: root_url)
-    @episodes = Post.published.includes(:postable).limit(100)
+    @episodes = Post.published.includes(:page, postable: :audio).limit(100)
     @date =
       if @episodes.first
         @episodes.first.publish_time.to_s(:rfc822)

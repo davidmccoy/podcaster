@@ -41,20 +41,20 @@ xml.rss :version => "2.0", "xmlns:itunes" => "http://www.itunes.com/dtds/podcast
      # Block from iTunes? (should only be used on items)
     # xml.itunes :block, 'no'
 
-    @page.posts.published.limit(50).each do  |post|
-      next unless !post.postable.audio.empty? && post.postable.podcast_episode.file
+    @posts.each do  |post|
+      next unless !post.postable.audio.empty? && post.postable.audio.first.file
       xml.item do
         xml.guid({:isPermaLink => "false"}, "https://www.mtgcast.com/podcasts/#{@page.slug}/posts/#{post.slug}")
         xml.title post.postable.title
         xml.pubDate post.publish_time.to_s(:rfc822)
         xml.link "https://www.mtgcast.com/podcasts/#{@page.slug}/posts/#{post.slug}"
-        xml.itunes :duration, post.postable.podcast_episode&.file&.metadata&.dig('length')
+        xml.itunes :duration, post.postable.audio.first&.file&.metadata&.dig('length')
         xml.itunes :author, @page.name
         xml.itunes :explicit, 'no'
         xml.itunes :summary, post.postable.description
         xml.itunes :subtitle, truncate(post.postable.description, :length => 150)
         xml.description post.postable.description
-        xml.enclosure :url => post.postable.audio&.first&.url, :length => post.postable.podcast_episode&.file&.metadata&.dig('size'), :type => post.postable.podcast_episode&.file&.metadata&.dig('mime_type')
+        xml.enclosure :url => post.postable.audio&.first&.url, :length => post.postable.audio.first&.file&.metadata&.dig('size'), :type => post.postable.audio.first&.file&.metadata&.dig('mime_type')
         xml.itunes :image, href: @image
       end
     end
