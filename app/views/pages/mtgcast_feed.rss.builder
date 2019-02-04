@@ -44,7 +44,7 @@ xml.rss :version => "2.0", "xmlns:itunes" => "http://www.itunes.com/dtds/podcast
     @episodes.each do  |episode|
       xml.item do
         xml.guid({:isPermaLink => "false"}, "https://www.mtgcast.com/podcasts/#{episode.page.slug}/posts/#{episode.slug}")
-        xml.title episode.postable.title
+        xml.title "#{episode.postable.post.page.name}: #{episode.postable.title}"
         xml.pubDate episode.publish_time.to_s(:rfc822)
         xml.link "https://www.mtgcast.com/podcasts/#{episode.page.slug}/posts/#{episode.slug}"
         # TODO: These shouldn't have to handle nils
