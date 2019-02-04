@@ -7,7 +7,7 @@ class PageRecoveryMailer < ApplicationMailer
     @description = description
     @url =
       if @podcast
-        Rails.application.routes.url_helpers.page_url(id: @podcast.id)
+        Rails.application.routes.url_helpers.page_url(slug: @podcast.slug)
       else
         nil
       end
