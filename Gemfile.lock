@@ -214,6 +214,7 @@ GEM
       sprockets (> 3.0)
       sprockets-rails
       tilt
+    scout_apm (2.4.21)
     selenium-webdriver (3.10.0)
       childprocess (~> 0.5)
       rubyzip (~> 1.2)
@@ -288,6 +289,7 @@ DEPENDENCIES
   rails (~> 5.1.5)
   redis
   sass-rails (~> 5.0)
+  scout_apm
   selenium-webdriver
   shrine (~> 2.11)
   sidekiq
