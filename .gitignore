@@ -18,6 +18,7 @@
 
 .byebug_history
 dump.rdb
+latest.dump
 
 *.DS_Store
 
