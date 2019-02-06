@@ -8,8 +8,13 @@ class PagesController < ApplicationController
   end
 
   def show
-    @posts = @page.posts.published.includes(:postable)
-                  .paginate(page: params[:page], per_page: 10)
+    if @page.user == current_user
+      @posts = @page.posts.includes(:postable).order(publish_time: :desc)
+                    .paginate(page: params[:page], per_page: 10)
+    else
+      @posts = @page.posts.published.includes(:postable)
+                    .paginate(page: params[:page], per_page: 10)
+    end
   end
 
   def feed
