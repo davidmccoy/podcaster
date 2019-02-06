@@ -13,7 +13,8 @@
             <%= link_to post.postable.title, page_post_path(@page, post) %>
           </h3>
           <p>
-            <em><%= post.publish_time.localtime.strftime('%m/%d/%Y') %></em>
+            <em><%= 'Scheduled For: ' if post.publish_time > Time.now %>
+            <%= post.publish_time.localtime.strftime('%m/%d/%Y') %></em>
           </p>
           <p>
             <%= truncate(post.postable.description, length: 150) %>
