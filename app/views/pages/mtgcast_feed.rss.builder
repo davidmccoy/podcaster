@@ -41,15 +41,14 @@ xml.rss :version => "2.0", "xmlns:itunes" => "http://www.itunes.com/dtds/podcast
      # Block from iTunes? (should only be used on items)
     # xml.itunes :block, 'no'
 
-    @posts.each do  |post|
-      next unless !post.postable.audio.empty? && post.postable.audio.first.file
-      xml << render(
-        partial: 'episode',
-        locals: {
-          post: post,
-          syndicated: true
-        }
-      )
-    end
+    xml << render(
+      partial: 'episode',
+      collection: @posts,
+      as: :post,
+      locals: {
+        syndicated: true
+      },
+      cached: true
+    )
   end
 end
