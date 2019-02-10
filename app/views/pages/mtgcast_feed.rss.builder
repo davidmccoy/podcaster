@@ -41,23 +41,14 @@ xml.rss :version => "2.0", "xmlns:itunes" => "http://www.itunes.com/dtds/podcast
      # Block from iTunes? (should only be used on items)
     # xml.itunes :block, 'no'
 
-    @posts.each do  |post|
-      xml.item do
-        xml.guid({:isPermaLink => "false"}, "https://www.mtgcast.com/podcasts/#{post.page.slug}/posts/#{post.slug}")
-        xml.title "#{post.page.name}: #{post.postable.title}"
-        xml.pubDate post.publish_time.to_s(:rfc822)
-        xml.link "https://www.mtgcast.com/podcasts/#{post.page.slug}/posts/#{post.slug}"
-        # TODO: These shouldn't have to handle nils
-        xml.itunes :duration, post.postable.audio.first&.file&.metadata&.dig('length')
-        xml.itunes :author, post.page.name
-        xml.itunes :explicit, 'no'
-        xml.itunes :summary, post.postable.description
-        xml.itunes :subtitle, truncate(post.postable.description, :length => 150)
-        xml.description post.postable.description
-        # TODO: These shouldn't have to handle nils
-        xml.enclosure :url => post.postable.audio&.first&.url, :length => post.postable.audio.first&.file&.metadata&.dig('size'), :type => post.postable.audio.first&.file&.metadata&.dig('mime_type')
-        xml.itunes :image, href: @image
-      end
-    end
+    xml << render(
+      partial: 'episode',
+      collection: @posts,
+      as: :post,
+      locals: {
+        syndicated: true
+      },
+      cached: true
+    )
   end
 end
