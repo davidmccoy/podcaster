@@ -12,10 +12,12 @@ class PostsController < ApplicationController
     @post = Post.new(post_params.merge(page_id: @page.id))
 
     if @post.save
-      @audio = Audio.create(attachment_params[:attachment].merge(
-        attachable_type: @post.postable.class,
-        attachable_id: @post.postable.id
-      ))
+      @audio = Audio.create(
+        attachment_params[:attachment].merge(
+          attachable_type: @post.postable.class,
+          attachable_id: @post.postable.id
+        )
+      )
       flash[:notice] = 'Successfully created your post!'
       redirect_to edit_page_post_path(@page, @post) and return
     else
@@ -57,6 +59,7 @@ class PostsController < ApplicationController
             :publish_time,
             :slug,
             postable_attributes: [
+              :id,
               :title,
               :description
             ]
