@@ -1,24 +1,15 @@
-# README
+# Podcaster
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Utilities
 
-Things you may want to cover:
+Sync staging db with production db
 
-* Ruby version
+```
+heroku pg:copy podcaster-beta::DATABASE_URL DATABASE_URL -a podcaster-beta-staging
+```
 
-* System dependencies
+Sync local db with production db
 
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+```
+dropdb --if-exists podcaster_development && heroku pg:pull DATABASE_URL podcaster_development -a podcaster-beta
+```
