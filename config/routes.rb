@@ -1,6 +1,6 @@
 require 'sidekiq/web'
 
-Rails.application.routes.draw do
+ Rails.application.routes.draw do
   mount Sidekiq::Web, at: '/sidekiq'
   mount Shrine.uppy_s3_multipart(:cache) => "/s3"
 
