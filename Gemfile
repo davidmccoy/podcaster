@@ -68,7 +68,7 @@ gem 'uppy-s3_multipart', '~> 0.2'
 gem 'browser-timezone-rails'
 
 # Pagination
-gem 'will_paginate', '~> 3.1.0'
+gem 'will_paginate', '~> 3.1.7'
 
 # Monitoring
 gem 'scout_apm'
