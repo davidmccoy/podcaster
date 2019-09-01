@@ -48,6 +48,7 @@
         id: fileInput.id,
         autoProceed: true,
         restrictions: {
+          maxFileSize: (1000*1024*1024),
           maxNumberOfFiles: 1,
           minNumberOfFiles: 1,
           allowedFileTypes: ['audio/wav', 'audio/mpeg', 'audio/mp3', 'audio/mp4', 'audio/aac', 'audio/aacp']
@@ -75,25 +76,32 @@
 
     uppy.on('file-added', (file) => {
       $('.hidden').show();
-      var fileUploadButton = document.querySelector('.uppy-FileInput-btn')
-      fileUploadButton
+
+      var fileUploadPercentage = document.querySelector('.uppy-ProgressBar-percentage');
+      fileUploadPercentage.style.display = 'block';
+      
+      var fileUploadButton = document.querySelector('.uppy-FileInput-btn');
+      fileUploadButton.style.display = 'none';
     })
 
 
 
     uppy.on('upload-success', function (file, data, uploadURL) {
-      saveButton.disabled = false
+      saveButton.disabled = false;
 
-      var fileUploadButton = document.querySelector('.uppy-FileInput-btn')
-      fileUploadButton.innerHTML = 'File Uploaded'
+      var fileUploadButton = document.querySelector('.uppy-FileInput-btn');
+      fileUploadButton.innerHTML = 'File Uploaded';
 
       // fileUploadButton.disabled = true
 
-      var fileUploadContainer = document.querySelector('.uppy-FileInput-container')
+      var fileUploadContainer = document.querySelector('.uppy-FileInput-container');
 
-      var fileInputContainer = document.querySelector('.file-input-container')
+      var fileInputContainer = document.querySelector('.file-input-container');
 
-      var fileNameParagraph = document.createElement('div')
+      var fileUploadPercentage = document.querySelector('.uppy-ProgressBar-percentage');
+      fileUploadPercentage.style.display = 'none';
+
+      var fileNameParagraph = document.createElement('div');
       fileNameParagraph.innerHTML = '<p><strong>Audio file:</strong> <em>' + file.name + '</em></div>'
 
       fileUploadContainer.style.display = 'none'

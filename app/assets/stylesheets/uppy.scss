@@ -1,6 +1,6 @@
 .uppy-ProgressBar-inner {
-  background-color: $primary;
-  box-shadow: 0 0 10px lighten($primary, 5%);
+  background-color: $blue;
+  box-shadow: 0 0 10px lighten($blue, 5%);
 }
 
 .uppy-FileInput-btn {
@@ -27,4 +27,14 @@
   &:focus {
     outline: 2px solid $primary !important;
   }
+}
+
+.uppy.uppy-ProgressBar {
+  width: 96%;
+}
+
+.uppy-ProgressBar-percentage { 
+  top: auto;
+  left: 97%;
+  color: black;
 }
