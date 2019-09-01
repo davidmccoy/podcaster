@@ -6,6 +6,7 @@
 @import "footer";
 @import "uppy";
 @import "stacktable";
+@import "pagination";
 
 
 audio {
@@ -24,9 +25,9 @@ audio {
   top: -16px;
   left: 0;
   &.alert-success {
-    border-color: #007147;
+    border-color: $white;
     color: #007147;
-    background: #c3ffea;
+    background: $white;
   }
   &.alert-danger {
     border-color: #9a2001;
@@ -49,6 +50,13 @@ table.table {
 
 .page-name-link {
   color: $gray-700;
+}
+
+a {
+  color: $gray-700;
+  &:hover {
+    color: $blue;
+  }
 }
 
 h1 {

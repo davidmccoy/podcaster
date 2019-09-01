@@ -11,7 +11,7 @@ require 'sidekiq/web'
     get 'user/password', to: 'user/registrations#password'
     post 'user/update_password', to: 'user/registrations#update_password'
     namespace 'user' do
-      resources :pages, path: 'podcasts'
+      resources :pages, param: :slug, path: 'podcasts'
     end
   end
 

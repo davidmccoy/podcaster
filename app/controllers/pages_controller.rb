@@ -17,6 +17,19 @@ class PagesController < ApplicationController
     end
   end
 
+  def edit
+  end
+
+  def update
+    if @page.update(page_params)
+      flash[:notice] = 'Successfully updated podcast.'
+      redirect_to page_path(@page)
+    else
+      flash[:alert] = 'Failed to update podcast.'
+      render :edit
+    end
+  end
+
   def feed
     @posts = @page.posts.published.includes(postable: :audio).limit(50)
     @image = ActionController::Base.helpers.asset_path('mtgcast-logo-itunes.png', host: root_url)
@@ -55,5 +68,9 @@ class PagesController < ApplicationController
 
   def recovery_email_params
     params.permit(:name, :email, :podcast_name, :description)
+  end
+
+  def page_params
+    params.require(:page).permit(:name)
   end
 end

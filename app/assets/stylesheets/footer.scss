@@ -3,8 +3,9 @@ footer {
   bottom: 0;
   width: 100%;
   // height: 60px;
-  background: $orange;
-  color: $white;
+  // background: $white;
+  // color: $white;
+  background: #fafafa;
   font-weight: 100;
   text-align: center;
   font-size: 1rem;
@@ -43,10 +44,10 @@ footer {
     }
   }
   a {
-    color: $white;
+    color: $gray-700;
     text-decoration: none;
     &:hover {
-      color: $white;
+      color: $gray-700;
     }
   }
 }

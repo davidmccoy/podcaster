@@ -3,7 +3,8 @@
     <h1><%= @page.name %></h1>
     <% if current_user && policy(@page.posts.build).create? %>
       <div>
-        <%= link_to 'Add New Post', new_page_post_path(@page), class: 'btn btn-sm btn-light' %>
+        <%= link_to 'Edit', edit_page_path(@page), class: 'btn btn-sm btn-light' %>
+        <%= link_to '+ Episode', new_page_post_path(@page), class: 'btn btn-sm btn-primary' %>
       </div>
     <% end %>
     <% if @page.posts %>

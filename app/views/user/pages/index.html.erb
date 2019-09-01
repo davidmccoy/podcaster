@@ -1,6 +1,9 @@
 <div class="row">
   <div class="col-md-8 offset-md-2">
     <h1>My Podcasts</h1>
+    <p>
+      <%= link_to '+ Podcast', new_user_page_path(@user), class: 'btn btn-sm btn-light' %>
+    </p>
     <% unless @pages.empty? %>
       <table class="table table-outer-border">
         <thead style="display: none">
@@ -23,7 +26,7 @@
                 <%= link_to 'View', page_path(page), class: 'btn btn-sm btn-light' %>
               </td>
               <td class="add-new">
-                <%= link_to 'Add New Episode', new_page_post_path(page), class: 'btn btn-sm btn-light' %>
+                <%= link_to '+ Episode', new_page_post_path(page), class: 'btn btn-sm btn-primary' %>
               </td>
             </tr>
           <% end %>
