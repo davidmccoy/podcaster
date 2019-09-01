@@ -1,3 +1,37 @@
+.pages-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin-top: 1rem;
+}
+
+.page-container { 
+  width: 31%;
+  position: relative;
+  margin-bottom: 1rem;
+  border-radius: 1rem;
+  padding: 1rem;
+  overflow: hidden;
+  box-shadow: 0px 10px 10px rgba(25, 25, 25, 0.1);
+}
+
+.page-image {
+  margin: -1rem -1rem 1rem;
+  img {
+    width: 100%;
+    height: auto;
+  }
+}
+
+.page-info {
+  padding-bottom: 1.5rem;
+}
+
+.page-read-more {
+  position: absolute;
+  bottom: 0;
+}
+
 .post-container {
   margin: 2rem 0;
 }

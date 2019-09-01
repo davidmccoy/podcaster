@@ -1,19 +1,31 @@
 <div class="row">
   <div class="col-md-8 offset-md-2">
     <h1>All Podcasts</h1>
-    <% @pages.each do |page| %>
-      <div class="page-container content-block">
-        <h3>
-          <%= link_to page.name, page_path(page) %>
-        </h3>
-        <p>
-          <em>Last updated: <%= page.posts.published.first.publish_time.localtime.strftime('%m/%d/%Y') %></em>
-        </p>
-        <p>
-          <%= page.posts.published.first.postable.title %>
-        </p>
-      </div>
-    <% end %>
+    <div class="pages-container">
+      <% @pages.each do |page| %>
+        <div class="page-container">
+          <%= link_to page_path(page) do %>
+          <div class="page-image">
+            <%= image_tag 'mtgcast-logo-itunes.png' %>
+          </div>
+          <% end %>
+          <div class="page-info">
+            <h3>
+              <%= link_to page.name, page_path(page) %>
+            </h3>
+            <p>
+              <em>Last updated: <%= page.posts.published.first.publish_time.localtime.strftime('%m/%d/%Y') %></em>
+            </p>
+            <p>
+              <%= page.posts.published.first.postable.title %>
+            </p>
+          </div>
+          <p class="page-read-more">
+            <%= link_to 'Read more', page_path(page) %>
+          </p>
+        </div>
+      <% end %>
+    </div>
     <div class="pagination-container">
       <%= will_paginate @pages %>
     </div>
