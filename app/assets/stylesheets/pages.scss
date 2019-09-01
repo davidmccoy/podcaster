@@ -2,11 +2,11 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  margin-top: 1rem;
+  margin: 1rem 0rem 1rem;
 }
 
 .page-container { 
-  width: 31%;
+  width: 100%;
   position: relative;
   margin-bottom: 1rem;
   border-radius: 1rem;
@@ -53,3 +53,26 @@
   }
 }
 
+@media (min-width: 576px) {
+  .page-container {
+    width: 48%;
+  }
+}
+
+@media (min-width: 768px) {
+  .page-container {
+    width: 48%;
+  }
+}
+
+@media (min-width: 992px) {
+  .page-container {
+    width: 48%;
+  }
+}
+
+@media (min-width: 1200px) {
+  .page-container {
+    width: 31%;
+  }
+}

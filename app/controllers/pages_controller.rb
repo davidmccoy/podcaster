@@ -4,7 +4,7 @@ class PagesController < ApplicationController
   before_action :authorize_page, except: [:index, :show, :feed, :mtgcast]
 
   def index
-    @pages = Page.joins('INNER JOIN posts ON posts.page_id = pages.id').where('posts.publish_time < ?', Time.now).group('pages.id').order('max(posts.publish_time) DESC').paginate(page: params[:page], per_page: 10)
+    @pages = Page.joins('INNER JOIN posts ON posts.page_id = pages.id').where('posts.publish_time < ?', Time.now).group('pages.id').order('max(posts.publish_time) DESC').paginate(page: params[:page], per_page: 12)
   end
 
   def show
