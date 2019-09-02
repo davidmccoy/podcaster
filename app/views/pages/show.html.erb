@@ -15,43 +15,52 @@
           </div>
         <% end %>
       </div>
-      <p>
-        <em><%= @posts.first.publish_time.localtime.strftime('%m/%d/%Y') %></em>
-      </p>
-      <p>
-        <h3>
-          <%= link_to @posts.first.postable.title, page_post_path(@page, @posts.first) %>
-        </h3>
-      </p>
-      <p>
-        <%= truncate(@posts.first.postable.description, length: 150) %>
-      </p>
-      <p>
-        <%= link_to 'Read More', page_post_path(@page, @posts.first) %>
-      </p>
-    </div>
-  </div>
-  <div class="col-md-8 offset-md-2">
-    <% if @page.posts %>
-      <% @posts.each do |post| %>
-        <div class="post-container">
+      <% if @posts.first %>
+        <div class="page-post-info-container">
+          <span>
+            <%= @posts.first.publish_time.localtime.strftime('%m/%d/%Y') %>
+          </span>
           <h3>
-            <%= link_to post.postable.title, page_post_path(@page, post) %>
+            <%= link_to @posts.first.postable.title, page_post_path(@page, @posts.first) %>
           </h3>
           <p>
-            <em><%= 'Scheduled For: ' if post.publish_time > Time.now %>
-            <%= post.publish_time.localtime.strftime('%m/%d/%Y') %></em>
+            <%= simple_format(truncate(@posts.first.postable.description, length: 150)) %>
           </p>
           <p>
-            <%= truncate(post.postable.description, length: 150) %>
+            <%= link_to 'Read more', page_post_path(@page, @posts.first)  %>
           </p>
         </div>
       <% end %>
-      <div class="pagination-container">
-        <%= will_paginate @posts %>
-      </div>
-    <% else %>
-      You don't have any podcasts.
-    <% end %>
+    </div>
+  </div>
+  <div class="col-md-10 offset-md-1">
+    <div class="posts-container">
+      <% if @page.posts %>
+        <% @posts.each do |post| %>
+          <div class="post-container">
+            <h3>
+              <%= link_to post.postable.title, page_post_path(@page, post) %>
+            </h3>
+            <div class="post-info">
+              <p>
+                <em><%= 'Scheduled For: ' if post.publish_time > Time.now %>
+                <%= post.publish_time.localtime.strftime('%m/%d/%Y') %></em>
+              </p>
+              <p>
+                <%= simple_format(truncate(post.postable.description, length: 150)) %>
+              </p>
+              <p class="page-read-more">
+                <%= link_to 'Read more', page_post_path(@page, post) %>
+              </p>
+            </div>
+          </div>
+        <% end %>
+      <% else %>
+        You don't have any podcasts.
+      <% end %>
+    </div>
+    <div class="pagination-container">
+      <%= will_paginate @posts %>
+    </div>
   </div>
 </div>

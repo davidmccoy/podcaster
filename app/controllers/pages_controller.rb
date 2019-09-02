@@ -10,10 +10,10 @@ class PagesController < ApplicationController
   def show
     if @page.user == current_user
       @posts = @page.posts.includes(:postable).order(publish_time: :desc)
-                    .paginate(page: params[:page], per_page: 10)
+                    .paginate(page: params[:page], per_page: 12)
     else
       @posts = @page.posts.published.includes(:postable)
-                    .paginate(page: params[:page], per_page: 10)
+                    .paginate(page: params[:page], per_page: 12)
     end
   end
 

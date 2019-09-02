@@ -1,15 +1,32 @@
 <div class="row">
+<div class="hero-container">
+    <div class="hero-page-image">
+      <%= image_tag 'mtgcast-logo-itunes.png' %>
+    </div>
+    <div class="hero-episode-container">
+      <div class="page-name-container">
+      </div>
+      <div class="page-post-info-container">
+        <h4>
+          <%= @page.name.upcase %>
+        </h4>
+        <h1>
+          <%= @post.postable.title %>
+        </h1>
+        <p>
+          <%= link_to "Edit Episode", edit_page_post_path(@page, @post), class: 'btn btn-sm btn-light' if current_user && policy(@post).edit? %>
+        </p>
+        <p>
+          By <%= link_to @page.name, page_path(@page) %><br />
+        </p>
+        <p>
+          <%= @post.publish_time.localtime.strftime('%A, %B %d, %Y') %>
+        </p>
+      </div>
+    </div>
+  </div>
   <div class="col-md-8 offset-md-2">
-    <div>
-      <h1><%= link_to @page.name, page_path(@page), class: 'page-name-link' %></h1>
-      <h4><%= @post.postable.title %></h4>
-      <p>
-        <%= link_to "Edit", edit_page_post_path(@page, @post), class: 'btn btn-sm btn-light' if current_user && policy(@post).edit? %>
-      </p>
-      <p>
-        by <%= link_to @page.name, page_path(@page) %><br />
-        <em><%= @post.publish_time.localtime.strftime('%m/%d/%Y') %></em>
-      </p>
+    <div class="post-body-container">
       <div>
         <% if @post.postable.podcast_episode&.file&.metadata&.dig('mime_type') == 'audio/mpeg' %>
           <p>

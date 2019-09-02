@@ -1,11 +1,11 @@
-.pages-container {
+.pages-container, .posts-container {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
   margin: 1rem 0rem 1rem;
 }
 
-.page-container { 
+.page-container, .post-container { 
   width: 100%;
   position: relative;
   margin-bottom: 1rem;
@@ -24,7 +24,7 @@
   }
 }
 
-.page-info {
+.page-info, .post-info {
   padding-bottom: 1.5rem;
 }
 
@@ -33,9 +33,14 @@
   bottom: 0;
 }
 
+.page-body-container {
+  margin-bottom: 1rem;
+}
+
 .hero-container {
   width: 100%;
-  height: 600px;
+  height: auto;
+  min-height: 600px;
   padding: 0;
   margin: -1rem 0 1rem;
   background: linear-gradient($gray-700, $gray-900);
@@ -48,29 +53,26 @@
     img {
       width: 100%;
       height: auto;
+      padding: 1rem 0;
     }
   }
   .hero-episode-container {
     width: 45%;
     padding: 1rem 0 1rem 2rem;
     color: $white;
-    .page-name-container {
-      margin-bottom: 5rem;
+    .page-post-info-container {
+      margin-top: 5rem;
+    }
+    h1 {
+      font-size: 3rem;
     }
     h3 {
+      margin-bottom: 2rem;
       a {
         color: $white;
-        &:hover {
-          text-decoration: underline;
-          color: darken($white, 5%);
-        }
       }
     }
   }
-}
-
-.post-container {
-  margin: 2rem 0;
 }
 
 .pagination-container {
@@ -91,25 +93,25 @@
 }
 
 @media (min-width: 576px) {
-  .page-container {
+  .page-container, .post-container {
     width: 48%;
   }
 }
 
 @media (min-width: 768px) {
-  .page-container {
+  .page-container, .post-container {
     width: 48%;
   }
 }
 
 @media (min-width: 992px) {
-  .page-container {
+  .page-container, .post-container {
     width: 48%;
   }
 }
 
 @media (min-width: 1200px) {
-  .page-container {
+  .page-container, .post-container {
     width: 31%;
   }
 }
