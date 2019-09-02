@@ -20,7 +20,8 @@ class Page < ApplicationRecord
     index = 0
     loop do
       slug = name.parameterize 
-      slug = slug + "-#{index}" unless index == 0
+      # 'new' is a reserved word since we use the slug as a parameter
+      slug = slug + "-#{index}" if (slug == 'new' || index != 0)
       break unless Page.where(slug: slug).exists?
       index += 1
     end

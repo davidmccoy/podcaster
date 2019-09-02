@@ -17,6 +17,22 @@ class PagesController < ApplicationController
     end
   end
 
+  def new
+    @page = Page.new
+  end
+
+  def create
+    @page = current_user.pages.new(page_params)
+
+    if @page.save
+      flash[:notice] = 'Successfully created podcast.'
+      redirect_to page_path(@page)
+    else
+      flash[:alert] = 'Failed to created podcast.'
+      render :new
+    end
+  end
+
   def edit
   end
 

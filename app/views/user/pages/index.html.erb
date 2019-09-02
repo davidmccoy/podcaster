@@ -2,7 +2,7 @@
   <div class="col-md-8 offset-md-2">
     <h1>My Podcasts</h1>
     <p>
-      <%= link_to '+ Podcast', new_user_page_path(@user), class: 'btn btn-sm btn-light' %>
+      <%= link_to '+ Podcast', new_page_path(@user), class: 'btn btn-sm btn-light' %>
     </p>
     <% unless @pages.empty? %>
       <table class="table table-outer-border">
