@@ -7,11 +7,13 @@ require 'sidekiq/web'
   root 'home#index'
   devise_for :user, path: 'user', controllers: { registrations: 'user/registrations' }
   devise_scope :user do
+    # registration paths
     get 'user', to: 'user/registrations#show'
     get 'user/password', to: 'user/registrations#password'
     post 'user/update_password', to: 'user/registrations#update_password'
     namespace 'user' do
       resources :pages, param: :slug, path: 'podcasts'
+      get 'upload', to: 'pages#upload'
     end
   end
 

@@ -15,6 +15,10 @@ class PagePolicy <  ApplicationPolicy
     true
   end
 
+  def upload?
+    true
+  end
+
   def edit?
     user == record.user || admin?
   end

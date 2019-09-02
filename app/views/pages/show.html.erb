@@ -1,12 +1,37 @@
 <div class="row">
-  <div class="col-md-8 offset-md-2">
-    <h1><%= @page.name %></h1>
-    <% if current_user && policy(@page.posts.build).create? %>
-      <div>
-        <%= link_to 'Edit', edit_page_path(@page), class: 'btn btn-sm btn-light' %>
-        <%= link_to '+ Episode', new_page_post_path(@page), class: 'btn btn-sm btn-primary' %>
+  <div class="hero-container">
+    <div class="hero-page-image">
+      <%= image_tag 'mtgcast-logo-itunes.png' %>
+    </div>
+    <div class="hero-episode-container">
+      <div class="page-name-container">
+        <h1>
+          <%= @page.name %>
+        </h1>
+        <% if current_user && policy(@page.posts.build).create? %>
+          <div>
+            <%= link_to 'Edit', edit_page_path(@page), class: 'btn btn-sm btn-light' %>
+            <%= link_to '+ Episode', new_page_post_path(@page), class: 'btn btn-sm btn-primary' %>
+          </div>
+        <% end %>
       </div>
-    <% end %>
+      <p>
+        <em><%= @posts.first.publish_time.localtime.strftime('%m/%d/%Y') %></em>
+      </p>
+      <p>
+        <h3>
+          <%= link_to @posts.first.postable.title, page_post_path(@page, @posts.first) %>
+        </h3>
+      </p>
+      <p>
+        <%= truncate(@posts.first.postable.description, length: 150) %>
+      </p>
+      <p>
+        <%= link_to 'Read More', page_post_path(@page, @posts.first) %>
+      </p>
+    </div>
+  </div>
+  <div class="col-md-8 offset-md-2">
     <% if @page.posts %>
       <% @posts.each do |post| %>
         <div class="post-container">
