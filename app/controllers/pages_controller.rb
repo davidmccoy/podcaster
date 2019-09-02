@@ -15,6 +15,8 @@ class PagesController < ApplicationController
       @posts = @page.posts.published.includes(:postable)
                     .paginate(page: params[:page], per_page: 12)
     end
+
+    @first_post = @posts.first
   end
 
   def new
