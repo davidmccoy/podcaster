@@ -39,6 +39,19 @@ class User::RegistrationsController < Devise::RegistrationsController
     user_registration_path
   end
 
+  def after_sign_up_path_for(resource)
+    redirect_url_params = params[:url]
+    redirect_url = Rails.application.routes.recognize_path(redirect_url_params)
+
+    if redirect_url 
+      return params[:url]
+    else 
+      return '/'
+    end 
+  rescue 
+    '/'
+  end
+
   def update_resource(resource, params)
     resource.update_without_password(params)
   end
