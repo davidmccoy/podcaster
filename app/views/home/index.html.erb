@@ -1,14 +1,12 @@
 <div class="row">
   <div class="hero-container home">
-    <div class="hero-container-layer">
-    </div>
     <div class="home-text-container">
       <h1>
         <span class="highlight-text">MTGCast</span> is the free platform for Magic: the Gathering podcasts.
       </h1>
       <div class="home-text-info">
         <p>
-          Are you an aspiring Magic content creator? Then MTGCast is the perfect place to create your first podcast. Free hosting, your own RSS feed, plus aggregation in our Magic RSS feed!
+          Are you an established or aspiring Magic content creator? Then MTGCast is the perfect place to create your podcast. Free hosting, your own RSS feed, plus aggregation in our Magic RSS feed!
         </p>
         <div class="home-text-cta-button-container">
           <p>
@@ -19,133 +17,21 @@
     </div>
   </div>
   <div class="col-md-8 offset-md-2">
-    <h1>Episode Uploading Functionality Restored&mdash;Please Claim Your Podcast</h1>
-    <p>
-      <em>February 3, 2019</em>
-    </p>
-    <p>
-      It’s been a long month but we’ve finally got a skeleton version of MTGCast up and running. Again, the entire previous iteration of MTGCast was lost (except for about 10k podcast files) so this project is a total rebuild of the service. Thank you for your patience as we navigate through this difficult process.
-    </p>
-    <p>
-      Here’s what you can currently do on MTGCast:
-    </p>
-    <p>
-      <ul>
-        <li>
-          <%= link_to 'Sign up for an account', new_user_registration_path %> (all previous accounts were lost)
-        </li>
-        <li>
-          Submit a claim for an existing podcast
-        </li>
-        <li>
-          View/edit existing podcast episodes
-        </li>
-        <li>
-          Create new podcast episodes (you no longer need to include your podcast's name in your post titles)
-        </li>
-      </ul>
-    </p>
-    <p>
-      Here’s what you cannot do (yet):
-    </p>
-    <p>
-      <ul>
-        <li>
-          Create a new podcast
-        </li>
-        <li>
-          Add episodes the main MTGCast feed without hosting them on MTGCast (via an existing podcast)
-        </li>
-        <li>
-          Bulk download all of your podcast files
-        </li>
-        <li>
-          Edit or delete your podcast
-        </li>
-        <li>
-          Redirect your existing MTGCast feed to your current RSS feed
-        </li>
-      </ul>
-    </p>
-    <p>
-      Our plan is to continue developing MTGCast to include most, if not all, of the features mentioned above. We’re also sketching out new features that were not possible with the previous version of MTGCast. As we do so, we are also committed to maintaining the original promise of MTGCast: free hosting for your podcast and distribution via our syndicated feed.
-    </p>
-    <p>
-      We’re very excited about MTGCast’s future and extremely grateful for all the help and offers of support from the Magic community during the rebuilding process. We’ll have information about how you can help support MTGCast available for you soon.
-    </p>
-    <br />
-    <h1>Sorry for the Chop!</h1>
-    <p>
-      <em>January 17, 2019</em>
-    </p>
-    <p>
-      As we regain control of the MTGCast RSS feeds you and your listeners might experience some unexpected downloads of old podcast episodes. Some might not even be named properly&mdash;but there will be a fix for that in the near future.
-    </p>
-    <p>
-      We hope to have the RSS feeds stabilized in the next few days.
-    </p>
-    <p>
-      Thank you for your patience!
-    </p>
-    <br />
-    <h1>A Quick Update on the Status of MTGCast</h1>
-    <p>
-      <em>January 12, 2019</em>
-    </p>
-    <p>
-      We have spent the last two weeks after MTGCast’s server failure analyzing the situation, recovering what we can, and creating a plan to bring MTGCast back online. We’d like to share some details with you about what we’ve found and our plans going forward.
-    </p>
-    <h3>Your Files</h3>
-    <p>
-      First—all of your podcast files are safe. Those 10,000 files (give or take) were stored on a separate server and were generally unaffected. Unfortunately, we lost all of the user and post information from the WordPress database, meaning that, though we didn’t lose those files, they were all essentially orphans.
-    </p>
-    <p>
-      After recovering those files, we spent a significant amount of time combing through them and giving them episode titles and assigning them to podcasts. Our hope is that you will be able to log in to MTGCast and see a full list of every file we were able to recover from your podcast and access that file on its new server within the next week.
-    </p>
-    <h3>iTunes</h3>
-    <p>
-      The second major task we undertook this week was identifying and recording every single podcast MTGCast had listed on iTunes. We found over 100+ such podcasts, all of which are owned by the Apple IDs of two previous individuals who helped maintain MTGCast, meaning we cannot currently update any of those listings or RSS feeds .
-    </p>
-    <p>
-      We contacted Apple about the best way to transfer ownership of those listings to a new Apple ID and have submitted all of the information they have asked for so far. We hope to resolve this process and gain access to those listings in the next few days.
-    </p>
-    <h3>Moving Towards a New MTGCast</h3>
-    <p>
-      Finally, we have also been busy creating a plan for replacing MTGCast. Yes, we use the word “replacing” very intentionally—the old version of MTGCast is gone forever and none of the code that made up the original service survived the server crash. What does remain, however, is the community that loved and supported MTGCast from it’s birth over a decade ago and we know that you will be essential in bringing the service back to life.
-    </p>
-    <p>
-      The first step of our plan was to recover as many files as possible and gain access to all of the third-party services (like iTunes) that MTGCast had relied on. With that underway and almost completed, we are ready to move on to the next step of our plan: restoring a basic version of the service.
-    </p>
-    <p>
-      This basic MTGCast will likely only include some…basic…features. But please, know that building a service like this is a complicated task and things can change very quickly. We are trying to be transparent about our goals and plans, but there is no guarantee that every single feature we discuss below will be released when we say that we plan for it to be released.
-    </p>
-    <p>
-      Those basic features will likely include: The ability to create an account and claim your podcast(s) and reconstituted RSS feeds that allow existing iTunes listings to be subscribed to and accessed, allowing your audience to listen to older episodes. The goal of this basic version of MTGCast is to serve as a placeholder that will help us through the recovery process while we build more complicated features.  We hope to release these features within the next week.
-    </p>
-    <p>
-      The second wave of features hasn’t been finalized yet, but it will almost certainly include the ability to add new episodes to your podcasts and edit information about your previously-uploaded episodes.
-    </p>
-    <p>
-      We have a lot more features planned, but right now we’re focused on restoring the most essential parts of MTGCast.
-    </p>
-    <p>
-      We thank you for your patience and understanding as we try to recover from this unforeseen disaster. If you have any concerns about your content or any questions about the rebuild, please join the new <a href="https://discord.gg/XuBujgG" target="_blank">MTGCast Discord server</a>, where we'll be better able to provide support. Alternatively, you can find us on Twitter at <a href="https://www.twitter.com/mtgcast" target="_blank">@MTGCast</a>.
-    </p>
-    <br />
-    <h1>An Important Message from MTGCast</h1>
-    <p>
-      <em>December 31, 2018</em>
-    </p>
-    <p>
-      MTGCast suffered an unexpected server failure on Friday, December 28 and the website is currently down. We are continuing to investigate the situation but our initial analysis shows that <strong>all podcast files are safe</strong> and we are working to restore access to those files. The website and user data (such as logins), however, are most likely irrecoverable. We will continue to update the community via Twitter and Discord as more information becomes available.
-    </p>
-    <p>
-      Members of <a href="https://www.hipstersofthecoast.com" target="_blank">Hipsters of the Coast</a> and the broader MTG community are working with the MTGCast team to help rebuild the site and we hope to have a timeline soon. We apologize for any inconvenience and thank the MTGCast community for their support while we take the necessary steps to recover and revive the site.
-    </p>
-    <p>
-      If anyone has any concerns about their content or any questions about the rebuild, please join the new <a href="https://discord.gg/XuBujgG" target="_blank">MTGCast Discord server</a>, where we'll be better able to provide support. Alternatively, you can find us on Twitter at <a href="https://www.twitter.com/mtgcast" target="_blank">@MTGCast</a>.
-    </p>
-    <br />
-    <br />
+    <div class="homepage-section">
+      <h1>The New MTGCast</h1>
+      <br />
+      <p>
+        Welcome to the new MTGCast! We've been busy rebuilding the service over the last few months and we're happy to announce that we're finally ready to begin accepting new podcasts!
+      </p>
+      <p>
+        New to MTGCast? Just <%= link_to 'create your podcast', new_page_path %> and enjoy your free hosting, RSS feed, and inclusion in our aggregate Magic RSS feed!
+      </p>
+      <p>
+        Are you the owner of a podcast that was hosted on the previous version of MTGCast? Please <%= link_to 'sign up for an account', new_user_registration_path %> (all previous accounts were lost) and submit a claim for an existing podcast.
+      </p>
+      <p>
+        We have a lot of awesome features in the works for MTGCast. In the mean time, please join the new <a href="https://discord.gg/XuBujgG" target="_blank">MTGCast Discord server</a> where we we can answer your questions and provide support. Alternatively, you can find us on Twitter at <a href="https://www.twitter.com/mtgcast" target="_blank">@MTGCast</a>.
+      </p>
+    </div>
   </div>
 </div>

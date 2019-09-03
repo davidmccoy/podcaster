@@ -1,13 +1,10 @@
 .hero-container.home {
-  background: asset-data-url("podcasting-hero.jpg");
+  background-image: asset-data-url("podcasting-hero.jpg");
   background-size: cover;
   background-position: center top;
+  background-color: rgba(33,37,41,0.8);
+  background-blend-mode: multiply;
   height: 800px;
-  .hero-container-layer {
-    height: 100%;
-    width: 100%;
-    background: rgba(33,37,41,0.8);
-  }
   .home-text-container {
     padding: 0 2rem;
     width: 80%;
@@ -38,4 +35,8 @@
       }
     }
   }
+}
+
+.homepage-section {
+  padding: 3rem 0;
 }
