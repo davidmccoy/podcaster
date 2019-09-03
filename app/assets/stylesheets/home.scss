@@ -1,0 +1,41 @@
+.hero-container.home {
+  background: asset-data-url("podcasting-hero.jpg");
+  background-size: cover;
+  background-position: center top;
+  height: 800px;
+  .hero-container-layer {
+    height: 100%;
+    width: 100%;
+    background: rgba(33,37,41,0.8);
+  }
+  .home-text-container {
+    padding: 0 2rem;
+    width: 80%;
+    position: absolute;
+    color: $white;
+    h1 {
+      font-size: 4rem;
+      margin-bottom: 4rem;
+    }
+    .home-text-info {
+      font-size: 1.5rem;
+      width: 66%;
+      color: $white;
+    }
+    .highlight-text {
+      color: $orange;
+    }
+    .home-text-cta-button-container {
+      margin-top: 4rem;
+    }
+    .btn-blue {
+      color: $white;
+      background: $blue;
+      border-color: $blue;
+      &:hover {
+        background: darken($blue, 5%);
+        border-color: darken($blue, 5%);
+      }
+    }
+  }
+}
