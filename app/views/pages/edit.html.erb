@@ -1,9 +1,17 @@
 <div class="row">
   <div class="col-md-8 offset-md-2">
     <span>
-      Editing
+      Settings for
     </span>
     <h1><%= @page.name %></h1>
+    <div>
+      <p>
+        Feed URL: 
+        <%= link_to page_feed_path(@page), target: '_blank' do %>
+          <%= Rails.application.routes.url_helpers.page_feed_url(Page.first) %>
+        <% end %>
+      </p>
+    </div>
     <div>
       <%= form_with model: @page, html: { class: 'needs-validation', novalidate: true } do |form| %>
           <div class="form-group required">
