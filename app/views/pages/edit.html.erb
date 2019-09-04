@@ -11,6 +11,12 @@
           <%= Rails.application.routes.url_helpers.page_feed_url(Page.first) %>
         <% end %>
       </p>
+      <p>
+        Included in Aggregate Feed: <%= @page.included_in_aggregate_feed.to_s.capitalize %>
+        <% if @page.included_in_aggregate_feed == false %>
+          <%= link_to 'Request Inclusion', 'mailto:mtgcast@hipstersofthecoast.com', class: 'btn btn-sm btn-light ml-3' %>
+        <% end %>
+      </p>
     </div>
     <div>
       <%= form_with model: @page, html: { class: 'needs-validation', novalidate: true } do |form| %>

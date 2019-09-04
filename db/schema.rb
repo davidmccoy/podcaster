@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_31_175126) do
+ActiveRecord::Schema.define(version: 2019_09_04_001653) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -51,6 +51,8 @@ ActiveRecord::Schema.define(version: 2019_08_31_175126) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "slug"
+    t.boolean "included_in_aggregate_feed", default: false
+    t.index ["included_in_aggregate_feed"], name: "index_pages_on_included_in_aggregate_feed"
     t.index ["slug"], name: "index_pages_on_slug"
     t.index ["user_id"], name: "index_pages_on_user_id"
   end

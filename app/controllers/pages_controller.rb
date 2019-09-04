@@ -63,6 +63,11 @@ class PagesController < ApplicationController
   def mtgcast
     @image = ActionController::Base.helpers.asset_path('mtgcast-logo-itunes.png', host: root_url)
     @posts = Post.published.includes(:page, postable: :audio).limit(100)
+    # TODO: remove the select and merge the where statement
+    # eager loading the polymorphic relation breaks when adding the `.where(pages: 
+    # { included_in_aggregate_feed: true })`` statement
+    @posts = @posts.select { |post| post.page.included_in_aggregate_feed == true }
+
     @date =
       if @posts.first
         @posts.first.publish_time.to_s(:rfc822)
