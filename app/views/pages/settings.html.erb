@@ -1,0 +1,48 @@
+<div class="row">
+  <div class="col-md-8 offset-md-2">
+    <span>
+      Settings for
+    </span>
+    <h1><%= @page.name %></h1>
+    <div class="page-settings-container">
+      <div class="edit-page-image">
+        <% if @page.logo %>
+          <%= link_to edit_page_logo_path(@page) do %>
+            <p>
+              <%= image_tag @page.logo.file[:medium].url %>
+            </p>
+            <p>
+              <%= button_tag 'Change Logo', class: 'btn btn-sm btn-light' %>
+            </p>
+          <% end %>
+        <% else %>
+          <%= link_to new_page_logo_path(@page) do %>
+            <p>
+              <%= image_tag 'mtgcast-logo-itunes.png' %>
+            </p>
+            <p>
+              <%= button_tag 'Add Logo', class: 'btn btn-sm btn-light' %>
+            </p>
+          <% end %>
+        <% end %>
+      </div>
+      <div>
+        <p>
+          <%= link_to 'Change Name', edit_page_path(@page), class: 'btn btn-sm btn-light' %>
+        </p>
+        <p>
+          Feed URL:
+          <%= link_to page_feed_path(@page), target: '_blank' do %>
+            <%= Rails.application.routes.url_helpers.page_feed_url(Page.first) %>
+          <% end %>
+        </p>
+        <p>
+          Included in Aggregate Feed: <span class="<%= @page.included_in_aggregate_feed ? 'success' : 'danger' %>"><%= @page.included_in_aggregate_feed.to_s.capitalize %></p>
+          <% if @page.included_in_aggregate_feed == false %>
+            <%= link_to 'Request Inclusion', 'mailto:mtgcast@hipstersofthecoast.com', class: 'btn btn-sm btn-light ml-3' %>
+          <% end %>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>

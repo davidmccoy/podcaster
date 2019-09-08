@@ -4,7 +4,11 @@ class PagesController < ApplicationController
   before_action :authorize_page, except: [:index, :show, :feed, :mtgcast]
 
   def index
-    @pages = Page.joins('INNER JOIN posts ON posts.page_id = pages.id').where('posts.publish_time < ?', Time.now).group('pages.id').order('max(posts.publish_time) DESC').paginate(page: params[:page], per_page: 12)
+    # :latest_post is restricted to on post, but eager loading :postable ends up
+    # eager loading many more than one associated postable records, so I'm leaving
+    # that n+1 for now
+    @pages = Page.includes(:logo, :latest_post).joins('INNER JOIN posts ON posts.page_id = pages.id').where('posts.publish_time < ?', Time.now).group('pages.id').order('max(posts.publish_time) DESC').paginate(page: params[:page], per_page: 12)
+    @default_logo = ActionController::Base.helpers.asset_path('mtgcast-logo-itunes.png')
   end
 
   def show
@@ -35,6 +39,9 @@ class PagesController < ApplicationController
     end
   end
 
+  def settings
+  end
+
   def edit
   end
 
@@ -62,12 +69,10 @@ class PagesController < ApplicationController
 
   def mtgcast
     @image = ActionController::Base.helpers.asset_path('mtgcast-logo-itunes.png', host: root_url)
-    @posts = Post.published.includes(:page, postable: :audio).limit(100)
-    # TODO: remove the select and merge the where statement
-    # eager loading the polymorphic relation breaks when adding the `.where(pages: 
-    # { included_in_aggregate_feed: true })`` statement
-    @posts = @posts.select { |post| post.page.included_in_aggregate_feed == true }
-
+    @posts = Post.published
+                 .includes(:page)
+                 .preload(postable: :audio)
+                 .where(pages: { included_in_aggregate_feed: true }).limit(100)
     @date =
       if @posts.first
         @posts.first.publish_time.to_s(:rfc822)

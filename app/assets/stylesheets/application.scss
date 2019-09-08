@@ -21,6 +21,14 @@ audio {
   }
 }
 
+.success {
+  color: $green;
+}
+
+.danger {
+  color: $red;
+}
+
 .alert {
   position: absolute;
   top: -16px;
@@ -65,7 +73,7 @@ a {
   }
 }
 
-p { 
+p {
   a {
     color: $blue;
     &:hover {

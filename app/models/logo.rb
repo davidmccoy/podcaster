@@ -1,0 +1,1 @@
+class Logo < Image; end

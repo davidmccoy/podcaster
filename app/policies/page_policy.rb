@@ -23,6 +23,10 @@ class PagePolicy <  ApplicationPolicy
     user == record.user || admin?
   end
 
+  def settings?
+    edit?
+  end
+
   def update?
     edit?
   end

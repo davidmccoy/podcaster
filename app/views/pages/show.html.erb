@@ -10,7 +10,7 @@
         </h1>
         <% if current_user && policy(@page.posts.build).create? %>
           <div>
-            <%= link_to 'Settings', edit_page_path(@page), class: 'btn btn-sm btn-light' %>
+            <%= link_to 'Settings', page_settings_path(@page), class: 'btn btn-sm btn-light' %>
             <%= link_to '+ Episode', new_page_post_path(@page), class: 'btn btn-sm btn-primary' %>
           </div>
         <% end %>

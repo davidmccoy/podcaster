@@ -22,6 +22,8 @@ require 'sidekiq/web'
   post 'podcasts/recover', to: 'pages#send_recovery_email'
   resources :pages, param: :slug, path: 'podcasts' do
     get '/feed', to: 'pages#feed'
+    get '/settings', to: 'pages#settings'
+    resource :logo
     resources :posts, param: :slug do
       resources :audios
     end

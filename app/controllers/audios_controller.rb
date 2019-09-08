@@ -8,7 +8,6 @@ class AudiosController < ApplicationController
   end
 
   def create
-    binding.pry
     @audio = Audio.create(audio_params.merge({
       attachable_type: @post.postable.class.to_s,
       attachable_id: @post.postable.id

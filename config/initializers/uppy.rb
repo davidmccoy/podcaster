@@ -6,6 +6,6 @@ resource = Aws::S3::Resource.new(
   region:             ENV['S3_REGION']
 )
 
-bucket = resource.bucket(ENV['S3_BUCKET'])
+bucket = resource.bucket(ENV['AUDIO_S3_BUCKET'])
 
 UPPY_S3_MULTIPART_APP = Uppy::S3Multipart::App.new(bucket: bucket)

@@ -5,7 +5,7 @@
   margin: 1rem 0rem 1rem;
 }
 
-.page-container, .post-container { 
+.page-container, .post-container {
   width: 100%;
   position: relative;
   margin-bottom: 1rem;
@@ -16,11 +16,34 @@
 }
 
 .page-image {
+  padding-bottom: 100%;
+  background-position: center;
+  background-size: cover;
   margin: -1rem -1rem 1rem;
   border-bottom: 1px solid $gray-200;
   img {
     width: 100%;
     height: auto;
+  }
+}
+
+.page-settings-container {
+  display: flex;
+  justify-content: space-between;
+  div {
+    width: 48%;
+    div {
+      width: auto;
+    }
+  }
+  img {
+    width: 100%;
+  }
+}
+
+.edit-page-image {
+  img {
+    width: 100%;
   }
 }
 
