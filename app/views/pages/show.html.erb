@@ -38,10 +38,10 @@
       <% if @page.posts %>
         <% @posts.each do |post| %>
           <div class="post-container">
-            <h3>
-              <%= link_to post.postable.title, page_post_path(@page, post) %>
-            </h3>
             <div class="post-info">
+              <h3>
+                <%= link_to post.postable.title, page_post_path(@page, post) %>
+              </h3>
               <p>
                 <em><%= 'Scheduled For: ' if post.publish_time > Time.now %>
                 <%= post.publish_time.localtime.strftime('%m/%d/%Y') %></em>

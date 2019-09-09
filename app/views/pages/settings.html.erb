@@ -28,21 +28,48 @@
       </div>
       <div>
         <p>
-          <%= link_to 'Change Name', edit_page_path(@page), class: 'btn btn-sm btn-light' %>
-        </p>
-        <p>
           Feed URL:
           <%= link_to page_feed_path(@page), target: '_blank' do %>
             <%= Rails.application.routes.url_helpers.page_feed_url(Page.first) %>
           <% end %>
         </p>
         <p>
-          Included in Aggregate Feed: <span class="<%= @page.included_in_aggregate_feed ? 'success' : 'danger' %>"><%= @page.included_in_aggregate_feed.to_s.capitalize %></p>
+          Included in Aggregate Feed: <span class="<%= @page.included_in_aggregate_feed ? 'success' : 'danger' %>"><%= @page.included_in_aggregate_feed.to_s.capitalize %></span>
           <% if @page.included_in_aggregate_feed == false %>
-            <%= link_to 'Request Inclusion', 'mailto:mtgcast@hipstersofthecoast.com', class: 'btn btn-sm btn-light ml-3' %>
+            <button type="button" class="btn btn-sm btn-light ml-3" data-toggle="modal" data-target="#aggregate-feed-inclusion-modal">
+              ?
+            </button>
           <% end %>
+        </p>
+        <p>
+          <%= link_to 'Edit Settings', edit_page_path(@page), class: 'btn btn-sm btn-light' %>
         </p>
       </div>
     </div>
   </div>
+  <% if @page.included_in_aggregate_feed == false %>
+    <div id="aggregate-feed-inclusion-modal" class="modal" tabindex="-1" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">The MTGCast Aggregate Feed</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <h5>Request Inclusion in Our Aggregate Feed</h5>
+            <p>
+              MTGCast maintains an aggregate RSS feeds that combines the episodes from the best MTG podcasts. Please use the link below to request the inclusion of this podcast in our aggregate feed.
+            </p>
+          </div>
+          <div class="modal-footer">
+            <%= link_to 'Request Inclusion', 'mailto:mtgcast@hipstersofthecoast.com', class: 'btn btn-primary ml-3' %>
+            <button type="button" class="btn btn-light" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
 </div>
+
