@@ -51,4 +51,8 @@ class ApplicationController < ActionController::Base
     @post ||= @page.posts.build
     authorize @post
   end
+
+  def set_audio
+    @audio = Audio.find_by_id(params[:audio_id]) || Audio.find_by_id(params[:id])
+  end
 end

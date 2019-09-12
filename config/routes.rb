@@ -23,10 +23,13 @@ require 'sidekiq/web'
   resources :pages, param: :slug, path: 'podcasts' do
     get '/feed', to: 'pages#feed'
     get '/settings', to: 'pages#settings'
-    resource :logo
     resources :posts, param: :slug do
-      resources :audios
+      resources :audios do
+        post 'record_play', to: 'audios#record_play'
+      end
     end
+    resource :logo
+    resources :stats
   end
 
   resources :episodes, only: [:create]
