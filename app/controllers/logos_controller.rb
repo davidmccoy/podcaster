@@ -37,6 +37,6 @@ class LogosController < ApplicationController
   end
 
   def page_info
-    { attachable_type: 'Page', attachable_id: @page.id }
+    { attachable_type: 'Page', attachable_id: @page.id, label: 'logo' }
   end
 end

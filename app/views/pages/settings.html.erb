@@ -9,7 +9,7 @@
         <% if @page.logo %>
           <%= link_to edit_page_logo_path(@page) do %>
             <p>
-              <%= image_tag @page.logo.file[:medium].url %>
+              <%= image_tag @page.logo.url(:medium) %>
             </p>
             <p>
               <%= button_tag 'Change Logo', class: 'btn btn-sm btn-light' %>
