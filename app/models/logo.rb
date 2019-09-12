@@ -10,6 +10,6 @@ class Logo < Image
   private
 
   def fetch_image(size)
-    file.dig(size)
+    file&.dig(size)
   end
 end
