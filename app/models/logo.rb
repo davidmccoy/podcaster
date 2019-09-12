@@ -1,11 +1,9 @@
 class Logo < Image
   def url(size)
-    image = fetch_image(size)
-
-    if image
-      image.url
-    else
-      file.dig(:origina).url
+    if file_attacher.stored? && file
+      "https://#{ENV["IMAGES_S3_BUCKET"]}.s3.amazonaws.com/#{fetch_image(size).id}"
+    elsif file_attacher.cached? && file
+      "https://#{ENV["IMAGES_S3_BUCKET"]}.s3.amazonaws.com/cache/#{fetch_image(size).id}"
     end
   end
 
