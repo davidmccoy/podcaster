@@ -24,7 +24,7 @@ require 'sidekiq/web'
     get '/feed', to: 'pages#feed'
     get '/settings', to: 'pages#settings'
     resources :posts, param: :slug do
-      resources :audios do
+      resources :audios, path: 'audio' do
         post 'record_play', to: 'audios#record_play'
       end
     end
