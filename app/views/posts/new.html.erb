@@ -79,7 +79,7 @@
 
       var fileUploadPercentage = document.querySelector('.uppy-ProgressBar-percentage');
       fileUploadPercentage.style.display = 'block';
-      
+
       var fileUploadButton = document.querySelector('.uppy-FileInput-btn');
       fileUploadButton.style.display = 'none';
     })
@@ -151,7 +151,14 @@
     slugDisplay.innerHTML = siteAndPostSlug + slugInput.value;
   }
 
+  function setTime() {
+    var tzoffset = (new Date()).getTimezoneOffset() * 60000;
+    var localISOTime = (new Date(Date.now() - tzoffset)).toISOString().slice(0, 19);
+    $('input[name="post[publish_time]"]').val(localISOTime);
+  }
+
   $(document).on('ready turbolinks:load', function() {
     uppySetup();
+    setTime();
   })
 </script>

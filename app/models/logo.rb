@@ -1,18 +1,12 @@
 class Logo < Image
   def url(size)
-    # if file_attacher.stored? && file
-    #   "https://#{ENV["IMAGES_S3_BUCKET"]}.s3.amazonaws.com/#{fetch_image_id(size)}"
-    # elsif file_attacher.cached? && file
-    #   "https://#{ENV["IMAGES_S3_BUCKET"]}.s3.amazonaws.com/cache/#{fetch_image_id(size)}"
-    # end
-    fetch_image_id(size)
+    fetch_image_url(size)
   end
 
   private
 
-  def fetch_image_id(size)
-    p file.is_a? ImageUploader::UploadedFile
-    p file
+  # accessig an image's url is different when first uploaded and after processing
+  def fetch_image_url(size)
     if file.is_a? ImageUploader::UploadedFile
       file.url
     else
