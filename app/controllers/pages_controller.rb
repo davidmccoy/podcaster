@@ -89,7 +89,7 @@ class PagesController < ApplicationController
   end
 
   def recover
-    @podcasts = Page.all.order(:name).pluck(:name)
+    @podcasts = Page.where(user_id: nil).order(:name).pluck(:name)
   end
 
   def send_recovery_email
