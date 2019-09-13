@@ -65,6 +65,12 @@ table.table {
   color: $gray-700;
 }
 
+.simple-nav {
+  a {
+    color: $blue;
+  }
+}
+
 a {
   color: $gray-700;
   &:hover {
