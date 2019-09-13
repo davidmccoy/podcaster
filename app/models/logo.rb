@@ -10,9 +10,9 @@ class Logo < Image
   private
 
   def fetch_image(size)
-    p file.is_a? ImageUploader
+    p file.is_a? ImageUploader::UploadedFile
     p file
-    if file.is_a? ImageUploader
+    if file.is_a? ImageUploader::UploadedFile
       file.url
     else
       file&.dig(size)
