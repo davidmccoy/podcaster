@@ -6,6 +6,7 @@ require 'sidekiq/web'
 
   root 'home#index'
   devise_for :user, path: 'user', controllers: { registrations: 'user/registrations' }
+
   devise_scope :user do
     # registration paths
     get 'user', to: 'user/registrations#show'
@@ -34,7 +35,9 @@ require 'sidekiq/web'
 
   resources :episodes, only: [:create]
 
-  #***|| routes for old rss feeds ||***#
+  resource :support
+
+  # ***|| routes for old rss feeds ||***
   # in home controller --> '/?feed=podcast'
   get '/feed', to: 'pages#mtgcast'
   get '/topics/mtgcast-podcast-shows/retired-and-archived-podcast-shows/:podcast/feed', to: 'old_feeds#redirect'
