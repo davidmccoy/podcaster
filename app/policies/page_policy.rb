@@ -31,6 +31,10 @@ class PagePolicy <  ApplicationPolicy
     edit?
   end
 
+  def delete?
+    edit?
+  end
+
   def destroy?
     edit?
   end

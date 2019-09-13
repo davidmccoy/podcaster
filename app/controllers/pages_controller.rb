@@ -45,11 +45,9 @@ class PagesController < ApplicationController
     end
   end
 
-  def settings
-  end
+  def settings; end
 
-  def edit
-  end
+  def edit; end
 
   def update
     if @page.update(page_params)
@@ -58,6 +56,18 @@ class PagesController < ApplicationController
     else
       flash[:alert] = 'Failed to update podcast.'
       render :edit
+    end
+  end
+
+  def delete; end
+
+  def destroy
+    if @page.destroy
+      flash[:notice] = 'Successfully deleted podcast.'
+      redirect_to user_pages_path
+    else
+      flash[:alert] = 'Failed to delete podcast.'
+      redirect_to page_delete_path(@page_)
     end
   end
 

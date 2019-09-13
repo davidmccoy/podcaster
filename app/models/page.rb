@@ -1,7 +1,7 @@
 # a page is the home where users publish posts
 class Page < ApplicationRecord
   belongs_to :user, optional: true
-  has_many :posts
+  has_many :posts, dependent: :destroy
   has_one :latest_post, -> { where('publish_time < ?', Time.now).order(publish_time: :desc) }, class_name: 'Post'
   has_many :podcast_episodes, through: :posts, source: :postable, source_type: 'PodcastEpisode'
   has_many :attachments, as: :attachable, dependent: :destroy

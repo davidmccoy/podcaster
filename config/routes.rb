@@ -24,6 +24,7 @@ require 'sidekiq/web'
   resources :pages, param: :slug, path: 'podcasts' do
     get '/feed', to: 'pages#feed'
     get '/settings', to: 'pages#settings'
+    get '/delete', to: 'pages#delete'
     resources :posts, param: :slug do
       resources :audios, path: 'audio' do
         post 'record_play', to: 'audios#record_play'
