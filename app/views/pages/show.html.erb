@@ -1,11 +1,8 @@
 <div class="row">
   <div class="hero-container">
     <div class="hero-page-image">
-      <% if @page.logo %>
-        <%= image_tag @page.logo.url(:medium) %>
-      <% else %>
-        <%= image_tag 'mtgcast-logo-itunes.png' %>
-      <% end %>
+      <div class="page-image no-border" style="background-image: url(<%= @logo_url %>)">
+      </div>
     </div>
     <div class="hero-episode-container">
       <div class="page-name-container">

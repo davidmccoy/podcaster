@@ -19,6 +19,9 @@
   background-position: center;
   background-size: cover;
   border-bottom: 1px solid $gray-200;
+  &.no-border {
+    border-bottom: 0;
+  }
   img {
     width: 100%;
     height: auto;

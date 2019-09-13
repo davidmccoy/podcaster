@@ -21,6 +21,12 @@ class PagesController < ApplicationController
     end
 
     @first_post = @posts.first
+    @logo_url =
+      if @page.logo
+        ActionController::Base.helpers.image_path(@page.logo.url(:medium))
+      else
+        ActionController::Base.helpers.image_path('mtgcast-logo-itunes.png')
+      end
   end
 
   def new
@@ -100,5 +106,8 @@ class PagesController < ApplicationController
 
   def page_params
     params.require(:page).permit(:name)
+  end
+
+  def set_logo_url
   end
 end
