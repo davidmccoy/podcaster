@@ -5,7 +5,7 @@ class Logo < Image
     # elsif file_attacher.cached? && file
     #   "https://#{ENV["IMAGES_S3_BUCKET"]}.s3.amazonaws.com/cache/#{fetch_image_id(size)}"
     # end
-    fetch_image_id
+    fetch_image_id(size)
   end
 
   private
