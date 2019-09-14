@@ -24,9 +24,9 @@
           <%= @post.publish_time.localtime.strftime('%A, %B %d, %Y') %>
         </p>
         <% if current_user && policy(@post).edit? %>
-          <p>
+          <span>
             <em><%= @post.postable.downloads %> downloads</em>
-          </p>
+          </span>
         <% end %>
       </div>
     </div>

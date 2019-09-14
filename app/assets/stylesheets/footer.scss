@@ -18,6 +18,7 @@ footer {
    font-size: 2rem;
    .logo {
      width: 100%;
+     max-width: 281px;
      height: auto;
    }
   }
@@ -58,6 +59,11 @@ footer {
     .logo-and-menu-container {
       ul {
         text-align: left;
+      }
+    }
+    .logo-container {
+      .logo {
+        max-width: none;
       }
     }
   }
