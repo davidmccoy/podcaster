@@ -4,19 +4,19 @@
   background-position: center top;
   background-color: rgba(33,37,41,0.8);
   background-blend-mode: multiply;
-  height: 800px;
+  height: 650px;
   .home-text-container {
     padding: 0 2rem;
-    width: 80%;
+    width: 100%;
     position: absolute;
     color: $white;
     h1 {
-      font-size: 4rem;
-      margin-bottom: 4rem;
+      font-size: 2rem;
+      margin-bottom: 3rem;
     }
     .home-text-info {
-      font-size: 1.5rem;
-      width: 66%;
+      font-size: 1.15rem;
+      width: 100%;
       color: $white;
     }
     .highlight-text {
@@ -39,4 +39,44 @@
 
 .homepage-section {
   padding: 3rem 0;
+}
+
+@media (min-width: 576px) {
+  .hero-container.home {
+    .home-text-container {
+      h1 {
+        font-size: 3rem;
+        margin-bottom: 4rem;
+      }
+      .home-text-info {
+        font-size: 1.5rem;
+      }
+    }
+  }
+}
+
+@media (min-width: 768px) {
+  .hero-container.home {
+    height: 800px;
+    .home-text-container {
+      h1 {
+        font-size: 4rem;
+      }
+    }
+  }
+}
+
+@media (min-width: 992px) {
+  .hero-container.home {
+    .home-text-container {
+      width: 80%;
+      .home-text-info {
+        width: 66%;
+      }
+    }
+  }
+}
+
+@media (min-width: 1200px) {
+
 }
