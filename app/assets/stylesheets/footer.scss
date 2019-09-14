@@ -3,8 +3,10 @@ footer {
   bottom: 0;
   width: 100%;
   // height: 60px;
-  background: $orange;
-  color: $white;
+  // background: $white;
+  // color: $white;
+  background: $gray-100;
+  border-top: 1px solid $gray-200;
   font-weight: 100;
   text-align: center;
   font-size: 1rem;
@@ -43,10 +45,10 @@ footer {
     }
   }
   a {
-    color: $white;
+    color: $gray-700;
     text-decoration: none;
     &:hover {
-      color: $white;
+      color: $gray-700;
     }
   }
 }

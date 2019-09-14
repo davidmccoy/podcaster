@@ -1,11 +1,13 @@
 @import "variables";
 @import "bootstrap";
 @import "nav";
+@import "home";
 @import "pages";
 @import "posts";
 @import "footer";
 @import "uppy";
 @import "stacktable";
+@import "pagination";
 
 
 audio {
@@ -19,14 +21,22 @@ audio {
   }
 }
 
+.success {
+  color: $green;
+}
+
+.danger {
+  color: $red;
+}
+
 .alert {
   position: absolute;
   top: -16px;
   left: 0;
   &.alert-success {
-    border-color: #007147;
+    border-color: $white;
     color: #007147;
-    background: #c3ffea;
+    background: $white;
   }
   &.alert-danger {
     border-color: #9a2001;
@@ -43,12 +53,40 @@ audio {
   float: right;
 }
 
+.btn-primary:disabled {
+  color: white;
+}
+
 table.table {
   font-size: 1rem;
 }
 
 .page-name-link {
   color: $gray-700;
+}
+
+.simple-nav {
+  a {
+    color: $blue;
+  }
+}
+
+a {
+  color: $gray-700;
+  &:hover {
+    color: $gray-700;
+    text-decoration: none;
+  }
+}
+
+p {
+  a {
+    color: $blue;
+    &:hover {
+      color: $blue;
+      text-decoration: underline;
+    }
+  }
 }
 
 h1 {

@@ -13,8 +13,7 @@ class ApplicationController < ActionController::Base
       flash[:alert] = "You are not authorized to perform this action."
       redirect_to(request.referrer || root_path) and return
     else
-      flash[:alert] = "You'll have to sign in before you can do that!"
-      redirect_to new_user_session_path(url: request.path) and return
+      redirect_to new_user_registration_path(url: request.path) and return
     end
   end
 
@@ -51,5 +50,9 @@ class ApplicationController < ActionController::Base
   def authorize_post
     @post ||= @page.posts.build
     authorize @post
+  end
+
+  def set_audio
+    @audio = Audio.find_by_id(params[:audio_id]) || Audio.find_by_id(params[:id])
   end
 end

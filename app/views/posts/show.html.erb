@@ -1,21 +1,47 @@
 <div class="row">
+<div class="hero-container">
+    <div class="hero-page-image">
+      <div class="page-image no-border" style="background-image: url(<%= @logo_url %>)">
+      </div>
+    </div>
+    <div class="hero-episode-container">
+      <div class="page-name-container">
+      </div>
+      <div class="page-post-info-container">
+        <h4>
+          <%= @page.name.upcase %>
+        </h4>
+        <h1>
+          <%= @post.postable.title %>
+        </h1>
+        <p>
+          <%= link_to "Edit Episode", edit_page_post_path(@page, @post), class: 'btn btn-sm btn-light' if current_user && policy(@post).edit? %>
+        </p>
+        <p>
+          By <%= link_to @page.name, page_path(@page) %><br />
+        </p>
+        <p>
+          <%= @post.publish_time.localtime.strftime('%A, %B %d, %Y') %>
+        </p>
+        <% if current_user && policy(@post).edit? %>
+          <p>
+            <em><%= @post.postable.downloads %> downloads</em>
+          </p>
+        <% end %>
+      </div>
+    </div>
+  </div>
   <div class="col-md-8 offset-md-2">
-    <div>
-      <h1><%= link_to @page.name, page_path(@page), class: 'page-name-link' %></h1>
-      <h4><%= @post.postable.title %></h4>
-      <p>
-        <%= link_to "Edit", edit_page_post_path(@page, @post), class: 'btn btn-sm btn-light' if current_user && policy(@post).edit? %>
-      </p>
-      <p>
-        by <%= link_to @page.name, page_path(@page) %><br />
-        <em><%= @post.publish_time.localtime.strftime('%m/%d/%Y') %></em>
-      </p>
+    <div class="post-body-container">
       <div>
         <% if @post.postable.podcast_episode&.file&.metadata&.dig('mime_type') == 'audio/mpeg' %>
           <p>
-            <audio id="player" controls>
+            <audio id="player" controls controlsList="nodownload">
               <source src="<%= @post.postable.podcast_episode.url %>" type="audio/mp3">
             </audio>
+          </p>
+          <p>
+            <em><%= link_to '(Download this episode)', page_post_audio_path(@page.slug, @post.slug, @post.postable.podcast_episode) %></em>
           </p>
         <% end %>
       </div>
@@ -26,9 +52,31 @@
   </div>
 </div>
 <script>
+  var hasPressedPlay = false;
+  var recordPlayUrl = '<%= page_post_audio_record_play_url(@page.slug, @post.slug, @post.postable.podcast_episode) %>'
+
+  // add csrf token to ajax requests
+  $.ajaxPrefilter(function(options, originalOptions, xhr) {
+    if (!options.crossDomain) {
+      token = $('meta[name="csrf-token"]').attr('content');
+      if (token) xhr.setRequestHeader('X-CSRF-Token', token);
+    }
+  });
+
+  // log play
   $('#player').on('play', function() {
     if (this.currentTime === 0) {
-      console.log('log play')
+      $.ajax({
+        method: 'POST',
+        url: recordPlayUrl,
+        data: {
+          audio: {
+            id: <%= @post.postable.podcast_episode.id %>,
+            play: true
+          }
+        }
+      })
+      hasPressedPlay = true;
     }
   })
 </script>

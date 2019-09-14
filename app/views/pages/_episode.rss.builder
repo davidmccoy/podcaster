@@ -3,11 +3,21 @@ if syndicated
   title = "#{post.page.name}: #{post.postable.title}"
   link = "https://www.mtgcast.com/podcasts/#{post.page.slug}/posts/#{post.slug}"
   author = post.page.name
+  if post.postable.podcast_episode
+    url = page_post_audio_url(post.page.slug, post.slug, post.postable.podcast_episode.id)
+  else
+    url = nil
+  end
 else
   guid = "https://www.mtgcast.com/podcasts/#{@page.slug}/posts/#{post.slug}"
   title = post.postable.title
   link = "https://www.mtgcast.com/podcasts/#{@page.slug}/posts/#{post.slug}"
   author = @page.name
+  if post.postable.podcast_episode
+    url = page_post_audio_url(@page.slug, post.slug, post.postable.podcast_episode.id)
+  else
+    url = nil
+  end
 end
 
 xml.item do
@@ -21,6 +31,6 @@ xml.item do
   xml.itunes :summary, post.postable.description
   xml.itunes :subtitle, truncate(post.postable.description, :length => 150)
   xml.description post.postable.description
-  xml.enclosure :url => post.postable.audio&.first&.url, :length => post.postable.audio.first&.file&.metadata&.dig('size'), :type => post.postable.audio.first&.file&.metadata&.dig('mime_type')
+  xml.enclosure :url => url, :length => post.postable.audio.first&.file&.metadata&.dig('size'), :type => post.postable.audio.first&.file&.metadata&.dig('mime_type')
   xml.itunes :image, href: @image
 end

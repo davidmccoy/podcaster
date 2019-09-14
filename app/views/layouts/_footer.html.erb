@@ -3,7 +3,7 @@
     <div class="row logo-and-menu-container">
       <div class="col-md">
         <div class="logo-container">
-          <%= image_tag 'mtgcast-logo-white.png', class: "logo" %>
+          <%= image_tag 'mtgcast-logo-orange.png', class: "logo" %>
         </div>
       </div>
       <div class="col-md">
@@ -12,8 +12,10 @@
             <div class="links-container">
               <ul>
                 <li>
-                  <%= link_to "Sign In", new_user_session_path %>
+                  <%= link_to 'Sign In', new_user_session_path %>
                 </li>
+                <li>
+                  <%= link_to 'Support', support_path %>
                 <li>
                   <a href="http://www.hipstersofthecoast.com" target="_blank">Blog</a>
                 </li>
@@ -30,7 +32,7 @@
   </div>
   <div class="container copyright-notice-container">
     <p>
-      Powered by Hipsters of the Coast &copy; <%= Date.today.year %>
+      Powered by Breakfast &copy; <%= Date.today.year %>
     </p>
   </div>
 </footer>

@@ -3,9 +3,9 @@ class Audio < Attachment
 
   def url
     if file_attacher.stored? && file
-      "https://#{ENV["S3_BUCKET"]}.s3.amazonaws.com/#{file.id}"
+      "https://#{ENV["AUDIO_S3_BUCKET"]}.s3.amazonaws.com/#{file.id}"
     elsif file_attacher.cached? && file
-      "https://#{ENV["S3_BUCKET"]}.s3.amazonaws.com/cache/#{file.id}"
+      "https://#{ENV["AUDIO_S3_BUCKET"]}.s3.amazonaws.com/cache/#{file.id}"
     end
   end
 end

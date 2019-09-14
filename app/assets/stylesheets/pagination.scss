@@ -1,0 +1,12 @@
+.page-item {
+  .page-link {
+    color: $blue;
+  }
+  &.active { 
+    .page-link {
+      background-color: $blue;
+      border-color: $blue;
+      color: $white;
+    }
+  }
+}

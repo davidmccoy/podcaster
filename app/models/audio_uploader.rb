@@ -13,7 +13,7 @@ class AudioUploader < Shrine
   # Custom validations
   Attacher.validate do
     # validate_max_size 5*1024*1024, message: "is too large (max is 5 MB)"
-    validate_mime_type_inclusion %w[audio/ogg audio/mpeg audio/wav audio/x-wav audio/aac audio/aacp], message: "must be an .mp3, .wav, .aac, or .ogg"
+    validate_mime_type_inclusion %w[audio/ogg audio/mpeg audio/wav audio/x-wav audio/aac audio/aacp], message: 'must be an .mp3, .wav, .aac, or .ogg'
   end
 
   process(:store) do |io, context|

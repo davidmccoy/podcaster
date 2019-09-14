@@ -7,11 +7,31 @@ class PagePolicy <  ApplicationPolicy
     true
   end
 
+  def new?
+    true
+  end
+
+  def create?
+    true
+  end
+
+  def upload?
+    true
+  end
+
   def edit?
     user == record.user || admin?
   end
 
+  def settings?
+    edit?
+  end
+
   def update?
+    edit?
+  end
+
+  def delete?
     edit?
   end
 
