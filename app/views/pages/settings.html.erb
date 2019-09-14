@@ -35,7 +35,7 @@
         <p>
           Feed URL:
           <%= link_to page_feed_path(@page), target: '_blank' do %>
-            <%= Rails.application.routes.url_helpers.page_feed_url(Page.first) %>
+            <%= Rails.application.routes.url_helpers.page_feed_url(@page) %>
           <% end %>
         </p>
         <p>
