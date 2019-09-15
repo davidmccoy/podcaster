@@ -17,7 +17,7 @@ class OldFeedsController < ApplicationController
     end
 
     if podcast
-      redirect_to page_feed_path(podcast) and return
+      redirect_to page_feed_path(podcast), status: 301 and return
     else
       redirect_to root_path and return
     end
