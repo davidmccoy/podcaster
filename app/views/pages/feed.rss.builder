@@ -30,7 +30,9 @@ xml.rss :version => "2.0", "xmlns:itunes" => "http://www.itunes.com/dtds/podcast
       xml.title @page.name
       xml.link "https://www.mtgcast.com/podcasts/#{@page.slug}"
     end
-    xml.itunes :category, text: 'Games & Hobbies'
+    xml.itunes :category, text: 'Leisure' do
+      xml.itunes :category, text: 'Games'
+    end
     # For subcategories
     # xml.itunes :category, :text => 'Technology' do
     #   xml.itunes :category, :text => 'Software How-To'
