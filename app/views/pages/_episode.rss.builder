@@ -4,7 +4,8 @@ if syndicated
   link = "https://www.mtgcast.com/podcasts/#{post.page.slug}/posts/#{post.slug}"
   author = post.page.name
   if post.postable.podcast_episode
-    url = page_post_audio_url(post.page.slug, post.slug, post.postable.podcast_episode.id)
+    s3_url = post.postable.audio.first.url
+    url = page_post_audio_link_url(post.page.slug, post.slug, post.postable.podcast_episode.id, s3_url)
   else
     url = nil
   end
@@ -14,7 +15,8 @@ else
   link = "https://www.mtgcast.com/podcasts/#{@page.slug}/posts/#{post.slug}"
   author = @page.name
   if post.postable.podcast_episode
-    url = page_post_audio_url(@page.slug, post.slug, post.postable.podcast_episode.id)
+    s3_url = post.postable.audio.first.url
+    url = page_post_audio_link_url(@page.slug, post.slug, post.postable.podcast_episode.id, s3_url)
   else
     url = nil
   end

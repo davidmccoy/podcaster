@@ -28,6 +28,7 @@ require 'sidekiq/web'
     resources :posts, param: :slug do
       resources :audios, path: 'audio' do
         post 'record_play', to: 'audios#record_play'
+        get '/link/*url', to: 'audios#link', as: 'link'
       end
     end
     resource :logo

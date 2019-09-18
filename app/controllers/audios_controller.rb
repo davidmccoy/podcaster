@@ -2,7 +2,7 @@
 class AudiosController < ApplicationController
   before_action :set_page
   before_action :set_post
-  before_action :set_audio, only: [:show]
+  before_action :set_audio, only: [:show, :link]
 
   def new
     @audio = Audio.new
@@ -20,6 +20,17 @@ class AudiosController < ApplicationController
     # is never initiated.
     update_download_count
     redirect_to @audio.url
+  end
+
+  def link
+    url = "#{params[:url].gsub('https:/', 'https://')}.#{params[:format]}"
+
+    if url == @audio.url
+      update_download_count
+      redirect_to @audio.url and return
+    else
+      redirect_to root_path and return
+    end
   end
 
   def record_play
