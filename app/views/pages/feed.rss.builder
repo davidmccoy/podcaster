@@ -49,8 +49,8 @@ xml.rss :version => "2.0", "xmlns:itunes" => "http://www.itunes.com/dtds/podcast
       as: :post,
       locals: {
         syndicated: false
-      }#,
-      #cached: true
+      },
+      cached: true
     ) unless @posts.none?
   end
 end
