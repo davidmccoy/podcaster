@@ -73,7 +73,19 @@ class PagesController < ApplicationController
 
   def feed
     @posts = @page.posts.published.includes(postable: :audio).limit(50)
-    @image = ActionController::Base.helpers.asset_path('mtgcast-logo-itunes.png', host: root_url)
+    @image =
+      if @page.logo
+        # couldn't find a Shrine method for an image url without header info
+        ActionController::Base.helpers.image_path(@page.logo.url(:large)).split('?')[0]
+      else
+        ActionController::Base.helpers.image_path('mtgcast-logo-itunes.png')
+      end
+    @email =
+      if @page.user.email == 'david.mccoy@gmail.com'
+        'admin@mtgcast.fm'
+      else
+        @page.user.email
+      end
     @date =
       if @page.posts.published.first
         @page.posts.published.first.publish_time.to_s(:rfc822)
