@@ -3,7 +3,7 @@
 // the trix-editor content (whether displayed or under editing). Feel free to incorporate this
 // inclusion directly in any other asset bundle and remove this file.
 //
-//= require trix/dist/trix
+// = require trix/dist/trix
 
 // We need to override trix.css’s image gallery styles to accommodate the
 // <action-text-attachment> element we wrap around attachments. Otherwise,
@@ -31,6 +31,19 @@
     .attachment {
       padding: 0 !important;
       max-width: 100% !important;
+    }
+  }
+
+  strong {
+    font-weight: bold;
+  }
+
+  a {
+    color: $blue;
+    text-decoration: underline;
+    &:hover {
+      color: darken($blue, 10%);
+      text-decoration: underline;
     }
   }
 }

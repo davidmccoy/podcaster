@@ -1,3 +1,5 @@
+include ActionView::Helpers::TextHelper
+
 namespace :posts do
   desc 'Adds publish time to posts from podcast episode\'s date'
 
@@ -12,6 +14,15 @@ namespace :posts do
     posts = Post.where(slug: nil)
     posts.find_each do |post|
       GenerateSlugsWorker.perform_async(post.id)
+    end
+  end
+
+  task migrate_description_to_content: :environment do
+    posts = Post.includes(:postable).all
+    posts.find_each do |post|
+      next if post.postable.content.persisted?
+      post.postable.content = simple_format(post.postable.description)
+      post.postable.content.save
     end
   end
 end

@@ -33,10 +33,10 @@ xml.item do
   xml.itunes :author, author
   xml.itunes :explicit, 'no'
   xml.itunes :summary do
-    (xml.cdata!(post.postable.description) unless post.postable.description == nil)
+    (xml.cdata!(post.postable.content.to_s) unless post.postable.content == nil)
   end
-  xml.itunes :subtitle, truncate(post.postable.description, :length => 150)
-  xml.description post.postable.description
+  xml.itunes :subtitle, truncate(post.postable.content.to_plain_text, :length => 150)
+  xml.description post.postable.content
   xml.enclosure :url => url, :length => post.postable.audio.first&.file&.metadata&.dig('size'), :type => post.postable.audio.first&.file&.metadata&.dig('mime_type')
   xml.itunes :image, href: @image
 end
