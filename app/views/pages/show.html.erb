@@ -26,7 +26,7 @@
             <%= link_to @first_post.postable.title, page_post_path(@page, @first_post) %>
           </h3>
           <p>
-            <%= simple_format(truncate(@first_post.postable.description, length: 250)) %>
+            <%= simple_format(truncate(@first_post.postable.content.to_plain_text, length: 250)) %>
           </p>
           <p>
             <%= link_to 'Read more', page_post_path(@page, @first_post)  %>
@@ -49,7 +49,7 @@
                 <%= post.publish_time.localtime.strftime('%m/%d/%Y') %></em>
               </p>
               <p>
-                <%= simple_format(truncate(post.postable.description, length: 150)) %>
+                <%= simple_format(truncate(post.postable.content.to_plain_text, length: 150)) %>
               </p>
               <p class="page-read-more">
                 <%= link_to 'Read more', page_post_path(@page, post) %>

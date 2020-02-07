@@ -36,7 +36,10 @@
         form.classList.add('was-validated');
       }, false);
     });
+
+    $('trix-editor').height(window.innerHeight * 0.9)
   }, false);
+
 })();
 
 // fade success messages

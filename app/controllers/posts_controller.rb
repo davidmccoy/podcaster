@@ -13,7 +13,9 @@ class PostsController < ApplicationController
       end
   end
 
-  def new; end
+  def new
+    @Post = Post.new(postable_type: PodcastEpisode)
+  end
 
   def create
     @post = Post.new(post_params.merge(page_id: @page.id))
@@ -68,7 +70,8 @@ class PostsController < ApplicationController
             postable_attributes: [
               :id,
               :title,
-              :description
+              :description,
+              :content
             ]
           )
   end

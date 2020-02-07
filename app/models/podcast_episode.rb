@@ -6,6 +6,8 @@ class PodcastEpisode < ApplicationRecord
   has_many :audio, -> { where(attachments: { type: 'Audio' }) },
            foreign_key: :attachable_id
 
+  has_rich_text :content
+
   accepts_nested_attributes_for :attachments
 
   def podcast_episode

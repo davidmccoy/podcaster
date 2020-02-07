@@ -23,8 +23,7 @@
           <%= form.file_field 'attachment[file]', class: 'upload-file', accept: 'audio/mp3,audio/*;capture=microphone', style: 'display: none;' %>
         </div>
         <div class="form-group required hidden" style="display: none;">
-          <%= form.label 'postable_attributes[description]', 'Description', class: 'control-label' %>
-          <%= form.text_area 'postable_attributes[description]', autofocus: true, required: true, class: 'form-control' %>
+          <%= form.rich_text_area 'postable_attributes[content]' %>
         </div>
         <div class="form-group required hidden" style="display: none;">
           <%= form.hidden_field :slug, autofocus: true, required: true, class: 'form-control' %>
