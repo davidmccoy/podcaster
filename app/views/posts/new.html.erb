@@ -74,6 +74,7 @@
     })
 
     uppy.on('file-added', (file) => {
+      $('trix-editor').height(window.innerHeight * 0.9)
       $('.hidden').show();
 
       var fileUploadPercentage = document.querySelector('.uppy-ProgressBar-percentage');
