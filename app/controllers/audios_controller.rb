@@ -22,16 +22,16 @@ class AudiosController < ApplicationController
     redirect_to @audio.url
   end
 
-  def link
-    url = "#{params[:url].gsub('https:/', 'https://')}.#{params[:format]}"
+  # def link
+  #   url = "#{params[:url].gsub('https:/', 'https://')}.#{params[:format]}"
 
-    if url == @audio.url
-      update_download_count
-      redirect_to @audio.url and return
-    else
-      redirect_to root_path and return
-    end
-  end
+  #   if url == @audio.url
+  #     update_download_count
+  #     redirect_to @audio.url and return
+  #   else
+  #     redirect_to root_path and return
+  #   end
+  # end
 
   def record_play
     if play_params.permitted? && play_params[:play] == 'true'
@@ -51,7 +51,11 @@ class AudiosController < ApplicationController
     params.require(:audio).permit(:id, :play)
   end
 
+  def feed_params
+    params.permit(:feed)
+  end
+
   def update_download_count
-    UpdateDownloadCountWorker.perform_async(@post.id)
+    UpdateDownloadCountWorker.perform_async(@post.id, feed_params[:feed])
   end
 end

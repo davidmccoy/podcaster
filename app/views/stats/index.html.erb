@@ -20,7 +20,13 @@
               Date Published
             </th>
             <th>
-              Downloads
+              Individual
+            </th>
+            <th>
+              Aggregate
+            </th>
+            <th>
+              Total
             </th>
           </tr>
         </thead>
@@ -34,7 +40,13 @@
                 <%= post.publish_time.strftime('%m/%d/%Y') %>
               </td>
               <td class="view text-center">
-                <%= post.postable.downloads %>
+                <%= post.postable.individual_downloads %>
+              </td>
+              <td class="view text-center">
+                <%= post.postable.aggregate_feed_downloads %>
+              </td>
+              <td class="view text-center">
+                <%= post.postable.total_downloads %>
               </td>
             </tr>
           <% end %>
@@ -49,7 +61,11 @@
       <%= will_paginate @posts %>
     </div>
     <p>
-      <em>Note: Episodes from 2018 and earlier may show the incorrect publish date due to an MTGCast server error. Also, episodes published before mid-September 2019 will not inlcude download count information.</em>
+      <em>
+        Note: Episodes from 2018 and earlier may show the incorrect publish date due to an MTGCast server error.
+        Also, episodes published before mid-September 2019 will not inlcude download count information while episodes
+        before mid-February 2020 will not have accurate individual/aggregate feed download splits.
+      </em>
     </p>
   </div>
 </div>

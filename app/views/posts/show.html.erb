@@ -25,7 +25,7 @@
         </p>
         <% if current_user && policy(@post).edit? %>
           <span>
-            <em><%= @post.postable.downloads %> downloads</em>
+            <em><%= @post.postable.total_downloads %> downloads</em>
           </span>
         <% end %>
       </div>
