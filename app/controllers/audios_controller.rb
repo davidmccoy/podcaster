@@ -52,10 +52,10 @@ class AudiosController < ApplicationController
   end
 
   def feed_params
-    params.permit(:feed)
+    params.permit(:source)
   end
 
   def update_download_count
-    UpdateDownloadCountWorker.perform_async(@post.id, feed_params[:feed])
+    UpdateDownloadCountWorker.perform_async(@post.id, feed_params[:source])
   end
 end

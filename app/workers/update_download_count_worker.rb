@@ -4,9 +4,9 @@ class UpdateDownloadCountWorker
 
   PERMITTED_FEEDS = %w[individual aggregate_feed].freeze
 
-  def perform(post_id, feed)
+  def perform(post_id, source)
     @postable = Post.find_by_id(post_id).postable
-    @feed = feed
+    @source = source
     increment_downloads
     @postable.save
   end
@@ -21,8 +21,8 @@ class UpdateDownloadCountWorker
   end
 
   def increment_download_split
-    return unless PERMITTED_FEEDS.include? @feed
+    return unless PERMITTED_FEEDS.include? @source
 
-    @postable.increment(:"#{@feed}_downloads")
+    @postable.increment(:"#{@source}_downloads")
   end
 end

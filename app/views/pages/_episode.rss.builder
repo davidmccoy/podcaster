@@ -6,7 +6,7 @@ if syndicated
   if post.postable.podcast_episode
     file_extension = post.postable.audio.first.url.split('.')[-1]
     base_url = page_post_audio_url(post.page.slug, post.slug, post.postable.podcast_episode.id)
-    url = "#{base_url}.#{file_extension}?feed=aggregate"
+    url = "#{base_url}.#{file_extension}?source=aggregate_feed"
   else
     url = nil
   end
@@ -18,7 +18,7 @@ else
   if post.postable.podcast_episode
     file_extension = post.postable.audio.first.url.split('.')[-1]
     base_url = page_post_audio_url(@page.slug, post.slug, post.postable.podcast_episode.id)
-    url = "#{base_url}.#{file_extension}?feed=individual"
+    url = "#{base_url}.#{file_extension}?source=individual"
   else
     url = nil
   end
