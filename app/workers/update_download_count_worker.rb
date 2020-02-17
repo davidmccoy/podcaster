@@ -2,7 +2,7 @@
 class UpdateDownloadCountWorker
   include Sidekiq::Worker
 
-  PERMITTED_FEEDS = %w[individual aggregate_feed].freeze
+  PERMITTED_SOURCES = %w[individual aggregate_feed].freeze
 
   def perform(post_id, source)
     @postable = Post.find_by_id(post_id).postable
@@ -21,7 +21,7 @@ class UpdateDownloadCountWorker
   end
 
   def increment_download_split
-    return unless PERMITTED_FEEDS.include? @source
+    return unless PERMITTED_SOURCES.include? @source
 
     @postable.increment(:"#{@source}_downloads")
   end
