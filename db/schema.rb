@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_04_232822) do
+ActiveRecord::Schema.define(version: 2020_02_17_200917) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -100,7 +100,9 @@ ActiveRecord::Schema.define(version: 2020_01_04_232822) do
     t.boolean "file_migrated", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "downloads", default: 0
+    t.bigint "total_downloads", default: 0
+    t.bigint "individual_downloads", default: 0
+    t.bigint "aggregate_feed_downloads", default: 0
     t.index ["file_migrated"], name: "index_podcast_episodes_on_file_migrated"
   end
 
