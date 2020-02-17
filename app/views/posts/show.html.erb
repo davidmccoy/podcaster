@@ -70,8 +70,9 @@
         data: {
           audio: {
             id: <%= @post.postable.podcast_episode.id %>,
-            play: true
-          }
+            play: true,
+          },
+          source: 'individual'
         }
       })
       hasPressedPlay = true;
