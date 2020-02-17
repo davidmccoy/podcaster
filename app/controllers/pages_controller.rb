@@ -75,10 +75,12 @@ class PagesController < ApplicationController
     @posts = @page.posts.published.includes(postable: [:audio, :rich_text_content]).limit(50)
     @image = ActionController::Base.helpers.asset_path('mtgcast-logo-itunes.png', host: root_url)
     @email =
-      if @page.user.email == 'david.mccoy@gmail.com'
+      if @page.user&.email == 'david.mccoy@gmail.com'
         'admin@mtgcast.fm'
-      else
+      elsif @page.user
         @page.user.email
+      else
+        'admin@mtgcast.fm'
       end
     @date =
       if @page.posts.published.first
