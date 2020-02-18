@@ -34,8 +34,8 @@ gem 'jbuilder', '~> 2.5'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
+gem 'httparty'
 gem 'jquery-rails'
-
 gem "webpacker"
 
 # User control and authorization
@@ -76,6 +76,9 @@ gem 'scout_apm'
 
 # Caching
 gem 'dalli'
+
+# RSS feed parsing
+gem 'feedjira'
 
 # Error reporting
 # gem 'raygun4ruby'

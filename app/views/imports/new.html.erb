@@ -1,0 +1,19 @@
+<div class="row">
+  <div class="col-md-8 offset-md-2">
+    <h4>Import Podcast from RSS</h4>
+    <p>
+      If you already have an existing podcast with another hosting service, you can import your existing episodes with this tool.
+    </p>
+    <div>
+      <%= form_with url: imports_path, method: 'post', html: { class: 'needs-validation', novalidate: true } do |form| %>
+        <div class="form-group required">
+          <%= form.label :url, 'URL', class: 'control-label' %>
+          <%= form.text_field :url, autofocus: true, required: true, class: 'form-control'%>
+        </div>
+        <div class="actions">
+          <%= form.submit 'Import', class: 'btn btn-primary' %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

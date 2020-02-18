@@ -32,7 +32,7 @@
           <%= form.label :publish_time, 'Publish Time', class: 'control-label' %> <em><span id="timezone"></span></em>
           <%= form.datetime_field :publish_time, autofocus: true, required: true, class: 'form-control', value: Time.now.localtime.strftime('%Y-%m-%dT%H:%M') %>
         </div>
-        <%= form.submit 'Save', class: 'btn btn-primary hidden', style: 'display: none;', disabled: 'disabled', id: 'post-save' %>
+        <%= form.submit 'Create', class: 'btn btn-primary hidden', style: 'display: none;', disabled: 'disabled', id: 'post-save' %>
       <% end %>
     </div>
   </div>

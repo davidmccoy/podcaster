@@ -1,6 +1,6 @@
 <div class="row">
   <div class="col-md-8 offset-md-2">
-  <h4>Create Podcast</h4>
+    <h4>Create Podcast</h4>
     <div>
       <%= form_with model: @page, url: pages_path, method: 'post', html: { class: 'needs-validation', novalidate: true } do |form| %>
         <div class="form-group required">
@@ -8,10 +8,9 @@
           <%= form.text_field :name, autofocus: true, required: true, class: 'form-control edit-post-title'%>
         </div>
         <div class="actions">
-          <%= form.submit 'Create', class: 'btn btn-primary' %>
+          <%= form.submit 'Create', class: 'btn btn-primary' %> - or - <%= link_to 'Import from RSS feed', new_import_path, class: 'btn btn-light' %>
         </div>
       <% end %>
     </div>
   </div>
 </div>
-        

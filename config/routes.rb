@@ -19,8 +19,11 @@ require 'sidekiq/web'
   end
 
   resources :users
+
   get 'podcasts/recover', to: 'pages#recover'
   post 'podcasts/recover', to: 'pages#send_recovery_email'
+
+  resources :imports
   resources :pages, param: :slug, path: 'podcasts' do
     get '/feed', to: 'pages#feed'
     get '/settings', to: 'pages#settings'
