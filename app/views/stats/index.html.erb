@@ -10,6 +10,9 @@
     </span>
     <h1><%= @page.name %></h1>
     <% unless @posts.empty? %>
+      <p>
+        We track three download totals for you. "Individual" represents the total downloads from your <%= link_to "unique RSS feed", page_feed_path(@page) %>, while "Aggregate" represents the total downloads from the <%= link_to "aggregate RSS feed", feed_path %> that includes all approved MTGCast shows. "Total" is the sum of those two previous numbers.
+      </p>
       <table class="table table-outer-border">
         <thead>
           <tr>
