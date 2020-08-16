@@ -15,12 +15,13 @@
 - Clone this repo
 - Run `bundle install` to install the Ruby dependencies 
 - Run `yarn install` to install the Javascript dependencies
+- Get `application.yml` file from Keybase and put it in the `config/` directory
 - Create a database
-  - Either run `rails db:create` to create a fresh database with no data
-  - Or download the production database into your local database with this command: `dropdb --if-exists podcaster_development && heroku pg:pull DATABASE_URL podcaster_development -a podcaster-beta`
+  - **Either:** run `rails db:create` to create a fresh database with no data
+  - **Or:** download the production database into your local database with this command: `dropdb --if-exists podcaster_development && heroku pg:pull DATABASE_URL podcaster_development -a podcaster-beta`
 - Run the application
   - `rails s` to start the Rails server
-  - `bin/webpacker-dev-server` to start the Webpacker server
+  - `bin/webpack-dev-server` to start the Webpacker server
 
 ## Utilities
 
