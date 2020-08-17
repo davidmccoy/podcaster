@@ -10,6 +10,9 @@ class ImportRssFeedWorker
     xml = HTTParty.get(url).body
     feed = Feedjira.parse(xml)
 
+    # enqueue worker to attach a logo
+    ::ImportLogoWorker.perform_async(page.id, feed.image.url)
+
     # iterate over the entries and make posts/podcast episodes
     # perhaps we can limit the number of episodes for free users?
     feed.entries.each do |episode|

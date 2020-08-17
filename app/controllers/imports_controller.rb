@@ -18,7 +18,7 @@ class ImportsController < ApplicationController
 
     ImportRssFeedWorker.perform_async(page.id, import_params[:url])
 
-    flash[:notice] = 'Your episodes are being imported. This process may take a few minutes, depending on the length of your RSS feed.'
+    flash[:notice] = 'Your episodes and logo are being imported. This process may take a few minutes, depending on the length of your RSS feed.'
 
     redirect_to page_path(page)
   end
