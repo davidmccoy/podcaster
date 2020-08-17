@@ -43,39 +43,48 @@
           <p>
             <em><%= link_to '(Download this episode)', page_post_audio_path(@page.slug, @post.slug, @post.postable.podcast_episode) %></em>
           </p>
+        <% elsif @post.postable.imported && !@post.postable.podcast_episode %>
+        <audio id="player" controls controlsList="nodownload"></audio>
+          <p>
+            <em><strong>This file is being processed.</strong></em>
+          </p>
         <% end %>
       </div>
       <%= @post.postable.content %>
     </div>
   </div>
 </div>
-<script>
-  var hasPressedPlay = false;
-  var recordPlayUrl = '<%= page_post_audio_record_play_url(@page.slug, @post.slug, @post.postable.podcast_episode) %>'
 
-  // add csrf token to ajax requests
-  $.ajaxPrefilter(function(options, originalOptions, xhr) {
-    if (!options.crossDomain) {
-      token = $('meta[name="csrf-token"]').attr('content');
-      if (token) xhr.setRequestHeader('X-CSRF-Token', token);
-    }
-  });
+<% # imported audio files are processed asynchronously and may not be available %>
+<% if @post.postable.podcast_episode %>
+  <script>
+    var hasPressedPlay = false;
+    var recordPlayUrl = '<%= page_post_audio_record_play_url(@page.slug, @post.slug, @post.postable.podcast_episode) %>'
 
-  // log play
-  $('#player').on('play', function() {
-    if (this.currentTime === 0) {
-      $.ajax({
-        method: 'POST',
-        url: recordPlayUrl,
-        data: {
-          audio: {
-            id: <%= @post.postable.podcast_episode.id %>,
-            play: true,
-          },
-          source: 'individual'
-        }
-      })
-      hasPressedPlay = true;
-    }
-  })
-</script>
+    // add csrf token to ajax requests
+    $.ajaxPrefilter(function(options, originalOptions, xhr) {
+      if (!options.crossDomain) {
+        token = $('meta[name="csrf-token"]').attr('content');
+        if (token) xhr.setRequestHeader('X-CSRF-Token', token);
+      }
+    });
+
+    // log play
+    $('#player').on('play', function() {
+      if (this.currentTime === 0) {
+        $.ajax({
+          method: 'POST',
+          url: recordPlayUrl,
+          data: {
+            audio: {
+              id: <%= @post.postable.podcast_episode.id %>,
+              play: true,
+            },
+            source: 'individual'
+          }
+        })
+        hasPressedPlay = true;
+      }
+    })
+  </script>
+<% end %>

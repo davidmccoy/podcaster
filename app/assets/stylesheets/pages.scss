@@ -12,6 +12,15 @@
   border-radius: 1rem;
   overflow: hidden;
   box-shadow: 0px 5px 10px rgba(25, 25, 25, 0.1);
+  &:hover {
+    box-shadow: 0px 5px 10px rgba(35, 35, 35, 0.4);
+    .page-read-more.hidden {
+      display: block;
+    }
+  }
+  &.blank {
+    display: none;
+  }
 }
 
 .page-image {
@@ -56,6 +65,9 @@
   position: absolute;
   bottom: 0;
   left: 1rem;
+  &.hidden {
+    display: none;
+  }
 }
 
 .page-body-container {
@@ -200,5 +212,9 @@
 @media (min-width: 1200px) {
   .page-container, .post-container {
     width: 31%;
+    &.blank {
+      display: inherit;
+      box-shadow: none;;
+    }
   }
 }

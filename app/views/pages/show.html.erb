@@ -51,10 +51,14 @@
               <p>
                 <%= simple_format(truncate(post.postable.content.to_plain_text, length: 150)) %>
               </p>
-              <p class="page-read-more">
-                <%= link_to 'Read more', page_post_path(@page, post) %>
+              <p class="page-read-more hidden">
+                <%= link_to 'View', page_post_path(@page, post) %>
               </p>
             </div>
+          </div>
+        <% end %>
+        <% (@posts.length % 3).times do %>
+          <div class="post-container blank">
           </div>
         <% end %>
       <% else %>

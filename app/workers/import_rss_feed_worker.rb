@@ -1,5 +1,5 @@
 # Generates jobs for importing episodes from an RSS feed
-class ImportFromRssWorker
+class ImportRssFeedWorker
   include Sidekiq::Worker
 
   # TODO: ideally we would verify the data that we're seeing
@@ -11,7 +11,8 @@ class ImportFromRssWorker
     feed = Feedjira.parse(xml)
 
     # iterate over the entries and make posts/podcast episodes
-    feed.entries.take(2).each do |episode|
+    # perhaps we can limit the number of episodes for free users?
+    feed.entries.each do |episode|
       # set up attributes
       post_params = {
         page_id: page.id,
@@ -21,24 +22,16 @@ class ImportFromRssWorker
         postable_attributes: {
           title: episode.title,
           content: episode.summary,
+          imported: true,
         }
       }
 
       # assign attributes
       post = Post.new(post_params)
+      post.save!
 
-      Post.transaction do
-        # create audio
-        if post.save
-          audio = Audio.new.tap do |a|
-            a.attachable_type = post.postable.class
-            a.attachable_id = post.postable.id
-            a.label = 'podcast_episode'
-            a.file = open(episode.enclosure_url)
-            a.save
-          end
-        end
-      end
+      # enqueue worker to import audio
+      ::ImportAudioWorker.perform_async(post.postable_id, episode.enclosure_url)
     end
   end
 end
