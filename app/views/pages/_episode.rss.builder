@@ -1,27 +1,18 @@
-if syndicated
-  guid = "https://www.mtgcast.com/podcasts/#{post.page.slug}/posts/#{post.slug}"
-  title = "#{post.page.name}: #{post.postable.title}"
-  link = "https://www.mtgcast.com/podcasts/#{post.page.slug}/posts/#{post.slug}"
-  author = post.page.name
-  if post.postable.podcast_episode
-    file_extension = post.postable.audio.first.url.split('.')[-1]
-    base_url = page_post_audio_url(post.page.slug, post.slug, post.postable.podcast_episode.id)
+guid = "https://www.mtgcast.com/podcasts/#{post.page.slug}/posts/#{post.slug}"
+title = "#{post.page.name}: #{post.postable.title}"
+link = "https://www.mtgcast.com/podcasts/#{post.page.slug}/posts/#{post.slug}"
+author = post.page.name
+file_extension = post.postable.audio.first.url.split('.')[-1]
+base_url = page_post_audio_url(post.page.slug, post.slug, post.postable.podcast_episode.id)
+
+if post.postable.podcast_episode
+  if syndicated
     url = "#{base_url}.#{file_extension}?source=aggregate_feed"
   else
-    url = nil
+    url = "#{base_url}.#{file_extension}?source=individual"
   end
 else
-  guid = "https://www.mtgcast.com/podcasts/#{@page.slug}/posts/#{post.slug}"
-  title = post.postable.title
-  link = "https://www.mtgcast.com/podcasts/#{@page.slug}/posts/#{post.slug}"
-  author = @page.name
-  if post.postable.podcast_episode
-    file_extension = post.postable.audio.first.url.split('.')[-1]
-    base_url = page_post_audio_url(@page.slug, post.slug, post.postable.podcast_episode.id)
-    url = "#{base_url}.#{file_extension}?source=individual"
-  else
-    url = nil
-  end
+  url = nil
 end
 
 xml.item do
