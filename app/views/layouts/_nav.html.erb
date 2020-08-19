@@ -6,14 +6,17 @@
   <div class="collapse navbar-collapse pull-left" id="navbarNavDropdown">
     <ul class="navbar-nav ml-auto">
       <li class="nav-item">
+        <% unless current_page?(user_pages_path) || (@page && current_page?(new_page_post_path(@page))) %>
         <% if current_user && current_user.pages.any?%>
-          <% if @page && @page.user == current_user %>
+          <% if @page && @page.user == current_user && @page.externally_hosted %>
+          <% elsif @page && @page.user == current_user %>
             <%= link_to '+ Episode', new_page_post_path(@page), class: 'nav-link btn btn-outline-primary' %>
           <% else %>
             <%= link_to 'Upload', user_upload_path, class: 'nav-link btn btn-outline-primary' %>
           <% end %>
         <% else %>
           <%= link_to 'Create a Podcast', new_page_path, class: 'nav-link btn btn-outline-primary' %>
+        <% end %>
         <% end %>
       </li>
       <li class="nav-item">

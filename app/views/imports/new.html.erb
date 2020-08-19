@@ -1,14 +1,50 @@
 <div class="row">
   <div class="col-md-8 offset-md-2">
-    <h4>Import Podcast from RSS</h4>
+    <h1>Import A Podcast from an Existing RSS Feed</h1>
     <p>
       If you already have an existing podcast with another hosting service, you can import your existing episodes with this tool.
+    </p>
+    <p>
+      There are two ways to do import your podcast to MTGCast:
+    </p>
+    <h3>Use MTGCast As Your Host</h3>
+    <p>
+      If you choose to use MTGCast as your podcast hosting service, we will import all of the episodes from your RSS feed, as well as your logo, and upload the files to our servers. Going forward, you will upload your new episodes on MTGCast.
+    </p>
+    <p>
+      We will provide you with a new RSS feed as well as stats and your show will be available in our podcast listings. You will also be able to request inclusion in our aggregate feed that includes episodes from all approved shows on MTGCast.
+    </p>
+    <h3>Continue Using Your Current Podcast Host</h3>
+    <p>
+      If you would like to continue using your current podcast hosting service, we will import all of your podcast episodes to MTGCast but will not upload any of your files to our servers. You will not be able to upload new episodes to MTGCast; instead, you will continue to upload new episodes to your current host and MTGCast will check your RSS feed for updates.
+    </p>
+    <p>
+      All download requests will be made to your externally-hosted files and in order to preserve the stats kept by your podcast host. Your show will be available in our podcast listings alongside podcasts that are hosted on MTGCast. You will also be able to request inclusion in our aggregate feed that includes episodes from all approved shows.
     </p>
     <div>
       <%= form_with url: imports_path, method: 'post', html: { class: 'needs-validation', novalidate: true } do |form| %>
         <div class="form-group required">
-          <%= form.label :url, 'URL', class: 'control-label' %>
-          <%= form.text_field :url, autofocus: true, required: true, class: 'form-control'%>
+          <%= form.label :externally_hosted, 'Import Type', class: 'control-label' %>
+          <div class="form-check">
+            <%= form.radio_button :externally_hosted,
+              "false",
+              class: 'form-check-input',
+              required: true
+            %>
+            <%= form.label :externally_hosted, "Use MTGCast As Your Host", class: 'form-check-label' %>
+          </div>
+          <div class="form-check">
+            <%= form.radio_button :externally_hosted,
+              "true",
+              class: 'form-check-input',
+              required: true
+            %>
+            <%= form.label :externally_hosted, "Continue Using Your Current Podcast Host", class: 'form-check-label' %>
+          </div>
+        </div>
+        <div class="form-group required">
+          <%= form.label :url, 'RSS Feed URL', class: 'control-label' %>
+          <%= form.text_field :url, autofocus: false, required: true, class: 'form-control'%>
         </div>
         <div class="actions">
           <%= form.submit 'Import', class: 'btn btn-primary' %>

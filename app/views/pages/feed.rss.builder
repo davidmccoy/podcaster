@@ -45,7 +45,7 @@ xml.rss :version => "2.0", "xmlns:itunes" => "http://www.itunes.com/dtds/podcast
 
     xml << render(
       partial: 'episode',
-      collection: @posts,
+      collection: @posts.map { |post| PodcastEpisodeDecorator.new(post) },
       as: :post,
       locals: {
         syndicated: false

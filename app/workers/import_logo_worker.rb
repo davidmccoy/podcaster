@@ -1,3 +1,5 @@
+require 'open-uri'
+
 # Generates jobs for importing episodes from an RSS feed
 class ImportLogoWorker
   include Sidekiq::Worker
@@ -6,7 +8,7 @@ class ImportLogoWorker
   def perform(page_id, url)
     page = Page.find(page_id)
     logo = page.build_logo(
-      file: open(url),
+      file_remote_url: url,
       attachable_type: 'Page',
       attachable_id: page.id,
       label: 'logo'

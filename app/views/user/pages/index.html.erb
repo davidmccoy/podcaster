@@ -26,7 +26,11 @@
                 <%= link_to 'View', page_path(page), class: 'btn btn-sm btn-light' %>
               </td>
               <td class="add-new">
-                <%= link_to '+ Episode', new_page_post_path(page), class: 'btn btn-sm btn-primary' %>
+                <% if page.externally_hosted %>
+                 <em>(Externally hosted)</em>
+                <% else %>
+                  <%= link_to '+ Episode', new_page_post_path(page), class: 'btn btn-sm btn-primary' %>
+                <% end %>
               </td>
             </tr>
           <% end %>

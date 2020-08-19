@@ -5,16 +5,18 @@ class ImportsController < ApplicationController
   # TODO: we're fetching the RSS feed twice here, once in the action
   # once in the worker
   def create
-     # fetch and parse the RSS feed
-     xml = HTTParty.get(import_params[:url]).body
-     feed = Feedjira.parse(xml)
+    # fetch and parse the RSS feed
+    xml = HTTParty.get(import_params[:url]).body
+    feed = Feedjira.parse(xml)
 
-     # create a page
-     page = Page.create(
-       name: feed.title,
-       description: feed.description,
-       user_id: current_user.id
-     )
+    # create a page
+    page = Page.create(
+      name: feed.title,
+      description: feed.description,
+      user_id: current_user.id,
+      externally_hosted: import_params[:externally_hosted],
+      external_rss: import_params[:url],
+    )
 
     ImportRssFeedWorker.perform_async(page.id, import_params[:url])
 
@@ -26,6 +28,6 @@ class ImportsController < ApplicationController
   private
 
   def import_params
-    params.permit(:url)
+    params.permit(:externally_hosted, :url)
   end
 end

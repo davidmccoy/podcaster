@@ -15,7 +15,7 @@ class ImportRssFeedWorker
 
     # iterate over the entries and make posts/podcast episodes
     # perhaps we can limit the number of episodes for free users?
-    feed.entries.each do |episode|
+    feed.entries.take(1).each do |episode|
       # set up attributes
       post_params = {
         page_id: page.id,
@@ -33,8 +33,29 @@ class ImportRssFeedWorker
       post = Post.new(post_params)
       post.save!
 
-      # enqueue worker to import audio
-      ::ImportAudioWorker.perform_async(post.postable_id, episode.enclosure_url)
+      # either override default Shrine behavior for externally-hosted files
+      # or enqueue a worker to import audio to s3
+      if page.externally_hosted
+        Audio.new.tap do |a|
+          a.attachable_type = 'PodcastEpisode'
+          a.attachable_id = post.postable_id
+          a.label = 'podcast_episode'
+          a.file_data = {
+            id: episode.enclosure_url,
+            storage: 'external',
+            metadata: {
+              size: episode.enclosure_length,
+              filename: episode.enclosure_url.split('/').last.split('?').first,
+              mime_type: episode.enclosure_type,
+              length: episode.itunes_duration,
+            }
+          }.to_json
+          a.save
+        end
+      else
+
+        ::ImportAudioWorker.perform_async(post.postable_id, episode.enclosure_url) unless page.external
+      end
     end
   end
 end

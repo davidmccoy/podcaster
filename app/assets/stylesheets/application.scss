@@ -17,6 +17,10 @@ audio {
   width: 100%;
 }
 
+.control-label {
+  font-weight: bold;
+}
+
 .content-block {
   margin: 2rem 0;
   &:first-child {

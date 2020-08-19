@@ -24,7 +24,8 @@ image_s3_options = {
 Shrine.storages = {
   cache: Shrine::Storage::S3.new(prefix: 'cache', **audio_s3_options),
   store: Shrine::Storage::S3.new(**audio_s3_options),
-  image_store: Shrine::Storage::S3.new(**image_s3_options)
+  image_store: Shrine::Storage::S3.new(**image_s3_options),
+  external: nil,
 }
 
 # === shrine plugins
