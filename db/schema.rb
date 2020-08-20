@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_18_225635) do
+ActiveRecord::Schema.define(version: 2020_08_20_015838) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -107,7 +107,9 @@ ActiveRecord::Schema.define(version: 2020_08_18_225635) do
     t.bigint "individual_downloads", default: 0
     t.bigint "aggregate_feed_downloads", default: 0
     t.boolean "imported", default: false
+    t.text "guid"
     t.index ["file_migrated"], name: "index_podcast_episodes_on_file_migrated"
+    t.index ["guid"], name: "index_podcast_episodes_on_guid"
   end
 
   create_table "posts", force: :cascade do |t|

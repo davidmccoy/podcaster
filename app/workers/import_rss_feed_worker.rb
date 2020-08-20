@@ -15,17 +15,19 @@ class ImportRssFeedWorker
 
     # iterate over the entries and make posts/podcast episodes
     # perhaps we can limit the number of episodes for free users?
-    feed.entries.each do |episode|
+    # TODO: most of this is repeated from the check RSS feed worker
+    feed.entries.each do |entry|
       # set up attributes
       post_params = {
         page_id: page.id,
         postable_type: 'PodcastEpisode',
-        publish_time: episode.published,
-        slug: "#{episode.title.parameterize}-#{SecureRandom.hex(5)}",
+        publish_time: entry.published,
+        slug: "#{entry.title.parameterize}-#{SecureRandom.hex(5)}",
         postable_attributes: {
-          title: episode.title,
-          content: episode.summary,
+          title: entry.title,
+          content: entry.summary,
           imported: true,
+          guid: entry.entry_id,
         }
       }
 
@@ -41,20 +43,19 @@ class ImportRssFeedWorker
           a.attachable_id = post.postable_id
           a.label = 'podcast_episode'
           a.file_data = {
-            id: episode.enclosure_url,
+            id: entry.enclosure_url,
             storage: 'external',
             metadata: {
-              size: episode.enclosure_length,
-              filename: episode.enclosure_url.split('/').last.split('?').first,
-              mime_type: episode.enclosure_type,
-              length: episode.itunes_duration,
+              size: entry.enclosure_length,
+              filename: entry.enclosure_url.split('/').last.split('?').first,
+              mime_type: entry.enclosure_type,
+              length: entry.itunes_duration,
             }
           }.to_json
           a.save
         end
       else
-
-        ::ImportAudioWorker.perform_async(post.postable_id, episode.enclosure_url) unless page.external
+        ::ImportAudioWorker.perform_async(post.postable_id, entry.enclosure_url) unless page.external
       end
     end
   end
