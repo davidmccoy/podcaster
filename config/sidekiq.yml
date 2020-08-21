@@ -10,3 +10,8 @@ production:
   - mailers
   - low
   - bottom
+:schedule:
+  check_external_rss_feeds_worker:
+    cron: '0 0 * * * *'   # Runs every hour
+    queue: bottom
+    description: 'Loops through externally-hosted RSS feeds for new episodes'

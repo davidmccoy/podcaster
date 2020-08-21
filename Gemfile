@@ -44,6 +44,7 @@ gem "pundit"
 
 # For background jobs
 gem 'sidekiq'
+gem 'sidekiq-scheduler'
 gem 'redis'
 
 # To read mp3 metadata
