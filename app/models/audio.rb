@@ -3,7 +3,7 @@ class Audio < Attachment
 
   def url
     # for externally-hosted files, we store the full url in the id attribute
-    if !file.storage
+    if file.data['storage'] == 'external'
       file.id
     elsif file_attacher.stored? && file
       "https://#{ENV["AUDIO_S3_BUCKET"]}.s3.amazonaws.com/#{file.id}"
