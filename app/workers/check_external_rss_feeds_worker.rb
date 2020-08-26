@@ -1,5 +1,7 @@
 # Loop through pages with external RSS feeds and generate workers to check for
 # new episodes
+require 'sidekiq-scheduler'
+
 class CheckExternalRssFeedsWorker
   include Sidekiq::Worker
 

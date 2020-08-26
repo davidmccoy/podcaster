@@ -55,7 +55,7 @@ class ImportRssFeedWorker
           a.save
         end
       else
-        ::ImportAudioWorker.perform_async(post.postable_id, entry.enclosure_url) unless page.external
+        ::ImportAudioWorker.perform_async(post.postable_id, entry.enclosure_url)
       end
     end
   end
