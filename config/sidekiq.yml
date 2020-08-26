@@ -15,3 +15,4 @@ production:
     cron: '0 0 * * * *'   # Runs every hour
     queue: bottom
     description: 'Loops through externally-hosted RSS feeds for new episodes'
+    class: CheckExternalRssFeedsWorker
