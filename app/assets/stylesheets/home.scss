@@ -58,6 +58,15 @@
     .cta-section {
       padding: 3rem;
       align-items: baseline !important;
+
+      .image {
+        width: 200px;
+        margin: 0 auto 3rem;
+
+        img {
+          width: 100%;
+        }
+      }
     }
 
     svg {
@@ -209,6 +218,14 @@
     &.split {
       padding-top: 5rem;
       margin-top: -5rem;
+
+      .cta-section {
+        margin-top: 1rem;
+
+        .split-section {
+          max-width: 600px;
+        }
+      }
     }
 
     .flex-container {
@@ -220,6 +237,9 @@
         .final-cta {
           text-align: left;
         }
+      }
+      .page-container {
+        margin: 0 auto;
       }
     }
   }
