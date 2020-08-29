@@ -3,6 +3,10 @@ trix-editor {
   overflow: scroll;
 }
 
+.trix-content {
+  word-wrap: break-word;
+}
+
 // .trix-button-row {
 //   display: flex;
 //   flex-wrap: wrap;

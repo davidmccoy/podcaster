@@ -5,8 +5,11 @@
         <span class="highlight-text">MTGCast</span> is the free platform for Magic: the Gathering podcasts.
       </h1>
       <div class="home-text-info">
-        <p>
+        <p style="margin-bottom:24px;">
           Are you an established or aspiring Magic content creator? Then MTGCast is the perfect place to create your podcast. Free hosting, your own RSS feed, plus aggregation in our Magic RSS feed!
+        </p>
+        <p>
+          Already have a podcast? Import it for free and list it on MTGCast!
         </p>
         <div class="home-text-cta-button-container">
           <p>
@@ -16,22 +19,164 @@
       </div>
     </div>
   </div>
-  <div class="col-md-8 offset-md-2">
+  <div class="homepage-section-container">
     <div class="homepage-section">
-      <h1>The New MTGCast</h1>
-      <br />
-      <p>
-        Welcome to the new MTGCast! We've been busy rebuilding the service over the last few months and we're happy to announce that we're finally ready to begin accepting new podcasts!
-      </p>
-      <p>
-        New to MTGCast? Just <%= link_to 'create your podcast', new_page_path %> and enjoy your free hosting, RSS feed, and apply for inclusion in our aggregate Magic RSS feed!
-      </p>
-      <p>
-        Are you the owner of a podcast that was hosted on the previous version of MTGCast? Please <%= link_to 'sign up for an account', new_user_registration_path %> (all previous accounts were lost) and submit a claim for an existing podcast.
-      </p>
-      <p>
-        We have a lot of awesome features in the works for MTGCast. In the mean time, visit our <%= link_to 'support page', support_path %>, where you'll find a link to our Discord server where we can answer your questions and provide support. Alternatively, you can find us on Twitter at <a href="https://www.twitter.com/mtgcast" target="_blank">@MTGCast</a>.
-      </p>
+      <div>
+        <h2>
+          MTGCast is the best home for your Magic podcast.
+        </h2>
+      </div>
+      <div class="grid-container">
+        <div class="cta-section grid image">
+          <div class="image-container">
+            <%= image_tag 'server-home.png' %>
+          </div>
+        </div>
+        <div class="cta-section grid text">
+          <div>
+            <h4>Fully-featured hosting, for free</h4>
+            <p>
+              MTGCast has all of the features you're looking for in a modern podcast host.
+            </p>
+            <p>
+              Create your episodes with our rich text editor and upload them to our secure file hosting with blazing fast download speeds. Distribute your podcast on your own RSS feed on any service, like iTunes and Spotify, and track its performance with our stats database.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="grid-container">
+        <div class="cta-section grid flipped text">
+          <div>
+            <h4>Get access our audience of thousands of Magic fans</h4>
+            <p>
+              MTGCast isn't just a hosting serivce&mdash;we're a community with thousands of members.
+            </p>
+            <p>
+              Joining MTGCast will give you access to thousands of Magic fans by getting listed in our index of podcasts, added to our aggregate RSS feed, and possibly featured on the homepage.
+            </p>
+          </div>
+        </div>
+        <div class="cta-section grid flipped image">
+          <div class="image-container">
+            <%= image_tag 'users-home.png' %>
+          </div>
+        </div>
+      </div>
+      <div class="grid-container">
+        <div class="cta-section grid image">
+          <div class="image-container">
+            <%= image_tag 'arrow-home.png' %>
+          </div>
+        </div>
+        <div class="cta-section grid text">
+          <div>
+            <h4>Easy, one-click from anywhere</h4>
+            <p>
+              We support one-click importing from any modern podcast host. Just enter your existing RSS feed and MTGCast will transfer your logo, episodes, descriptions, and files automatically.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="homepage-section split">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 10" preserveAspectRatio="none">
+        <polygon fill="white" points="0,0  10,10  10,0"/>
+      </svg>
+      <div class="flex-container">
+        <div class="cta-section flex half-width left">
+          <div>
+            <h4>We're building the largest roster of Magic podcasts on the web.</h4>
+            <p>
+              The gathering most important part of our favorite game, Magic: the Gathering, and helps make it the best game in the world.
+            </p>
+            <p>
+              Podcasts are the next best way to hang out with your favorite creators while we can't gather in person. Help us make MTGCast into the go-to place for all things podcasting in Magic!
+            </p>
+          </div>
+        </div>
+        <div class="cta-section flex half-width right">
+          <div>
+            <h4>Are you a listener or a fan?</h4>
+            <p>
+              We'll be rolling out features centered on the listener experience soon. You'll be able to follow and rate your favorite podcasts, comment, and more!
+            </p>
+            <p>
+              In the mean time, let your favorite podcasts know that they can get listed on MTGCast for free!
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="homepage-section">
+      <div class="flex-container">
+        <div class="cta-section flex half-width">
+          <div class="final-cta">
+            <h4>Join our growing roster of podcasts!</h4>
+            <p>
+              These shows have already joined MTGCast.
+            </p>
+            <div class="actions">
+              <%= link_to('Create your podcast now!', new_page_path, class: 'btn btn-primary') %>
+            </div>
+          </div>
+        </div>
+        <div class="page-container">
+          <%= link_to page_path(@page) do %>
+            <div class="page-image" style="background-image: url(<%= @page.logo ?  @page.logo.file[:medium].url : @default_logo %>)">
+            </div>
+          <% end %>
+          <div class="page-info">
+            <h3>
+              <%= link_to @page.name, page_path(@page) %>
+            </h3>
+            <p>
+              <em>Last updated: <%= @page.latest_post&.publish_time&.localtime&.strftime('%m/%d/%Y') %></em>
+            </p>
+            <p>
+              <%= @page.latest_post&.postable&.title %>
+            </p>
+          </div>
+          <p class="page-read-more">
+            <%= link_to 'See all podcasts', pages_path %>
+          </p>
+        </div>
+      </div>
     </div>
   </div>
 </div>
+
+<script>
+$(document).ready(function () {
+  var container = $('.split')[0],
+      innerContainer = $('.split .flex-container')[0],
+      leftElement = $('.split .flex-container .cta-section.left')[0],
+      rightElement = $('.split .flex-container .cta-section.right')[0],
+      containerPadding = parseInt($(container).css('padding-top').replace(/[^-\d\.]/g, '')),
+      containerHeight = $(container).outerHeight(),
+      leftPadding = parseInt($(innerContainer).css('padding-top').replace(/[^-\d\.]/g, '')),
+      leftHeight = $(leftElement).outerHeight(),
+      gradientPercent = ((leftHeight + leftPadding + containerPadding) / containerHeight) * 100;
+
+  if ($(window).width() < 768) {
+    $(container).css('background', 'linear-gradient(to bottom, #fd7e14 0%, #fd7e14 ' + gradientPercent + '%, #4f4f4f ' + gradientPercent + '%, #4f4f4f 100%)')
+  }
+
+  $(window).on('resize', function(){
+    // container = $('.second')[0];
+    // innerContainer = $('.second .cta-container')[0]
+    // leftElement = $('.col-md.left')[0];
+    // rightElement = $('.col-md.right')[0];
+    containerPadding = parseInt($(container).css('padding-top').replace(/[^-\d\.]/g, ''));
+    containerHeight = $(container).outerHeight();
+    leftPadding = parseInt($(innerContainer).css('padding-top').replace(/[^-\d\.]/g, ''));
+    leftHeight = $(leftElement).outerHeight();
+    gradientPercent = ((leftHeight + leftPadding + containerPadding) / containerHeight) * 100;
+    if ($(window).width() < 768) {
+      $(container).css('background', 'linear-gradient(to bottom, #fd7e14 0%, #fd7e14 ' + gradientPercent + '%, #4f4f4f ' + gradientPercent + '%, #4f4f4f 100%)')
+    } else {
+      $(container).css('background', 'linear-gradient(to right, #fd7e14 0%, #fd7e14 50%, #4f4f4f 50%, #4f4f4f 100%)')
+    }
+  });
+});
+
+</script>

@@ -2,16 +2,13 @@ footer {
   position: absolute;
   bottom: 0;
   width: 100%;
-  // height: 60px;
-  // background: $white;
-  // color: $white;
   background: $gray-100;
   border-top: 1px solid $gray-200;
   font-weight: 100;
   text-align: center;
   font-size: 1rem;
-  // border-top: 1px solid $gray-100;
   min-height: 320px;
+  overflow: hidden;
   .logo-container {
    text-align: center;
    padding-bottom: 1rem;

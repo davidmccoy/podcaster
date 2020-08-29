@@ -17,6 +17,16 @@ audio {
   width: 100%;
 }
 
+.container-fluid {
+  padding-left: 16px;
+  padding-right: 16px
+}
+
+.row {
+  margin-right: -16px;
+  margin-left: -16px;
+}
+
 .control-label {
   font-weight: bold;
 }
