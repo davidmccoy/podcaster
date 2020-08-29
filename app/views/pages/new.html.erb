@@ -1,20 +1,20 @@
 <div class="row">
+  <div class="hero-container white">
+    <div class="hero-flex-container">
+      <div class="create-image">
+        <%= image_tag 'white-mic-gray-border.png' %>
+      </div>
+      <div class="create-text">
+        <h1>Create a New Podcast</h1>
+        <p>
+          Or,  <%= link_to 'import', new_import_path %> an existing podcast.
+        </p>
+      </div>
+    </div>
+  </div>
   <div class="col-md-8 offset-md-2">
-    <h1>Add Your Podcast to MTGCast</h1>
-    <p>
-      There are two different ways for you to add your podcast to MTGCast:
-    </p>
-    <ol>
-      <li>
-        Create a brand new podcast on MTGCast and host your episodes on our servers.
-      </li>
-      <li>
-        Import your existing episodes to MTGCast and either store your epsidoes our servers or continue to use your existing host and RSS feed.
-      </li>
-    </ol>
     <br />
     <div>
-      <h3>Create a New Podcast</h3>
       <p>
         Are you starting a new podcast? Exciting! You can create your brand new podcast on MTGCast and host your episodes on our servers.
 
@@ -24,6 +24,7 @@
           <%= form.label :name, 'Name', class: 'control-label' %>
           <%= form.text_field :name, autofocus: true, required: true, class: 'form-control edit-post-title'%>
         </div>
+        <br />
         <div class="actions">
           <%= form.submit 'Create', class: 'btn btn-primary' %>
         </div>
@@ -32,10 +33,16 @@
     <br />
     <br />
     <div>
+      <p class="lines">or</p>
+    </div>
+    <br />
+    <div>
       <h3>Import an Existing Podcast</h3>
+      <br />
       <p>
         Do you have an existing podcast? Awesome! You can import your existing episodes to MTGCast and either A) store your episodes on our servers and manually upload new episodes on MTGCast or B) continue using your current host and have MTGCast continuously read from that RSS feed.
       </p>
+      <br />
       <p>
         <%= link_to 'Import from RSS feed', new_import_path, class: 'btn btn-light' %>
       </p>

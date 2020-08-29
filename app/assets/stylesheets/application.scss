@@ -74,6 +74,34 @@ audio {
   color: white;
 }
 
+.btn-blue {
+  color: $white;
+  background: $blue;
+  border-color: $blue;
+  &:hover {
+    color: $white;
+    background: darken($blue, 5%);
+    border-color: darken($blue, 5%);
+  }
+}
+
+p.lines {
+  display: flex;
+  flex-direction: row;
+  &:before, &:after {
+    content: "";
+    flex: 1 1;
+    border-bottom: 1px solid #495057;
+    margin: auto;
+  }
+  &:before {
+    margin-right: 1rem;
+  }
+  &:after {
+    margin-left: 1rem;
+  }
+}
+
 table.table {
   font-size: 1rem;
 }
