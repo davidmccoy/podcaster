@@ -36,3 +36,10 @@ Sync staging db with production db
 ```
 heroku pg:copy podcaster-beta::DATABASE_URL DATABASE_URL -a podcaster-beta-staging
 ```
+
+Sync staging s3 buckets with production s3 buckets. (Images and audio are stored separately.)
+
+```
+aws s3 sync s3://mtgcast-images s3://mtgcast-images-staging
+aws s3 sync s3://mtgcast-podcasts s3://mtgcast-podcasts-staging
+```
