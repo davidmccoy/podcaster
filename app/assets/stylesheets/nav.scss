@@ -29,6 +29,11 @@
   }
 }
 
+.nested-submenu {
+  list-style: none;
+  padding: 0 0 0 1rem;
+}
+
 @media (min-width: 992px) {
   .navbar {
     &.navbar-expand-lg {
