@@ -14,7 +14,7 @@
   &.navbar-expand-lg {
     .navbar-nav {
       .nav-item.action {
-        order: 5;
+        display: none;
       }
 
       .nav-link {
@@ -39,7 +39,7 @@
     &.navbar-expand-lg {
       .navbar-nav {
         .nav-item.action {
-          order: inherit;
+          display: block;
         }
       }
     }

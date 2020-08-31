@@ -229,6 +229,9 @@ html {
   .navbar-collapse {
     padding-top: 0;
   }
+  .mobile-only {
+    display: none;
+  }
 }
 
 @media (min-width: 1200px) {
