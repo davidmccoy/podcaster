@@ -11,6 +11,7 @@
 @import "actiontext";
 @import "trix/dist/trix";
 @import "trix_editor";
+@import "sidebar";
 
 
 audio {
@@ -91,7 +92,7 @@ p.lines {
   &:before, &:after {
     content: "";
     flex: 1 1;
-    border-bottom: 1px solid #495057;
+    border-bottom: 1px solid $gray-200;
     margin: auto;
   }
   &:before {
@@ -165,6 +166,15 @@ html {
     position: relative;
     padding-bottom: 350px;
     background: $white;
+
+    &.page-admin-body {
+      padding-bottom: 0;
+
+      #content {
+        margin: 0;
+      }
+    }
+
     #content {
       margin: 0;
       margin-bottom: 1rem;
@@ -180,6 +190,10 @@ html {
   html {
     body {
       padding-bottom: 265px;
+
+      &.page-admin-body {
+        padding-bottom: 0;
+      }
     }
   }
   .alert {
@@ -206,6 +220,10 @@ html {
   html {
     body {
       padding-bottom: 290px;
+
+      &.page-admin-body {
+        padding-bottom: 0;
+      }
     }
   }
   .navbar-collapse {
@@ -217,6 +235,10 @@ html {
   html {
     body {
       padding-bottom: 310px;
+
+      &.page-admin-body {
+        padding-bottom: 0;
+      }
     }
   }
 }

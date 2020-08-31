@@ -4,6 +4,12 @@ class PostsController < ApplicationController
   before_action :set_post
   before_action :authorize_post, except: [:show]
 
+  def index
+    @posts = @page.posts.includes(:postable)
+              .order(publish_time: :desc)
+              .paginate(page: params[:page], per_page: 20)
+  end
+
   def show
     @logo_url =
       if @page.logo

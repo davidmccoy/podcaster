@@ -44,7 +44,7 @@
     <meta name="theme-color" content="#ffffff">
   </head>
 
-  <body>
+  <body class="<%= "page-admin-body" if (@page && @page.persisted? && (current_page?(page_posts_url(@page)) || current_page?(new_page_post_url(@page)) || page_stats_path(@page) || page_settings_path(@page))) || (@page && @page.persisted? && @poast && edit_page_post_url(@page, @post)) %>">
     <%= render "layouts/nav" %>
     <div id="content">
       <div class="container-fluid">
@@ -67,6 +67,8 @@
         <%= yield %>
       </div>
     </div>
-    <%= render "layouts/footer" %>
+    <% unless (@page && @page.persisted? && (current_page?(page_posts_url(@page)) || current_page?(new_page_post_url(@page)) || page_stats_path(@page) || page_settings_path(@page))) || (@page && @page.persisted? && @post && edit_page_post_url(@page, @post)) %>
+      <%= render "layouts/footer" %>
+    <% end %>
   </body>
 </html>

@@ -163,6 +163,22 @@
   flex-direction: column;
 }
 
+.no-episodes {
+  margin: 0 auto;
+  text-align: center;
+}
+
+.slug-container {
+  min-height: 17px;
+}
+
+.page-admin {
+  width: 100%;
+  padding: 0 1rem;
+  overflow: scroll;
+  height: calc(100vh - 78px);
+}
+
 @media (min-width: 550px) {
   td {
     &.view {
@@ -235,7 +251,7 @@
       .create-text {
         margin: 2rem 0 2rem 1rem;
         h1 {
-          border-bottom: 2px solid $orange;
+          border-bottom: 2px solid $gray-200;
         }
         p {
           display: block;
@@ -260,6 +276,11 @@
         font-size: 3rem;
       }
     }
+  }
+
+  .page-admin {
+    padding: 0 2rem 0 2rem;
+    margin-left: 200px;
   }
 }
 

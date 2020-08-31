@@ -243,12 +243,13 @@ table,
 .nav,
 .breadcrumb,
 .pagination {
-  font-size: 0.875em;
+  font-size: 1rem;
 }
 
 .dropdown-menu {
   font-size: 0.875em;
   .dropdown-item {
+    font-weight: inherit;
     color: $gray-700;
   }
 }

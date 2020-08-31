@@ -1,14 +1,7 @@
 <div class="row">
-  <div class="col-md-8 offset-md-2">
-    <div class="simple-nav">
-      <span>
-        <%= link_to '< Page', page_path(@page) %>
-      </span>
-    </div>
-    <span>
-      Settings for
-    </span>
-    <h1><%= @page.name %></h1>
+  <%= render 'pages/sidebar' %>
+  <div class="page-admin">
+    <h2>Settings</h2>
     <div class="page-settings-container">
       <div class="edit-page-image">
         <% if @page.logo %>
@@ -80,4 +73,3 @@
     </div>
   <% end %>
 </div>
-

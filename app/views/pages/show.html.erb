@@ -9,7 +9,7 @@
         <h1>
           <%= @page.name %>
         </h1>
-        <% if current_user && policy(@page.posts.build).create? %>
+        <% if current_user && policy(@page).edit? %>
           <div class="page-admin-button-container">
             <%= link_to 'Settings', page_settings_path(@page), class: 'btn btn-sm btn-light' %>
             <%= link_to 'Stats', page_stats_path(@page), class: 'btn btn-sm btn-light' %>
@@ -39,7 +39,7 @@
   </div>
   <div class="col-md-10 offset-md-1">
     <div class="posts-container">
-      <% if @page.posts %>
+      <% unless @page.posts.empty? %>
         <% @posts.each do |post| %>
           <div class="post-container">
             <div class="post-info">
@@ -64,7 +64,17 @@
           </div>
         <% end %>
       <% else %>
-        You don't have any podcasts.
+        <div class="no-episodes">
+          <% if current_user && policy(@page).edit? %>
+            <p>
+              You don't have any podcast episodes. <%= link_to 'Add one now!', new_page_post_path(@page) %>
+            </p>
+          <% else %>
+            <p>
+              <%= @page.name %> hasn't posted any episodes yet.
+            </p>
+          <% end %>
+        </div>
       <% end %>
     </div>
     <div class="pagination-container">
