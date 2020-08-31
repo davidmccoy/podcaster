@@ -20,10 +20,11 @@ class PostsController < ApplicationController
   end
 
   def new
-    @Post = Post.new(postable_type: PodcastEpisode)
+    @Post = Post.new(postable_type: PodcastEpisode) unless externally_hosted?
   end
 
   def create
+    redirect_to page_posts_path(@page) if externally_hosted?
     @post = Post.new(post_params.merge(page_id: @page.id))
 
     if @post.save
@@ -84,5 +85,9 @@ class PostsController < ApplicationController
 
   def attachment_params
     params.require(:post).permit(attachment: [:file, :label])
+  end
+
+  def externally_hosted?
+    @page.externally_hosted
   end
 end

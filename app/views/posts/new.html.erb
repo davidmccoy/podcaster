@@ -6,34 +6,44 @@
 <div class="row">
   <%= render 'pages/sidebar' %>
   <div class="page-admin">
-    <h2>Create Post</h2>
-    <%= form_with model: @post, url: page_posts_path(@page, @post), method: 'post', html: { class: 'needs-validation', novalidate: true } do |form| %>
-      <%= form.hidden_field :postable_type, value: 'PodcastEpisode' %>
-      <div class="form-group required">
-        <%= form.label 'postable_attributes[title]', 'Title', class: 'control-label' %>
-        <%= form.text_field 'postable_attributes[title]', autofocus: true, required: true, class: 'form-control edit-post-title', onblur: 'onTitleBlur()'%>
-        <div class="slug-container">
-          <span id="slug"></span>
+    <% unless @page.externally_hosted %>
+      <h2>Create Post</h2>
+      <%= form_with model: @post, url: page_posts_path(@page, @post), method: 'post', html: { class: 'needs-validation', novalidate: true } do |form| %>
+        <%= form.hidden_field :postable_type, value: 'PodcastEpisode' %>
+        <div class="form-group required">
+          <%= form.label 'postable_attributes[title]', 'Title', class: 'control-label' %>
+          <%= form.text_field 'postable_attributes[title]', autofocus: true, required: true, class: 'form-control edit-post-title', onblur: 'onTitleBlur()'%>
+          <div class="slug-container">
+            <span id="slug"></span>
+          </div>
         </div>
-      </div>
-      <div id="audio">
-      </div>
-      <div class="file-input-container">
-        <%= form.hidden_field 'attachment[label]', required: true, value: 'podcast_episode' %>
-        <%= form.hidden_field 'attachment[file]', class: 'upload-hidden', required: true %>
-        <%= form.file_field 'attachment[file]', class: 'upload-file', accept: 'audio/mp3,audio/*;capture=microphone', style: 'display: none;' %>
-      </div>
-      <div class="form-group required hidden" style="display: none;">
-        <%= form.rich_text_area 'postable_attributes[content]' %>
-      </div>
-      <div class="form-group required hidden" style="display: none;">
-        <%= form.hidden_field :slug, autofocus: true, required: true, class: 'form-control' %>
-      </div>
-      <div class="form-group required hidden" style="display: none;">
-        <%= form.label :publish_time, 'Publish Time', class: 'control-label' %> <em><span id="timezone"></span></em>
-        <%= form.datetime_field :publish_time, autofocus: true, required: true, class: 'form-control', value: Time.now.localtime.strftime('%Y-%m-%dT%H:%M') %>
-      </div>
-      <%= form.submit 'Create', class: 'btn btn-primary hidden', style: 'display: none;', disabled: 'disabled', id: 'post-save' %>
+        <div id="audio">
+        </div>
+        <div class="file-input-container">
+          <%= form.hidden_field 'attachment[label]', required: true, value: 'podcast_episode' %>
+          <%= form.hidden_field 'attachment[file]', class: 'upload-hidden', required: true %>
+          <%= form.file_field 'attachment[file]', class: 'upload-file', accept: 'audio/mp3,audio/*;capture=microphone', style: 'display: none;' %>
+        </div>
+        <div class="form-group required hidden" style="display: none;">
+          <%= form.rich_text_area 'postable_attributes[content]' %>
+        </div>
+        <div class="form-group required hidden" style="display: none;">
+          <%= form.hidden_field :slug, autofocus: true, required: true, class: 'form-control' %>
+        </div>
+        <div class="form-group required hidden" style="display: none;">
+          <%= form.label :publish_time, 'Publish Time', class: 'control-label' %> <em><span id="timezone"></span></em>
+          <%= form.datetime_field :publish_time, autofocus: true, required: true, class: 'form-control', value: Time.now.localtime.strftime('%Y-%m-%dT%H:%M') %>
+        </div>
+        <%= form.submit 'Create', class: 'btn btn-primary hidden', style: 'display: none;', disabled: 'disabled', id: 'post-save' %>
+      <% end %>
+    <% else %>
+      <h2>Create Post</h2>
+      <p>
+        <em style="color:#9a2001;">This podcast is hosted outside of MTGCast</em>
+      </p>
+      <p>
+        You cannot upload new episodes to an externally hosted podcast. Instead, MTGCast will check your current RSS feed for any new episodes and import them.
+      </p>
     <% end %>
   </div>
 </div>

@@ -38,7 +38,7 @@ class PagesController < ApplicationController
 
     if @page.save
       flash[:notice] = 'Successfully created podcast.'
-      redirect_to page_path(@page)
+      redirect_to page_posts_path(@page)
     else
       flash[:alert] = 'Failed to created podcast.'
       render :new

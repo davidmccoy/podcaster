@@ -23,7 +23,8 @@
 // validate forms on submission
 (function() {
   'use strict';
-  window.addEventListener('load', function() {
+
+  const postFormSetup = () => {
     // Fetch all the forms we want to apply custom Bootstrap validation styles to
     var forms = document.getElementsByClassName('needs-validation');
     // Loop over them and prevent submission
@@ -37,9 +38,11 @@
       }, false);
     });
 
-    $('trix-editor').height(window.innerHeight * 0.9)
-  }, false);
+    $('trix-editor').height(window.innerHeight * 0.87)
+  }
 
+  window.addEventListener('turbolinks:load', postFormSetup, false);
+  window.addEventListener('load', postFormSetup, false);
 })();
 
 // fade success messages

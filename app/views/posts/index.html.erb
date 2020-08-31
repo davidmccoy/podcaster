@@ -46,7 +46,7 @@
       </table>
     <% else %>
       <p>
-        You haven't uploaded any episodes.
+        You haven't uploaded any episodes. <%= link_to 'Create one now', new_page_post_path(@page) %>.
       </p>
     <% end %>
     <div class="pagination-container">

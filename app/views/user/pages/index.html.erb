@@ -14,6 +14,8 @@
             </th>
             <th>
             </th>
+            <th>
+            </th>
           </tr>
         </thead>
         <tbody>
@@ -21,6 +23,9 @@
             <tr>
               <td>
                 <%= link_to page.name, page_path(page) %>
+              </td>
+              <td class="view">
+                <%= link_to 'Manage', page_posts_path(page), class: 'btn btn-sm btn-light' %>
               </td>
               <td class="view">
                 <%= link_to 'View', page_path(page), class: 'btn btn-sm btn-light' %>

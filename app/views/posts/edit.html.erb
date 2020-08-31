@@ -1,10 +1,7 @@
 <div class="row">
-  <div class="col-md-8 offset-md-2">
-    <h1><%= link_to @page.name, page_path(@page), class: 'page-name-link' %></h1>
-    <h4>Edit Post</h4>
-    <p>
-      <%= link_to 'View Post', page_post_path(@page, @post), class: 'btn btn-sm btn-light' %>
-    </p>
+  <%= render 'pages/sidebar' %>
+  <div class="page-admin">
+    <h2>Edit Post</h2>
     <div>
       <%= form_with model: @post, url: page_post_path(@page, @post), method: 'put' do |form| %>
         <%= form.hidden_field :postable_type, value: @post.postable_type %>
@@ -12,6 +9,9 @@
           <div class="form-group required">
             <%= postable_form.label :title, 'Title', class: 'control-label' %>
             <%= postable_form.text_field :title, autofocus: true, required: true, class: 'form-control edit-post-title', value: @post.postable.title %>
+            <div class="slug-container">
+              <span><%= link_to "#{page_post_url(@page, @post)}", page_post_path(@page, @post) %></span>
+            </div>
           </div>
           <div>
             <% if @post.postable.podcast_episode&.file&.metadata&.dig('mime_type') == 'audio/mpeg' %>

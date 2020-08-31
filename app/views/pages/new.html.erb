@@ -14,39 +14,43 @@
   </div>
   <div class="col-md-8 offset-md-2">
     <br />
-    <div>
-      <p>
-        Are you starting a new podcast? Exciting! You can create your brand new podcast on MTGCast and host your episodes on our servers.
+    <% if current_user.multiple_podcasts %>
+      <div>
+        <p>
+          Are you starting a new podcast? Exciting! You can create your brand new podcast on MTGCast and host your episodes on our servers.
 
-      </p>
-      <%= form_with model: @page, url: pages_path, method: 'post', html: { class: 'needs-validation', novalidate: true } do |form| %>
-        <div class="form-group required">
-          <%= form.label :name, 'Name', class: 'control-label' %>
-          <%= form.text_field :name, autofocus: true, required: true, class: 'form-control edit-post-title'%>
-        </div>
+        </p>
+        <%= form_with model: @page, url: pages_path, method: 'post', html: { class: 'needs-validation', novalidate: true } do |form| %>
+          <div class="form-group required">
+            <%= form.label :name, 'Name', class: 'control-label' %>
+            <%= form.text_field :name, autofocus: true, required: true, class: 'form-control edit-post-title'%>
+          </div>
+          <br />
+          <div class="actions">
+            <%= form.submit 'Create', class: 'btn btn-primary' %>
+          </div>
+        <% end %>
+      </div>
+      <br />
+      <br />
+      <div>
+        <p class="lines">or</p>
+      </div>
+      <br />
+      <div>
+        <h3>Import an Existing Podcast</h3>
         <br />
-        <div class="actions">
-          <%= form.submit 'Create', class: 'btn btn-primary' %>
-        </div>
-      <% end %>
-    </div>
-    <br />
-    <br />
-    <div>
-      <p class="lines">or</p>
-    </div>
-    <br />
-    <div>
-      <h3>Import an Existing Podcast</h3>
-      <br />
-      <p>
-        Do you have an existing podcast? Awesome! You can import your existing episodes to MTGCast and either A) store your episodes on our servers and manually upload new episodes on MTGCast or B) continue using your current host and have MTGCast continuously read from that RSS feed.
-      </p>
-      <br />
-      <p>
-        <%= link_to 'Import from RSS feed', new_import_path, class: 'btn btn-light' %>
-      </p>
-    </div>
+        <p>
+          Do you have an existing podcast? Awesome! You can import your existing episodes to MTGCast and either A) store your episodes on our servers and manually upload new episodes on MTGCast or B) continue using your current host and have MTGCast continuously read from that RSS feed.
+        </p>
+        <br />
+        <p>
+          <%= link_to 'Import from RSS feed', new_import_path, class: 'btn btn-light' %>
+        </p>
+      </div>
+    <% else %>
+      You have already created a free podcast on MTGCast. Creating multiple podcasts is available for paid customers. Plans will be available soon.
+    <% end %>
     <br />
   </div>
 </div>
