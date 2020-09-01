@@ -20,7 +20,9 @@
 </ul>
   <% if @page.logo %>
     <div class="page-logo">
-      <%= image_tag @page.logo.url(:medium), style: 'width: 100%;' %>
+      <%= link_to page_path(@page) do %>
+        <%= image_tag @page.logo.url(:medium), style: 'width: 100%;' %>
+      <% end %>
     </div>
   <% end %>
 </div>

@@ -4,10 +4,25 @@ class PagesController < ApplicationController
   before_action :authorize_page, except: [:index, :show, :feed, :mtgcast]
 
   def index
-    # :latest_post is restricted to on post, but eager loading :postable ends up
+    # :latest_post is restricted to one post, but eager loading :postable ends up
     # eager loading many more than one associated postable records, so I'm leaving
     # that n+1 for now
-    @pages = Page.includes(:logo, :latest_post).joins('INNER JOIN posts ON posts.page_id = pages.id').where('posts.publish_time < ?', Time.now).group('pages.id').order('max(posts.publish_time) DESC').paginate(page: params[:page], per_page: 12)
+    if query_params[:search]
+      @pages = Page.includes(:logo, :latest_post)
+                    .where('name ilike ?', "%#{query_params[:search]}%")
+                   .joins('INNER JOIN posts ON posts.page_id = pages.id')
+                   .where('posts.publish_time < ?', Time.now)
+                   .group('pages.id')
+                   .order('max(posts.publish_time) DESC')
+                   .paginate(page: params[:page], per_page: 12)
+    else
+      @pages = Page.includes(:logo, :latest_post)
+                   .joins('INNER JOIN posts ON posts.page_id = pages.id')
+                   .where('posts.publish_time < ?', Time.now)
+                   .group('pages.id')
+                   .order('max(posts.publish_time) DESC')
+                   .paginate(page: params[:page], per_page: 12)
+    end
     @default_logo = ActionController::Base.helpers.asset_path('mtgcast-logo-itunes.png')
   end
 
@@ -126,6 +141,7 @@ class PagesController < ApplicationController
     params.require(:page).permit(:name)
   end
 
-  def set_logo_url
+  def query_params
+    params.permit(:search)
   end
 end
