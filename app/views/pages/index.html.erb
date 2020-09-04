@@ -22,11 +22,15 @@
             <h3>
               <%= link_to page.name, page_path(page) %>
             </h3>
+            <hr style="width:6rem;margin:1rem 0;">
+            <h5>
+              <%= page.latest_post&.postable&.title %>
+            </h5>
             <p>
-              <em>Last updated: <%= page.latest_post&.publish_time&.localtime&.strftime('%m/%d/%Y') %></em>
+              <em><%= page.latest_post&.publish_time&.localtime&.strftime('%a, %B %-m, %Y') %></em>
             </p>
             <p>
-              <%= page.latest_post&.postable&.title %>
+              <%= simple_format(truncate(page.latest_post&.postable.content.to_plain_text, length: 150))%>
             </p>
           </div>
           <p class="page-read-more">

@@ -67,7 +67,7 @@ class PagesController < ApplicationController
   def update
     if @page.update(page_params)
       flash[:notice] = 'Successfully updated podcast.'
-      redirect_to page_path(@page)
+      redirect_to page_settings_path(@page)
     else
       flash[:alert] = 'Failed to update podcast.'
       render :edit
@@ -138,7 +138,7 @@ class PagesController < ApplicationController
   end
 
   def page_params
-    params.require(:page).permit(:name)
+    params.require(:page).permit(:name, :description)
   end
 
   def query_params

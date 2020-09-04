@@ -2,74 +2,72 @@
   <%= render 'pages/sidebar' %>
   <div class="page-admin">
     <h2>Settings</h2>
-    <div class="page-settings-container">
-      <div class="edit-page-image">
-        <% if @page.logo %>
-          <%= link_to edit_page_logo_path(@page) do %>
-            <p>
-              <%= image_tag @page.logo.url(:medium) %>
-            </p>
-            <p>
-              <%= button_tag 'Change Logo', class: 'btn btn-sm btn-light' %>
-            </p>
-          <% end %>
-        <% else %>
-          <%= link_to new_page_logo_path(@page) do %>
-            <p>
-              <%= image_tag 'mtgcast-logo-itunes.png' %>
-            </p>
-            <p>
-              <%= button_tag 'Add Logo', class: 'btn btn-sm btn-light' %>
-            </p>
-          <% end %>
+    <hr>
+    <div class="page-settings-section">
+      <h4>Podcast Information</h4>
+      <p>
+        Feed URL:
+        <%= link_to page_feed_path(@page), target: '_blank' do %>
+          <%= Rails.application.routes.url_helpers.page_feed_url(@page) %>
         <% end %>
-      </div>
-      <div>
+      </p>
+      <%= form_with model: @page, html: { class: 'needs-validation', novalidate: true } do |form| %>
+        <div class="form-group required">
+          <%= form.label :name, 'Name', class: 'control-label' %>
+          <%= form.text_field :name, required: true, class: 'form-control'%>
+        </div>
+        <div class="form-group required">
+          <%= form.label :description, 'Description', class: 'control-label' %>
+          <%= form.text_area :description, required: true, class: 'form-control'%>
+        </div>
+        <div class="actions">
+          <%= form.submit 'Update', class: 'btn btn-primary' %>
+        </div>
+      <% end %>
+    </div>
+    <hr>
+    <div class="page-settings-section">
+      <h4>Logo</h4>
+      <p>Podcast cover images/logos are typically 1400px by 1400px square images. </p>
+      <% if @page.logo %>
+        <%= link_to edit_page_logo_path(@page) do %>
+          <p>
+            <%= button_tag 'Change Logo', class: 'btn btn-sm btn-light' %>
+          </p>
+          <p>
+            <%= image_tag @page.logo.url(:medium) %>
+          </p>
+        <% end %>
+      <% else %>
+        <%= link_to new_page_logo_path(@page) do %>
+          <p>
+            <%= button_tag 'Add Logo', class: 'btn btn-sm btn-light' %>
+          </p>
+          <p>
+            <%= image_tag 'mtgcast-logo-itunes.png' %>
+          </p>
+        <% end %>
+      <% end %>
+    </div>
+    <hr>
+    <div class="page-settings-section">
+      <h4>The MTGCast Aggregate Feed</h4>
+      <p>
+        Included in Aggregate Feed: <span class="<%= @page.included_in_aggregate_feed ? 'success' : 'danger' %>"><%= @page.included_in_aggregate_feed.to_s.capitalize %></span>
+      </p>
+      <% if @page.included_in_aggregate_feed == false %>
         <p>
-          Feed URL:
-          <%= link_to page_feed_path(@page), target: '_blank' do %>
-            <%= Rails.application.routes.url_helpers.page_feed_url(@page) %>
-          <% end %>
+          MTGCast maintains an aggregate RSS feeds that combines the episodes from the best MTG podcasts. Please <%= link_to 'email us', 'mailto:mtgcast@hipstersofthecoast.com' %> to request the inclusion of this podcast in our aggregate feed.
         </p>
-        <p>
-          Included in Aggregate Feed: <span class="<%= @page.included_in_aggregate_feed ? 'success' : 'danger' %>"><%= @page.included_in_aggregate_feed.to_s.capitalize %></span>
-          <% if @page.included_in_aggregate_feed == false %>
-            <button type="button" class="btn btn-sm btn-light ml-3" data-toggle="modal" data-target="#aggregate-feed-inclusion-modal">
-              ?
-            </button>
-          <% end %>
-        </p>
-        <p>
-          <%= link_to 'Edit Settings', edit_page_path(@page), class: 'btn btn-sm btn-light' %>
-        </p>
-        <p>
-          <%= link_to 'Delete Podcast', page_delete_path(@page), class: 'btn btn-sm btn-danger' %>
-        </p>
-      </div>
+      <% end %>
+    </div>
+    <hr>
+    <div class="page-settings-section">
+      <h4>Delete <%= @page.name %></h4>
+      <p>If you would like to remove <%= @page.name %> from MTGCast, please use the button below. This action cannot be undone.</p>
+      <p>
+        <%= link_to 'Delete Podcast', page_delete_path(@page), class: 'btn btn-danger' %>
+      </p>
     </div>
   </div>
-  <% if @page.included_in_aggregate_feed == false %>
-    <div id="aggregate-feed-inclusion-modal" class="modal" tabindex="-1" role="dialog">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title">The MTGCast Aggregate Feed</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <h5>Request Inclusion in Our Aggregate Feed</h5>
-            <p>
-              MTGCast maintains an aggregate RSS feeds that combines the episodes from the best MTG podcasts. Please use the link below to request the inclusion of this podcast in our aggregate feed.
-            </p>
-          </div>
-          <div class="modal-footer">
-            <%= link_to 'Request Inclusion', 'mailto:mtgcast@hipstersofthecoast.com', class: 'btn btn-primary ml-3' %>
-            <button type="button" class="btn btn-light" data-dismiss="modal">Close</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  <% end %>
 </div>

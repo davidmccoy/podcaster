@@ -35,7 +35,7 @@ class PostsController < ApplicationController
         )
       )
       flash[:notice] = 'Successfully created your post!'
-      redirect_to edit_page_post_path(@page, @post) and return
+      redirect_to page_post_path(@page, @post) and return
     else
       flash[:alert] = 'You\'re missing a few things.'
       render :new and return
@@ -57,7 +57,7 @@ class PostsController < ApplicationController
   def destroy
     if @post.destroy
       flash[:notice] = 'Successfully deleted post.'
-      redirect_to page_path(@page) and return
+      redirect_to page_posts_path(@page) and return
     else
       flash[:alert] = 'Failed to delete post.'
       redirect_to edit_page_post_path(@page, @post) and return

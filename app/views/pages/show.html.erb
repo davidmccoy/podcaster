@@ -1,5 +1,8 @@
 <div class="row">
   <div class="hero-container">
+    <div class="spacer"></div>
+  </div>
+  <div class="hero-container page-info">
     <div class="hero-page-image">
       <div class="page-image no-border" style="background-image: url(<%= @logo_url %>)">
       </div>
@@ -18,48 +21,40 @@
           </div>
         <% end %>
       </div>
-      <% if @first_post %>
-        <div class="page-post-info-container page-show">
-          <span>
-            <%= @first_post.publish_time.localtime.strftime('%m/%d/%Y') %>
-          </span>
-          <h3>
-            <%= link_to @first_post.postable.title, page_post_path(@page, @first_post) %>
-          </h3>
-          <p>
-            <%= simple_format(truncate(@first_post.postable.content.to_plain_text, length: 250)) %>
-          </p>
-          <p>
-            <%= link_to 'Read more', page_post_path(@page, @first_post)  %>
-          </p>
-        </div>
-      <% end %>
+      <div class="page-description-container">
+        <p>
+          <%= @page.description %>
+        </p>
+      </div>
     </div>
   </div>
-  <div class="col-md-10 offset-md-1">
+  <div class="col-md-8 offset-md-2">
     <div class="posts-container">
+      <p>Episodes</p>
       <% unless @page.posts.empty? %>
         <% @posts.each do |post| %>
+          <hr>
           <div class="post-container">
-            <div class="post-info">
-              <h3>
-                <%= link_to post.postable.title, page_post_path(@page, post) %>
-              </h3>
-              <p>
-                <em><%= 'Scheduled For: ' if post.publish_time > Time.now %>
-                <%= post.publish_time.localtime.strftime('%m/%d/%Y') %></em>
-              </p>
-              <p>
-                <%= simple_format(truncate(post.postable.content.to_plain_text, length: 150)) %>
-              </p>
-              <p class="page-read-more hidden">
-                <%= link_to 'View', page_post_path(@page, post) %>
-              </p>
+            <div class="post-left">
+              <%= link_to page_post_path(@page, post) do %>
+                <div class="play-button-container">
+                </div>
+              <% end %>
             </div>
-          </div>
-        <% end %>
-        <% (@posts.length % 3).times do %>
-          <div class="post-container blank">
+            <div class="post-right">
+              <div class="post-info-container">
+                <h4>
+                  <%= link_to post.postable.title, page_post_path(@page, post) %>
+                </h4>
+                <p>
+                  <%= 'Scheduled For: ' if post.publish_time > Time.now %>
+                  <%= post.publish_time.localtime.strftime('%B %-m, %Y') %>
+                </p>
+                <p>
+                  <%= simple_format(truncate(post.postable.content.to_plain_text, length: 150)) %>
+                </p>
+              </div>
+            </div>
           </div>
         <% end %>
       <% else %>
