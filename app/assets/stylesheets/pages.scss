@@ -234,8 +234,6 @@
 .page-admin {
   width: 100%;
   padding: 0 1rem;
-  overflow: scroll;
-  height: calc(100vh - 78px);
 }
 
 @media (min-width: 550px) {
@@ -323,6 +321,8 @@
   .page-admin {
     padding: 0 2rem 0 2rem;
     margin-left: 200px;
+    overflow: scroll;
+    height: calc(100vh - 78px);
   }
 
   .header-container {
