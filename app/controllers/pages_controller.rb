@@ -9,7 +9,7 @@ class PagesController < ApplicationController
     # that n+1 for now
     if query_params[:search]
       @pages = Page.includes(:logo, :latest_post)
-                    .where('name ilike ?', "%#{query_params[:search]}%")
+                   .where('name ilike ?', "%#{query_params[:search]}%")
                    .joins('INNER JOIN posts ON posts.page_id = pages.id')
                    .where('posts.publish_time < ?', Time.now)
                    .group('pages.id')
@@ -27,15 +27,9 @@ class PagesController < ApplicationController
   end
 
   def show
-    if @page.user == current_user
-      @posts = @page.posts.includes(:postable).order(publish_time: :desc)
-                    .paginate(page: params[:page], per_page: 12)
-    else
-      @posts = @page.posts.published.includes(:postable)
-                    .paginate(page: params[:page], per_page: 12)
-    end
+    @posts = @page.posts.published.includes(:postable)
+                  .paginate(page: params[:page], per_page: 12)
 
-    @first_post = @posts.first
     @logo_url =
       if @page.logo
         ActionController::Base.helpers.image_path(@page.logo.url(:medium))

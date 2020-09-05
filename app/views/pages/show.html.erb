@@ -23,14 +23,16 @@
       </div>
       <div class="page-description-container">
         <p>
-          <%= @page.description %>
+          <%= truncate(@page.description, length: 300) %>
         </p>
       </div>
     </div>
   </div>
-  <div class="col-md-8 offset-md-2">
+  <div class="col-lg-8 offset-lg-2 col-md-12">
     <div class="posts-container">
-      <p>Episodes</p>
+      <p>
+        Episodes
+      </p>
       <% unless @page.posts.empty? %>
         <% @posts.each do |post| %>
           <hr>
