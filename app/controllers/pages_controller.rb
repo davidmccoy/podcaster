@@ -9,7 +9,7 @@ class PagesController < ApplicationController
     # that n+1 for now
     if query_params[:search]
       @pages = Page.includes(:logo, :latest_post)
-                   .where('name ilike ?', "%#{query_params[:search]}%")
+                   .where('name ilike ?', "%#{query_params[:search].strip}%")
                    .joins('INNER JOIN posts ON posts.page_id = pages.id')
                    .where('posts.publish_time < ?', Time.now)
                    .group('pages.id')

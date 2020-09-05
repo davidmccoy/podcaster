@@ -38,6 +38,10 @@
           </p>
         </div>
       <% end %>
+      <% (3 - (@pages.length % 3)).times do %>
+        <div class="page-container blank">
+        </div>
+      <% end %>
     </div>
     <div class="pagination-container">
       <%= will_paginate @pages %>
