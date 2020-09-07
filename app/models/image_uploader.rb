@@ -28,9 +28,9 @@ class ImageUploader < Shrine
     io.download do |original|
       pipeline = ImageProcessing::MiniMagick.source(original)
 
-      versions[:large]  = pipeline.resize_to_limit!(1400, 1400)
-      versions[:medium] = pipeline.resize_to_limit!(700, 700)
-      versions[:small]  = pipeline.resize_to_limit!(300, 300)
+      versions[:large]  = pipeline.resize_to_fill!(1400, 1400)
+      versions[:medium] = pipeline.resize_to_fill!(700, 700)
+      versions[:small]  = pipeline.resize_to_fill!(300, 300)
     end
 
     versions # return the hash of processed files
@@ -40,7 +40,12 @@ class ImageUploader < Shrine
   def generate_location(io, context = {})
     extension   = ".#{io.extension}" if io.is_a?(UploadedFile) && io.extension
     extension ||= File.extname(extract_filename(io).to_s).downcase
-    filename = context[:metadata]['filename'].split('.')[0].parameterize
+    filename =
+      if io.try(:data)
+        context[:metadata]['filename'].split('.')[0].parameterize
+      else
+        context[:record].file.metadata['filename'].split('.')[0].parameterize
+      end
 
     "#{SecureRandom.hex(5)}-#{filename}#{extension}"
   end

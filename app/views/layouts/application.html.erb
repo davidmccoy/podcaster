@@ -44,7 +44,7 @@
     <meta name="theme-color" content="#ffffff">
   </head>
 
-  <body class="<%= "page-admin-body" if (@page && @page.persisted? && (current_page?(page_posts_url(@page)) || current_page?(new_page_post_url(@page)) || current_page?(page_stats_path(@page)) || current_page?(page_settings_path(@page)) || current_page?(edit_page_logo_path(@page)) || current_page?(page_delete_path(@page)))) || (@page && @page.persisted? && @post && current_page?(edit_page_post_url(@page, @post))) %>">
+  <body class="<%= "page-admin-body" if (@page && @page.persisted? && (current_page?(page_posts_url(@page)) || current_page?(new_page_post_url(@page)) || current_page?(page_stats_path(@page)) || current_page?(page_settings_path(@page)) || current_page?(new_page_logo_path(@page)) || current_page?(edit_page_logo_path(@page)) || current_page?(page_delete_path(@page)))) || (@page && @page.persisted? && @post && current_page?(edit_page_post_url(@page, @post))) %>">
     <%= render "layouts/nav" %>
     <div id="content">
       <div class="container-fluid">
@@ -67,7 +67,7 @@
         <%= yield %>
       </div>
     </div>
-    <% unless (@page && @page.persisted? && (current_page?(page_posts_url(@page)) || current_page?(new_page_post_url(@page)) || current_page?(page_stats_path(@page)) || current_page?(page_settings_path(@page)) || current_page?(edit_page_logo_path(@page)) || current_page?(page_delete_path(@page)))) || (@page && @page.persisted? && @post && current_page?(edit_page_post_url(@page, @post))) %>
+    <% unless (@page && @page.persisted? && (current_page?(page_posts_url(@page)) || current_page?(new_page_post_url(@page)) || current_page?(page_stats_path(@page)) || current_page?(page_settings_path(@page)) || current_page?(new_page_logo_path(@page)) || current_page?(edit_page_logo_path(@page)) || current_page?(page_delete_path(@page)))) || (@page && @page.persisted? && @post && current_page?(edit_page_post_url(@page, @post))) %>
       <%= render "layouts/footer" %>
     <% end %>
   </body>
