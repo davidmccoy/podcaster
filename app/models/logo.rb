@@ -10,7 +10,7 @@ class Logo < Image
     if file_attacher.stored?
       file[size]&.url&.split('?')&.first
     else
-      "https://#{ENV["IMAGES_S3_BUCKET"]}.s3.amazonaws.com/cache/#{file.id}"
+      "https://#{ENV["AUDIO_S3_BUCKET"]}.s3.amazonaws.com/cache/#{file.id}"
     end
   end
 end
