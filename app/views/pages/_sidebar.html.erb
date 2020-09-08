@@ -21,7 +21,7 @@
   <% if @page.logo %>
     <div class="page-logo">
       <%= link_to page_path(@page) do %>
-        <%= image_tag @page.logo.url(:medium), style: 'width: 100%;' %>
+        <%= image_tag @page.logo.url(:small), style: 'width: 100%;' %>
       <% end %>
     </div>
   <% end %>

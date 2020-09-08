@@ -7,11 +7,10 @@ class Logo < Image
 
   # accessig an image's url is different when first uploaded and after processing
   def fetch_image_url(size)
-    if file.is_a? ImageUploader::UploadedFile
-      # remove the auth headers
+    if file_attacher.stored?
       file[size]&.url&.split('?')&.first
     else
-      file&.dig(size)&.url&.split('?')&.first
+      "https://#{ENV["IMAGES_S3_BUCKET"]}.s3.amazonaws.com/cache/#{file.id}"
     end
   end
 end
