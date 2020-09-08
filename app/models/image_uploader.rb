@@ -41,16 +41,20 @@ class ImageUploader < Shrine
     extension   = ".#{io.extension}" if io.is_a?(UploadedFile) && io.extension
     extension ||= File.extname(extract_filename(io).to_s).downcase
     filename =
+      # for original files passed to shrine in the normal creation process
       if io.try(:data)
         context[:metadata]['filename'].split('.')[0].parameterize
       else
         if context[:record].try(:file)
           if context[:record].file[:original]
+            # for changing the attached file via and update method
             context[:record].file[:original].metadata['filename'].split('.')[0].parameterize
           else
+            # for the processed versions generated during normal shrine processing
             context[:record].file.metadata['filename'].split('.')[0].parameterize
           end
         else
+          # for manually ading a file when creating a record
           context[:metadata]['filename'].split('.')[0].parameterize
         end
       end
