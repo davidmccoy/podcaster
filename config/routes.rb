@@ -41,6 +41,7 @@ require 'sidekiq/web'
   resources :episodes, only: [:create]
 
   resource :support
+  resource :faq
 
   # ***|| routes for old rss feeds ||***
   # in home controller --> '/?feed=podcast'

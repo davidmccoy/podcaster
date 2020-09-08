@@ -69,5 +69,20 @@
         <%= link_to 'Delete Podcast', page_delete_path(@page), class: 'btn btn-danger' %>
       </p>
     </div>
+    <div class="page-settings-section">
+      <h4>Support MTGCast</h4>
+      <p>
+        MTGCast will always provide a free way for content creators to host their Magic podcasts. But building and operating a podast hosting service isn't cheap.
+      </p>
+      <p>
+        If you'd like to support MTGCast, you can  <a href="https://paypal.me/mtgcast" target="_blank">donate via PayPal</a>. Any amount helps and 100% of the funds will go towards defraying the costs of running the site.
+      </p>
+      <p>
+        <%= link_to 'https://paypal.me/mtgcast', target: '_blank', class: 'btn btn-outline-blue' do %>
+          <%= image_tag "paypal-logo.png", class: 'paypal-logo' %>
+          Donate on PayPal
+        <% end %>
+      </p>
+    </div>
   </div>
 </div>

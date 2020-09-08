@@ -87,6 +87,24 @@ audio {
   }
 }
 
+.btn-outline-blue {
+  color: $blue;
+  border-color: $blue;
+  &:hover {
+    color: $white;
+    background: $blue;
+  }
+  &:focus {
+    border-color: $blue;
+    box-shadow: 0 0 0 0.2rem rgba($blue, 0.25);
+  }
+}
+
+img.paypal-logo {
+  width: 25px;
+  height: auto;
+}
+
 p.lines {
   display: flex;
   flex-direction: row;
