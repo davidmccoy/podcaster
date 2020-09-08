@@ -82,7 +82,12 @@ class PagesController < ApplicationController
 
   def feed
     @posts = @page.posts.published.includes(postable: [:audio, :rich_text_content]).limit(50)
-    @image = ActionController::Base.helpers.asset_path('mtgcast-logo-itunes.png', host: root_url)
+    @image =
+      if @page.logo
+        @page.logo.url(:large)
+      else
+        ActionController::Base.helpers.asset_path('mtgcast-logo-itunes.png', host: root_url)
+      end
     @email =
       if @page.user&.email == 'david.mccoy@gmail.com'
         'admin@mtgcast.fm'
