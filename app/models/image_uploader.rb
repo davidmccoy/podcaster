@@ -44,7 +44,15 @@ class ImageUploader < Shrine
       if io.try(:data)
         context[:metadata]['filename'].split('.')[0].parameterize
       else
-        context[:record].file.metadata['filename'].split('.')[0].parameterize
+        if context[:record].try(:file)
+          if context[:record].file[:original]
+            context[:record].file[:original].metadata['filename'].split('.')[0].parameterize
+          else
+            context[:record].file.metadata['filename'].split('.')[0].parameterize
+          end
+        else
+          context[:metadata]['filename'].split('.')[0].parameterize
+        end
       end
 
     "#{SecureRandom.hex(5)}-#{filename}#{extension}"
