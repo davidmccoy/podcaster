@@ -2,7 +2,13 @@
   <div class="col-md-8 offset-md-2">
     <h1>Frequently Asked Questions</h1>
     <p>
-      Welcome to the new MTGCast! You've got questions and we've got answers. If the information you're looking for isn't here, please join the new <a href="https://discord.gg/XuBujgG" target="_blank">MTGCast Discord server</a> where we we can answer your questions and provide support. Alternatively, you can find us on Twitter at <a href="https://www.twitter.com/mtgcast" target="_blank">@MTGCast</a>.
+      Welcome to the new MTGCast! You've got questions and we've got answers. If the information you're looking for isn't here, please join the new
+      <% if current_user %>
+        <a href="https://discord.gg/XuBujgG" target="_blank">MTGCast Discord server</a>
+      <% else %>
+        MTGCast Discord Server (sign in to gain access)
+      <% end %>
+        where we we can answer your questions and provide support. Alternatively, you can find us on Twitter at <a href="https://www.twitter.com/mtgcast" target="_blank">@MTGCast</a>.
     </p>
     <h3>What is MTGCast?</h3>
     <p>
