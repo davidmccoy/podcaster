@@ -43,7 +43,7 @@
             <%= link_to 'Sign Out', destroy_user_session_path, method: 'delete', class: 'dropdown-item' %>
           </div>
         </li>
-        <% if (@page && @page.persisted? && (current_page?(page_posts_url(@page)) || current_page?(new_page_post_url(@page)) || current_page?(page_stats_path(@page)) || current_page?(page_settings_path(@page)) || current_page?(new_page_logo_path(@page)) || current_page?(edit_page_logo_path(@page)) || current_page?(page_delete_path(@page)))) || (@page && @page.persisted? && @post && current_page?(edit_page_post_url(@page, @post))) %>
+        <% if page_management_path?(@page, @post) %>
           <li class="nav-item dropdown mobile-only">
             <a class="nav-link dropdown-toggle" id="navbarDropdownPageMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <%= @page.name %>

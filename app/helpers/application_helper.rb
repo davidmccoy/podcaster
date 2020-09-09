@@ -8,4 +8,20 @@ module ApplicationHelper
     end
     super *[collection_or_options, options].compact
   end
+
+  # checks if the current path is for page management
+  def page_management_path?(page, post)
+    (page && page.persisted? &&
+      (current_page?(page_posts_url(page)) ||
+        current_page?(new_page_post_url(page)) ||
+        current_page?(page_stats_path(page)) ||
+        current_page?(page_settings_path(page)) ||
+        current_page?(new_page_logo_path(page)) ||
+        current_page?(edit_page_logo_path(page)) ||
+        current_page?(page_delete_path(page))
+      )
+    ) || (page && page.persisted? &&
+      post && current_page?(edit_page_post_url(page, post))
+    )
+  end
 end
