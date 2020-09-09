@@ -17,6 +17,7 @@
           By <%= link_to @page.name, page_path(@page) %><br />
         </p>
         <p>
+          <%= 'Scheduled for: ' if @post.publish_time > Time.zone.now %>
           <%= @post.publish_time.localtime.strftime('%A, %B %d, %Y') %>
         </p>
         <% if current_user && policy(@page).edit? %>

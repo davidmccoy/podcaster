@@ -30,6 +30,7 @@
               </td>
               <td>
                 <%= post.publish_time.strftime('%m/%d/%Y') %>
+                <%= '(Scheduled)' if post.publish_time > Time.zone.now %>
               </td>
               <td class="view text-center">
                 <%= post.postable.total_downloads %>

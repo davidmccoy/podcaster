@@ -4,6 +4,19 @@ textarea {
   }
 }
 
+.publish-time {
+  display: inline-block;
+  &.month {
+    width: 110px;
+  }
+  &.year {
+    width: 80px;
+  }
+  &.day, &.hour, &.minute {
+    width: 60px;
+  }
+}
+
 .edit-post-title {
   font-size: 2rem;
   padding: 1.5rem 1.1rem;

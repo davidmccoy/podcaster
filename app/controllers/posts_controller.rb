@@ -25,7 +25,14 @@ class PostsController < ApplicationController
 
   def create
     redirect_to page_posts_path(@page) if externally_hosted?
-    @post = Post.new(post_params.merge(page_id: @page.id))
+
+    @post = Post.new(
+      post_params.merge(
+        page_id: @page.id,
+        postable_type: PodcastEpisode,
+        publish_time: formatted_publish_time
+      )
+    )
 
     if @post.save
       @audio = Audio.create(
@@ -45,7 +52,7 @@ class PostsController < ApplicationController
   def edit; end
 
   def update
-    if @post.update(post_params)
+    if @post.update(post_params.merge(publish_time: formatted_publish_time))
       flash[:notice] = 'Successfully updated post.'
     else
       flash[:alert] = 'Failed to update post.'
@@ -83,11 +90,26 @@ class PostsController < ApplicationController
           )
   end
 
+  def date_params
+    params.require(:post).permit(
+      :publish_time_month,
+      :publish_time_day,
+      :publish_time_year,
+      :publish_time_hour,
+      :publish_time_minute,
+      :publish_time_zone
+    )
+  end
+
   def attachment_params
     params.require(:post).permit(attachment: [:file, :label])
   end
 
   def externally_hosted?
     @page.externally_hosted
+  end
+
+  def formatted_publish_time
+    "#{date_params[:publish_time_month]} #{date_params[:publish_time_day]}, #{date_params[:publish_time_year]} #{date_params[:publish_time_hour]}:#{date_params[:publish_time_minute]} #{-date_params[:publish_time_zone].to_i}".to_datetime
   end
 end

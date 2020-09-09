@@ -29,7 +29,13 @@
           </div>
           <div class="form-group required">
             <%= form.label :publish_time, 'Publish Time', class: 'control-label' %> <em><span id="timezone"></span></em>
-            <%= form.datetime_field :publish_time, autofocus: true, required: true, class: 'form-control', value: @post.publish_time.localtime.strftime('%Y-%m-%dT%H:%M') %>
+            <br />
+            <%= form.select :publish_time_month, options_for_select([['01–Jan', 'January'], ['02–Feb', 'February'], ['03–Mar', 'March'], ['04–Apr', 'April'], ['05–May', 'May'], ['06–Jun', 'June'], ['07–Jul', 'July'], ['08–Aug', 'August'], ['09–Sep', 'September'], ['10–Oct', 'October'], ['11–Nov', 'November'], ['12–Dec', 'December']]), {}, { class: 'form-control publish-time month' } %>
+            <%= form.text_field :publish_time_day, min: 1, max: 31, required: true, class: 'form-control publish-time day' %>,
+            <%= form.text_field :publish_time_year, min: 1, required: true, class: 'form-control publish-time year' %> at
+            <%= form.text_field :publish_time_hour, min: 0, max: 24, required: true, class: 'form-control publish-time hour' %> :
+            <%= form.text_field :publish_time_minute, min: 1, max: 59, required: true, class: 'form-control publish-time minute' %>
+            <%= form.hidden_field :publish_time_zone, value: nil %>
           </div>
         <% end %>
         <div class="actions">
@@ -40,3 +46,22 @@
     </div>
   </div>
 </div>
+
+<script>
+  $(document).on('ready turbolinks:load', function() {
+    var date = new Date('<%= @post.publish_time.utc.iso8601 %>'),
+        month = date.toLocaleString('default', { month: 'long' }),
+        day = date.getDate(),
+        year = date.getFullYear(),
+        hour = date.getHours(),
+        minute = date.getMinutes(),
+        zone = date.getTimezoneOffset() / 60;
+
+    $('select[name="post[publish_time_month]"]').val(month);
+    $('input[name="post[publish_time_day]"]').val(day);
+    $('input[name="post[publish_time_year]"]').val(year);
+    $('input[name="post[publish_time_hour]"]').val(hour);
+    $('input[name="post[publish_time_minute]"]').val(minute);
+    $('input[name="post[publish_time_zone]"]').val(zone);
+  })
+</script>
