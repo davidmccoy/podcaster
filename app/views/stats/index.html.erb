@@ -2,6 +2,13 @@
   <%= render 'pages/sidebar' %>
   <div class="page-admin">
     <h2>Analytics</h2>
+    <p>
+      MTGCast tracks every download of each episode and breaks them down into three categories: <em>Individual</em>, <em>Aggregate</em>, and <em>Total</em>.
+    </p>
+    <p>
+      The Individual column represents the downloads from <%= link_to 'your unique RSS feed', page_feed_path(@page) %> as well as the plays initiated from each episode's embedded audio player. The Aggregate column represents the downloads from MTGCast's aggregate feed, while the Total column combines the Individual and Aggregate counts.
+    </p>
+    <br />
     <% unless @posts.empty? %>
       <table class="table table-outer-border">
         <thead>
