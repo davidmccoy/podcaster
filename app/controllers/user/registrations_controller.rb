@@ -43,12 +43,12 @@ class User::RegistrationsController < Devise::RegistrationsController
     redirect_url_params = params[:url]
     redirect_url = Rails.application.routes.recognize_path(redirect_url_params)
 
-    if redirect_url 
+    if redirect_url_params
       return params[:url]
-    else 
-      return '/'
-    end 
-  rescue 
+    else
+      return new_page_path
+    end
+  rescue
     '/'
   end
 

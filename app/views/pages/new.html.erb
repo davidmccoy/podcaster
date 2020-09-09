@@ -14,7 +14,7 @@
   </div>
   <div class="col-md-8 offset-md-2">
     <br />
-    <% if current_user.multiple_podcasts %>
+    <% if current_user.multiple_podcasts || !current_user.pages.any? %>
       <div>
         <p>
           Are you starting a new podcast? Exciting! You can create your brand new podcast on MTGCast and host your episodes on our servers.
