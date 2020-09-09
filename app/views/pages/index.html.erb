@@ -24,7 +24,7 @@
             </h3>
             <hr style="width:6rem;margin:1rem 0;">
             <h5>
-              <%= page.latest_post&.postable&.title %>
+              <%= link_to page.latest_post&.postable&.title, page_post_path(page, page.latest_post)%>
             </h5>
             <p>
               <em><%= page.latest_post&.publish_time&.localtime&.strftime('%B %-m, %Y') %></em>
