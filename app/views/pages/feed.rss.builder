@@ -16,7 +16,7 @@ xml.rss :version => "2.0", "xmlns:itunes" => "http://www.itunes.com/dtds/podcast
     xml.language 'en'
     xml.copyright 'All rights reserved.'
     xml.webMaster 'admin@mtgcast.fm'
-    xml.description @page.name
+    xml.description @page.description || @page.name
     xml.itunes :subtitle, "#{@page.name} is provided by MTGCast."
     xml.itunes :owner do
       xml.itunes :name, @page.name
