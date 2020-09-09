@@ -51,10 +51,10 @@
   $(document).on('ready turbolinks:load', function() {
     var date = new Date('<%= @post.publish_time.utc.iso8601 %>'),
         month = date.toLocaleString('default', { month: 'long' }),
-        day = date.getDate(),
+        day = String(date.getDate()).padStart(2, '0'),
         year = date.getFullYear(),
-        hour = date.getHours(),
-        minute = date.getMinutes(),
+        hour = String(date.getHours()).padStart(2, '0'),
+        minute = String(date.getMinutes()).padStart(2, '0'),
         zone = date.getTimezoneOffset() / 60;
 
     $('select[name="post[publish_time_month]"]').val(month);
