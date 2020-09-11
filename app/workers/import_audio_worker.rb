@@ -10,7 +10,7 @@ class ImportAudioWorker
       a.attachable_id = podcast_episode_id
       a.label = 'podcast_episode'
       a.file_remote_url = url
-      a.save
+      a.save!
     end
   end
 end

@@ -3,20 +3,21 @@ class ImportRssFeedWorker
   include Sidekiq::Worker
 
   # TODO: ideally we would verify the data that we're seeing
+  # should we use feedjira? or do it manually with # data = Hash.from_xml(xml)?
   def perform(page_id, url)
     page = Page.find(page_id)
 
     # fetch and parse the RSS feed
     xml = HTTParty.get(url).body
-    feed = Feedjira.parse(xml)
+    feed = parse(xml)
 
     # enqueue worker to attach a logo
-    ::ImportLogoWorker.perform_async(page.id, feed.image.url)
+    ::ImportLogoWorker.perform_async(page.id, feed.image.url) if feed.try(:image)
 
     # iterate over the entries and make posts/podcast episodes
     # perhaps we can limit the number of episodes for free users?
     # TODO: most of this is repeated from the check RSS feed worker
-    feed.entries.each do |entry|
+    feed.entries.take(2).each do |entry|
       # set up attributes
       post_params = {
         page_id: page.id,
@@ -58,5 +59,24 @@ class ImportRssFeedWorker
         ::ImportAudioWorker.perform_async(post.postable_id, entry.enclosure_url)
       end
     end
+  end
+
+  # I disagree with the priority order that FeedJira uses for its various parsers. instead
+  # of relying on them, we detect if the feed includes iTunes tags and use the the iTunes
+  # parser if they are present. otherwise, we raise an error. eventually, we will allow
+  # FeedJira to select the processor—but that will require some adjustment to the script.
+  def parse(xml)
+    start_of_doc = xml.slice(0, 2000)
+
+    if includes_itunes_tags?(start_of_doc)
+      Feedjira::Parser::ITunesRSS.parse(xml)
+    else
+      raise 'Feed type not supported'
+      # Feedjira.parse(xml)
+    end
+  end
+
+  def includes_itunes_tags?(start_of_doc)
+    %r{xmlns:itunes\s?=\s?["']http://www\.itunes\.com/dtds/podcast-1\.0\.dtd["']}i =~ start_of_doc
   end
 end
