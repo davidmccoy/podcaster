@@ -26,7 +26,7 @@
             <% next unless post.postable %>
             <tr>
               <td>
-                <% if !post.postable.podcast_episode %>
+                <% if !post.postable.podcast_episode && post.postable.import_errors %>
                   <div class="error-icon-container" data-toggle="tooltip" data-placement="top" title="No audio file">
                     <%= render 'shared/icons/exclamation_circle', color: 'red', size: '1.5rem' %>
                   </div>

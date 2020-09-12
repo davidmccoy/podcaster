@@ -5,8 +5,9 @@ class ImportsController < ApplicationController
   # TODO: we're fetching the RSS feed twice here, once in the action
   # once in the worker
   def create
+    url = import_params[:url].strip
     # fetch and parse the RSS feed
-    xml = HTTParty.get(import_params[:url]).body
+    xml = HTTParty.get(url).body
     feed = Feedjira.parse(xml)
 
     # create a page
@@ -15,10 +16,10 @@ class ImportsController < ApplicationController
       description: feed.description,
       user_id: current_user.id,
       externally_hosted: import_params[:externally_hosted],
-      external_rss: import_params[:url],
+      external_rss: url,
     )
 
-    ImportRssFeedWorker.perform_async(page.id, import_params[:url])
+    ImportRssFeedWorker.perform_async(page.id, url)
 
     flash[:notice] = 'Your episodes and logo are being imported. This process may take a few minutes, depending on the length of your RSS feed.'
 

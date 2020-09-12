@@ -40,7 +40,7 @@
             <div class="post-left">
               <%= link_to page_post_path(@page, post) do %>
                 <% if current_user && policy(@page).edit? %>
-                  <% if !post.postable.podcast_episode %>
+                  <% if !post.postable.podcast_episode  && post.postable.import_errors %>
                     <% render 'shared/icons/exclamation_circle', color: 'red', size: '50px' %>
                   <% else %>
                     <div class="play-button-container">
