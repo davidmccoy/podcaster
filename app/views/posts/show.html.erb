@@ -44,10 +44,17 @@
             <em><%= link_to '(Download this episode)', page_post_audio_path(@page.slug, @post.slug, @post.postable.podcast_episode) %></em>
           </p>
         <% elsif @post.postable.imported && !@post.postable.podcast_episode %>
-        <audio id="player" controls controlsList="nodownload"></audio>
-          <p>
-            <em><strong>This file is being processed.</strong></em>
-          </p>
+          <% if current_user && policy(@page).edit? && @post.postable.import_errors %>
+            <p>
+              <%= render 'shared/icons/exclamation_circle', color: 'red', size: '1.5rem' %>
+              <em><strong>There was an issue importing this audio file: "<%= @post.postable.import_errors %>."</strong></em>
+            </p>
+          <% else %>
+            <audio id="player" controls controlsList="nodownload"></audio>
+            <p>
+              <em><strong>This file is being processed.</strong></em>
+            </p>
+          <% end %>
         <% end %>
       </div>
       <%= @post.postable.content %>

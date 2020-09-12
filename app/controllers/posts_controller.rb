@@ -53,6 +53,17 @@ class PostsController < ApplicationController
 
   def update
     if @post.update(post_params.merge(publish_time: formatted_publish_time))
+      @podcast_episode = @post.postable.podcast_episode
+      if @podcast_episode
+        @podcast_episode.update(attachment_params[:attachment])
+      else
+        @podcast_episode = Audio.create(
+          attachment_params[:attachment].merge(
+            attachable_type: @post.postable.class,
+            attachable_id: @post.postable.id
+          )
+        )
+      end
       flash[:notice] = 'Successfully updated post.'
     else
       flash[:alert] = 'Failed to update post.'

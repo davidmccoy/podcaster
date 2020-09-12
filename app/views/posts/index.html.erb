@@ -26,6 +26,11 @@
             <% next unless post.postable %>
             <tr>
               <td>
+                <% if !post.postable.podcast_episode %>
+                  <div class="error-icon-container" data-toggle="tooltip" data-placement="top" title="No audio file">
+                    <%= render 'shared/icons/exclamation_circle', color: 'red', size: '1.5rem' %>
+                  </div>
+                <% end %>
                 <%= link_to post.postable.title, page_post_path(@page, post) %>
               </td>
               <td>

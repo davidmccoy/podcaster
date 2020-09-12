@@ -43,6 +43,10 @@
 
   window.addEventListener('turbolinks:load', postFormSetup, false);
   window.addEventListener('load', postFormSetup, false);
+
+  $(function () {
+    $('[data-toggle="tooltip"]').tooltip()
+  })
 })();
 
 // fade success messages

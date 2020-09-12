@@ -39,8 +39,17 @@
           <div class="post-container">
             <div class="post-left">
               <%= link_to page_post_path(@page, post) do %>
-                <div class="play-button-container">
-                </div>
+                <% if current_user && policy(@page).edit? %>
+                  <% if !post.postable.podcast_episode %>
+                    <% render 'shared/icons/exclamation_circle', color: 'red', size: '50px' %>
+                  <% else %>
+                    <div class="play-button-container">
+                    </div>
+                  <% end %>
+                <% else %>
+                  <div class="play-button-container">
+                  </div>
+                <% end %>
               <% end %>
             </div>
             <div class="post-right">

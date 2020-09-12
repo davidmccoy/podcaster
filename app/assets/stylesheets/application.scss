@@ -13,6 +13,7 @@
 @import "trix_editor";
 @import "sidebar";
 @import "settings";
+@import "icons";
 
 
 audio {
@@ -98,6 +99,10 @@ audio {
     border-color: $blue;
     box-shadow: 0 0 0 0.2rem rgba($blue, 0.25);
   }
+}
+
+.error-icon-container {
+  display: inline-block;
 }
 
 img.paypal-logo {
