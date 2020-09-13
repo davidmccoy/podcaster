@@ -83,7 +83,6 @@ ActiveRecord::Schema.define(version: 2020_09_12_000442) do
     t.datetime "updated_at", null: false
     t.string "slug"
     t.boolean "included_in_aggregate_feed", default: false
-    t.text "description"
     t.boolean "externally_hosted", default: false
     t.text "external_rss"
     t.index ["included_in_aggregate_feed"], name: "index_pages_on_included_in_aggregate_feed"
