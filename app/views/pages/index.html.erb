@@ -6,41 +6,50 @@
       </div>
       <div class="search-form-container">
         <%= form_with url: pages_url, method: 'get', data: { remote: false } do |form| %>
-          <%= form.text_field :search, class: 'form-control', value: params[:search] %>
-          <%= form.submit 'Search', name: nil, class: 'btn btn-blue' %>
+          <div class="categories-container">
+            <%= select_tag 'category', grouped_options_for_select(categories_for_select, params[:category]), include_blank: "All Categories", class: "form-control categories" %>
+          </div>
+          <div class="term-container">
+            <%= form.text_field :term, class: 'form-control', value: params[:term] %>
+            <%= form.submit 'Search', name: nil, class: 'btn btn-blue' %>
+          </div>
         <% end %>
       </div>
     </div>
     <div class="pages-container">
-      <% @pages.each do |page| %>
-        <div class="page-container">
-          <%= link_to page_path(page) do %>
-            <div class="page-image" style="background-image: url(<%= page.logo ?  page.logo.file[:medium].url : @default_logo %>)">
+      <% if @pages.any? %>
+        <% @pages.each do |page| %>
+          <div class="page-container">
+            <%= link_to page_path(page) do %>
+              <div class="page-image" style="background-image: url(<%= page.logo ?  page.logo.file[:medium].url : @default_logo %>)">
+              </div>
+            <% end %>
+            <div class="page-info">
+              <h3>
+                <%= link_to page.name, page_path(page) %>
+              </h3>
+              <hr style="width:6rem;margin:1rem 0;">
+              <h5>
+                <%= link_to page.latest_post&.postable&.title, page_post_path(page, page.latest_post)%>
+              </h5>
+              <p>
+                <em><%= page.latest_post&.publish_time&.localtime&.strftime('%B %-m, %Y') %></em>
+              </p>
+              <p>
+                <%= simple_format(truncate(page.latest_post&.postable.content.to_plain_text, length: 150))%>
+              </p>
             </div>
-          <% end %>
-          <div class="page-info">
-            <h3>
-              <%= link_to page.name, page_path(page) %>
-            </h3>
-            <hr style="width:6rem;margin:1rem 0;">
-            <h5>
-              <%= link_to page.latest_post&.postable&.title, page_post_path(page, page.latest_post)%>
-            </h5>
-            <p>
-              <em><%= page.latest_post&.publish_time&.localtime&.strftime('%B %-m, %Y') %></em>
-            </p>
-            <p>
-              <%= simple_format(truncate(page.latest_post&.postable.content.to_plain_text, length: 150))%>
+            <p class="page-read-more">
+              <%= link_to 'See more episodes', page_path(page) %>
             </p>
           </div>
-          <p class="page-read-more">
-            <%= link_to 'See more episodes', page_path(page) %>
-          </p>
-        </div>
-      <% end %>
-      <% (3 - (@pages.length % 3)).times do %>
-        <div class="page-container blank">
-        </div>
+        <% end %>
+        <% (3 - (@pages.length % 3)).times do %>
+          <div class="page-container blank">
+          </div>
+        <% end %>
+      <% else %>
+        <p>No podcasts matched your search criteria.</p>
       <% end %>
     </div>
     <div class="pagination-container">

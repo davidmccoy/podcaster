@@ -6,63 +6,83 @@
     <div class="page-settings-section">
       <h4>Podcast Information</h4>
       <p>
-        Feed URL:
+        <%= link_to 'Edit', edit_page_path(@page), class: 'btn btn-sm btn-light' %>
+      </p>
+      <p>
+        Basic information about your podcast.
+      </p>
+      <p>
+        <strong>Name:</strong>
+      </p>
+      <p>
+        <input disabled="disabled" class="form-control" type="text" value="<%= @page.name %>" name="page[name]">
+      </p>
+      <p>
+        <strong>Description:</strong>
+      </p>
+      <p>
+        <div class="trix-content-disabled">
+          <%= @page.description %>
+        </div>
+      </p>
+      <p>
+        <strong>Category:</strong>
+      </p>
+      <p>
+        <input disabled="disabled" class="form-control" type="text" value="<%= @page.categories.pluck(:name).join(', ') %>" name="page[category]">
+      </p>
+      <p>
+        <strong>RSS Feed:</strong>
+      </p>
+      <p>
         <%= link_to page_feed_path(@page), target: '_blank' do %>
           <%= Rails.application.routes.url_helpers.page_feed_url(@page) %>
         <% end %>
       </p>
-      <%= form_with model: @page, url: page_path(@page), method: 'put', html: { class: 'needs-validation', novalidate: true, remote: false } do |form| %>
-        <div class="form-group required">
-          <%= form.label :name, 'Name', class: 'control-label' %>
-          <%= form.text_field :name, required: true, class: 'form-control'%>
-        </div>
-        <div class="form-group required">
-          <%= form.label :description, 'Description', class: 'control-label' %>
-          <%= form.rich_text_area :description, required: true, class: 'form-control medium'%>
-        </div>
-        <div class="actions">
-          <%= form.submit 'Update', class: 'btn btn-primary' %>
-        </div>
-      <% end %>
     </div>
     <hr>
     <div class="page-settings-section">
       <h4>Logo</h4>
-      <p>Podcast cover images/logos are typically 1400px by 1400px square images. </p>
       <% if @page.logo %>
         <p>
           <%= link_to 'Change Logo', edit_page_logo_path(@page), class: 'btn btn-sm btn-light' %>
+        </p>
+        <p>
+          The image that will appear on MTGCast and in your RSS feed. Podcast cover images/logos are typically 1400px by 1400px square images.
         </p>
         <div class="logo-container">
           <%= image_tag @page.logo.url(:large) %>
         </div>
       <% else %>
-        <%= link_to new_page_logo_path(@page) do %>
-          <p>
-            <%= button_tag 'Add Logo', class: 'btn btn-sm btn-light' %>
-          </p>
-          <div class="logo-container">
-            <%= image_tag 'mtgcast-logo-itunes.png' %>
-          </div>
-        <% end %>
+        <p>
+          <%= link_to 'Add Logo', new_page_logo_path(@page), class: 'btn btn-sm btn-light' %>
+        </p>
+        <p>
+          The image that will appear on MTGCast and in your RSS feed. Podcast cover images/logos are typically 1400px by 1400px square images.
+        </p>
+        <div class="logo-container">
+          <%= image_tag 'mtgcast-logo-itunes.png' %>
+        </div>
       <% end %>
     </div>
     <hr>
     <div class="page-settings-section">
       <h4>The MTGCast Aggregate Feed</h4>
-      <p>
-        Included in Aggregate Feed: <span class="<%= @page.included_in_aggregate_feed ? 'success' : 'danger' %>"><%= @page.included_in_aggregate_feed.to_s.capitalize %></span>
-      </p>
       <% if @page.included_in_aggregate_feed == false %>
         <p>
           MTGCast maintains an aggregate RSS feeds that combines the episodes from the best MTG podcasts. Please <%= link_to 'email us', 'mailto:mtgcast@hipstersofthecoast.com' %> to request the inclusion of this podcast in our aggregate feed.
         </p>
       <% end %>
+      <p>
+        <strong>Included in Aggregate Feed:</strong> <span class="<%= @page.included_in_aggregate_feed ? 'success' : 'danger' %>"><%= @page.included_in_aggregate_feed.to_s.capitalize %></span>
+      </p>
     </div>
     <hr>
     <div class="page-settings-section">
       <h4>Delete <%= @page.name %></h4>
-      <p>If you would like to remove <%= @page.name %> from MTGCast, please use the button below. This action cannot be undone.</p>
+      <p>
+        If you would like to remove <%= @page.name %> from MTGCast, please use the button below. This action cannot be undone.
+      </p>
       <p>
         <%= link_to 'Delete Podcast', page_delete_path(@page), class: 'btn btn-danger' %>
       </p>

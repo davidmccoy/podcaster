@@ -217,8 +217,21 @@
   justify-content: space-between;
   align-items: center;
 
+  .title-container {
+    width: 100%;
+  }
+
   .search-form-container {
     width: 100%;
+    form {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .term-container, .categories-container {
+      width: 100%;
+      margin: 0 0 1rem;
+    }
     .form-control {
       &:focus {
         border-color: lighten($blue, 10%);
@@ -228,13 +241,14 @@
     .btn {
       vertical-align: unset;
     }
+
+    .form-control {
+      display: inline-block;
+      width: calc(100% - 112px);
+      margin-right: 1rem;
+    }
   }
 
-  .form-control {
-    display: inline-block;
-    width: calc(100% - 112px);
-    margin-right: 1rem;
-  }
 
   .btn {
     display: inline-block;
@@ -352,10 +366,20 @@
 
   .header-container {
     .search-form-container {
-      width: auto;
-    }
-    .form-control {
-      width: 200px;
+      form {
+        flex-direction: row;
+      }
+      .categories-container {
+        width: 48%;
+        margin: 0;
+        .form-control {
+          width: 100%;
+        }
+      }
+      .term-container {
+        width: 48%;
+        margin: 0;
+      }
     }
   }
 }
@@ -365,13 +389,18 @@
     width: 31%;
     &.blank {
       display: inherit;
-      box-shadow: none;;
+      box-shadow: none;
     }
   }
 
   .header-container {
-    .form-control {
-      width: 300px;
+    .search-form-container {
+      .categories-container {
+        width: 31%;
+      }
+      .term-container {
+        width: 65.5%;
+      }
     }
   }
 }

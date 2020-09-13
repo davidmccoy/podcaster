@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_12_000442) do
+ActiveRecord::Schema.define(version: 2020_09_13_150506) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -56,6 +56,19 @@ ActiveRecord::Schema.define(version: 2020_09_12_000442) do
     t.datetime "updated_at", null: false
     t.index ["attachable_type", "attachable_id"], name: "index_attachments_on_attachable_type_and_attachable_id"
     t.index ["label"], name: "index_attachments_on_label"
+  end
+
+  create_table "categories", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "category_pages", force: :cascade do |t|
+    t.bigint "page_id"
+    t.bigint "category_id"
+    t.index ["category_id"], name: "index_category_pages_on_category_id"
+    t.index ["page_id"], name: "index_category_pages_on_page_id"
   end
 
   create_table "episodes", force: :cascade do |t|

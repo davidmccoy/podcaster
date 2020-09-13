@@ -7,9 +7,29 @@ class PagesController < ApplicationController
     # :latest_post is restricted to one post, but eager loading :postable ends up
     # eager loading many more than one associated postable records, so I'm leaving
     # that n+1 for now
-    if query_params[:search]
+    if query_params[:term].present? && query_params[:category].present?
       @pages = Page.includes(:logo, :latest_post)
-                   .where('name ilike ?', "%#{query_params[:search].strip}%")
+                   .joins(:categories)
+                   .where(categories:  { name: query_params[:category] })
+                   .where('pages.name ilike ?', "%#{query_params[:term].strip}%")
+                   .joins('INNER JOIN posts ON posts.page_id = pages.id')
+                   .where('posts.publish_time < ?', Time.now)
+                   .group('pages.id')
+                   .order('max(posts.publish_time) DESC')
+                   .paginate(page: params[:page], per_page: 12)
+    elsif query_params[:term].present?
+      @pages = Page.includes(:logo, :latest_post)
+                   .where('name ilike ?', "%#{query_params[:term].strip}%")
+                   .joins('INNER JOIN posts ON posts.page_id = pages.id')
+                   .where('posts.publish_time < ?', Time.now)
+                   .group('pages.id')
+                   .order('max(posts.publish_time) DESC')
+                   .paginate(page: params[:page], per_page: 12)
+
+    elsif query_params[:category].present?
+      @pages = Page.includes(:logo, :latest_post)
+                   .joins(:categories)
+                   .where(categories:  { name: query_params[:category] })
                    .joins('INNER JOIN posts ON posts.page_id = pages.id')
                    .where('posts.publish_time < ?', Time.now)
                    .group('pages.id')
@@ -48,8 +68,8 @@ class PagesController < ApplicationController
     @page = current_user.pages.new(page_params)
 
     if @page.save
-      flash[:notice] = 'Successfully created podcast.'
-      redirect_to page_posts_path(@page)
+      flash[:notice] = 'Welcome to MTGCast! Don\'t forget to add a description and category!'
+      redirect_to page_settings_path(@page)
     else
       flash[:alert] = 'Failed to created podcast.'
       render :new
@@ -143,6 +163,6 @@ class PagesController < ApplicationController
   end
 
   def query_params
-    params.permit(:search)
+    params.permit(:term, :category)
   end
 end

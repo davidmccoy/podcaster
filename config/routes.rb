@@ -35,7 +35,8 @@ require 'sidekiq/web'
       end
     end
     resource :logo
-    resources :stats
+    resources :stats, only: [:index]
+    resources :page_categories, as: :categories, path: 'categories'
   end
 
   resources :episodes, only: [:create]

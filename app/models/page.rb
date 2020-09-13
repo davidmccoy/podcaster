@@ -7,6 +7,8 @@ class Page < ApplicationRecord
   has_many :attachments, as: :attachable, dependent: :destroy
   has_many :images, -> { where(attachments: { type: 'Image' }) }, foreign_key: :attachable_id
   has_one :logo, -> { where(attachments: { type: 'Logo' }) }, foreign_key: :attachable_id
+  has_many :category_pages
+  has_many :categories, through: :category_pages
 
   has_rich_text :description
 
