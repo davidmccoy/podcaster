@@ -1,6 +1,21 @@
 trix-editor {
-  height: 90%;
   overflow: auto;
+
+  &.full-height {
+    height: 90%;
+  }
+  &.medium {
+    height: 300px;
+  }
+
+  a {
+    color: $blue;
+    text-decoration: underline;
+
+    &:hover {
+      color: darken($blue, 5%);
+    }
+  }
 }
 
 .trix-content {

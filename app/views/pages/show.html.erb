@@ -21,10 +21,19 @@
           </div>
         <% end %>
       </div>
-      <div class="page-description-container">
-        <p>
-          <%= truncate(@page.description, length: 300) %>
-        </p>
+      <div class="page-description-container <%= 'shortened' if @shortened %>">
+        <div class="page-description">
+          <p>
+            <%= @page.description %>
+          </p>
+        </div>
+        <% if @shortened %>
+          <div class="show-more-container">
+            <button class="show-more btn btn-sm btn-light">
+              Show more
+            </button>
+          </div>
+        <% end %>
       </div>
     </div>
   </div>
@@ -87,3 +96,13 @@
     </div>
   </div>
 </div>
+
+<script>
+  $(document).on('ready turbolinks:load', function() {
+    $('.show-more').on('click', function() {
+      $('.page-description-container').removeClass('shortened');
+      $('.page-description').height('auto');
+      $('.show-more-container').hide();
+    })
+  })
+</script>

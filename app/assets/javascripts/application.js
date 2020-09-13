@@ -38,7 +38,7 @@
       }, false);
     });
 
-    $('trix-editor').height(window.innerHeight * 0.87)
+    $('trix-editor.full-height').height(window.innerHeight * 0.87)
   }
 
   window.addEventListener('turbolinks:load', postFormSetup, false);

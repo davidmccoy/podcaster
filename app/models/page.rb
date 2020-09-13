@@ -8,6 +8,8 @@ class Page < ApplicationRecord
   has_many :images, -> { where(attachments: { type: 'Image' }) }, foreign_key: :attachable_id
   has_one :logo, -> { where(attachments: { type: 'Logo' }) }, foreign_key: :attachable_id
 
+  has_rich_text :description
+
   validates :slug, uniqueness: true, allow_blank: true
 
   after_commit :set_slug, on: [:create, :update]

@@ -49,7 +49,7 @@
           </div>
           <div class="form-group required">
             <%= postable_form.hidden_field :id, value: @post.postable.id %>
-            <%= postable_form.rich_text_area :content %>
+            <%= postable_form.rich_text_area :content, class: 'full-height' %>
           </div>
           <div class="form-group required">
             <%= form.label :publish_time, 'Publish Time', class: 'control-label' %> <em><span id="timezone"></span></em>
@@ -109,7 +109,7 @@
     })
 
     uppy.on('file-added', (file) => {
-      $('trix-editor').height(window.innerHeight * 0.9)
+      $('trix-editor.full-height').height(window.innerHeight * 0.87)
       $('.hidden').show();
 
       var fileUploadPercentage = document.querySelector('.uppy-ProgressBar-percentage');

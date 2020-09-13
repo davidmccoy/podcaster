@@ -34,7 +34,7 @@
                 <%= link_to post.postable.title, page_post_path(@page, post) %>
               </td>
               <td>
-                <%= post.publish_time.strftime('%m/%d/%Y') %>
+                <%= post.publish_time.strftime('%-m/%-d/%Y') %>
                 <%= '(Scheduled)' if post.publish_time > Time.zone.now %>
               </td>
               <td class="view text-center">

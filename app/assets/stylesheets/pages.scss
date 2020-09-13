@@ -39,6 +39,27 @@
 
 .page-description-container {
   margin: 1rem 0;
+
+  &.shortened {
+    .page-description {
+      position: relative;
+      height: 125px;
+      overflow: hidden;
+      &::before {
+        content: '';
+        background: linear-gradient(to bottom, rgba(255,255,255,0) 0%, white 100%);
+        bottom: 0;
+        display: block;
+        height: 30px;
+        position: absolute;
+        width: 100%;
+      }
+    }
+  }
+
+  .show-more-container {
+    margin-top: 1rem;
+  }
 }
 
 .page-settings-container {
@@ -326,7 +347,7 @@
     padding: 0 2rem 0 2rem;
     margin-left: 200px;
     overflow: auto;
-    height: calc(100vh - 78px);
+    height: calc(100vh - 73px);
   }
 
   .header-container {

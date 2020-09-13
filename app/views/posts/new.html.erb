@@ -24,7 +24,7 @@
           <%= form.file_field 'attachment[file]', class: 'upload-file', accept: 'audio/mp3,audio/*;capture=microphone', style: 'display: none;' %>
         </div>
         <div class="form-group required hidden" style="display: none;">
-          <%= form.rich_text_area 'postable_attributes[content]' %>
+          <%= form.rich_text_area 'postable_attributes[content]', class: 'full-height' %>
         </div>
         <div class="form-group required hidden" style="display: none;">
           <%= form.hidden_field :slug, required: true, class: 'form-control' %>
@@ -89,7 +89,7 @@
     })
 
     uppy.on('file-added', (file) => {
-      $('trix-editor').height(window.innerHeight * 0.9)
+      $('trix-editor.full-height').height(window.innerHeight * 0.87)
       $('.hidden').show();
 
       var fileUploadPercentage = document.querySelector('.uppy-ProgressBar-percentage');
