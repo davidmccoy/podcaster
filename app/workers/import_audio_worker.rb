@@ -13,7 +13,6 @@ class ImportAudioWorker
       a.save!
     end
   rescue => e
-    p "****** #{e.message} ******"
     podcast_episode.update(import_errors: e.message)
   end
 end

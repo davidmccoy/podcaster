@@ -10,14 +10,15 @@ class ImportRssFeedWorker
     # fetch and parse the RSS feed
     xml = HTTParty.get(url).body
     feed = parse(xml)
+    image_url = feed.try(:itunes_image) || feed.try(:image)
 
     # enqueue worker to attach a logo
-    ::ImportLogoWorker.perform_async(page.id, feed.image.url) if feed.try(:image)
+    ::ImportLogoWorker.perform_async(page.id, image_url) if image_url
 
     # iterate over the entries and make posts/podcast episodes
     # perhaps we can limit the number of episodes for free users?
     # TODO: most of this is repeated from the check RSS feed worker
-    feed.entries.take(5).each do |entry|
+    feed.entries.take(1).each do |entry|
       # set up attributes
       post_params = {
         page_id: page.id,
