@@ -2,7 +2,12 @@
   <div class="col-md-8 offset-md-2">
     <div class="header-container">
       <div class="title-container">
-        <h1>Directory</h1>
+        <div>
+          <h1>Directory</h1>
+        </div>
+        <div class="reveal-search">
+          <%= render 'shared/icons/magnifying_glass', color: 'black', size: '1.5rem' %>
+        </div>
       </div>
       <div class="search-form-container">
         <%= form_with url: pages_url, method: 'get', data: { remote: false } do |form| %>
@@ -57,3 +62,10 @@
     </div>
   </div>
 </div>
+<script>
+  $(document).ready(function () {
+    $('.reveal-search').on('click', function() {
+      $('.search-form-container').slideToggle();
+    })
+  })
+</script>

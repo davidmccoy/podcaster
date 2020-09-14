@@ -219,9 +219,21 @@
 
   .title-container {
     width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .reveal-search {
+    display: block;
+    &:hover {
+      cursor: pointer;
+    }
   }
 
   .search-form-container {
+    display: none;
     width: 100%;
     form {
       display: flex;
@@ -365,7 +377,11 @@
   }
 
   .header-container {
+    .reveal-search {
+      display: none;
+    }
     .search-form-container {
+      display: block;
       form {
         flex-direction: row;
       }
