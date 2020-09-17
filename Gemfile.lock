@@ -260,6 +260,8 @@ GEM
     selenium-webdriver (3.10.0)
       childprocess (~> 0.5)
       rubyzip (~> 1.2)
+    sentry-raven (2.13.0)
+      faraday (>= 0.7.6, < 1.0)
     shrine (2.19.4)
       content_disposition (~> 1.0)
       down (>= 4.1, < 6)
@@ -351,6 +353,7 @@ DEPENDENCIES
   sass-rails (~> 6.0)
   scout_apm
   selenium-webdriver
+  sentry-raven
   shrine (~> 2.11)
   sidekiq
   sidekiq-scheduler
