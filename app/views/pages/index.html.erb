@@ -1,5 +1,5 @@
 <div class="row">
-  <div class="col-md-8 offset-md-2">
+  <div class="col-lg-10 offset-lg-1">
     <div class="header-container">
       <div class="title-container">
         <div>
@@ -23,21 +23,36 @@
     </div>
     <div class="pages-container">
       <% if @pages.any? %>
-        <% @pages.each do |page| %>
+        <% @pages.each_with_index do |page, index| %>
+          <% unless index == 0%>
+            <hr>
+          <% end %>
           <div class="page-container">
-            <%= link_to page_path(page) do %>
-              <div class="page-image" style="background-image: url(<%= page.logo ?  page.logo.file[:medium].url : @default_logo %>)">
-              </div>
-            <% end %>
-            <div class="page-info">
+            <div class="page-image-container">
+              <%= link_to page_path(page) do %>
+                <div class="page-image" style="background-image: url(<%= page.logo ?  page.logo.file[:medium].url : @default_logo %>)">
+                </div>
+              <% end %>
+            </div>
+            <div class="page-title-container">
               <h3>
                 <%= link_to page.name, page_path(page) %>
               </h3>
-              <hr style="width:6rem;margin:1rem 0;">
+              <% if page.categories.any? %>
+                <span>
+                  Category: <%= page.categories.pluck(:name).join(', ').capitalize %>
+                </span>
+              <% end %>
+              <p class="page-see-more">
+                <%= render '/shared/icons/chevron_down', color: 'black', size: '1rem' %>
+              </p>
+            </div>
+            <div class="page-info-container">
+              <hr>
               <h5>
                 <%= link_to page.latest_post&.postable&.title, page_post_path(page, page.latest_post)%>
               </h5>
-              <p>
+              <p style="font-size:0.8rem;">
                 <em><%= page.latest_post&.publish_time&.localtime&.strftime('%B %-m, %Y') %></em>
               </p>
               <p>
@@ -66,6 +81,12 @@
   $(document).ready(function () {
     $('.reveal-search').on('click', function() {
       $('.search-form-container').slideToggle();
+    })
+
+    $('.page-see-more').on('click', function() {
+      var titleContainer = $(this).parent()[0];
+      $(this).toggleClass('open');
+      $(titleContainer).next('.page-info-container').slideToggle()
     })
   })
 </script>
