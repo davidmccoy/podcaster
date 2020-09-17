@@ -103,7 +103,13 @@ class PagesController < ApplicationController
   end
 
   def feed
-    @posts = @page.posts.published.includes(postable: [:audio, :rich_text_content]).limit(50)
+    @posts = @page.posts
+                  .published
+                  .includes(postable: [:audio, :rich_text_content])
+                  .limit(50)
+                  .select { |post| post.postable.audio.any? }
+                  # this select is gross but necessary for posts without audio
+
     @image =
       if @page.logo
         @page.logo.url(:large)

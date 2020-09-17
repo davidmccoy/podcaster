@@ -18,6 +18,7 @@ class PodcastEpisodeDecorator < BaseDecorator
   end
 
   def media_url(syndicated)
+    # return unless postable.podcast_episode
     "#{base_url}.#{file_extension}?#{source(syndicated)}"
   end
 

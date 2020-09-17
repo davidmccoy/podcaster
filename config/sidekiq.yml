@@ -1,4 +1,4 @@
-:concurrency: <%= ENV["SIDEKIQ_CONCURRENCY"] || 10 %>
+:concurrency: <%= ENV["SIDEKIQ_CONCURRENCY"] || 5 %>
 staging:
   :concurrency: <%= ENV["SIDEKIQ_CONCURRENCY"] || 5 %>
 development:
