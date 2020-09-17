@@ -40,7 +40,7 @@
               </h3>
               <% if page.categories.any? %>
                 <span>
-                  Category: <%= page.categories.pluck(:name).join(', ').capitalize %>
+                  Category: <%= page.categories.pluck(:name).join(', ') %>
                 </span>
               <% end %>
               <p class="page-see-more">
