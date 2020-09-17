@@ -5,16 +5,9 @@
 <% end %>
 
 <div class="row">
-  <div class="col-md-8 offset-md-2">
-    <div class="simple-nav">
-      <span>
-        <%= link_to '< Settings', page_settings_path(@page) %>
-      </span>
-    </div>
-    <span>
-      Logo for
-    </span>
-    <h1><%= @page.name %></h1>
+  <%= render 'pages/sidebar' %>
+  <div class="page-admin">
+    <h2>Logo</h2>
     <p>
       Podcast cover images/logos are typically 1400px by 1400px square images.
     </p>

@@ -1,20 +1,45 @@
 .navbar {
   margin-bottom: 1rem;
   box-shadow: 0 1px 4px rgba(25, 25, 25, 0.1);
+
   .navbar-brand {
     padding: 0;
+
     .logo {
       width: 188px;
       height: auto;
     }
   }
+
   &.navbar-expand-lg {
     .navbar-nav {
+      .nav-item.action {
+        display: none;
+      }
+
       .nav-link {
         padding-left: 1rem;
         padding-right: 1rem;
+
         &:first-child {
           padding-right: 0.5rem;
+        }
+      }
+    }
+  }
+}
+
+.nested-submenu {
+  list-style: none;
+  padding: 0 0 0 1rem;
+}
+
+@media (min-width: 992px) {
+  .navbar {
+    &.navbar-expand-lg {
+      .navbar-nav {
+        .nav-item.action {
+          display: block;
         }
       }
     }

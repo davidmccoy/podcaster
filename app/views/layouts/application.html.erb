@@ -44,7 +44,7 @@
     <meta name="theme-color" content="#ffffff">
   </head>
 
-  <body>
+  <body class="<%= "page-admin-body" if page_management_path?(@page, @post) %>">
     <%= render "layouts/nav" %>
     <div id="content">
       <div class="container-fluid">
@@ -67,6 +67,8 @@
         <%= yield %>
       </div>
     </div>
-    <%= render "layouts/footer" %>
+    <% unless page_management_path?(@page, @post) %>
+      <%= render "layouts/footer" %>
+    <% end %>
   </body>
 </html>

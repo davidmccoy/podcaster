@@ -4,37 +4,54 @@
   <script src="https://transloadit.edgly.net/releases/uppy/v0.28.0/dist/uppy.min.js"></script>
 <% end %>
 <div class="row">
-  <div class="col-md-8 offset-md-2">
-    <h1><%= link_to @page.name, page_path(@page), class: 'page-name-link' %></h1>
-    <h4>Create Post</h4>
-    <div>
-      <%= form_with model: @post, url: page_posts_path(@page, @post), method: 'post', html: { class: 'needs-validation', novalidate: true } do |form| %>
-        <%= form.hidden_field :postable_type, value: 'PodcastEpisode' %>
-        <div class="form-group required">
-          <%= form.label 'postable_attributes[title]', 'Title', class: 'control-label' %>
-          <%= form.text_field 'postable_attributes[title]', autofocus: true, required: true, class: 'form-control edit-post-title', onblur: 'onTitleBlur()'%>
-          <span id="slug"></span>
-        </div>
-        <div id="audio">
-        </div>
-        <div class="file-input-container">
-          <%= form.hidden_field 'attachment[label]', required: true, value: 'podcast_episode' %>
-          <%= form.hidden_field 'attachment[file]', class: 'upload-hidden', required: true %>
-          <%= form.file_field 'attachment[file]', class: 'upload-file', accept: 'audio/mp3,audio/*;capture=microphone', style: 'display: none;' %>
-        </div>
-        <div class="form-group required hidden" style="display: none;">
-          <%= form.rich_text_area 'postable_attributes[content]' %>
-        </div>
-        <div class="form-group required hidden" style="display: none;">
-          <%= form.hidden_field :slug, autofocus: true, required: true, class: 'form-control' %>
-        </div>
-        <div class="form-group required hidden" style="display: none;">
-          <%= form.label :publish_time, 'Publish Time', class: 'control-label' %> <em><span id="timezone"></span></em>
-          <%= form.datetime_field :publish_time, autofocus: true, required: true, class: 'form-control', value: Time.now.localtime.strftime('%Y-%m-%dT%H:%M') %>
-        </div>
-        <%= form.submit 'Save', class: 'btn btn-primary hidden', style: 'display: none;', disabled: 'disabled', id: 'post-save' %>
-      <% end %>
-    </div>
+  <%= render 'pages/sidebar' %>
+  <div class="page-admin">
+    <% unless @page.externally_hosted %>
+      <h2>Create Post</h2>
+      <div class="admin-post-container">
+        <%= form_with model: @post, url: page_posts_path(@page, @post), method: 'post', html: { class: 'needs-validation', novalidate: true } do |form| %>
+          <div class="form-group required">
+            <%= form.label 'postable_attributes[title]', 'Title', class: 'control-label' %>
+            <%= form.text_field 'postable_attributes[title]', autofocus: true, required: true, class: 'form-control edit-post-title', onblur: 'onTitleBlur()'%>
+            <div class="slug-container">
+              <span id="slug"></span>
+            </div>
+          </div>
+          <div id="audio">
+          </div>
+          <div class="file-input-container">
+            <%= form.hidden_field 'attachment[label]', required: true, value: 'podcast_episode' %>
+            <%= form.hidden_field 'attachment[file]', class: 'upload-hidden', required: true %>
+            <%= form.file_field 'attachment[file]', class: 'upload-file', accept: 'audio/mp3,audio/*;capture=microphone', style: 'display: none;' %>
+          </div>
+          <div class="form-group required hidden" style="display: none;">
+            <%= form.rich_text_area 'postable_attributes[content]', class: 'full-height' %>
+          </div>
+          <div class="form-group required hidden" style="display: none;">
+            <%= form.hidden_field :slug, required: true, class: 'form-control' %>
+          </div>
+          <div class="form-group required hidden" style="display: none;">
+            <%= form.label :publish_time, 'Publish Time', class: 'control-label' %> <em><span id="timezone"></span></em>
+            <br />
+            <%= form.select :publish_time_month, [['01–Jan', 'January'], ['02–Feb', 'February'], ['03–Mar', 'March'], ['04–Apr', 'April'], ['05–May', 'May'], ['06–Jun', 'June'], ['07–Jul', 'July'], ['08–Aug', 'August'], ['09–Sep', 'September'], ['10–Oct', 'October'], ['11–Nov', 'November'], ['12–Dec', 'December'],], {}, { :class => 'form-control publish-time month' } %>
+            <%= form.text_field :publish_time_day, min: 1, max: 31, required: true, class: 'form-control publish-time day' %>,
+            <%= form.text_field :publish_time_year, min: 1, required: true, class: 'form-control publish-time year' %> at
+            <%= form.text_field :publish_time_hour, min: 0, max: 24, required: true, class: 'form-control publish-time hour' %> :
+            <%= form.text_field :publish_time_minute, min: 1, max: 59, required: true, class: 'form-control publish-time minute' %>
+            <%= form.hidden_field :publish_time_zone, value: nil %>
+          </div>
+          <%= form.submit 'Create', class: 'btn btn-primary hidden', style: 'display: none;', disabled: 'disabled', id: 'post-save' %>
+        <% end %>
+      </div>
+    <% else %>
+      <h2>Create Post</h2>
+      <p>
+        <em style="color:#9a2001;">This podcast is hosted outside of MTGCast</em>
+      </p>
+      <p>
+        You cannot upload new episodes to an externally hosted podcast. Instead, MTGCast will check your current RSS feed for any new episodes and import them.
+      </p>
+    <% end %>
   </div>
 </div>
 <script>
@@ -74,7 +91,7 @@
     })
 
     uppy.on('file-added', (file) => {
-      $('trix-editor').height(window.innerHeight * 0.9)
+      $('trix-editor.full-height').height(window.innerHeight * 0.87)
       $('.hidden').show();
 
       var fileUploadPercentage = document.querySelector('.uppy-ProgressBar-percentage');
@@ -152,9 +169,21 @@
   }
 
   function setTime() {
-    var tzoffset = (new Date()).getTimezoneOffset() * 60000;
-    var localISOTime = (new Date(Date.now() - tzoffset)).toISOString().slice(0, 16);
-    $('input[name="post[publish_time]"]').val(localISOTime);
+    // var tzoffset = (new Date()).getTimezoneOffset() * 60000;
+    var date = new Date,
+        month = date.toLocaleString('default', { month: 'long' }),
+        day = String(date.getDate()).padStart(2, '0'),
+        year = date.getFullYear(),
+        hour = String(date.getHours()).padStart(2, '0'),
+        minute = String(date.getMinutes()).padStart(2, '0'),
+        zone = date.getTimezoneOffset() / 60;
+
+    $('select[name="post[publish_time_month]"]').val(month);
+    $('input[name="post[publish_time_day]"]').val(day);
+    $('input[name="post[publish_time_year]"]').val(year);
+    $('input[name="post[publish_time_hour]"]').val(hour);
+    $('input[name="post[publish_time_minute]"]').val(minute);
+    $('input[name="post[publish_time_zone]"]').val(zone);
   }
 
   $(document).on('ready turbolinks:load', function() {

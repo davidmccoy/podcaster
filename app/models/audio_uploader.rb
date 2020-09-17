@@ -2,7 +2,7 @@
 class AudioUploader < Shrine
   require 'ffprober'
   plugin :validation_helpers
-  plugin :determine_mime_type
+  plugin :determine_mime_type, analyzer: :marcel
   plugin :add_metadata
   plugin :restore_cached_data
   plugin :processing

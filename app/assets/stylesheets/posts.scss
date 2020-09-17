@@ -4,7 +4,54 @@ textarea {
   }
 }
 
+.publish-time {
+  display: inline-block;
+  &.month {
+    width: 110px;
+  }
+  &.year {
+    width: 80px;
+  }
+  &.day, &.hour, &.minute {
+    width: 60px;
+  }
+}
+
 .edit-post-title {
   font-size: 2rem;
   padding: 1.5rem 1.1rem;
+}
+
+.posts-container {
+  margin: 1rem 0;
+}
+
+.post-container {
+  margin: 2rem 0;
+  display: flex;
+  p:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.post-left {
+  height: 50px;
+  min-height: 50px;
+  width: 50px;
+  min-width: 50px;
+  margin-right: 2rem;
+  .play-button-container {
+    width: 100%;
+    height: 100%;
+    background: asset-data-url("play-button.png");
+    background-size: cover;
+    &:hover {
+      background: asset-data-url("play-button-hover.png");
+      background-size: cover;
+    }
+  }
+}
+
+.admin-post-container {
+  margin-bottom: 1rem;
 }

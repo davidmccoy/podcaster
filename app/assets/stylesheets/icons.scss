@@ -1,0 +1,13 @@
+svg.bi {
+  margin-bottom: 4px;
+  &.red {
+    color: $red;
+  }
+
+  &.delete {
+    &:hover {
+      color: $red;
+      cursor: pointer;
+    }
+  }
+}

@@ -4,29 +4,60 @@ class PagesController < ApplicationController
   before_action :authorize_page, except: [:index, :show, :feed, :mtgcast]
 
   def index
-    # :latest_post is restricted to on post, but eager loading :postable ends up
+    # :latest_post is restricted to one post, but eager loading :postable ends up
     # eager loading many more than one associated postable records, so I'm leaving
     # that n+1 for now
-    @pages = Page.includes(:logo, :latest_post).joins('INNER JOIN posts ON posts.page_id = pages.id').where('posts.publish_time < ?', Time.now).group('pages.id').order('max(posts.publish_time) DESC').paginate(page: params[:page], per_page: 12)
+    if query_params[:term].present? && query_params[:category].present?
+      @pages = Page.includes(:logo, :latest_post)
+                   .joins(:categories)
+                   .where(categories:  { name: query_params[:category] })
+                   .where('pages.name ilike ?', "%#{query_params[:term].strip}%")
+                   .joins('INNER JOIN posts ON posts.page_id = pages.id')
+                   .where('posts.publish_time < ?', Time.now)
+                   .group('pages.id')
+                   .order('max(posts.publish_time) DESC')
+                   .paginate(page: params[:page], per_page: 12)
+    elsif query_params[:term].present?
+      @pages = Page.includes(:logo, :latest_post)
+                   .where('name ilike ?', "%#{query_params[:term].strip}%")
+                   .joins('INNER JOIN posts ON posts.page_id = pages.id')
+                   .where('posts.publish_time < ?', Time.now)
+                   .group('pages.id')
+                   .order('max(posts.publish_time) DESC')
+                   .paginate(page: params[:page], per_page: 12)
+
+    elsif query_params[:category].present?
+      @pages = Page.includes(:logo, :latest_post)
+                   .joins(:categories)
+                   .where(categories:  { name: query_params[:category] })
+                   .joins('INNER JOIN posts ON posts.page_id = pages.id')
+                   .where('posts.publish_time < ?', Time.now)
+                   .group('pages.id')
+                   .order('max(posts.publish_time) DESC')
+                   .paginate(page: params[:page], per_page: 12)
+    else
+      @pages = Page.includes(:logo, :latest_post)
+                   .joins('INNER JOIN posts ON posts.page_id = pages.id')
+                   .where('posts.publish_time < ?', Time.now)
+                   .group('pages.id')
+                   .order('max(posts.publish_time) DESC')
+                   .paginate(page: params[:page], per_page: 12)
+    end
     @default_logo = ActionController::Base.helpers.asset_path('mtgcast-logo-itunes.png')
   end
 
   def show
-    if @page.user == current_user
-      @posts = @page.posts.includes(:postable).order(publish_time: :desc)
-                    .paginate(page: params[:page], per_page: 12)
-    else
-      @posts = @page.posts.published.includes(:postable)
-                    .paginate(page: params[:page], per_page: 12)
-    end
+    @posts = @page.posts.published.includes(:postable)
+                  .paginate(page: params[:page], per_page: 12)
 
-    @first_post = @posts.first
     @logo_url =
       if @page.logo
         ActionController::Base.helpers.image_path(@page.logo.url(:medium))
       else
         ActionController::Base.helpers.image_path('mtgcast-logo-itunes.png')
       end
+
+    @shortened = @page.description&.to_plain_text&.length > 300
   end
 
   def new
@@ -37,8 +68,8 @@ class PagesController < ApplicationController
     @page = current_user.pages.new(page_params)
 
     if @page.save
-      flash[:notice] = 'Successfully created podcast.'
-      redirect_to page_path(@page)
+      flash[:notice] = 'Welcome to MTGCast! Don\'t forget to add a description and category!'
+      redirect_to page_settings_path(@page)
     else
       flash[:alert] = 'Failed to created podcast.'
       render :new
@@ -52,7 +83,7 @@ class PagesController < ApplicationController
   def update
     if @page.update(page_params)
       flash[:notice] = 'Successfully updated podcast.'
-      redirect_to page_path(@page)
+      redirect_to page_settings_path(@page)
     else
       flash[:alert] = 'Failed to update podcast.'
       render :edit
@@ -73,7 +104,12 @@ class PagesController < ApplicationController
 
   def feed
     @posts = @page.posts.published.includes(postable: [:audio, :rich_text_content]).limit(50)
-    @image = ActionController::Base.helpers.asset_path('mtgcast-logo-itunes.png', host: root_url)
+    @image =
+      if @page.logo
+        @page.logo.url(:large)
+      else
+        ActionController::Base.helpers.asset_path('mtgcast-logo-itunes.png', host: root_url)
+      end
     @email =
       if @page.user&.email == 'david.mccoy@gmail.com'
         'admin@mtgcast.fm'
@@ -123,9 +159,10 @@ class PagesController < ApplicationController
   end
 
   def page_params
-    params.require(:page).permit(:name)
+    params.require(:page).permit(:name, :description)
   end
 
-  def set_logo_url
+  def query_params
+    params.permit(:term, :category)
   end
 end

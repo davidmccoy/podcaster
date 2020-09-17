@@ -34,8 +34,8 @@ gem 'jbuilder', '~> 2.5'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
+gem 'httparty'
 gem 'jquery-rails'
-
 gem "webpacker"
 
 # User control and authorization
@@ -44,6 +44,7 @@ gem "pundit"
 
 # For background jobs
 gem 'sidekiq'
+gem 'sidekiq-scheduler'
 gem 'redis'
 
 # To read mp3 metadata
@@ -76,6 +77,9 @@ gem 'scout_apm'
 
 # Caching
 gem 'dalli'
+
+# RSS feed parsing
+gem 'feedjira'
 
 # Error reporting
 # gem 'raygun4ruby'

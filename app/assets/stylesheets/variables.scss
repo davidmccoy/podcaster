@@ -37,7 +37,7 @@ $dark:          $black;
 
 // Body
 
-$body-color:                $gray-800;
+$body-color:                $gray-700;
 
 // Fonts
 
@@ -238,17 +238,25 @@ table,
 
 // Forms =======================================================================
 
+  // trix-editor {
+  //   &:focus {
+  //     border-color: rgba($black, .1) !important;
+  //     box-shadow: none !important;
+  //   }
+  // }
+
 // Navs ========================================================================
 
 .nav,
 .breadcrumb,
 .pagination {
-  font-size: 0.875em;
+  font-size: 1rem;
 }
 
 .dropdown-menu {
   font-size: 0.875em;
   .dropdown-item {
+    font-weight: inherit;
     color: $gray-700;
   }
 }

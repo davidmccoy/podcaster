@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_17_200917) do
+ActiveRecord::Schema.define(version: 2020_09_13_150506) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -58,6 +58,19 @@ ActiveRecord::Schema.define(version: 2020_02_17_200917) do
     t.index ["label"], name: "index_attachments_on_label"
   end
 
+  create_table "categories", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "category_pages", force: :cascade do |t|
+    t.bigint "page_id"
+    t.bigint "category_id"
+    t.index ["category_id"], name: "index_category_pages_on_category_id"
+    t.index ["page_id"], name: "index_category_pages_on_page_id"
+  end
+
   create_table "episodes", force: :cascade do |t|
     t.integer "podcast_id"
     t.string "blubrry_filename"
@@ -83,6 +96,8 @@ ActiveRecord::Schema.define(version: 2020_02_17_200917) do
     t.datetime "updated_at", null: false
     t.string "slug"
     t.boolean "included_in_aggregate_feed", default: false
+    t.boolean "externally_hosted", default: false
+    t.text "external_rss"
     t.index ["included_in_aggregate_feed"], name: "index_pages_on_included_in_aggregate_feed"
     t.index ["slug"], name: "index_pages_on_slug"
     t.index ["user_id"], name: "index_pages_on_user_id"
@@ -103,7 +118,11 @@ ActiveRecord::Schema.define(version: 2020_02_17_200917) do
     t.bigint "total_downloads", default: 0
     t.bigint "individual_downloads", default: 0
     t.bigint "aggregate_feed_downloads", default: 0
+    t.boolean "imported", default: false
+    t.text "guid"
+    t.text "import_errors"
     t.index ["file_migrated"], name: "index_podcast_episodes_on_file_migrated"
+    t.index ["guid"], name: "index_podcast_episodes_on_guid"
   end
 
   create_table "posts", force: :cascade do |t|
@@ -135,6 +154,7 @@ ActiveRecord::Schema.define(version: 2020_02_17_200917) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "admin", default: false
+    t.boolean "multiple_podcasts", default: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

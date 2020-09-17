@@ -1,28 +1,75 @@
 <div class="row">
-  <div class="col-md-8 offset-md-2">
-    <h1>All Podcasts</h1>
+  <div class="col-lg-10 offset-lg-1">
+    <div class="header-container">
+      <div class="title-container">
+        <div>
+          <h1>Directory</h1>
+        </div>
+        <div class="reveal-search">
+          <%= render 'shared/icons/magnifying_glass', color: 'black', size: '1.5rem' %>
+        </div>
+      </div>
+      <div class="search-form-container">
+        <%= form_with url: pages_url, method: 'get', data: { remote: false } do |form| %>
+          <div class="categories-container">
+            <%= select_tag 'category', grouped_options_for_select(categories_for_select, params[:category]), include_blank: "All Categories", class: "form-control categories" %>
+          </div>
+          <div class="term-container">
+            <%= form.text_field :term, class: 'form-control', value: params[:term] %>
+            <%= form.submit 'Search', name: nil, class: 'btn btn-blue' %>
+          </div>
+        <% end %>
+      </div>
+    </div>
     <div class="pages-container">
-      <% @pages.each do |page| %>
-        <div class="page-container">
-          <%= link_to page_path(page) do %>
-            <div class="page-image" style="background-image: url(<%= page.logo ?  page.logo.file[:medium].url : @default_logo %>)">
-            </div>
+      <% if @pages.any? %>
+        <% @pages.each_with_index do |page, index| %>
+          <% unless index == 0%>
+            <hr>
           <% end %>
-          <div class="page-info">
-            <h3>
-              <%= link_to page.name, page_path(page) %>
-            </h3>
-            <p>
-              <em>Last updated: <%= page.latest_post&.publish_time&.localtime&.strftime('%m/%d/%Y') %></em>
-            </p>
-            <p>
-              <%= page.latest_post&.postable&.title %>
+          <div class="page-container">
+            <div class="page-image-container">
+              <%= link_to page_path(page) do %>
+                <div class="page-image" style="background-image: url(<%= page.logo ?  page.logo.file[:medium].url : @default_logo %>)">
+                </div>
+              <% end %>
+            </div>
+            <div class="page-title-container">
+              <h3>
+                <%= link_to page.name, page_path(page) %>
+              </h3>
+              <% if page.categories.any? %>
+                <span>
+                  Category: <%= page.categories.pluck(:name).join(', ').capitalize %>
+                </span>
+              <% end %>
+              <p class="page-see-more">
+                <%= render '/shared/icons/chevron_down', color: 'black', size: '1rem' %>
+              </p>
+            </div>
+            <div class="page-info-container">
+              <hr>
+              <h5>
+                <%= link_to page.latest_post&.postable&.title, page_post_path(page, page.latest_post)%>
+              </h5>
+              <p style="font-size:0.8rem;">
+                <em><%= page.latest_post&.publish_time&.localtime&.strftime('%B %-m, %Y') %></em>
+              </p>
+              <p>
+                <%= simple_format(truncate(page.latest_post&.postable.content.to_plain_text, length: 150))%>
+              </p>
+            </div>
+            <p class="page-read-more home">
+              <%= link_to 'See more episodes', page_path(page) %>
             </p>
           </div>
-          <p class="page-read-more">
-            <%= link_to 'See more episodes', page_path(page) %>
-          </p>
-        </div>
+        <% end %>
+        <% (3 - (@pages.length % 3)).times do %>
+          <div class="page-container blank">
+          </div>
+        <% end %>
+      <% else %>
+        <p>No podcasts matched your search criteria.</p>
       <% end %>
     </div>
     <div class="pagination-container">
@@ -30,3 +77,16 @@
     </div>
   </div>
 </div>
+<script>
+  $(document).ready(function () {
+    $('.reveal-search').on('click', function() {
+      $('.search-form-container').slideToggle();
+    })
+
+    $('.page-see-more').on('click', function() {
+      var titleContainer = $(this).parent()[0];
+      $(this).toggleClass('open');
+      $(titleContainer).next('.page-info-container').slideToggle()
+    })
+  })
+</script>

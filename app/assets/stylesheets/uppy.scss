@@ -31,11 +31,20 @@
 
 .uppy.uppy-ProgressBar {
   width: 96%;
+  position: relative !important;
   margin: 1rem 0;
+  &[aria-hidden=true] {
+    margin: 0;
+  }
 }
 
 .uppy-ProgressBar-percentage {
   top: auto;
-  left: 97%;
+  left: auto;
+  right: -50px;
   color: black;
+}
+
+.uppy.uppy-Informer {
+  position: fixed !important;
 }

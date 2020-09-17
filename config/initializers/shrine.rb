@@ -17,6 +17,14 @@ image_s3_options = {
   bucket:             ENV['IMAGES_S3_BUCKET']
 }
 
+# === external options
+external_options = {
+  access_key_id:      "nil",
+  secret_access_key:  "nil",
+  region:             "nil",
+  bucket:             "nil",
+}
+
 # === shrine's storage options
 # shrine expects settings with the name of cache and store so the audio uploader
 # uses those names for now.
@@ -24,7 +32,8 @@ image_s3_options = {
 Shrine.storages = {
   cache: Shrine::Storage::S3.new(prefix: 'cache', **audio_s3_options),
   store: Shrine::Storage::S3.new(**audio_s3_options),
-  image_store: Shrine::Storage::S3.new(**image_s3_options)
+  image_store: Shrine::Storage::S3.new(**image_s3_options),
+  external: Shrine::Storage::S3.new(**external_options),
 }
 
 # === shrine plugins

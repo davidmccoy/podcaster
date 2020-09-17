@@ -1,5 +1,8 @@
 <div class="row">
   <div class="hero-container">
+    <div class="spacer"></div>
+  </div>
+  <div class="hero-container page-info">
     <div class="hero-page-image">
       <div class="page-image no-border" style="background-image: url(<%= @logo_url %>)">
       </div>
@@ -9,56 +12,83 @@
         <h1>
           <%= @page.name %>
         </h1>
-        <% if current_user && policy(@page.posts.build).create? %>
+        <% if current_user && policy(@page).edit? %>
           <div class="page-admin-button-container">
-            <%= link_to 'Settings', page_settings_path(@page), class: 'btn btn-sm btn-light' %>
-            <%= link_to 'Stats', page_stats_path(@page), class: 'btn btn-sm btn-light' %>
-            <%= link_to '+ Episode', new_page_post_path(@page), class: 'btn btn-sm btn-primary' %>
+            <%= link_to 'Manage Podcast', page_posts_path(@page), class: 'btn btn-sm btn-light' %>
+            <% unless @page.externally_hosted %>
+              <%= link_to '+ Episode', new_page_post_path(@page), class: 'btn btn-sm btn-primary' %>
+            <% end %>
           </div>
         <% end %>
       </div>
-      <% if @first_post %>
-        <div class="page-post-info-container page-show">
-          <span>
-            <%= @first_post.publish_time.localtime.strftime('%m/%d/%Y') %>
-          </span>
-          <h3>
-            <%= link_to @first_post.postable.title, page_post_path(@page, @first_post) %>
-          </h3>
+      <div class="page-description-container <%= 'shortened' if @shortened %>">
+        <div class="page-description">
           <p>
-            <%= simple_format(truncate(@first_post.postable.content.to_plain_text, length: 250)) %>
-          </p>
-          <p>
-            <%= link_to 'Read more', page_post_path(@page, @first_post)  %>
+            <%= @page.description %>
           </p>
         </div>
-      <% end %>
+        <% if @shortened %>
+          <div class="show-more-container">
+            <button class="show-more btn btn-sm btn-light">
+              Show more
+            </button>
+          </div>
+        <% end %>
+      </div>
     </div>
   </div>
-  <div class="col-md-10 offset-md-1">
+  <div class="col-lg-8 offset-lg-2 col-md-12">
     <div class="posts-container">
-      <% if @page.posts %>
+      <p>
+        Episodes
+      </p>
+      <% unless @page.posts.empty? %>
         <% @posts.each do |post| %>
+          <hr>
           <div class="post-container">
-            <div class="post-info">
-              <h3>
-                <%= link_to post.postable.title, page_post_path(@page, post) %>
-              </h3>
-              <p>
-                <em><%= 'Scheduled For: ' if post.publish_time > Time.now %>
-                <%= post.publish_time.localtime.strftime('%m/%d/%Y') %></em>
-              </p>
-              <p>
-                <%= simple_format(truncate(post.postable.content.to_plain_text, length: 150)) %>
-              </p>
-              <p class="page-read-more">
-                <%= link_to 'Read more', page_post_path(@page, post) %>
-              </p>
+            <div class="post-left">
+              <%= link_to page_post_path(@page, post) do %>
+                <% if current_user && policy(@page).edit? %>
+                  <% if !post.postable.podcast_episode  && post.postable.import_errors %>
+                    <% render 'shared/icons/exclamation_circle', color: 'red', size: '50px' %>
+                  <% else %>
+                    <div class="play-button-container">
+                    </div>
+                  <% end %>
+                <% else %>
+                  <div class="play-button-container">
+                  </div>
+                <% end %>
+              <% end %>
+            </div>
+            <div class="post-right">
+              <div class="post-info-container">
+                <h4>
+                  <%= link_to post.postable.title, page_post_path(@page, post) %>
+                </h4>
+                <p>
+                  <%= 'Scheduled For: ' if post.publish_time > Time.now %>
+                  <%= post.publish_time.localtime.strftime('%B %-m, %Y') %>
+                </p>
+                <p>
+                  <%= simple_format(truncate(post.postable.content.to_plain_text, length: 150)) %>
+                </p>
+              </div>
             </div>
           </div>
         <% end %>
       <% else %>
-        You don't have any podcasts.
+        <div class="no-episodes">
+          <% if current_user && policy(@page).edit? %>
+            <p>
+              You don't have any podcast episodes. <%= link_to 'Add one now!', new_page_post_path(@page) %>
+            </p>
+          <% else %>
+            <p>
+              <%= @page.name %> hasn't posted any episodes yet.
+            </p>
+          <% end %>
+        </div>
       <% end %>
     </div>
     <div class="pagination-container">
@@ -66,3 +96,13 @@
     </div>
   </div>
 </div>
+
+<script>
+  $(document).on('ready turbolinks:load', function() {
+    $('.show-more').on('click', function() {
+      $('.page-description-container').removeClass('shortened');
+      $('.page-description').height('auto');
+      $('.show-more-container').hide();
+    })
+  })
+</script>

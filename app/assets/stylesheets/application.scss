@@ -10,11 +10,32 @@
 @import "pagination";
 @import "actiontext";
 @import "trix/dist/trix";
+@import "sidebar";
+@import "settings";
+@import "icons";
 @import "trix_editor";
 
 
 audio {
   width: 100%;
+}
+
+strong {
+  font-weight: bold;
+}
+
+.container-fluid {
+  padding-left: 16px;
+  padding-right: 16px
+}
+
+.row {
+  margin-right: -16px;
+  margin-left: -16px;
+}
+
+.control-label {
+  font-weight: bold;
 }
 
 .content-block {
@@ -60,6 +81,56 @@ audio {
   color: white;
 }
 
+.btn-blue {
+  color: $white;
+  background: $blue;
+  border-color: $blue;
+  &:hover {
+    color: $white;
+    background: darken($blue, 5%);
+    border-color: darken($blue, 5%);
+  }
+}
+
+.btn-outline-blue {
+  color: $blue;
+  border-color: $blue;
+  &:hover {
+    color: $white;
+    background: $blue;
+  }
+  &:focus {
+    border-color: $blue;
+    box-shadow: 0 0 0 0.2rem rgba($blue, 0.25);
+  }
+}
+
+.error-icon-container {
+  display: inline-block;
+}
+
+img.paypal-logo {
+  width: 25px;
+  height: auto;
+}
+
+p.lines {
+  display: flex;
+  flex-direction: row;
+  &:before, &:after {
+    content: "";
+    flex: 1 1;
+    border-bottom: 1px solid $gray-200;
+    margin: auto;
+  }
+  &:before {
+    margin-right: 1rem;
+  }
+  &:after {
+    margin-left: 1rem;
+  }
+}
+
 table.table {
   font-size: 1rem;
 }
@@ -82,7 +153,7 @@ a {
   }
 }
 
-p {
+p, span {
   a {
     color: $blue;
     &:hover {
@@ -123,6 +194,15 @@ html {
     position: relative;
     padding-bottom: 350px;
     background: $white;
+
+    &.page-admin-body {
+      padding-bottom: 0;
+
+      #content {
+        margin: 0;
+      }
+    }
+
     #content {
       margin: 0;
       margin-bottom: 1rem;
@@ -138,6 +218,10 @@ html {
   html {
     body {
       padding-bottom: 265px;
+
+      &.page-admin-body {
+        padding-bottom: 0;
+      }
     }
   }
   .alert {
@@ -164,10 +248,17 @@ html {
   html {
     body {
       padding-bottom: 290px;
+
+      &.page-admin-body {
+        padding-bottom: 0;
+      }
     }
   }
   .navbar-collapse {
     padding-top: 0;
+  }
+  .mobile-only {
+    display: none;
   }
 }
 
@@ -175,6 +266,10 @@ html {
   html {
     body {
       padding-bottom: 310px;
+
+      &.page-admin-body {
+        padding-bottom: 0;
+      }
     }
   }
 }

@@ -19,8 +19,11 @@ require 'sidekiq/web'
   end
 
   resources :users
+
   get 'podcasts/recover', to: 'pages#recover'
   post 'podcasts/recover', to: 'pages#send_recovery_email'
+
+  resources :imports
   resources :pages, param: :slug, path: 'podcasts' do
     get '/feed', to: 'pages#feed'
     get '/settings', to: 'pages#settings'
@@ -32,12 +35,14 @@ require 'sidekiq/web'
       end
     end
     resource :logo
-    resources :stats
+    resources :stats, only: [:index]
+    resources :page_categories, as: :categories, path: 'categories'
   end
 
   resources :episodes, only: [:create]
 
   resource :support
+  resource :faq
 
   # ***|| routes for old rss feeds ||***
   # in home controller --> '/?feed=podcast'

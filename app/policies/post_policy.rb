@@ -1,4 +1,9 @@
 class PostPolicy <  ApplicationPolicy
+
+  def index?
+    @user == record.page.user || admin?
+  end
+
   def show?
     true
   end

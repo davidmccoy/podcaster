@@ -1,0 +1,75 @@
+<div class="row">
+  <div class="col-md-8 offset-md-2">
+    <h1>Frequently Asked Questions</h1>
+    <p>
+      Welcome to the new MTGCast! You've got questions and we've got answers. If the information you're looking for isn't here, please join the new
+      <% if current_user %>
+        <a href="https://discord.gg/XuBujgG" target="_blank">MTGCast Discord server</a>
+      <% else %>
+        MTGCast Discord Server (sign in to gain access)
+      <% end %>
+        where we we can answer your questions and provide support. Alternatively, you can find us on Twitter at <a href="https://www.twitter.com/mtgcast" target="_blank">@MTGCast</a>.
+    </p>
+    <h3>What is MTGCast?</h3>
+    <p>
+      MTGCast is the only podcast host built specifically for Magic: the Gathering creators.
+    </p>
+    <p>
+      We have all of the features you're looking for in a modern podcast host. But MTGCast exists first and foremost to support the Magic community by providing a free platform for Magic-related podcast creation and discovery. We want to give every Magic fan the chance to start a podcast and find an audience.
+    </p>
+    <h3>What Can I Do on MTGCast?</h3>
+    <p>
+      Are you starting a new podcast? Exciting! You can <%= link_to 'create your brand new podcast', new_page_path %> on MTGCast and host your episodes on our servers.
+    </p>
+    <p>
+      Do you have an existing podcast? Awesome! You can <%= link_to 'import your existing episodes', new_import_path %> to MTGCast and either A) store your episodes on our servers and manually upload new episodes on MTGCast or B) continue using your current host and have MTGCast continuously read from that RSS feed.
+    </p>
+    <p>
+      Once you have your podcast set up on MTGCast, you can create your episodes with our rich text editor and upload them to our secure file hosting with blazing fast download speeds. Distribute your podcast on your own RSS feed on any service, like iTunes and Spotify, and track its performance with our stats database.
+    </p>
+    <h3>How Does Importing My Podcast Work?</h3>
+    <p>
+      If you already have an existing podcast with another hosting service, you can import your existing episodes with <%= link_to 'our import tool', new_import_path %>.
+    </p>
+    <p>
+      There are two ways to import your podcast to MTGCast.
+    </p>
+    <h5>Use MTGCast As Your Host</h5>
+    <p>
+      If you choose to use MTGCast as your podcast hosting service, we will import all of the episodes from your RSS feed, as well as your logo, and upload the files to our servers. Going forward, you will upload your new episodes on MTGCast.
+    </p>
+    <p>
+      We will provide you with a new RSS feed as well as stats and your show will be available in our podcast listings. You will also be able to request inclusion in our aggregate feed that includes episodes from all approved shows on MTGCast.
+    </p>
+    <h5>Continue Using Your Current Podcast Host</h5>
+    <p>
+      If you would like to continue using your current podcast hosting service, we will import all of your podcast episodes to MTGCast but will not upload any of your files to our servers. You will not be able to upload new episodes to MTGCast; instead, you will continue to upload new episodes to your current host and MTGCast will check your RSS feed for updates.
+    </p>
+    <p>
+      All download requests will be made to your externally-hosted files in order to preserve the stats kept by your podcast host. Your show will be available in our podcast listings alongside podcasts that are hosted on MTGCast. You will also be able to request inclusion in our aggregate feed that includes episodes from all approved shows.
+    </p>
+    <p>
+      <%= link_to 'Import your podcast now!', new_import_path %>
+    </p>
+    <h3>How Can I Help Support MTGCast?</h3>
+    <p>
+      MTGCast will always provide a free way for content creators to host their Magic podcasts. That was the original vision when the site launched in 2014 and will always be the core of what MTGCast is.
+    </p>
+    <p>
+      But building and operating a podcast hosting service isn't cheap. We plan to eventually add premium features to help fund the site—more on those to come—but we're currently paying for everything out of pocket. That includes hundreds of dollars a month for the hosting, services, and data storage/transfer, as well has the hundreds of hours of labor we've put into building the site ourselves.
+    </p>
+    <p>
+      If you'd like to support MTGCast in the meantime, you can  <a href="https://paypal.me/mtgcast" target="_blank">donate via PayPal</a>. Any amount helps and 100% of the funds will go towards defraying the costs of running the site.
+    </p>
+    <p>
+      <%= link_to 'https://paypal.me/mtgcast', target: '_blank', class: 'btn btn-outline-blue' do %>
+        <%= image_tag "paypal-logo.png", class: 'paypal-logo' %>
+        Donate on PayPal
+      <% end %>
+    </p>
+    <h3>What Happened to the Old MTGCast?</h3>
+    <p>
+      If you the owner of a podcast that was hosted on the previous version of MTGCast, please <%= link_to 'submit a claim', podcasts_recover_path %> for an existing podcast.
+    </p>
+  </div>
+</div>
