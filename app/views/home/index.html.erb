@@ -131,15 +131,27 @@
           </div>
         </div>
         <div class="page-container">
-          <%= link_to page_path(@page) do %>
-            <div class="page-image" style="background-image: url(<%= @page.logo ?  @page.logo.file[:medium].url : @default_logo %>)">
-            </div>
-          <% end %>
-          <div class="page-info">
+          <div class="page-image-container">
+            <%= link_to page_path(@page) do %>
+              <div class="page-image" style="background-image: url(<%= @page.logo ?  @page.logo.file[:medium].url : @default_logo %>)">
+              </div>
+            <% end %>
+          </div>
+          <div class="page-title-container">
             <h3>
               <%= link_to @page.name, page_path(@page) %>
             </h3>
-            <hr style="width:6rem;margin:1rem 0;">
+            <% if @page.categories.any? %>
+              <span>
+                Category: <%= @page.categories.pluck(:name).join(', ').capitalize %>
+              </span>
+            <% end %>
+            <p class="page-see-more">
+              <%= render '/shared/icons/chevron_down', color: 'black', size: '1rem' %>
+            </p>
+          </div>
+          <div class="page-info-container">
+            <hr>
             <h5>
               <%= link_to @page.latest_post&.postable&.title, page_post_path(@page, @page.latest_post) %>
             </h5>
@@ -188,6 +200,12 @@ $(document).ready(function () {
       $(container).css('background', 'linear-gradient(to right, #fd7e14 0%, #fd7e14 50%, #4f4f4f 50%, #4f4f4f 100%)')
     }
   });
+
+  $('.page-see-more').on('click', function() {
+    var titleContainer = $(this).parent()[0];
+    $(this).toggleClass('open');
+    $(titleContainer).next('.page-info-container').slideToggle()
+  })
 });
 
 </script>

@@ -59,7 +59,7 @@
                 <%= simple_format(truncate(page.latest_post&.postable.content.to_plain_text, length: 150))%>
               </p>
             </div>
-            <p class="page-read-more">
+            <p class="page-read-more home">
               <%= link_to 'See more episodes', page_path(page) %>
             </p>
           </div>
