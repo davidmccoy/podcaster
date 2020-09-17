@@ -14,7 +14,7 @@ class Page < ApplicationRecord
 
   validates :slug, uniqueness: true, allow_blank: true
 
-  after_commit :set_slug, on: [:create, :update]
+  after_commit :set_slug, on: [:create]
 
   accepts_nested_attributes_for :attachments
 
