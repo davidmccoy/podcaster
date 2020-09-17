@@ -7,7 +7,7 @@
   <%= render 'pages/sidebar' %>
   <div class="page-admin">
     <h2>Edit Post</h2>
-    <div>
+    <div class="admin-post-container">
       <%= form_with model: @post, url: page_post_path(@page, @post), method: 'put' do |form| %>
         <%= form.hidden_field :postable_type, value: @post.postable_type %>
         <%= form.fields_for(:postable) do |postable_form| %>

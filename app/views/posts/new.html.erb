@@ -8,39 +8,41 @@
   <div class="page-admin">
     <% unless @page.externally_hosted %>
       <h2>Create Post</h2>
-      <%= form_with model: @post, url: page_posts_path(@page, @post), method: 'post', html: { class: 'needs-validation', novalidate: true } do |form| %>
-        <div class="form-group required">
-          <%= form.label 'postable_attributes[title]', 'Title', class: 'control-label' %>
-          <%= form.text_field 'postable_attributes[title]', autofocus: true, required: true, class: 'form-control edit-post-title', onblur: 'onTitleBlur()'%>
-          <div class="slug-container">
-            <span id="slug"></span>
+      <div class="admin-post-container">
+        <%= form_with model: @post, url: page_posts_path(@page, @post), method: 'post', html: { class: 'needs-validation', novalidate: true } do |form| %>
+          <div class="form-group required">
+            <%= form.label 'postable_attributes[title]', 'Title', class: 'control-label' %>
+            <%= form.text_field 'postable_attributes[title]', autofocus: true, required: true, class: 'form-control edit-post-title', onblur: 'onTitleBlur()'%>
+            <div class="slug-container">
+              <span id="slug"></span>
+            </div>
           </div>
-        </div>
-        <div id="audio">
-        </div>
-        <div class="file-input-container">
-          <%= form.hidden_field 'attachment[label]', required: true, value: 'podcast_episode' %>
-          <%= form.hidden_field 'attachment[file]', class: 'upload-hidden', required: true %>
-          <%= form.file_field 'attachment[file]', class: 'upload-file', accept: 'audio/mp3,audio/*;capture=microphone', style: 'display: none;' %>
-        </div>
-        <div class="form-group required hidden" style="display: none;">
-          <%= form.rich_text_area 'postable_attributes[content]', class: 'full-height' %>
-        </div>
-        <div class="form-group required hidden" style="display: none;">
-          <%= form.hidden_field :slug, required: true, class: 'form-control' %>
-        </div>
-        <div class="form-group required hidden" style="display: none;">
-          <%= form.label :publish_time, 'Publish Time', class: 'control-label' %> <em><span id="timezone"></span></em>
-          <br />
-          <%= form.select :publish_time_month, [['01–Jan', 'January'], ['02–Feb', 'February'], ['03–Mar', 'March'], ['04–Apr', 'April'], ['05–May', 'May'], ['06–Jun', 'June'], ['07–Jul', 'July'], ['08–Aug', 'August'], ['09–Sep', 'September'], ['10–Oct', 'October'], ['11–Nov', 'November'], ['12–Dec', 'December'],], {}, { :class => 'form-control publish-time month' } %>
-          <%= form.text_field :publish_time_day, min: 1, max: 31, required: true, class: 'form-control publish-time day' %>,
-          <%= form.text_field :publish_time_year, min: 1, required: true, class: 'form-control publish-time year' %> at
-          <%= form.text_field :publish_time_hour, min: 0, max: 24, required: true, class: 'form-control publish-time hour' %> :
-          <%= form.text_field :publish_time_minute, min: 1, max: 59, required: true, class: 'form-control publish-time minute' %>
-          <%= form.hidden_field :publish_time_zone, value: nil %>
-        </div>
-        <%= form.submit 'Create', class: 'btn btn-primary hidden', style: 'display: none;', disabled: 'disabled', id: 'post-save' %>
-      <% end %>
+          <div id="audio">
+          </div>
+          <div class="file-input-container">
+            <%= form.hidden_field 'attachment[label]', required: true, value: 'podcast_episode' %>
+            <%= form.hidden_field 'attachment[file]', class: 'upload-hidden', required: true %>
+            <%= form.file_field 'attachment[file]', class: 'upload-file', accept: 'audio/mp3,audio/*;capture=microphone', style: 'display: none;' %>
+          </div>
+          <div class="form-group required hidden" style="display: none;">
+            <%= form.rich_text_area 'postable_attributes[content]', class: 'full-height' %>
+          </div>
+          <div class="form-group required hidden" style="display: none;">
+            <%= form.hidden_field :slug, required: true, class: 'form-control' %>
+          </div>
+          <div class="form-group required hidden" style="display: none;">
+            <%= form.label :publish_time, 'Publish Time', class: 'control-label' %> <em><span id="timezone"></span></em>
+            <br />
+            <%= form.select :publish_time_month, [['01–Jan', 'January'], ['02–Feb', 'February'], ['03–Mar', 'March'], ['04–Apr', 'April'], ['05–May', 'May'], ['06–Jun', 'June'], ['07–Jul', 'July'], ['08–Aug', 'August'], ['09–Sep', 'September'], ['10–Oct', 'October'], ['11–Nov', 'November'], ['12–Dec', 'December'],], {}, { :class => 'form-control publish-time month' } %>
+            <%= form.text_field :publish_time_day, min: 1, max: 31, required: true, class: 'form-control publish-time day' %>,
+            <%= form.text_field :publish_time_year, min: 1, required: true, class: 'form-control publish-time year' %> at
+            <%= form.text_field :publish_time_hour, min: 0, max: 24, required: true, class: 'form-control publish-time hour' %> :
+            <%= form.text_field :publish_time_minute, min: 1, max: 59, required: true, class: 'form-control publish-time minute' %>
+            <%= form.hidden_field :publish_time_zone, value: nil %>
+          </div>
+          <%= form.submit 'Create', class: 'btn btn-primary hidden', style: 'display: none;', disabled: 'disabled', id: 'post-save' %>
+        <% end %>
+      </div>
     <% else %>
       <h2>Create Post</h2>
       <p>
