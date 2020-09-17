@@ -38,6 +38,7 @@
           <p>
             <audio id="player" controls controlsList="nodownload">
               <source src="<%= @post.postable.podcast_episode.url %>" type="<%= @post.postable.podcast_episode&.file&.metadata&.dig('mime_type') %>">
+              Sorry, your browser doesn't support this audio file.
             </audio>
           </p>
           <p>
