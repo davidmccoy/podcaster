@@ -30,7 +30,7 @@
       </p>
       <%= form_with model: @category, url: page_categories_path(@page), method: 'post' do |form| %>
         <div class="form-group required">
-          <%= select_tag 'category[name]', grouped_options_for_select(categories_for_select), include_blank: "Select Category", required: true, class: "form-control" %>
+          <%= select_tag 'category[name]', grouped_options_for_select(categories_for_select, @page.categories.first.name, {}), include_blank: "Select Category", required: true, class: "form-control" %>
         </div>
         <div class="actions">
           <% if @page.categories.any? %>
