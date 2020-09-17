@@ -24,7 +24,14 @@
                 <source src="<%= @post.postable.podcast_episode&.url %>" type="<%= @post.postable.podcast_episode.file.metadata.dig('mime_type') %>">
               </audio>
               <p id="filename">
-                <em><%= @post.postable.podcast_episode.file.metadata['filename'] %> <span id="remove-audio"><%= render 'shared/icons/file_x', color: 'delete', size: '1.5rem' %></span></em>
+                <em>
+                  <%= @post.postable.podcast_episode.file.metadata['filename'] %>
+                  <% unless @post.postable.podcast_episode.file.data['storage'] == 'external' %>
+                    <span id="remove-audio"><%= render 'shared/icons/file_x', color: 'delete', size: '1.5rem' %></span>
+                  <% else %>
+                    (Externally hosted)
+                  <% end %>
+                </em>
               </p>
               <div id="audio">
               </div>
