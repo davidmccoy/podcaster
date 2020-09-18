@@ -1,6 +1,6 @@
 #
 class PagesController < ApplicationController
-  before_action :set_page, except: [:index, :new, :create]
+  before_action :set_page, except: [:index, :new, :create, :mtgcast]
   before_action :authorize_page, except: [:index, :show, :feed, :mtgcast]
 
   def index
