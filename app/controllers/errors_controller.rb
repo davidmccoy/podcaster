@@ -1,9 +1,9 @@
 class ErrorsController < ApplicationController
-  def not_found
+  def internal_server_error
     render status: 400
   end
 
-  def unacceptable
+  def unprocessable_entity
     render status: 422
   end
 
