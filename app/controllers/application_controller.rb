@@ -5,6 +5,8 @@ class ApplicationController < ActionController::Base
 
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
+  rescue_from ActiveRecord::RecordNotFound, :with => :record_not_found
+
   private
 
   # use Pundit to redirect after failed auth
@@ -15,6 +17,10 @@ class ApplicationController < ActionController::Base
     else
       redirect_to new_user_registration_path(url: request.path) and return
     end
+  end
+
+  def record_not_found
+    render 'errors/404' # Assuming you have a template named 'record_not_found'
   end
 
   # ======= customize devise ======= #
