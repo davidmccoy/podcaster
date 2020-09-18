@@ -5,6 +5,8 @@ class ApplicationController < ActionController::Base
 
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
+  rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
+
   private
 
   # use Pundit to redirect after failed auth
@@ -15,6 +17,10 @@ class ApplicationController < ActionController::Base
     else
       redirect_to new_user_registration_path(url: request.path) and return
     end
+  end
+
+  def record_not_found
+    render 'errors/not_found' # Assuming you have a template named 'record_not_found'
   end
 
   # ======= customize devise ======= #
@@ -38,6 +44,7 @@ class ApplicationController < ActionController::Base
 
   def set_user
     @user = User.find_by_id(params[:user_id]) || User.find_by_id(params[:id])
+    raise ActiveRecord::RecordNotFound unless @user
   end
 
   def authorize_user
@@ -47,7 +54,9 @@ class ApplicationController < ActionController::Base
 
   def set_page
     @page = Page.find_by_slug(params[:page_slug]) || Page.find_by_slug(params[:slug])
+    raise ActiveRecord::RecordNotFound unless @page
   end
+
   def authorize_page
     @page ||= Page.new
     authorize @page
@@ -55,6 +64,7 @@ class ApplicationController < ActionController::Base
 
   def set_post
     @post = Post.includes(:postable).find_by_slug(params[:post_slug]) || Post.includes(:postable).find_by_slug(params[:slug])
+    raise ActiveRecord::RecordNotFound unless @post
   end
 
   def authorize_post
@@ -64,5 +74,6 @@ class ApplicationController < ActionController::Base
 
   def set_audio
     @audio = Audio.find_by_id(params[:audio_id]) || Audio.find_by_id(params[:id])
+    raise ActiveRecord::RecordNotFound unless @audio
   end
 end

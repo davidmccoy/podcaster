@@ -1,6 +1,6 @@
 #
 class PagesController < ApplicationController
-  before_action :set_page
+  before_action :set_page, except: [:index, :new, :create]
   before_action :authorize_page, except: [:index, :show, :feed, :mtgcast]
 
   def index
@@ -108,7 +108,7 @@ class PagesController < ApplicationController
                   .includes(postable: [:audio, :rich_text_content])
                   .limit(50)
                   .select { |post| post.postable.audio.any? }
-                  # this select is gross but necessary for posts without audio
+                  # this select is gross but necessary for posts without audiof
 
     @image =
       if @page.logo

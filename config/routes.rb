@@ -5,6 +5,7 @@ require 'sidekiq/web'
   mount Shrine.uppy_s3_multipart(:cache) => "/s3"
 
   root 'home#index'
+
   devise_for :user, path: 'user', controllers: { registrations: 'user/registrations' }
 
   devise_scope :user do
