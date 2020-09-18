@@ -1,8 +1,7 @@
 class HomeController < ApplicationController
   def index
     # handle old MTGCast feed locations
-    redirect_to feed_path, status: 301 if feed_params[:feed] == 'podcast'
-    redirect_to feed_path, status: 301 if request.formats.include? "application/xml"
+    redirect_to feed_path, status: 301 if previous_locations
 
     @page = Page.includes(:logo, :latest_post).first
   end
@@ -11,5 +10,9 @@ class HomeController < ApplicationController
 
   def feed_params
     params.permit(:feed)
+  end
+
+  def previous_locations
+    feed_params[:feed] == 'podcast' || request.formats.include?('application/xml')
   end
 end
