@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
 
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
-  rescue_from ActiveRecord::RecordNotFound, :with => :record_not_found
+  rescue_from ActiveRecord::RecordNotFound, AbstractController::ActionNotFound, :with => :record_not_found
 
   private
 
@@ -20,7 +20,7 @@ class ApplicationController < ActionController::Base
   end
 
   def record_not_found
-    render 'errors/404' # Assuming you have a template named 'record_not_found'
+    render 'errors/not_found' # Assuming you have a template named 'record_not_found'
   end
 
   # ======= customize devise ======= #
