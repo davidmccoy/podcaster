@@ -5,6 +5,11 @@ require 'sidekiq/web'
   mount Shrine.uppy_s3_multipart(:cache) => "/s3"
 
   root 'home#index'
+
+  get '/404', to: 'errors#not_found'
+  get '/422', to: 'errors#unacceptable'
+  get '/500', to: 'errors#internal_error'
+
   devise_for :user, path: 'user', controllers: { registrations: 'user/registrations' }
 
   devise_scope :user do

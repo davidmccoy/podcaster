@@ -38,6 +38,7 @@ class ApplicationController < ActionController::Base
 
   def set_user
     @user = User.find_by_id(params[:user_id]) || User.find_by_id(params[:id])
+    raise ActiveRecord::RecordNotFound unless @user
   end
 
   def authorize_user
@@ -47,7 +48,9 @@ class ApplicationController < ActionController::Base
 
   def set_page
     @page = Page.find_by_slug(params[:page_slug]) || Page.find_by_slug(params[:slug])
+    raise ActiveRecord::RecordNotFound unless @page
   end
+
   def authorize_page
     @page ||= Page.new
     authorize @page
@@ -55,6 +58,7 @@ class ApplicationController < ActionController::Base
 
   def set_post
     @post = Post.includes(:postable).find_by_slug(params[:post_slug]) || Post.includes(:postable).find_by_slug(params[:slug])
+    raise ActiveRecord::RecordNotFound unless @post
   end
 
   def authorize_post
@@ -64,5 +68,6 @@ class ApplicationController < ActionController::Base
 
   def set_audio
     @audio = Audio.find_by_id(params[:audio_id]) || Audio.find_by_id(params[:id])
+    raise ActiveRecord::RecordNotFound unless @audio
   end
 end

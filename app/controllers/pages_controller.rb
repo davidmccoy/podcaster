@@ -108,7 +108,7 @@ class PagesController < ApplicationController
                   .includes(postable: [:audio, :rich_text_content])
                   .limit(50)
                   .select { |post| post.postable.audio.any? }
-                  # this select is gross but necessary for posts without audio
+                  # this select is gross but necessary for posts without audiof
 
     @image =
       if @page.logo
