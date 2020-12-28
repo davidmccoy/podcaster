@@ -2,9 +2,9 @@
   "name": "podcaster",
   "private": true,
   "dependencies": {
-    "@rails/actiontext": "^6.0.0",
+    "@rails/actiontext": "^6.1.0",
     "@rails/webpacker": "^4.0.7",
-    "trix": "^1.0.0"
+    "trix": "^1.2.0"
   },
   "devDependencies": {
     "webpack-dev-server": "^3.8.0"
