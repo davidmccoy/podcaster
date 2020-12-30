@@ -2,7 +2,8 @@
 class Post < ApplicationRecord
   scope :published, -> { where('publish_time < ?', Time.now).order(publish_time: :desc) }
 
-  belongs_to :postable, polymorphic: true, dependent: :destroy
+  delegated_type :postable, types: %w[ PodcastEpisode ]
+  # belongs_to :postable, polymorphic: true, dependent: :destroy
   belongs_to :page
 
   accepts_nested_attributes_for :postable

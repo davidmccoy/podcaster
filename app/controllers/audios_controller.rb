@@ -55,6 +55,9 @@ class AudiosController < ApplicationController
     params.permit(:source)
   end
 
+  # TODO: does this need to be async? how should we handle high-traffic endpoints that
+  # update the database when accessed? this async method curently doesn't handle parallelism
+  # very well, could use optimistic locking or enforce uniqueness while executing.
   def update_download_count
     UpdateDownloadCountWorker.perform_async(@post.id, feed_params[:source])
   end

@@ -20,7 +20,7 @@ class PostsController < ApplicationController
   end
 
   def new
-    @Post = Post.new(postable_type: PodcastEpisode) unless externally_hosted?
+    @post = @page.posts.new(postable_type: PodcastEpisode) unless externally_hosted?
   end
 
   def create
