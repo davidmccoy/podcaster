@@ -1,8 +1,9 @@
 # polymorphic class that uses delegated types to support multiple post types
 class Post < ApplicationRecord
-  # we have to explicitly say `posts.publish_time` or the column reference will be ambiguous
-  # and fail when merging this scope in the postable models.
-  scope :published, -> { where('posts.publish_time < ?', Time.now).order(publish_time: :desc) }
+  # NOTE: this scope and the `publish_time`` attribute are duplicated from the postable models
+  # since it is difficult to delegate a scope to a polymorphic association. something like
+  # joins(:postable).merge(Postable.published) won't work since `Postable` isn't an actual class.
+  scope :published, -> { where('publish_time < ?', Time.now).order(publish_time: :desc) }
 
   delegated_type :postable, types: %w[ PodcastEpisode ]
   belongs_to :page

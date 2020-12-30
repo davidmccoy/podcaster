@@ -25,4 +25,11 @@ namespace :posts do
       post.postable.content.save
     end
   end
+
+  task migrate_publish_time_from_post: :environment do
+    posts = Post.where(postable_type: "PodcastEpisode")
+    posts.find_each do |post|
+      post.podcast_episode.update(publish_time: post.publish_time.to_datetime)
+    end
+  end
 end

@@ -1,6 +1,8 @@
 # polymorphic class allowing for multiple post types
 class PodcastEpisode < ApplicationRecord
-  scope :published, -> { joins(:post).merge(Post.published) }
+  # NOTE: we need to specify `podcast_episodes.publish_time` in order to avoid ambiguous
+  # column reference errors
+  scope :published, -> { where('podcast_episodes.publish_time < ?', Time.now).order(publish_time: :desc) }
 
   has_one :post, as: :postable
   has_one :page, through: :post

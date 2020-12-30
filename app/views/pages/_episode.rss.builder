@@ -1,7 +1,7 @@
 xml.item do
   xml.guid({:isPermaLink => "false"}, episode.url)
   xml.title episode.formatted_title
-  xml.pubDate episode.post.publish_time.to_s(:rfc822)
+  xml.pubDate episode.publish_time.to_s(:rfc822)
   xml.link episode.url
   xml.itunes :duration, episode.audio.first&.file&.metadata&.dig('length')
   xml.itunes :author, episode.page.name

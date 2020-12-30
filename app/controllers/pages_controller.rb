@@ -126,7 +126,7 @@ class PagesController < ApplicationController
       end
     @date =
       if @episodes.first
-        @episodes.first.post.publish_time.to_s(:rfc822)
+        @episodes.first.publish_time.to_s(:rfc822)
       else
         Time.now.to_s(:rfc822)
       end
@@ -135,13 +135,13 @@ class PagesController < ApplicationController
 
   def mtgcast
     @image = ActionController::Base.helpers.asset_path('mtgcast-logo-itunes.png', host: root_url)
-    @posts = Post.published
-                 .includes(:page)
-                 .preload(postable: [:audio, :rich_text_content])
+    @episodes = PodcastEpisode.published
+                 .includes(post: :page)
+                 .preload(:audio, :rich_text_content)
                  .where(pages: { included_in_aggregate_feed: true }).limit(100)
     @date =
-      if @posts.first
-        @posts.first.publish_time.to_s(:rfc822)
+      if @episodes.first
+        @episodes.first.publish_time.to_s(:rfc822)
       else
         Time.now.to_s(:rfc822)
       end

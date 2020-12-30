@@ -30,7 +30,8 @@ class PostsController < ApplicationController
       post_params.merge(
         page_id: @page.id,
         postable_type: PodcastEpisode,
-        publish_time: formatted_publish_time
+        publish_time: formatted_publish_time,
+        postable_attributes: post_params[:postable_attributes].merge(publish_time: formatted_publish_time)
       )
     )
 
