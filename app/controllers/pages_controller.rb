@@ -103,12 +103,12 @@ class PagesController < ApplicationController
   end
 
   def feed
-    @posts = @page.posts
+    @episodes = @page.podcast_episodes
                   .published
-                  .includes(postable: [:audio, :rich_text_content])
+                  .includes(:audio, :rich_text_content, :post)
                   .limit(50)
-                  .select { |post| post.postable.audio.any? }
-                  # this select is gross but necessary for posts without audiof
+                  .select { |episode| episode.audio.any? }
+                  # this select is gross but necessary for episodes without audio
 
     @image =
       if @page.logo
@@ -125,8 +125,8 @@ class PagesController < ApplicationController
         'admin@mtgcast.fm'
       end
     @date =
-      if @page.posts.published.first
-        @page.posts.published.first.publish_time.to_s(:rfc822)
+      if @episodes.first
+        @episodes.first.post.publish_time.to_s(:rfc822)
       else
         Time.now.to_s(:rfc822)
       end

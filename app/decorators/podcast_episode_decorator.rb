@@ -1,24 +1,24 @@
 class PodcastEpisodeDecorator < BaseDecorator
   delegate :helpers, to: ApplicationController
 
-  def title
-    "#{page.name}: #{postable.title}"
+  def formatted_title
+    "#{page.name}: #{title}"
   end
 
   def url
-    url_helpers.page_post_url(page.slug, slug)
+    url_helpers.page_post_url(page.slug, post.slug)
   end
 
   def file_extension
-    postable.audio.first.url.split('.')[-1]
+    audio.first.url.split('.')[-1]
   end
 
   def base_url
-    url_helpers.page_post_audio_url(page.slug, slug, postable.podcast_episode.id)
+    url_helpers.page_post_audio_url(page.slug, post.slug, podcast_episode.id)
   end
 
   def media_url(syndicated)
-    # return unless postable.podcast_episode
+    # return unless podcast_episode
     "#{base_url}.#{file_extension}?#{source(syndicated)}"
   end
 
