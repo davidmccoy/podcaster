@@ -1,6 +1,6 @@
 #
 class User::PagesController < ApplicationController
-  before_action :set_page, except: [:index, :new, :create]
+  before_action :set_page, except: [:index, :new, :create, :upload]
   before_action :authorize_page
 
   def index
