@@ -1,5 +1,5 @@
 <div class="row">
-  <%= render 'pages/sidebar' %>
+  <%= render 'admin/sidebar' %>
   <div class="page-admin">
     <h2>Podcast Information</h2>
     <hr>
@@ -8,7 +8,7 @@
       <p>
         This information about your podcast will be used throught MTGCast and your podcast's RSS feed.
       </p>
-      <%= form_with model: @page, url: page_path(@page), method: 'put', html: { class: 'needs-validation', novalidate: true, remote: false } do |form| %>
+      <%= form_with model: @page, url: page_admin_settings_path(@page), method: 'put', html: { class: 'needs-validation', novalidate: true, remote: false } do |form| %>
         <div class="form-group required">
           <%= form.label :name, 'Name', class: 'control-label' %>
           <%= form.text_field :name, required: true, class: 'form-control'%>
@@ -28,7 +28,7 @@
       <p>
         Please categorize your podcast based on the topic that you cover. This category will be used to help listeners find your work when using MTGCast's search and filtering options.
       </p>
-      <%= form_with model: @category, url: page_categories_path(@page), method: 'post' do |form| %>
+      <%= form_with model: @category, url: page_admin_categories_path(@page), method: 'post' do |form| %>
         <div class="form-group required">
           <%= select_tag 'category[name]', grouped_options_for_select(categories_for_select, @page.categories&.first&.name, {}), include_blank: "Select Category", required: true, class: "form-control" %>
         </div>

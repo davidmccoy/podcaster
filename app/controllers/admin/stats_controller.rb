@@ -1,5 +1,5 @@
 #
-class StatsController < ApplicationController
+class Admin::StatsController < ApplicationController
   before_action :set_page
 
   def index

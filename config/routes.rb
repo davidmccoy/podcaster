@@ -26,18 +26,24 @@ require 'sidekiq/web'
 
   resources :imports
   resources :pages, param: :slug, path: 'podcasts' do
+
     get '/feed', to: 'pages#feed'
-    get '/settings', to: 'pages#settings'
-    get '/delete', to: 'pages#delete'
-    resources :posts, param: :slug do
+    resources :posts, param: :slug, only: [:index, :show] do
       resources :audios, path: 'audio' do
         post 'record_play', to: 'audios#record_play'
-        get '/link/*url', to: 'audios#link', as: 'link'
+        # get '/link/*url', to: 'audios#link', as: 'link'
       end
     end
-    resource :logo
-    resources :stats, only: [:index]
-    resources :page_categories, as: :categories, path: 'categories'
+
+    namespace 'admin' do
+      resources :posts, param: :slug
+      resources :stats, only: [:index]
+      resource :settings, param: :slug do
+        get '/delete', to: 'settings#delete'
+      end
+      resource :logo
+      resources :page_categories, as: :categories, path: 'categories'
+    end
   end
 
   resources :episodes, only: [:create]

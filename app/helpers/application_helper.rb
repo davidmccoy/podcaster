@@ -12,17 +12,17 @@ module ApplicationHelper
   # checks if the current path is for page management
   def page_management_path?(page, post)
     (page && page.persisted? &&
-      (current_page?(page_posts_url(page)) ||
-        current_page?(new_page_post_url(page)) ||
-        current_page?(page_stats_path(page)) ||
-        current_page?(page_settings_path(page)) ||
-        current_page?(new_page_logo_path(page)) ||
-        current_page?(edit_page_logo_path(page)) ||
-        current_page?(page_delete_path(page)) ||
-        current_page?(edit_page_path(page))
+      (current_page?(page_admin_posts_url(page)) ||
+        current_page?(new_page_admin_post_url(page)) ||
+        current_page?(page_admin_stats_path(page)) ||
+        current_page?(page_admin_settings_path(page)) ||
+        current_page?(new_page_admin_logo_path(page)) ||
+        current_page?(edit_page_admin_logo_path(page)) ||
+        current_page?(delete_page_admin_settings_path(page)) ||
+        current_page?(edit_page_admin_settings_path(page))
       )
     ) || (page && page.persisted? &&
-      post && current_page?(edit_page_post_url(page, post))
+      post && current_page?(edit_page_admin_post_url(page, post))
     )
   end
 

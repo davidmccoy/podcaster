@@ -6,11 +6,11 @@
   <div class="collapse navbar-collapse pull-left" id="navbarNavDropdown">
     <ul class="navbar-nav ml-auto">
       <li class="nav-item action">
-        <% unless current_page?(user_pages_path) || (@page&.persisted? && current_page?(new_page_post_path(@page))) %>
+        <% unless current_page?(user_pages_path) || (@page&.persisted? && current_page?(new_page_admin_post_path(@page))) %>
         <% if current_user && current_user.pages.any?%>
           <% if @page && @page.user == current_user && @page.externally_hosted %>
           <% elsif @page && @page.user == current_user %>
-            <%= link_to '+ Episode', new_page_post_path(@page), class: 'nav-link btn btn-outline-primary' %>
+            <%= link_to '+ Episode', new_page_admin_post_path(@page), class: 'nav-link btn btn-outline-primary' %>
           <% else %>
             <%= link_to 'Upload', user_upload_path, class: 'nav-link btn btn-outline-primary' %>
           <% end %>
@@ -52,10 +52,10 @@
               <%= link_to 'Episodes', page_posts_path(@page), class: 'dropdown-item' %>
               <ul class="nested-submenu">
                 <li><%= link_to 'All Episodes', page_posts_path(@page), class: 'dropdown-item' %></li>
-                <li><%= link_to 'Add New', new_page_post_path(@page), class: 'dropdown-item' %></li>
+                <li><%= link_to 'Add New', new_page_admin_post_path(@page), class: 'dropdown-item' %></li>
               </ul>
-              <%= link_to 'Analytics', page_stats_path(@page), class: 'dropdown-item' %>
-              <%= link_to 'Settings', page_settings_path(@page), class: 'dropdown-item' %>
+              <%= link_to 'Analytics', page_admin_stats_path(@page), class: 'dropdown-item' %>
+              <%= link_to 'Settings', page_admin_settings_path(@page), class: 'dropdown-item' %>
             </div>
           </li>
         <% end %>

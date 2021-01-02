@@ -69,36 +69,10 @@ class PagesController < ApplicationController
 
     if @page.save
       flash[:notice] = 'Welcome to MTGCast! Don\'t forget to add a description and category!'
-      redirect_to page_settings_path(@page)
+      redirect_to page_admin_settings_path(@page)
     else
       flash[:alert] = 'Failed to created podcast.'
       render :new
-    end
-  end
-
-  def settings; end
-
-  def edit; end
-
-  def update
-    if @page.update(page_params)
-      flash[:notice] = 'Successfully updated podcast.'
-      redirect_to page_settings_path(@page)
-    else
-      flash[:alert] = 'Failed to update podcast.'
-      render :edit
-    end
-  end
-
-  def delete; end
-
-  def destroy
-    if @page.destroy
-      flash[:notice] = 'Successfully deleted podcast.'
-      redirect_to user_pages_path
-    else
-      flash[:alert] = 'Failed to delete podcast.'
-      redirect_to page_delete_path(@page_)
     end
   end
 
