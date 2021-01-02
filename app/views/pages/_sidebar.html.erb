@@ -4,44 +4,9 @@
   </div>
   <hr class="sidebar-separator">
   <ul class="nav flex-column flex-nowrap overflow-hidden">
-  <li class="nav-item">
-    <a class="nav-link collapsed text-truncate" href="#episodes-submenu" data-toggle="collapse" data-target="#episodes-submenu"><i class="fa fa-table"></i> <span class="d-sm-inline">Episodes</span></a>
-    <div class="collapse submenu <%= "show" if current_page?(page_posts_url(@page)) || current_page?(new_page_post_url(@page)) %>" id="episodes-submenu" aria-expanded="<%= current_page?(page_posts_url(@page)) || current_page?(new_page_post_url(@page)) ? "true" : "false" %>">
-      <ul class="flex-column pl-3 nav <%= "active" if current_page? page_posts_url(@page) %>">
-        <li class="nav-item"><a class="nav-link" href="<%= page_posts_url(@page) %>"><span>All Episodes</span></a></li>
-      </ul>
-      <ul class="flex-column pl-3 nav <%= "active" if current_page? new_page_post_url(@page) %>">
-        <li class="nav-item"><a class="nav-link" href="<%= new_page_post_url(@page) %>"><span>Add New</span></a></li>
-      </ul>
-    </div>
-  </li>
-  <li class="nav-item <%= "active" if current_page? page_stats_path(@page) %>"><a class="nav-link text-truncate" href="<%= page_stats_path(@page) %>"><i class="fa fa-bar-chart"></i> <span class="d-sm-inline">Analytics</span></a></li>
-  <li class="nav-item">
-    <a class="nav-link collapsed text-truncate" href="#settings-submenu" data-toggle="collapse" data-target="#settings-submenu"><i class="fa fa-table"></i> <span class="d-sm-inline">Settings</span></a>
-    <div class="collapse submenu <%= "show" if current_page?(page_settings_path(@page)) || current_page?(edit_page_url(@page)) || current_page?(edit_page_logo_path(@page)) || current_page?(new_page_logo_path(@page)) %>" id="settings-submenu" aria-expanded="<%= current_page?(page_settings_path(@page)) || current_page?(edit_page_url(@page)) || current_page?(edit_page_logo_path(@page) || current_page?(new_page_logo_url(@page))) ? "true" : "false" %>">
-      <ul class="flex-column pl-3 nav <%= "active" if current_page? page_settings_path(@page) %>">
-        <li class="nav-item"><a class="nav-link" href="<%= page_settings_path(@page) %>"><span>All Settings</span></a></li>
-      </ul>
-      <ul class="flex-column pl-3 nav <%= "active" if current_page? edit_page_url(@page) %>">
-        <li class="nav-item"><a class="nav-link" href="<%= edit_page_url(@page) %>"><span>Podcast Information</span></a></li>
-      </ul>
-      <% if @page.logo %>
-        <ul class="flex-column pl-3 nav <%= "active" if current_page? edit_page_logo_path(@page) %>">
-          <li class="nav-item"><a class="nav-link" href="<%= edit_page_logo_path(@page) %>"><span>Logo</span></a></li>
-        </ul>
-      <% else %>
-        <ul class="flex-column pl-3 nav <%= "active" if current_page? new_page_logo_path(@page) %>">
-          <li class="nav-item"><a class="nav-link" href="<%= new_page_logo_path(@page) %>"><span>Logo</span></a></li>
-        </ul>
-      <% end %>
-    </div>
-  </li>
-</ul>
-  <% if @page.logo %>
-    <div class="page-logo">
-      <%= link_to page_path(@page) do %>
-        <%= image_tag @page.logo.url(:small), style: 'width: 100%;' %>
-      <% end %>
-    </div>
-  <% end %>
+    <%= render "pages/sidebar/podcast_episodes" %>
+    <%= render "pages/sidebar/stats" %>
+    <%= render "pages/sidebar/settings" %>
+  </ul>
+  <%= render "pages/sidebar/logo" if @page.logo %>
 </div>

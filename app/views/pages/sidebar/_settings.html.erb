@@ -1,0 +1,47 @@
+<li class="nav-item">
+  <a
+    class="nav-link collapsed text-truncate"
+    href="#settings-submenu"
+    data-toggle="collapse"
+    data-target="#settings-submenu"
+  >
+    <i class="fa fa-table"></i>
+    <span class="d-sm-inline">Settings</span>
+  </a>
+  <div
+    class="collapse submenu <%= "show" if page_settings_paths?(@page) %>"
+    id="settings-submenu"
+    aria-expanded="<%= page_settings_paths?(@page) ? "true" : "false" %>">
+    <ul class="flex-column pl-3 nav <%= "active" if current_page? page_settings_path(@page) %>">
+      <li class="nav-item">
+        <a class="nav-link" href="<%= page_settings_path(@page) %>">
+          <span>All Settings</span>
+        </a>
+      </li>
+    </ul>
+    <ul class="flex-column pl-3 nav <%= "active" if current_page? edit_page_path(@page) %>">
+      <li class="nav-item">
+        <a class="nav-link" href="<%= edit_page_path(@page) %>">
+          <span>Podcast Information</span>
+        </a>
+      </li>
+    </ul>
+    <% if @page.logo %>
+      <ul class="flex-column pl-3 nav <%= "active" if current_page? edit_page_logo_path(@page) %>">
+        <li class="nav-item">
+          <a class="nav-link" href="<%= edit_page_logo_path(@page) %>">
+            <span>Logo</span>
+          </a>
+        </li>
+      </ul>
+    <% else %>
+      <ul class="flex-column pl-3 nav <%= "active" if current_page? new_page_logo_path(@page) %>">
+        <li class="nav-item">
+          <a class="nav-link" href="<%= new_page_logo_path(@page) %>">
+            <span>Logo</span>
+          </a>
+        </li>
+      </ul>
+    <% end %>
+  </div>
+</li>
