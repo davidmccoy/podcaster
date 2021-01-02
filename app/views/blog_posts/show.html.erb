@@ -1,0 +1,36 @@
+<div class="row">
+  <div class="hero-container">
+    <div class="spacer">
+    </div>
+  </div>
+  <div class="hero-container page-info">
+    <div class="hero-page-image">
+      <div class="page-image no-border" style="background-image: url(<%= @logo_url %>)">
+      </div>
+    </div>
+    <div class="hero-episode-container">
+      <div class="page-name-container">
+        <h1>
+          <%= @post.postable.title %>
+        </h1>
+        <p>
+          By <%= link_to @page.name, page_path(@page) %><br />
+        </p>
+        <p>
+          <%= 'Scheduled for: ' if @post.publish_time > Time.zone.now %>
+          <%= @post.publish_time.localtime.strftime('%A, %B %d, %Y') %>
+        </p>
+        <% if current_user && policy(@page).edit? %>
+          <p>
+            <%= link_to "Edit Post", edit_page_admin_blog_post_path(@page, @post), class: 'btn btn-sm btn-light' %>
+          </p>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-8 offset-lg-2 col-md-12">
+    <div class="post-body-container">
+      <%= @post.postable.content %>
+    </div>
+  </div>
+</div>

@@ -28,15 +28,18 @@ require 'sidekiq/web'
   resources :pages, param: :slug, path: 'podcasts' do
 
     get '/feed', to: 'pages#feed'
-    resources :posts, param: :slug, only: [:index, :show] do
+    resources :posts, param: :slug, only: [:show] do
       resources :audios, path: 'audio' do
         post 'record_play', to: 'audios#record_play'
         # get '/link/*url', to: 'audios#link', as: 'link'
       end
     end
 
+    resources :blog_posts, param: :slug
+
     namespace 'admin' do
       resources :posts, param: :slug
+      resources :blog_posts
       resources :stats, only: [:index]
       resource :settings, param: :slug do
         get '/delete', to: 'settings#delete'

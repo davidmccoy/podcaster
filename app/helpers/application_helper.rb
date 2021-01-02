@@ -19,10 +19,16 @@ module ApplicationHelper
         current_page?(new_page_admin_logo_path(page)) ||
         current_page?(edit_page_admin_logo_path(page)) ||
         current_page?(delete_page_admin_settings_path(page)) ||
-        current_page?(edit_page_admin_settings_path(page))
+        current_page?(edit_page_admin_settings_path(page)) ||
+        current_page?(new_page_admin_blog_post_url(page))
       )
     ) || (page && page.persisted? &&
-      post && current_page?(edit_page_admin_post_url(page, post))
+      (
+        post &&
+          (
+            post.podcast_episode? ? current_page?(edit_page_admin_post_url(page, post)) : current_page?(edit_page_admin_blog_post_url(page, post))
+          )
+      )
     )
   end
 

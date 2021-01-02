@@ -14,7 +14,7 @@
         </h1>
         <% if current_user && policy(@page).edit? %>
           <div class="page-admin-button-container">
-            <%= link_to 'Manage Podcast', page_posts_path(@page), class: 'btn btn-sm btn-light' %>
+            <%= link_to 'Manage Podcast', page_admin_posts_path(@page), class: 'btn btn-sm btn-light' %>
             <% unless @page.externally_hosted %>
               <%= link_to '+ Episode', new_page_admin_post_path(@page), class: 'btn btn-sm btn-primary' %>
             <% end %>

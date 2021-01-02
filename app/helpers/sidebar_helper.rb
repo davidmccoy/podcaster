@@ -7,6 +7,14 @@ module SidebarHelper
       )
   end
 
+  def posts_paths?(page)
+    page && page.persisted? &&
+      (
+        current_page?(page_admin_blog_posts_path(page)) ||
+        current_page?(new_page_admin_blog_post_path(page))
+      )
+  end
+
   def page_settings_paths?(page)
     page && page.persisted? &&
       (
