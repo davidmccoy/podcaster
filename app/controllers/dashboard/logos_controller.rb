@@ -1,5 +1,5 @@
 #
-class Admin::LogosController < ApplicationController
+class Dashboard::LogosController < ApplicationController
   before_action :set_page
 
   def new; end
@@ -8,7 +8,7 @@ class Admin::LogosController < ApplicationController
     @logo = @page.build_logo(logo_params.merge(page_info))
     if @logo.save
       flash[:notice] = 'Successfully uploaded logo.'
-      redirect_to page_admin_settings_path(@page)
+      redirect_to page_dashboard_settings_path(@page)
     else
       flash[:alert] = 'Failed to upload logo.'
       render :new
@@ -22,7 +22,7 @@ class Admin::LogosController < ApplicationController
   def update
     if @page.logo.update(logo_params)
       flash[:notice] = 'Successfully uploaded logo.'
-      redirect_to page_admin_settings_path(@page)
+      redirect_to page_dashboard_settings_path(@page)
     else
       flash[:alert] = 'Failed to upload logo.'
       render :edit

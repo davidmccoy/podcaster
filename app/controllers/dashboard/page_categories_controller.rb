@@ -1,5 +1,5 @@
 # For CRUDing the Page --> Category connection
-class Admin::PageCategoriesController < ApplicationController
+class Dashboard::PageCategoriesController < ApplicationController
   before_action :set_page
 
   # TODO: this is a super hacky create action. should be separated out into create and destroy.
@@ -19,7 +19,7 @@ class Admin::PageCategoriesController < ApplicationController
       flash[:alert] = 'Failed to created category.'
     end
 
-    redirect_to edit_page_admin_settings_path(@page)
+    redirect_to edit_page_dashboard_settings_path(@page)
   end
 
   private

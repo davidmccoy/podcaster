@@ -13,16 +13,16 @@
     id="episodes-submenu"
     aria-expanded="<%= episodes_paths?(@page) ? "true" : "false" %>"
   >
-    <ul class="flex-column pl-3 nav <%= "active" if current_page? page_admin_posts_path(@page) %>">
+    <ul class="flex-column pl-3 nav <%= "active" if current_page? page_dashboard_posts_path(@page) %>">
       <li class="nav-item">
-        <a class="nav-link" href="<%= page_admin_posts_path(@page) %>">
+        <a class="nav-link" href="<%= page_dashboard_posts_path(@page) %>">
           <span>All Episodes</span>
         </a>
       </li>
     </ul>
-    <ul class="flex-column pl-3 nav <%= "active" if current_page? new_page_admin_post_path(@page) %>">
+    <ul class="flex-column pl-3 nav <%= "active" if current_page? new_page_dashboard_post_path(@page) %>">
       <li class="nav-item">
-        <a class="nav-link" href="<%= new_page_admin_post_path(@page) %>">
+        <a class="nav-link" href="<%= new_page_dashboard_post_path(@page) %>">
           <span>Add New</span>
         </a>
       </li>

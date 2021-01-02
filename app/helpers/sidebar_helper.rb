@@ -2,26 +2,26 @@ module SidebarHelper
   def episodes_paths?(page)
     page && page.persisted? &&
       (
-        current_page?(page_admin_posts_path(page)) ||
-        current_page?(new_page_admin_post_path(page))
+        current_page?(page_dashboard_posts_path(page)) ||
+        current_page?(new_page_dashboard_post_path(page))
       )
   end
 
   def posts_paths?(page)
     page && page.persisted? &&
       (
-        current_page?(page_admin_blog_posts_path(page)) ||
-        current_page?(new_page_admin_blog_post_path(page))
+        current_page?(page_dashboard_blog_posts_path(page)) ||
+        current_page?(new_page_dashboard_blog_post_path(page))
       )
   end
 
   def page_settings_paths?(page)
     page && page.persisted? &&
       (
-        current_page?(page_admin_settings_path(page)) ||
-        current_page?(edit_page_admin_settings_path(page)) ||
-        current_page?(edit_page_admin_logo_path(page)) ||
-        current_page?(new_page_admin_logo_path(page))
+        current_page?(page_dashboard_settings_path(page)) ||
+        current_page?(edit_page_dashboard_settings_path(page)) ||
+        current_page?(edit_page_dashboard_logo_path(page)) ||
+        current_page?(new_page_dashboard_logo_path(page))
       )
   end
 end

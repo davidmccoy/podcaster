@@ -69,7 +69,7 @@ class PagesController < ApplicationController
 
     if @page.save
       flash[:notice] = 'Welcome to MTGCast! Don\'t forget to add a description and category!'
-      redirect_to page_admin_settings_path(@page)
+      redirect_to page_dashboard_settings_path(@page)
     else
       flash[:alert] = 'Failed to created podcast.'
       render :new

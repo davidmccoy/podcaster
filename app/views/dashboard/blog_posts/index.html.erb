@@ -1,5 +1,5 @@
 <div class="row">
-  <%= render 'admin/sidebar' %>
+  <%= render 'dashboard/sidebar' %>
   <div class="page-admin">
     <h2>All Posts</h2>
     <p>
@@ -26,22 +26,17 @@
             <% next unless post.postable %>
             <tr>
               <td>
-                <% if !post.postable.podcast_episode && post.postable.import_errors %>
-                  <div class="error-icon-container" data-toggle="tooltip" data-placement="top" title="No audio file">
-                    <%= render 'shared/icons/exclamation_circle', color: 'red', size: '1.5rem' %>
-                  </div>
-                <% end %>
-                <%= link_to post.postable.title, page_post_path(@page, post) %>
+                <%= link_to post.postable.title, page_blog_post_path(@page, post) %>
               </td>
               <td>
                 <%= post.publish_time.strftime('%-m/%-d/%Y') %>
                 <%= '(Scheduled)' if post.publish_time > Time.zone.now %>
               </td>
               <td class="view text-center">
-                <%= link_to 'View', page_post_path(@page, post), class: 'btn btn-sm btn-primary' %>
+                <%= link_to 'View', page_blog_post_path(@page, post), class: 'btn btn-sm btn-primary' %>
               </td>
               <td class="view text-center">
-                <%= link_to 'Edit', edit_page_admin_post_path(@page, post), class: 'btn btn-sm btn-light' %>
+                <%= link_to 'Edit', edit_page_dashboard_blog_post_path(@page, post), class: 'btn btn-sm btn-light' %>
               </td>
             </tr>
           <% end %>
@@ -49,7 +44,7 @@
       </table>
     <% else %>
       <p>
-        You haven't made any posts. <%= link_to 'Create one now', new_page_admin_blog_post_path(@page) %>.
+        You haven't made any posts. <%= link_to 'Create one now', new_page_dashboard_blog_post_path(@page) %>.
       </p>
     <% end %>
     <div class="pagination-container">

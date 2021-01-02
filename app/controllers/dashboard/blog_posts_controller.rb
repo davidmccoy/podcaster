@@ -1,10 +1,10 @@
 # Only accessible by page admins
-class Admin::BlogPostsController < ApplicationController
+class Dashboard::BlogPostsController < ApplicationController
   before_action :set_page
   before_action :set_post, only: [:edit, :update, :destroy]
 
   def index
-    @posts = @page.blog_posts
+    @posts = @page.posts.where(postable_type: "BlogPost")
               .order(publish_time: :desc)
               .paginate(page: params[:page], per_page: 20)
   end
@@ -41,16 +41,16 @@ class Admin::BlogPostsController < ApplicationController
       flash[:alert] = 'Failed to update post.'
     end
 
-    redirect_to edit_page_admin_blog_post_path(@page, @post)
+    redirect_to edit_page_dashboard_blog_post_path(@page, @post)
   end
 
   def destroy
     if @post.destroy
       flash[:notice] = 'Successfully deleted post.'
-      redirect_to page_admin_blog_posts_path(@page) and return
+      redirect_to page_dashboard_blog_posts_path(@page) and return
     else
       flash[:alert] = 'Failed to delete post.'
-      redirect_to edit_page_admin_blog_post_path(@page, @post) and return
+      redirect_to edit_page_dashboard_blog_post_path(@page, @post) and return
     end
   end
 

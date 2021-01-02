@@ -1,5 +1,5 @@
 <div class="row">
-  <%= render 'admin/sidebar' %>
+  <%= render 'dashboard/sidebar' %>
   <div class="page-admin">
     <h2>All Episodes</h2>
     <p>
@@ -47,7 +47,7 @@
                 <%= link_to 'View', page_post_path(@page, post), class: 'btn btn-sm btn-primary' %>
               </td>
               <td class="view text-center">
-                <%= link_to 'Edit', edit_page_admin_post_path(@page, post), class: 'btn btn-sm btn-light' %>
+                <%= link_to 'Edit', edit_page_dashboard_post_path(@page, post), class: 'btn btn-sm btn-light' %>
               </td>
             </tr>
           <% end %>
@@ -55,7 +55,7 @@
       </table>
     <% else %>
       <p>
-        You haven't uploaded any episodes. <%= link_to 'Create one now', new_page_admin_post_path(@page) %>.
+        You haven't uploaded any episodes. <%= link_to 'Create one now', new_page_dashboard_post_path(@page) %>.
       </p>
     <% end %>
     <div class="pagination-container">

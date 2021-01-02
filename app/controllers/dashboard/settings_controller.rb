@@ -1,5 +1,5 @@
 # Only accessible by page admins
-class Admin::SettingsController < ApplicationController
+class Dashboard::SettingsController < ApplicationController
   before_action :set_page
   before_action :authorize_page
 
@@ -10,7 +10,7 @@ class Admin::SettingsController < ApplicationController
   def update
     if @page.update(page_params)
       flash[:notice] = 'Successfully updated podcast.'
-      redirect_to edit_page_admin_settings_path(@page)
+      redirect_to edit_page_dashboard_settings_path(@page)
     else
       flash[:alert] = 'Failed to update podcast.'
       render :edit

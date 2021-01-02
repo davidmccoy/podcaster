@@ -1,11 +1,13 @@
 # Only accessible by page admins
-class Admin::PostsController < ApplicationController
+class Dashboard::PostsController < ApplicationController
   before_action :set_page
   before_action :set_post, except: [:index, :new, :create]
   before_action :authorize_post, except: [:show]
 
   def index
-    @posts = @page.posts.includes(:postable)
+    @posts = @page.posts
+              .where(postable_type: "PodcastEpisode")
+              .includes(:postable)
               .order(publish_time: :desc)
               .paginate(page: params[:page], per_page: 20)
   end
@@ -25,7 +27,7 @@ class Admin::PostsController < ApplicationController
   end
 
   def create
-    redirect_to page_admin_posts_path(@page) if externally_hosted?
+    redirect_to page_dashboard_posts_path(@page) if externally_hosted?
 
     @post = Post.new(
       post_params.merge(
@@ -71,16 +73,16 @@ class Admin::PostsController < ApplicationController
       flash[:alert] = 'Failed to update post.'
     end
 
-    redirect_to edit_page_admin_post_path(@page, @post)
+    redirect_to edit_page_dashboard_post_path(@page, @post)
   end
 
   def destroy
     if @post.destroy
       flash[:notice] = 'Successfully deleted post.'
-      redirect_to page_admin_posts_path(@page) and return
+      redirect_to page_dashboard_posts_path(@page) and return
     else
       flash[:alert] = 'Failed to delete post.'
-      redirect_to edit_page_admin_post_path(@page, @post) and return
+      redirect_to edit_page_dashboard_post_path(@page, @post) and return
     end
   end
 

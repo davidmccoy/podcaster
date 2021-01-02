@@ -37,7 +37,7 @@ require 'sidekiq/web'
 
     resources :blog_posts, param: :slug
 
-    namespace 'admin' do
+    namespace 'dashboard' do
       resources :posts, param: :slug
       resources :blog_posts, param: :slug
       resources :stats, only: [:index]

@@ -12,22 +12,22 @@ module ApplicationHelper
   # checks if the current path is for page management
   def page_management_path?(page, post)
     (page && page.persisted? &&
-      (current_page?(page_admin_posts_url(page)) ||
-        current_page?(page_admin_blog_posts_url(page)) ||
-        current_page?(new_page_admin_post_url(page)) ||
-        current_page?(page_admin_stats_path(page)) ||
-        current_page?(page_admin_settings_path(page)) ||
-        current_page?(new_page_admin_logo_path(page)) ||
-        current_page?(edit_page_admin_logo_path(page)) ||
-        current_page?(delete_page_admin_settings_path(page)) ||
-        current_page?(edit_page_admin_settings_path(page)) ||
-        current_page?(new_page_admin_blog_post_url(page))
+      (current_page?(page_dashboard_posts_url(page)) ||
+        current_page?(page_dashboard_blog_posts_url(page)) ||
+        current_page?(new_page_dashboard_post_url(page)) ||
+        current_page?(page_dashboard_stats_path(page)) ||
+        current_page?(page_dashboard_settings_path(page)) ||
+        current_page?(new_page_dashboard_logo_path(page)) ||
+        current_page?(edit_page_dashboard_logo_path(page)) ||
+        current_page?(delete_page_dashboard_settings_path(page)) ||
+        current_page?(edit_page_dashboard_settings_path(page)) ||
+        current_page?(new_page_dashboard_blog_post_url(page))
       )
     ) || (page && page.persisted? &&
       (
         post &&
           (
-            post.podcast_episode? ? current_page?(edit_page_admin_post_url(page, post)) : current_page?(edit_page_admin_blog_post_url(page, post))
+            post.podcast_episode? ? current_page?(edit_page_dashboard_post_url(page, post)) : current_page?(edit_page_dashboard_blog_post_url(page, post))
           )
       )
     )
