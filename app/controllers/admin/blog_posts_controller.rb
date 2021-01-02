@@ -1,6 +1,7 @@
 # Only accessible by page admins
 class Admin::BlogPostsController < ApplicationController
   before_action :set_page
+  before_action :set_post, only: [:edit, :update, :destroy]
 
   def index
     @posts = @page.blog_posts
@@ -28,6 +29,28 @@ class Admin::BlogPostsController < ApplicationController
     else
       flash[:alert] = 'You\'re missing a few things.'
       render :new and return
+    end
+  end
+
+  def edit; end
+
+  def update
+    if @post.update(post_params.merge(publish_time: formatted_publish_time))
+      flash[:notice] = 'Successfully updated post.'
+    else
+      flash[:alert] = 'Failed to update post.'
+    end
+
+    redirect_to edit_page_admin_blog_post_path(@page, @post)
+  end
+
+  def destroy
+    if @post.destroy
+      flash[:notice] = 'Successfully deleted post.'
+      redirect_to page_admin_blog_posts_path(@page) and return
+    else
+      flash[:alert] = 'Failed to delete post.'
+      redirect_to edit_page_admin_blog_post_path(@page, @post) and return
     end
   end
 

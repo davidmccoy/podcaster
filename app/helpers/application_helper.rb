@@ -13,6 +13,7 @@ module ApplicationHelper
   def page_management_path?(page, post)
     (page && page.persisted? &&
       (current_page?(page_admin_posts_url(page)) ||
+        current_page?(page_admin_blog_posts_url(page)) ||
         current_page?(new_page_admin_post_url(page)) ||
         current_page?(page_admin_stats_path(page)) ||
         current_page?(page_admin_settings_path(page)) ||

@@ -39,7 +39,7 @@ require 'sidekiq/web'
 
     namespace 'admin' do
       resources :posts, param: :slug
-      resources :blog_posts
+      resources :blog_posts, param: :slug
       resources :stats, only: [:index]
       resource :settings, param: :slug do
         get '/delete', to: 'settings#delete'
