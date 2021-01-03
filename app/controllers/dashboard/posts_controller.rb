@@ -6,7 +6,7 @@ class Dashboard::PostsController < ApplicationController
 
   def index
     @posts = @page.posts
-              .where(postable_type: "PodcastEpisode")
+              .where(postable_type: "AudioPost")
               .includes(:postable)
               .order(publish_time: :desc)
               .paginate(page: params[:page], per_page: 20)
@@ -23,7 +23,7 @@ class Dashboard::PostsController < ApplicationController
   # end
 
   def new
-    @post = @page.posts.new(postable_type: PodcastEpisode) unless externally_hosted?
+    @post = @page.posts.new(postable_type: AudioPost) unless externally_hosted?
   end
 
   def create
@@ -32,7 +32,7 @@ class Dashboard::PostsController < ApplicationController
     @post = Post.new(
       post_params.merge(
         page_id: @page.id,
-        postable_type: PodcastEpisode,
+        postable_type: AudioPost,
         publish_time: formatted_publish_time,
         postable_attributes: post_params[:postable_attributes].merge(publish_time: formatted_publish_time)
       )

@@ -22,7 +22,7 @@ class ImportRssFeedWorker
       # set up attributes
       post_params = {
         page_id: page.id,
-        postable_type: 'PodcastEpisode',
+        postable_type: 'AudioPost',
         publish_time: entry.published,
         slug: "#{entry.title.parameterize}-#{SecureRandom.hex(5)}",
         postable_attributes: {
@@ -41,7 +41,7 @@ class ImportRssFeedWorker
       # or enqueue a worker to import audio to s3
       if page.externally_hosted
         Audio.new.tap do |a|
-          a.attachable_type = 'PodcastEpisode'
+          a.attachable_type = 'AudiotPost'
           a.attachable_id = post.postable_id
           a.label = 'podcast_episode'
           a.file_data = {

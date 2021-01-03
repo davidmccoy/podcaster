@@ -27,7 +27,7 @@ module ApplicationHelper
       (
         post &&
           (
-            post.podcast_episode? ? current_page?(edit_page_dashboard_post_url(page, post)) : current_page?(edit_page_dashboard_text_post_url(page, post))
+            post.audio_post? ? current_page?(edit_page_dashboard_post_url(page, post)) : current_page?(edit_page_dashboard_text_post_url(page, post))
           )
       )
     )

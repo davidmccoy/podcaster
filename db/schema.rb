@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_02_032026) do
+ActiveRecord::Schema.define(version: 2021_01_03_030137) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -65,6 +65,29 @@ ActiveRecord::Schema.define(version: 2021_01_02_032026) do
     t.index ["label"], name: "index_attachments_on_label"
   end
 
+  create_table "audio_posts", force: :cascade do |t|
+    t.string "title", null: false
+    t.text "description"
+    t.string "filename"
+    t.string "external_file_url"
+    t.string "external_date"
+    t.integer "external_unique_downloads"
+    t.integer "external_total_downloads"
+    t.datetime "date"
+    t.boolean "file_migrated", default: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "total_downloads", default: 0
+    t.bigint "individual_downloads", default: 0
+    t.bigint "aggregate_feed_downloads", default: 0
+    t.boolean "imported", default: false
+    t.text "guid"
+    t.text "import_errors"
+    t.datetime "publish_time"
+    t.index ["file_migrated"], name: "index_audio_posts_on_file_migrated"
+    t.index ["guid"], name: "index_audio_posts_on_guid"
+  end
+
   create_table "categories", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
@@ -108,29 +131,6 @@ ActiveRecord::Schema.define(version: 2021_01_02_032026) do
     t.index ["included_in_aggregate_feed"], name: "index_pages_on_included_in_aggregate_feed"
     t.index ["slug"], name: "index_pages_on_slug"
     t.index ["user_id"], name: "index_pages_on_user_id"
-  end
-
-  create_table "podcast_episodes", force: :cascade do |t|
-    t.string "title", null: false
-    t.text "description"
-    t.string "filename"
-    t.string "external_file_url"
-    t.string "external_date"
-    t.integer "external_unique_downloads"
-    t.integer "external_total_downloads"
-    t.datetime "date"
-    t.boolean "file_migrated", default: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.bigint "total_downloads", default: 0
-    t.bigint "individual_downloads", default: 0
-    t.bigint "aggregate_feed_downloads", default: 0
-    t.boolean "imported", default: false
-    t.text "guid"
-    t.text "import_errors"
-    t.datetime "publish_time"
-    t.index ["file_migrated"], name: "index_podcast_episodes_on_file_migrated"
-    t.index ["guid"], name: "index_podcast_episodes_on_guid"
   end
 
   create_table "posts", force: :cascade do |t|

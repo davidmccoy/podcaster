@@ -35,7 +35,7 @@ require 'sidekiq/web'
       end
     end
 
-    resources :podcast_episodes, param: :slug, only: [:index]
+    resources :audio_posts, param: :slug, path: "audio-posts", only: [:index]
     resources :text_posts, param: :slug, path: "text-posts"
 
     namespace 'dashboard' do

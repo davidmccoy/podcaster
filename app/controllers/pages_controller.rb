@@ -77,7 +77,7 @@ class PagesController < ApplicationController
   end
 
   def feed
-    @episodes = @page.podcast_episodes
+    @episodes = @page.audio_posts
                   .published
                   .includes(:audio, :rich_text_content, :post)
                   .limit(50)
@@ -109,7 +109,7 @@ class PagesController < ApplicationController
 
   def mtgcast
     @image = ActionController::Base.helpers.asset_path('mtgcast-logo-itunes.png', host: root_url)
-    @episodes = PodcastEpisode.published
+    @episodes = AudioPost.published
                  .includes(post: :page)
                  .preload(:audio, :rich_text_content)
                  .where(pages: { included_in_aggregate_feed: true }).limit(100)
