@@ -39,14 +39,7 @@
   </div>
   <div class="col-lg-8 offset-lg-2 col-md-12">
     <div class="posts-container">
-      <ul class="nav nav-pills">
-        <li class="nav-item">
-          <a class="nav-link active" href="#">All Posts</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="<%= page_audio_posts_path(@page)%>">Episodes</a>
-        </li>
-      </ul>
+      <%= render 'pages/nav/pills' %>
       <% unless @page.posts.empty? %>
         <% @posts.each do |post| %>
           <hr>

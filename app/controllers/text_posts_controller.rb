@@ -1,11 +1,12 @@
 # Public posts controller, accessible to all users.
 class TextPostsController < ApplicationController
   before_action :set_page
-  before_action :set_post
-  # TODO: are unpublished posts visable?
-  # before_action :authorize_post, except: [:show]
 
-  def show
+  def index
+    @posts = @page.posts.where(postable_type: "TextPost").includes(:postable)
+              .order(publish_time: :desc)
+              .paginate(page: params[:page], per_page: 20)
+
     @logo_url =
       if @page.logo
         ActionController::Base.helpers.image_path(@page.logo.url(:medium))

@@ -49,7 +49,7 @@
         <div class="no-episodes">
           <% if current_user && policy(@page).edit? %>
             <p>
-              You don't have any podcast episodes. <%= link_to 'Add one now!', new_page_dashboard_audio_post_path(@page) %>
+              You don't have any posts. <%= link_to 'Add one now!', new_page_dashboard_text_post_path(@page) %>
             </p>
           <% else %>
             <p>

@@ -1,0 +1,11 @@
+<ul class="nav nav-pills">
+  <li class="nav-item">
+    <a class="nav-link <%= 'active' if current_page?(page_path(@page)) %>" href="<%= page_path(@page) %>">All</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link <%= 'active' if current_page?(page_audio_posts_path(@page)) %>" href="<%= page_audio_posts_path(@page)%>">Episodes</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link <%= 'active' if current_page?(page_text_posts_path(@page)) %>" href="<%= page_text_posts_path(@page)%>">Posts</a>
+  </li>
+</ul>

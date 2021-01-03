@@ -39,8 +39,7 @@ require 'sidekiq/web'
     resources :text_posts, param: :slug, path: "text-posts"
 
     namespace 'dashboard' do
-      resources :posts, param: :slug
-      resources :text_posts, param: :slug, path: "text-posts"
+      resources :text_posts, param: :slug, path: "posts"
       resources :audio_posts, param: :slug, path: "episodes"
       resources :stats, only: [:index]
       resource :settings, param: :slug do

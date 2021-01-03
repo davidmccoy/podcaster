@@ -25,7 +25,7 @@ class Dashboard::TextPostsController < ApplicationController
 
     if @post.save
       flash[:notice] = 'Successfully created your post!'
-      redirect_to page_text_post_path(@page, @post) and return
+      redirect_to page_post_path(@page, @post) and return
     else
       flash[:alert] = 'You\'re missing a few things.'
       render :new and return
