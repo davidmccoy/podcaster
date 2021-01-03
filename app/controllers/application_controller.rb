@@ -34,7 +34,7 @@ class ApplicationController < ActionController::Base
     if resource.multiple_podcasts
       user_pages_path
     elsif resource.pages.any?
-      page_dashboard_posts_path(resource.pages.first)
+      page_dashboard_audio_posts_path(resource.pages.first)
     else
       super
     end

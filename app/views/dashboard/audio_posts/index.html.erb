@@ -2,6 +2,9 @@
   <%= render 'dashboard/sidebar' %>
   <div class="page-admin">
     <h2>All Episodes</h2>
+    <p>
+      These are standard podcast episodes&mdash;an audio file and some accompanying text/links/images&mdash;that are then included in an RSS feed and available for download from any podcast player.
+    </p>
     <% unless @posts.empty? %>
       <table class="table table-outer-border">
         <thead>
@@ -44,7 +47,7 @@
                 <%= link_to 'View', page_post_path(@page, post), class: 'btn btn-sm btn-primary' %>
               </td>
               <td class="view text-center">
-                <%= link_to 'Edit', edit_page_dashboard_text_post_path(@page, post), class: 'btn btn-sm btn-light' %>
+                <%= link_to 'Edit', edit_page_dashboard_audio_post_path(@page, post), class: 'btn btn-sm btn-light' %>
               </td>
             </tr>
           <% end %>
@@ -52,7 +55,7 @@
       </table>
     <% else %>
       <p>
-        You haven't created any posts. <%= link_to 'Create one now', new_page_dashboard_text_post_path(@page) %>.
+        You haven't uploaded any episodes. <%= link_to 'Create one now', new_page_dashboard_audio_post_path(@page) %>.
       </p>
     <% end %>
     <div class="pagination-container">

@@ -14,9 +14,9 @@
         </h1>
         <% if current_user && policy(@page).edit? %>
           <div class="page-admin-button-container">
-            <%= link_to 'Manage Podcast', page_dashboard_posts_path(@page), class: 'btn btn-sm btn-light' %>
+            <%= link_to 'Manage Podcast', page_dashboard_audio_posts_path(@page), class: 'btn btn-sm btn-light' %>
             <% unless @page.externally_hosted %>
-              <%= link_to '+ Episode', new_page_dashboard_post_path(@page), class: 'btn btn-sm btn-primary' %>
+              <%= link_to '+ Episode', new_page_dashboard_audio_post_path(@page), class: 'btn btn-sm btn-primary' %>
             <% end %>
           </div>
         <% end %>
@@ -56,7 +56,7 @@
         <div class="no-episodes">
           <% if current_user && policy(@page).edit? %>
             <p>
-              You don't have any podcast episodes. <%= link_to 'Add one now!', new_page_dashboard_post_path(@page) %>
+              You don't have any podcast episodes. <%= link_to 'Add one now!', new_page_dashboard_audio_post_path(@page) %>
             </p>
           <% else %>
             <p>

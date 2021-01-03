@@ -2,8 +2,8 @@ module SidebarHelper
   def episodes_paths?(page)
     page && page.persisted? &&
       (
-        current_page?(page_dashboard_posts_path(page)) ||
-        current_page?(new_page_dashboard_post_path(page))
+        current_page?(page_dashboard_audio_posts_path(page)) ||
+        current_page?(new_page_dashboard_audio_post_path(page))
       )
   end
 

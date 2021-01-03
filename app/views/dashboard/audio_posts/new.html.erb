@@ -7,9 +7,9 @@
   <%= render 'dashboard/sidebar' %>
   <div class="page-admin">
     <% unless @page.externally_hosted %>
-      <h2>Create Post</h2>
+      <h2>Create Episode</h2>
       <div class="admin-post-container">
-        <%= form_with model: @post, url: page_dashboard_posts_path(@page, @post), method: 'post', html: { class: 'needs-validation', novalidate: true } do |form| %>
+        <%= form_with model: @post, url: page_dashboard_audio_posts_path(@page, @post), method: 'post', html: { class: 'needs-validation', novalidate: true } do |form| %>
           <div class="form-group required">
             <%= form.label 'postable_attributes[title]', 'Title', class: 'control-label' %>
             <%= form.text_field 'postable_attributes[title]', autofocus: true, required: true, class: 'form-control edit-post-title', onblur: 'onTitleBlur()'%>

@@ -12,9 +12,9 @@ module ApplicationHelper
   # checks if the current path is for page management
   def page_management_path?(page, post)
     (page && page.persisted? &&
-      (current_page?(page_dashboard_posts_url(page)) ||
+      (current_page?(page_dashboard_audio_posts_url(page)) ||
         current_page?(page_dashboard_text_posts_url(page)) ||
-        current_page?(new_page_dashboard_post_url(page)) ||
+        current_page?(new_page_dashboard_audio_post_url(page)) ||
         current_page?(page_dashboard_stats_path(page)) ||
         current_page?(page_dashboard_settings_path(page)) ||
         current_page?(new_page_dashboard_logo_path(page)) ||
@@ -27,7 +27,7 @@ module ApplicationHelper
       (
         post &&
           (
-            post.audio_post? ? current_page?(edit_page_dashboard_post_url(page, post)) : current_page?(edit_page_dashboard_text_post_url(page, post))
+            post.audio_post? ? current_page?(edit_page_dashboard_audio_post_url(page, post)) : current_page?(edit_page_dashboard_text_post_url(page, post))
           )
       )
     )
