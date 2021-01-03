@@ -54,6 +54,11 @@
                 <li><%= link_to 'All Episodes', page_dashboard_audio_posts_path(@page), class: 'dropdown-item' %></li>
                 <li><%= link_to 'Add New', new_page_dashboard_audio_post_path(@page), class: 'dropdown-item' %></li>
               </ul>
+              <%= link_to 'Posts', page_dashboard_text_posts_path(@page), class: 'dropdown-item' %>
+              <ul class="nested-submenu">
+                <li><%= link_to 'All Posts', page_dashboard_text_posts_path(@page), class: 'dropdown-item' %></li>
+                <li><%= link_to 'Add New', new_page_dashboard_text_post_path(@page), class: 'dropdown-item' %></li>
+              </ul>
               <%= link_to 'Analytics', page_dashboard_stats_path(@page), class: 'dropdown-item' %>
               <%= link_to 'Settings', page_dashboard_settings_path(@page), class: 'dropdown-item' %>
             </div>
