@@ -6,23 +6,23 @@
     data-target="#posts-submenu"
   >
     <i class="fa fa-table"></i>
-    <span class="d-sm-inline">Posts</span>
+    <span class="d-sm-inline">Other Posts</span>
   </a>
   <div
     class="collapse submenu <%= "show" if posts_paths?(@page) %>"
     id="posts-submenu"
     aria-expanded="<%= posts_paths?(@page) ? "true" : "false" %>"
   >
-    <ul class="flex-column pl-3 nav <%= "active" if current_page? page_dashboard_blog_posts_path(@page) %>">
+    <ul class="flex-column pl-3 nav <%= "active" if current_page? page_dashboard_text_posts_path(@page) %>">
       <li class="nav-item">
-        <a class="nav-link" href="<%= page_dashboard_blog_posts_path(@page) %>">
+        <a class="nav-link" href="<%= page_dashboard_text_posts_path(@page) %>">
           <span>All Posts</span>
         </a>
       </li>
     </ul>
-    <ul class="flex-column pl-3 nav <%= "active" if current_page? new_page_dashboard_blog_post_path(@page) %>">
+    <ul class="flex-column pl-3 nav <%= "active" if current_page? new_page_dashboard_text_post_path(@page) %>">
       <li class="nav-item">
-        <a class="nav-link" href="<%= new_page_dashboard_blog_post_path(@page) %>">
+        <a class="nav-link" href="<%= new_page_dashboard_text_post_path(@page) %>">
           <span>Add New</span>
         </a>
       </li>

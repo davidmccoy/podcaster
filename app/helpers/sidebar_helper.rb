@@ -10,8 +10,8 @@ module SidebarHelper
   def posts_paths?(page)
     page && page.persisted? &&
       (
-        current_page?(page_dashboard_blog_posts_path(page)) ||
-        current_page?(new_page_dashboard_blog_post_path(page))
+        current_page?(page_dashboard_text_posts_path(page)) ||
+        current_page?(new_page_dashboard_text_post_path(page))
       )
   end
 

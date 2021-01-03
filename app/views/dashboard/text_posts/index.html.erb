@@ -26,17 +26,17 @@
             <% next unless post.postable %>
             <tr>
               <td>
-                <%= link_to post.postable.title, page_blog_post_path(@page, post) %>
+                <%= link_to post.postable.title, page_text_post_path(@page, post) %>
               </td>
               <td>
                 <%= post.publish_time.strftime('%-m/%-d/%Y') %>
                 <%= '(Scheduled)' if post.publish_time > Time.zone.now %>
               </td>
               <td class="view text-center">
-                <%= link_to 'View', page_blog_post_path(@page, post), class: 'btn btn-sm btn-primary' %>
+                <%= link_to 'View', page_text_post_path(@page, post), class: 'btn btn-sm btn-primary' %>
               </td>
               <td class="view text-center">
-                <%= link_to 'Edit', edit_page_dashboard_blog_post_path(@page, post), class: 'btn btn-sm btn-light' %>
+                <%= link_to 'Edit', edit_page_dashboard_text_post_path(@page, post), class: 'btn btn-sm btn-light' %>
               </td>
             </tr>
           <% end %>
@@ -44,7 +44,7 @@
       </table>
     <% else %>
       <p>
-        You haven't made any posts. <%= link_to 'Create one now', new_page_dashboard_blog_post_path(@page) %>.
+        You haven't made any posts. <%= link_to 'Create one now', new_page_dashboard_text_post_path(@page) %>.
       </p>
     <% end %>
     <div class="pagination-container">

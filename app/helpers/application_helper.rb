@@ -13,7 +13,7 @@ module ApplicationHelper
   def page_management_path?(page, post)
     (page && page.persisted? &&
       (current_page?(page_dashboard_posts_url(page)) ||
-        current_page?(page_dashboard_blog_posts_url(page)) ||
+        current_page?(page_dashboard_text_posts_url(page)) ||
         current_page?(new_page_dashboard_post_url(page)) ||
         current_page?(page_dashboard_stats_path(page)) ||
         current_page?(page_dashboard_settings_path(page)) ||
@@ -21,13 +21,13 @@ module ApplicationHelper
         current_page?(edit_page_dashboard_logo_path(page)) ||
         current_page?(delete_page_dashboard_settings_path(page)) ||
         current_page?(edit_page_dashboard_settings_path(page)) ||
-        current_page?(new_page_dashboard_blog_post_url(page))
+        current_page?(new_page_dashboard_text_post_url(page))
       )
     ) || (page && page.persisted? &&
       (
         post &&
           (
-            post.podcast_episode? ? current_page?(edit_page_dashboard_post_url(page, post)) : current_page?(edit_page_dashboard_blog_post_url(page, post))
+            post.podcast_episode? ? current_page?(edit_page_dashboard_post_url(page, post)) : current_page?(edit_page_dashboard_text_post_url(page, post))
           )
       )
     )

@@ -1,5 +1,5 @@
 # Public posts controller, accessible to all users.
-class BlogPostsController < ApplicationController
+class TextPostsController < ApplicationController
   before_action :set_page
   before_action :set_post
   # TODO: are unpublished posts visable?

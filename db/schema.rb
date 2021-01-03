@@ -65,13 +65,6 @@ ActiveRecord::Schema.define(version: 2021_01_02_032026) do
     t.index ["label"], name: "index_attachments_on_label"
   end
 
-  create_table "blog_posts", force: :cascade do |t|
-    t.string "title", null: false
-    t.datetime "publish_time"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
   create_table "categories", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
@@ -151,6 +144,13 @@ ActiveRecord::Schema.define(version: 2021_01_02_032026) do
     t.index ["page_id"], name: "index_posts_on_page_id"
     t.index ["postable_type", "postable_id"], name: "index_posts_on_postable_type_and_postable_id"
     t.index ["slug"], name: "index_posts_on_slug"
+  end
+
+  create_table "text_posts", force: :cascade do |t|
+    t.string "title", null: false
+    t.datetime "publish_time"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "users", force: :cascade do |t|

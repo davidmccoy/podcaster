@@ -62,6 +62,7 @@ class ApplicationController < ActionController::Base
     authorize @page
   end
 
+  # TODO: this should scope by the page
   def set_post
     @post = Post.includes(:postable).find_by_slug(params[:post_slug]) || Post.includes(:postable).find_by_slug(params[:slug])
     raise ActiveRecord::RecordNotFound unless @post

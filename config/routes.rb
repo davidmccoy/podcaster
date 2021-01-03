@@ -35,11 +35,12 @@ require 'sidekiq/web'
       end
     end
 
-    resources :blog_posts, param: :slug
+    resources :podcast_episodes, param: :slug, only: [:index]
+    resources :text_posts, param: :slug, path: "text-posts"
 
     namespace 'dashboard' do
       resources :posts, param: :slug
-      resources :blog_posts, param: :slug
+      resources :text_posts, param: :slug, path: "text-posts"
       resources :stats, only: [:index]
       resource :settings, param: :slug do
         get '/delete', to: 'settings#delete'

@@ -5,7 +5,7 @@ class Post < ApplicationRecord
   # joins(:postable).merge(Postable.published) won't work since `Postable` isn't an actual class.
   scope :published, -> { where('publish_time < ?', Time.now).order(publish_time: :desc) }
 
-  delegated_type :postable, types: %w[ PodcastEpisode BlogPost ]
+  delegated_type :postable, types: %w[ PodcastEpisode TextPost ]
   belongs_to :page
 
   accepts_nested_attributes_for :postable

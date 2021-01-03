@@ -1,23 +1,23 @@
 # Only accessible by page admins
-class Dashboard::BlogPostsController < ApplicationController
+class Dashboard::TextPostsController < ApplicationController
   before_action :set_page
   before_action :set_post, only: [:edit, :update, :destroy]
 
   def index
-    @posts = @page.posts.where(postable_type: "BlogPost")
+    @posts = @page.posts.where(postable_type: "TextPost")
               .order(publish_time: :desc)
               .paginate(page: params[:page], per_page: 20)
   end
 
   def new
-    @post = @page.posts.new(postable_type: BlogPost)
+    @post = @page.posts.new(postable_type: "TextPost")
   end
 
   def create
     @post = Post.new(
       post_params.merge(
         page_id: @page.id,
-        postable_type: BlogPost,
+        postable_type: "TextPost",
         publish_time: formatted_publish_time,
         postable_attributes: post_params[:postable_attributes].merge(publish_time: formatted_publish_time)
       )
@@ -25,7 +25,7 @@ class Dashboard::BlogPostsController < ApplicationController
 
     if @post.save
       flash[:notice] = 'Successfully created your post!'
-      redirect_to page_blog_post_path(@page, @post) and return
+      redirect_to page_text_post_path(@page, @post) and return
     else
       flash[:alert] = 'You\'re missing a few things.'
       render :new and return
@@ -41,16 +41,16 @@ class Dashboard::BlogPostsController < ApplicationController
       flash[:alert] = 'Failed to update post.'
     end
 
-    redirect_to edit_page_dashboard_blog_post_path(@page, @post)
+    redirect_to edit_page_dashboard_text_post_path(@page, @post)
   end
 
   def destroy
     if @post.destroy
       flash[:notice] = 'Successfully deleted post.'
-      redirect_to page_dashboard_blog_posts_path(@page) and return
+      redirect_to page_dashboard_text_posts_path(@page) and return
     else
       flash[:alert] = 'Failed to delete post.'
-      redirect_to edit_page_dashboard_blog_post_path(@page, @post) and return
+      redirect_to edit_page_dashboard_text_post_path(@page, @post) and return
     end
   end
 
