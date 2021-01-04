@@ -30,7 +30,7 @@ require 'sidekiq/web'
     get '/feed', to: 'pages#feed'
     resources :posts, param: :slug, only: [:show] do
       resources :audios, path: 'audio' do
-        post 'record_play', to: 'audios#record_play'
+        post 'embedded_play', to: 'audios#embedded_play'
         # get '/link/*url', to: 'audios#link', as: 'link'
       end
     end

@@ -19,6 +19,7 @@ class AudiosController < ApplicationController
   def show
     # TODO: this also triggers when "Save As..." is clicked, even if the download
     # is never initiated.
+    record_download
     update_download_count
     redirect_to @audio.url
   end
@@ -35,8 +36,9 @@ class AudiosController < ApplicationController
   #   end
   # end
 
-  def record_play
+  def embedded_play
     if play_params.permitted? && play_params[:play] == 'true'
+      record_download
       update_download_count
     end
 
@@ -57,10 +59,19 @@ class AudiosController < ApplicationController
     params.permit(:source)
   end
 
-  # TODO: does this need to be async? how should we handle high-traffic endpoints that
-  # update the database when accessed? this async method curently doesn't handle parallelism
-  # very well, could use optimistic locking or enforce uniqueness while executing.
+  def record_download
+    @download = Download.create(
+      audio_post_id: @post.id,
+      user_id: current_user&.id,
+      ip: request.ip,
+      user_agent: request.user_agent,
+      referrer: request.referrer,
+      referring_domain: request.origin,
+      feed_source: feed_params[:source],
+    )
+  end
+
   def update_download_count
-    UpdateDownloadCountWorker.perform_async(@post.id, feed_params[:source])
+    ProcessDownloadWorker.perform_async(@download.id)
   end
 end

@@ -112,6 +112,7 @@ GEM
     content_disposition (1.0.0)
     crass (1.0.6)
     dalli (2.7.11)
+    device_detector (1.0.5)
     devise (4.7.3)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
@@ -139,6 +140,7 @@ GEM
     fugit (1.4.1)
       et-orbi (~> 1.1, >= 1.1.8)
       raabro (~> 1.4)
+    geocoder (1.6.4)
     gibbon (3.3.4)
       faraday (>= 0.16.0)
       multi_json (>= 1.11.0)
@@ -339,10 +341,12 @@ DEPENDENCIES
   capybara (~> 2.13)
   coffee-rails (~> 4.2)
   dalli
+  device_detector
   devise
   feedjira
   ffprober
   figaro
+  geocoder
   gibbon
   httparty
   id3tag (~> 0.11.0)
