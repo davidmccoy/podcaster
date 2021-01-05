@@ -5,6 +5,7 @@ class Page < ApplicationRecord
   has_one :latest_post, -> { where('publish_time < ?', Time.now).order(publish_time: :desc) }, class_name: 'Post'
   has_many :audio_posts, through: :posts, source: :postable, source_type: 'AudioPost'
   has_many :text_posts, through: :posts, source: :postable, source_type: 'TextPost'
+  has_many :downloads, through: :audio_posts
   has_many :attachments, as: :attachable, dependent: :destroy
   has_many :images, -> { where(attachments: { type: 'Image' }) }, foreign_key: :attachable_id
   has_one :logo, -> { where(attachments: { type: 'Logo' }) }, foreign_key: :attachable_id

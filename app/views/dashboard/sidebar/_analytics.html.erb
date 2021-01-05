@@ -1,0 +1,31 @@
+<li class="nav-item">
+  <a
+    class="nav-link collapsed text-truncate"
+    href="#analytics-submenu"
+    data-toggle="collapse"
+    data-target="#analytics-submenu"
+  >
+    <i class="fa fa-table"></i>
+    <span class="d-sm-inline">Analytics</span>
+  </a>
+  <div
+    class="collapse submenu <%= "show" if analytics_paths?(@page) %>"
+    id="analytics-submenu"
+    aria-expanded="<%= analytics_paths?(@page) ? "true" : "false" %>"
+  >
+    <ul class="flex-column pl-3 nav <%= "active" if current_page? page_dashboard_analytics_audience_path(@page) %>">
+      <li class="nav-item">
+        <a class="nav-link" href="<%= page_dashboard_analytics_audience_path(@page) %>">
+          <span>Audience Insights</span>
+        </a>
+      </li>
+    </ul>
+    <ul class="flex-column pl-3 nav <%= "active" if current_page? page_dashboard_analytics_downloads_path(@page) %>">
+      <li class="nav-item">
+        <a class="nav-link" href="<%= page_dashboard_analytics_downloads_path(@page) %>">
+          <span>All Downloads</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+</li>

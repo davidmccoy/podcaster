@@ -39,6 +39,34 @@ class PagePolicy <  ApplicationPolicy
     edit?
   end
 
+  def audience?
+    edit?
+  end
+
+  def downloads?
+    edit?
+  end
+
+  def episodes?
+    edit?
+  end
+
+  def devices?
+    edit?
+  end
+
+  def platforms?
+    edit?
+  end
+
+  def referrers?
+    edit?
+  end
+
+  def countries?
+    edit?
+  end
+
   def recover?
     true
   end

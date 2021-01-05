@@ -41,7 +41,16 @@ require 'sidekiq/web'
     namespace 'dashboard' do
       resources :text_posts, param: :slug, path: "posts"
       resources :audio_posts, param: :slug, path: "episodes"
-      resources :stats, only: [:index]
+      get 'analytics/audience', to: 'analytics#audience'
+      get 'analytics/downloads', to: 'analytics#downloads'
+      resource :graphs do
+        get 'downloads', to: 'graphs#downloads'
+        get 'episodes' , to: 'graphs#episodes'
+        get 'devices', to: 'graphs#devices'
+        get 'platforms', to: 'graphs#platforms'
+        get 'referrers', to: 'graphs#referrers'
+        get 'countries', to: 'graphs#countries'
+      end
       resource :settings, param: :slug do
         get '/delete', to: 'settings#delete'
       end

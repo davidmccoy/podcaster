@@ -1,17 +1,13 @@
 <div class="row">
   <%= render 'dashboard/sidebar' %>
   <div class="page-admin">
-    <h2>Analytics</h2>
-    <p>
-      MTGCast tracks every download of each episode and breaks them down into three categories: <em>Individual</em>, <em>Aggregate</em>, and <em>Total</em>.
-    </p>
-    <p>
-      The Individual column represents the downloads from <%= link_to 'your unique RSS feed', page_feed_path(@page) %> as well as the plays initiated from each episode's embedded audio player. The Aggregate column represents the downloads from MTGCast's aggregate feed, while the Total column combines the Individual and Aggregate counts.
-    </p>
-    <br />
+    <h2>All Downloads</h2>
     <% unless @posts.empty? %>
       <p>
-        We track three download totals for you. "Individual" represents the total downloads from your <%= link_to "unique RSS feed", page_feed_path(@page) %>, while "Aggregate" represents the total downloads from the <%= link_to "aggregate RSS feed", feed_path %> that includes all approved MTGCast shows. "Total" is the sum of those two previous numbers.
+        MTGCast tracks every download of each episode and breaks them down into three categories: <em>Individual</em>, <em>Aggregate</em>, and <em>Total</em>.
+      </p>
+      <p>
+        <em>Individual</em> represents the downloads from <%= link_to 'your unique RSS feed', page_feed_path(@page) %> as well as the plays initiated from each episode's embedded audio player. <em>Aggregate</em> represents the downloads from MTGCast's aggregate feed, while <em>Total</em> combines the <em>Individual</em> and <em>Aggregate</em> counts.
       </p>
       <table class="table table-outer-border">
         <thead>
