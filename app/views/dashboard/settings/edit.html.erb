@@ -41,5 +41,30 @@
         </div>
       <% end %>
     </div>
+    <% if @page.externally_hosted %>
+      <hr>
+      <div class="page-settings-section">
+        <h4>Host Episodes Externally</h4>
+        <p>
+          You are currently hosting your audio files on a third-party service rather than storing them on MTGCast servers. Podcasts that host their files elsewhere cannot post episodes directly to MTGCast as we continuously read from that external RSS feed.
+        </p>
+        <p>
+          If you would like to disable this behavior and instead upload your episodes directly to MTGCast, you can uncheck the box below and begin using MTGCast as your hosting service.
+        </p>
+        <%= form_with model: @page, url: page_dashboard_settings_path(@page), method: 'put', html: { class: 'needs-validation', novalidate: true, remote: false } do |form| %>
+          <p>
+            <strong>Episode hosting status:</strong>
+          </p>
+          <div class="form-check">
+            <%= form.check_box :externally_hosted, checked: @page.externally_hosted?, class: 'form-check-input'%>
+            <%= form.label :externally_hosted, 'Hosted Externally', class: 'form-check-label' %>
+          </div>
+            <br />
+          <div class="actions">
+            <%= form.submit 'Change Hosting', class: 'btn btn-primary' %>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
   </div>
 </div>

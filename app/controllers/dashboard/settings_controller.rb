@@ -32,6 +32,6 @@ class Dashboard::SettingsController < ApplicationController
   private
 
   def page_params
-    params.require(:page).permit(:name, :description)
+    params.require(:page).permit(:name, :description, :externally_hosted)
   end
 end

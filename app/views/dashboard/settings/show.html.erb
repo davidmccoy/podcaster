@@ -39,6 +39,14 @@
           <%= Rails.application.routes.url_helpers.page_feed_url(@page) %>
         <% end %>
       </p>
+      <% if @page.externally_hosted %>
+        <p>
+          <strong>Externally Hosted:</strong>
+        </p>
+        <p>
+          Yes
+        </p>
+      <% end %>
     </div>
     <hr>
     <div class="page-settings-section">
