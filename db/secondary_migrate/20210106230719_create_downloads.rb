@@ -2,6 +2,7 @@ class CreateDownloads < ActiveRecord::Migration[6.1]
   def change
     create_table :downloads do |t|
       t.references :audio_post
+      t.references :page
       t.references :user
       t.string :feed_source
 

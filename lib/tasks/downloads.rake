@@ -12,6 +12,7 @@ namespace :downloads do
       url = URI.parse(Faker::Internet.url)
       Download.create(
         audio_post_id: post_1.id,
+        page_id: post_1.page.id,
         user_id: nil,
         ip: Faker::Internet.ip_v4_address,
         user_agent: user_agent,
@@ -37,6 +38,7 @@ namespace :downloads do
       url = URI.parse(Faker::Internet.url)
       Download.create(
         audio_post_id: post_2.id,
+        page_id: post_1.page.id,
         user_id: nil,
         ip: Faker::Internet.ip_v4_address,
         user_agent: user_agent,

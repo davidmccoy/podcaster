@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_03_222124) do
+ActiveRecord::Schema.define(version: 2021_01_03_030137) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -99,28 +99,6 @@ ActiveRecord::Schema.define(version: 2021_01_03_222124) do
     t.bigint "category_id"
     t.index ["category_id"], name: "index_category_pages_on_category_id"
     t.index ["page_id"], name: "index_category_pages_on_page_id"
-  end
-
-  create_table "downloads", force: :cascade do |t|
-    t.bigint "audio_post_id"
-    t.bigint "user_id"
-    t.string "feed_source"
-    t.string "ip"
-    t.text "user_agent"
-    t.text "referrer"
-    t.string "referring_domain"
-    t.string "browser"
-    t.string "os"
-    t.string "device_type"
-    t.string "country"
-    t.string "region"
-    t.string "city"
-    t.float "latitude"
-    t.float "longitude"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["audio_post_id"], name: "index_downloads_on_audio_post_id"
-    t.index ["user_id"], name: "index_downloads_on_user_id"
   end
 
   create_table "episodes", force: :cascade do |t|
