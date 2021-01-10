@@ -46,22 +46,19 @@
       <div class="page-settings-section">
         <h4>Host Episodes Externally</h4>
         <p>
-          You are currently hosting your audio files on a third-party service rather than storing them on MTGCast servers. Podcasts that host their files elsewhere cannot post episodes directly to MTGCast as we continuously read from that external RSS feed.
+          You are currently hosting your audio files on a third-party service rather than storing them on MTGCast servers. Podcasts that host their files elsewhere cannot post episodes directly to MTGCast&mdash;instead, we continuously read from your external RSS feed and automatically import them.
         </p>
         <p>
-          If you would like to disable this behavior and instead upload your episodes directly to MTGCast, you can uncheck the box below and begin using MTGCast as your hosting service.
+          You can disable this behavior and instead upload your episodes directly to MTGCast by clicking the button below. You will then be able to begin using MTGCast as your hosting service.
+        </p>
+        <p>
+          <strong>Please note:</strong> Even if you choose to switch to MTGCast hosting, the audio files for your existing episodes will still be hosted on the service they were uploaded to. Transferring your entire back catalogue to MTGCast's servers requires a paid plan. <em>(Coming soon.)</em>
         </p>
         <%= form_with model: @page, url: page_dashboard_settings_path(@page), method: 'put', html: { class: 'needs-validation', novalidate: true, remote: false } do |form| %>
-          <p>
-            <strong>Episode hosting status:</strong>
-          </p>
-          <div class="form-check">
-            <%= form.check_box :externally_hosted, checked: @page.externally_hosted?, class: 'form-check-input'%>
-            <%= form.label :externally_hosted, 'Hosted Externally', class: 'form-check-label' %>
-          </div>
-            <br />
+          <%= hidden_field_tag 'page[externally_hosted]', false %>
+          <br />
           <div class="actions">
-            <%= form.submit 'Change Hosting', class: 'btn btn-primary' %>
+            <%= form.submit 'Use MTGCast Hosting', class: 'btn btn-blue' %>
           </div>
         <% end %>
       <% end %>
