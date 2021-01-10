@@ -14,18 +14,18 @@
         <div style="display:flex; align-items:end;">
           <div class="col-md-3" style="margin-left:-15px;">
             <%= label_tag :start_date, 'Start Date', class: 'control-label' %>
-            <%= date_field_tag :start_date, params[:start_date] || Time.zone.today - 7.days, class: 'form-control' %>
+            <%= date_field_tag :start_date, params[:start_date] || Time.zone.today - 7.days, class: 'form-control', disabled: !current_user&.admin? %>
           </div>
           <div class="col-md-3">
             <%= label_tag :end_date, 'End Date', class: 'control-label' %>
-            <%= date_field_tag :end_date, params[:end_date] || Time.zone.today, class: 'form-control' %>
+            <%= date_field_tag :end_date, params[:end_date] || Time.zone.today, class: 'form-control', disabled: !current_user&.admin? %>
           </div>
           <div class="col-md-3">
             <%= label_tag :feed, 'Feed', class: 'control-label' %>
-            <%= select_tag :feed, options_for_select([ ['Individual', 'individual'], ['Aggregate', 'aggregate_feed'], 'Both' ], params[:feed] || 'Both'), class: 'form-control' %>
+            <%= select_tag :feed, options_for_select([ ['Individual', 'individual'], ['Aggregate', 'aggregate_feed'], 'Both' ], params[:feed] || 'Both'), class: 'form-control', disabled: !current_user&.admin? %>
           </div>
           <div class="col-md-3">
-            <%= submit_tag 'Filter', class: 'btn btn-light'%>
+            <%= submit_tag 'Filter', class: 'btn btn-light', disabled: !current_user&.admin? %>
           </div>
         </div>
       <% end %>

@@ -63,15 +63,15 @@ class Dashboard::GraphsController < ApplicationController
   end
 
   def start_date
-    filter_params[:start_date] || Time.zone.today - 7.days
+    (current_user&.admin? && filter_params[:start_date]) || Time.zone.today - 7.days
   end
 
   def end_date
-    filter_params[:end_date] || Time.zone.today
+    (current_user&.admin? && filter_params[:end_date]) || Time.zone.today
   end
 
   def feed
-    if filter_params[:feed]
+    if current_user&.admin? && filter_params[:feed]
       if filter_params[:feed] == 'Both'
         ['individual', 'aggregate_feed']
       else
