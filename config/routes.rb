@@ -50,6 +50,7 @@ require 'sidekiq/web'
         get 'platforms', to: 'graphs#platforms'
         get 'referrers', to: 'graphs#referrers'
         get 'countries', to: 'graphs#countries'
+        get 'dummy', to: 'graphs#dummy'
       end
       resource :settings, param: :slug do
         get '/delete', to: 'settings#delete'

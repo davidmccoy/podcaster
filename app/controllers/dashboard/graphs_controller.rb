@@ -56,6 +56,17 @@ class Dashboard::GraphsController < ApplicationController
                       .count('id')
   end
 
+  def dummy
+    points = [rand(1..400), rand(1..400), rand(1..400), rand(1..400), rand(1..400)].sort.reverse
+    render json: {
+      "Point 1" => points[0],
+      "Point 2" => points[1],
+      "Point 3" => points[2],
+      "Point 4" => points[3],
+      "Point 5" => points[4],
+    }
+  end
+
   private
 
   def filter_params
@@ -63,11 +74,11 @@ class Dashboard::GraphsController < ApplicationController
   end
 
   def start_date
-    (current_user&.admin? && filter_params[:start_date]) || Time.zone.today - 7.days
+    (current_user&.admin? && filter_params[:start_date].to_time.beginning_of_day) || Time.zone.today.beginning_of_day - 7.days
   end
 
   def end_date
-    (current_user&.admin? && filter_params[:end_date]) || Time.zone.today
+    (current_user&.admin? && filter_params[:end_date].to_time.end_of_day) || Time.zone.today.end_of_day
   end
 
   def feed

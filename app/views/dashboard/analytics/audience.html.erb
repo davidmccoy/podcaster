@@ -26,6 +26,9 @@
           </div>
           <div class="col-md-3">
             <%= submit_tag 'Filter', class: 'btn btn-light', disabled: !current_user&.admin? %>
+            <% unless current_user.admin? %>
+              <%= image_tag 'help-circle.svg', data: {toggle: 'modal', target: '#paidFeatureModal'}, style: 'margin-left: 1rem; cursor: pointer;' %>
+            <% end %>
           </div>
         </div>
       <% end %>
@@ -41,19 +44,37 @@
       <br />
       <br />
       <div style="display:flex;">
-        <div class="col-lg-6">
-          <h4>Episodes</h4>
+        <div class="col-lg-6 <%= 'blur' unless current_user&.admin %>">
+          <h4>Episodes <%= image_tag 'help-circle.svg', data: {toggle: 'modal', target: '#paidFeatureModal'}, style: 'cursor: pointer;' unless current_user&.admin %></h4>
           <p>
             Your top episodes by total downloads.
           </p>
-          <%= bar_chart episodes_page_dashboard_graphs_path(@page, start_date: params[:start_date], end_date: params[:end_date], feed: params[:feed]), xtitle: "Downloads" %>
+          <% if current_user&.admin %>
+            <%= bar_chart episodes_page_dashboard_graphs_path(@page, start_date: params[:start_date], end_date: params[:end_date], feed: params[:feed]), xtitle: "Downloads", messages: {empty: "No data"} %>
+          <% else %>
+            <div class="upgrade-container">
+              <div class="upgrade-button">
+                <%= link_to "Upgrade", root_path, class: 'btn btn-primary' %>
+              </div>
+              <%= bar_chart dummy_page_dashboard_graphs_path(@page, start_date: params[:start_date], end_date: params[:end_date], feed: params[:feed]), xtitle: "Downloads" %>
+            </div>
+          <% end %>
         </div>
-        <div class="col-lg-6">
-          <h4>Listening Devices</h4>
+        <div class="col-lg-6 <%= 'blur' unless current_user&.admin %>">
+          <h4>Listening Devices <%= image_tag 'help-circle.svg', data: {toggle: 'modal', target: '#paidFeatureModal'}, style: 'cursor: pointer;' unless current_user&.admin %></h4>
           <p>
             Your audience's most used listening devices (by total downloads). A listening device can range from a phone to a desktop web browser.
           </p>
-          <%= bar_chart devices_page_dashboard_graphs_path(@page, start_date: params[:start_date], end_date: params[:end_date], feed: params[:feed]), xtitle: "Downloads" %>
+          <% if current_user&.admin %>
+            <%= bar_chart devices_page_dashboard_graphs_path(@page, start_date: params[:start_date], end_date: params[:end_date], feed: params[:feed]), xtitle: "Downloads" %>
+          <% else %>
+            <div class="upgrade-container">
+              <div class="upgrade-button">
+                <%= link_to "Upgrade", root_path, class: 'btn btn-primary' %>
+              </div>
+              <%= bar_chart dummy_page_dashboard_graphs_path(@page, start_date: params[:start_date], end_date: params[:end_date], feed: params[:feed]), xtitle: "Downloads" %>
+            </div>
+          <% end %>
         </div>
       </div>
       <br />
@@ -62,26 +83,53 @@
       <br />
       <br />
       <div style="display:flex;">
-        <div class="col-lg-4">
-          <h4>Platforms</h4>
+        <div class="col-lg-4 <%= 'blur' unless current_user&.admin %>">
+          <h4>Platforms <%= image_tag 'help-circle.svg', data: {toggle: 'modal', target: '#paidFeatureModal'}, style: 'cursor: pointer;' unless current_user&.admin %></h4>
           <p>
             The most common platforms where your episodes received downloads.
           </p>
-          <%= bar_chart platforms_page_dashboard_graphs_path(@page, start_date: params[:start_date], end_date: params[:end_date], feed: params[:feed]), xtitle: "Downloads" %>
+          <% if current_user&.admin %>
+            <%= bar_chart platforms_page_dashboard_graphs_path(@page, start_date: params[:start_date], end_date: params[:end_date], feed: params[:feed]), xtitle: "Downloads" %>
+          <% else %>
+            <div class="upgrade-container">
+              <div class="upgrade-button">
+                <%= link_to "Upgrade", root_path, class: 'btn btn-primary' %>
+              </div>
+              <%= bar_chart dummy_page_dashboard_graphs_path(@page, start_date: params[:start_date], end_date: params[:end_date], feed: params[:feed]), xtitle: "Downloads" %>
+            </div>
+          <% end %>
         </div>
-        <div class="col-lg-4">
-          <h4>Top Referrers</h4>
+        <div class="col-lg-4 <%= 'blur' unless current_user&.admin %>">
+          <h4>Top Referrers <%= image_tag 'help-circle.svg', data: {toggle: 'modal', target: '#paidFeatureModal'}, style: 'cursor: pointer;' unless current_user&.admin %></h4>
           <p>
             The sites that referred downloads of your podcast.
           </p>
-          <%= bar_chart referrers_page_dashboard_graphs_path(@page, start_date: params[:start_date], end_date: params[:end_date], feed: params[:feed]), xtitle: "Downloads" %>
+          <% if current_user&.admin %>
+            <%= bar_chart referrers_page_dashboard_graphs_path(@page, start_date: params[:start_date], end_date: params[:end_date], feed: params[:feed]), xtitle: "Downloads" %>
+          <% else %>
+            <div class="upgrade-container">
+              <div class="upgrade-button">
+                <%= link_to "Upgrade", root_path, class: 'btn btn-primary' %>
+              </div>
+              <%= bar_chart dummy_page_dashboard_graphs_path(@page, start_date: params[:start_date], end_date: params[:end_date], feed: params[:feed]), xtitle: "Downloads" %>
+            </div>
+          <% end %>
         </div>
-        <div class="col-lg-4">
-          <h4>Top Countries</h4>
+        <div class="col-lg-4 <%= 'blur' unless current_user&.admin %>">
+          <h4>Top Countries <%= image_tag 'help-circle.svg', data: {toggle: 'modal', target: '#paidFeatureModal'}, style: 'cursor: pointer;' unless current_user&.admin %></h4>
           <p>
             The top countries where your your audience listened from.
           </p>
-          <%= bar_chart countries_page_dashboard_graphs_path(@page, start_date: params[:start_date], end_date: params[:end_date], feed: params[:feed]), xtitle: "Downloads" %>
+          <% if current_user&.admin %>
+            <%= bar_chart countries_page_dashboard_graphs_path(@page, start_date: params[:start_date], end_date: params[:end_date], feed: params[:feed]), xtitle: "Downloads" %>
+          <% else %>
+            <div class="upgrade-container">
+              <div class="upgrade-button">
+                <%= link_to "Upgrade", root_path, class: 'btn btn-primary' %>
+              </div>
+              <%= bar_chart dummy_page_dashboard_graphs_path(@page, start_date: params[:start_date], end_date: params[:end_date], feed: params[:feed]), xtitle: "Downloads" %>
+            </div>
+          <% end %>
         </div>
       </div>
     <% else %>
@@ -113,3 +161,28 @@
     <% end %>
   </div>
 </div>
+<% unless current_user.admin? %>
+  <div class="modal fade" id="paidFeatureModal" tabindex="-1" role="dialog" aria-labelledby="paidFeatureModal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="paidFeatureModal">Advanced Stats and Filtering</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>
+            Only paid plans have access to our advanced stats and filtering features. <em>(Plans coming soon.)</em>
+          </p>
+          <p>
+            Upgrade to a paid plan to see your complete stats, filter by date or feed, and more. In the meantime, you'll be able to access some download analytics from the last week.
+          </p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-light" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>

@@ -67,6 +67,10 @@ class PagePolicy <  ApplicationPolicy
     edit?
   end
 
+  def dummy?
+    edit?
+  end
+
   def recover?
     true
   end
