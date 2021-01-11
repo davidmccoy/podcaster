@@ -18,7 +18,7 @@ class ImportRssFeedWorker
     # iterate over the entries and make posts/podcast episodes
     # perhaps we can limit the number of episodes for free users?
     # TODO: most of this is repeated from the check RSS feed worker
-    feed.entries.take(5).each do |entry|
+    feed.entries.each do |entry|
       # set up attributes
       post_params = {
         page_id: page.id,

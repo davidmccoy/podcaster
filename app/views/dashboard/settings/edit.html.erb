@@ -1,67 +1,69 @@
 <div class="row">
   <%= render 'dashboard/sidebar' %>
   <div class="page-admin">
-    <h2>Podcast Information</h2>
-    <hr>
-    <div class="page-settings-section">
-      <h4>Basic Information</h4>
-      <p>
-        This information about your podcast will be used throught MTGCast and your podcast's RSS feed.
-      </p>
-      <%= form_with model: @page, url: page_dashboard_settings_path(@page), method: 'put', html: { class: 'needs-validation', novalidate: true, remote: false } do |form| %>
-        <div class="form-group required">
-          <%= form.label :name, 'Name', class: 'control-label' %>
-          <%= form.text_field :name, required: true, class: 'form-control'%>
-        </div>
-        <div class="form-group required">
-          <%= form.label :description, 'Description', class: 'control-label' %>
-          <%= form.rich_text_area :description, required: true, class: 'form-control medium' %>
-        </div>
-        <div class="actions">
-          <%= form.submit 'Update Info', class: 'btn btn-primary' %>
-        </div>
-      <% end %>
-    </div>
-    <hr>
-    <div class="page-settings-section">
-      <h4>Category</h4>
-      <p>
-        Please categorize your podcast based on the topic that you cover. This category will be used to help listeners find your work when using MTGCast's search and filtering options.
-      </p>
-      <%= form_with model: @category, url: page_dashboard_categories_path(@page), method: 'post' do |form| %>
-        <div class="form-group required">
-          <%= select_tag 'category[name]', grouped_options_for_select(categories_for_select, @page.categories&.first&.name, {}), include_blank: "Select Category", required: true, class: "form-control" %>
-        </div>
-        <div class="actions">
-          <% if @page.categories.any? %>
-            <%= form.submit 'Update Category', class: 'btn btn-primary' %>
-          <% else %>
-            <%= form.submit 'Add Category', class: 'btn btn-primary' %>
-          <% end %>
-        </div>
-      <% end %>
-    </div>
-    <% if @page.externally_hosted %>
+    <div class="content">
+      <h2>Podcast Information</h2>
       <hr>
       <div class="page-settings-section">
-        <h4>Host Episodes Externally</h4>
+        <h4>Basic Information</h4>
         <p>
-          You are currently hosting your audio files on a third-party service rather than storing them on MTGCast servers. Podcasts that host their files elsewhere cannot post episodes directly to MTGCast&mdash;instead, we continuously read from your external RSS feed and automatically import them.
-        </p>
-        <p>
-          You can disable this behavior and instead upload your episodes directly to MTGCast by clicking the button below. You will then be able to begin using MTGCast as your hosting service.
-        </p>
-        <p>
-          <strong>Please note:</strong> Even if you choose to switch to MTGCast hosting, the audio files for your existing episodes will still be hosted on the service they were uploaded to. Transferring your entire back catalogue to MTGCast's servers requires a paid plan. <em>(Coming soon.)</em>
+          This information about your podcast will be used throught MTGCast and your podcast's RSS feed.
         </p>
         <%= form_with model: @page, url: page_dashboard_settings_path(@page), method: 'put', html: { class: 'needs-validation', novalidate: true, remote: false } do |form| %>
-          <%= hidden_field_tag 'page[externally_hosted]', false %>
-          <br />
+          <div class="form-group required">
+            <%= form.label :name, 'Name', class: 'control-label' %>
+            <%= form.text_field :name, required: true, class: 'form-control'%>
+          </div>
+          <div class="form-group required">
+            <%= form.label :description, 'Description', class: 'control-label' %>
+            <%= form.rich_text_area :description, required: true, class: 'form-control medium' %>
+          </div>
           <div class="actions">
-            <%= form.submit 'Use MTGCast Hosting', class: 'btn btn-blue' %>
+            <%= form.submit 'Update Info', class: 'btn btn-primary' %>
           </div>
         <% end %>
-      <% end %>
+      </div>
+      <hr>
+      <div class="page-settings-section">
+        <h4>Category</h4>
+        <p>
+          Please categorize your podcast based on the topic that you cover. This category will be used to help listeners find your work when using MTGCast's search and filtering options.
+        </p>
+        <%= form_with model: @category, url: page_dashboard_categories_path(@page), method: 'post' do |form| %>
+          <div class="form-group required">
+            <%= select_tag 'category[name]', grouped_options_for_select(categories_for_select, @page.categories&.first&.name, {}), include_blank: "Select Category", required: true, class: "form-control" %>
+          </div>
+          <div class="actions">
+            <% if @page.categories.any? %>
+              <%= form.submit 'Update Category', class: 'btn btn-primary' %>
+            <% else %>
+              <%= form.submit 'Add Category', class: 'btn btn-primary' %>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+      <% if @page.externally_hosted %>
+        <hr>
+        <div class="page-settings-section">
+          <h4>Host Episodes Externally</h4>
+          <p>
+            You are currently hosting your audio files on a third-party service rather than storing them on MTGCast servers. Podcasts that host their files elsewhere cannot post episodes directly to MTGCast&mdash;instead, we continuously read from your external RSS feed and automatically import them.
+          </p>
+          <p>
+            You can disable this behavior and instead upload your episodes directly to MTGCast by clicking the button below. You will then be able to begin using MTGCast as your hosting service.
+          </p>
+          <p>
+            <strong>Please note:</strong> Even if you choose to switch to MTGCast hosting, the audio files for your existing episodes will still be hosted on the service they were uploaded to. Transferring your entire back catalogue to MTGCast's servers requires a paid plan. <em>(Coming soon.)</em>
+          </p>
+          <%= form_with model: @page, url: page_dashboard_settings_path(@page), method: 'put', html: { class: 'needs-validation', novalidate: true, remote: false } do |form| %>
+            <%= hidden_field_tag 'page[externally_hosted]', false %>
+            <br />
+            <div class="actions">
+              <%= form.submit 'Use MTGCast Hosting', class: 'btn btn-blue' %>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
     </div>
   </div>
 </div>
