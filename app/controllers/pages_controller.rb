@@ -16,7 +16,7 @@ class PagesController < ApplicationController
                    .where('posts.publish_time < ?', Time.now)
                    .group('pages.id')
                    .order('max(posts.publish_time) DESC')
-                   .paginate(page: params[:page], per_page: 12)
+                   .paginate(page: params[:page], per_page: 15)
     elsif query_params[:term].present?
       @pages = Page.includes(:logo, :latest_post)
                    .where('name ilike ?', "%#{query_params[:term].strip}%")
@@ -24,7 +24,7 @@ class PagesController < ApplicationController
                    .where('posts.publish_time < ?', Time.now)
                    .group('pages.id')
                    .order('max(posts.publish_time) DESC')
-                   .paginate(page: params[:page], per_page: 12)
+                   .paginate(page: params[:page], per_page: 15)
 
     elsif query_params[:category].present?
       @pages = Page.includes(:logo, :latest_post)
@@ -34,21 +34,21 @@ class PagesController < ApplicationController
                    .where('posts.publish_time < ?', Time.now)
                    .group('pages.id')
                    .order('max(posts.publish_time) DESC')
-                   .paginate(page: params[:page], per_page: 12)
+                   .paginate(page: params[:page], per_page: 15)
     else
       @pages = Page.includes(:logo, :latest_post)
                    .joins('INNER JOIN posts ON posts.page_id = pages.id')
                    .where('posts.publish_time < ?', Time.now)
                    .group('pages.id')
                    .order('max(posts.publish_time) DESC')
-                   .paginate(page: params[:page], per_page: 12)
+                   .paginate(page: params[:page], per_page: 15)
     end
     @default_logo = ActionController::Base.helpers.asset_path('mtgcast-logo-itunes.png')
   end
 
   def show
     @posts = @page.posts.published.includes(:postable)
-                  .paginate(page: params[:page], per_page: 12)
+                  .paginate(page: params[:page], per_page: 15)
 
     @logo_url =
       if @page.logo
