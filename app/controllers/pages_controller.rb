@@ -4,45 +4,8 @@ class PagesController < ApplicationController
   before_action :authorize_page, except: [:index, :show, :feed, :mtgcast]
 
   def index
-    # :latest_post is restricted to one post, but eager loading :postable ends up
-    # eager loading many more than one associated postable records, so I'm leaving
-    # that n+1 for now
-    if query_params[:term].present? && query_params[:category].present?
-      @pages = Page.includes(:logo, :latest_post)
-                   .joins(:categories)
-                   .where(categories:  { name: query_params[:category] })
-                   .where('pages.name ilike ?', "%#{query_params[:term].strip}%")
-                   .joins('INNER JOIN posts ON posts.page_id = pages.id')
-                   .where('posts.publish_time < ?', Time.now)
-                   .group('pages.id')
-                   .order('max(posts.publish_time) DESC')
-                   .paginate(page: params[:page], per_page: 15)
-    elsif query_params[:term].present?
-      @pages = Page.includes(:logo, :latest_post)
-                   .where('name ilike ?', "%#{query_params[:term].strip}%")
-                   .joins('INNER JOIN posts ON posts.page_id = pages.id')
-                   .where('posts.publish_time < ?', Time.now)
-                   .group('pages.id')
-                   .order('max(posts.publish_time) DESC')
-                   .paginate(page: params[:page], per_page: 15)
+    @pages = Page::Search.new(Page.all, query_params, params).all
 
-    elsif query_params[:category].present?
-      @pages = Page.includes(:logo, :latest_post)
-                   .joins(:categories)
-                   .where(categories:  { name: query_params[:category] })
-                   .joins('INNER JOIN posts ON posts.page_id = pages.id')
-                   .where('posts.publish_time < ?', Time.now)
-                   .group('pages.id')
-                   .order('max(posts.publish_time) DESC')
-                   .paginate(page: params[:page], per_page: 15)
-    else
-      @pages = Page.includes(:logo, :latest_post)
-                   .joins('INNER JOIN posts ON posts.page_id = pages.id')
-                   .where('posts.publish_time < ?', Time.now)
-                   .group('pages.id')
-                   .order('max(posts.publish_time) DESC')
-                   .paginate(page: params[:page], per_page: 15)
-    end
     @default_logo = ActionController::Base.helpers.asset_path('mtgcast-logo-itunes.png')
   end
 
@@ -143,6 +106,6 @@ class PagesController < ApplicationController
   end
 
   def query_params
-    params.permit(:term, :category)
+    params.permit(:term, :category, :sort_by)
   end
 end
