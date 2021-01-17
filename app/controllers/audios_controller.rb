@@ -68,6 +68,8 @@ class AudiosController < ApplicationController
 
   def record_download
     feed_source = determine_source_feed
+    p "******* #{feed_source} *******"
+    p request.params
     @download = Download.create!(
       audio_post_id: @post.postable_id,
       page_id: @page.id,
@@ -79,6 +81,7 @@ class AudiosController < ApplicationController
       feed_source: feed_params[:source],
       params: request.params,
     )
+    binding.pry
   end
 
   def update_download_count

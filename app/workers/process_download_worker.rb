@@ -34,7 +34,12 @@ class ProcessDownloadWorker
       city: location.city,
       latitude: location.latitude,
       longitude: location.longitude,
+      source_feed: ensure_source_feed,
     )
+  end
+
+  def ensure_source_feed
+    @download.source_feed || @download.params['blob_id']&.split('?')[1]&.split('=')[1]
   end
 
   def increment_downloads
