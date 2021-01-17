@@ -59,7 +59,15 @@ class AudiosController < ApplicationController
     params.permit(:source)
   end
 
+  # for some reason requests through podcast apps (apple podcasts, castro, etc) come with an
+  # additional `blob_id` param that supercedes our `source` param. this is a crude attempt
+  # to handle these instances.
+  def determine_source_feed
+    feed_params[:source] || request.params['blob_id']&.split('?')[1]&.split('=')[1]
+  end
+
   def record_download
+    feed_source = determine_source_feed
     @download = Download.create!(
       audio_post_id: @post.postable_id,
       page_id: @page.id,
