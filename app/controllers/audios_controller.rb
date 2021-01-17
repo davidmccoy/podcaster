@@ -60,8 +60,9 @@ class AudiosController < ApplicationController
   end
 
   def record_download
-    @download = Download.create(
+    @download = Download.create!(
       audio_post_id: @post.id,
+      page_id: @page.id,
       user_id: current_user&.id,
       ip: request.ip,
       user_agent: request.user_agent,
