@@ -103,7 +103,7 @@ Rails.application.configure do
   }
 
   # Set default host
-  Rails.application.routes.default_url_options[:host] = 'https://www.mtgcast.com'
+  Rails.application.routes.default_url_options[:host] = ENV['DEFAULT_HOST']
 
   # Inserts middleware to perform automatic connection switching.
   # The `database_selector` hash is used to pass options to the DatabaseSelector
