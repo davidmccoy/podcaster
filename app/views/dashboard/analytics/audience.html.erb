@@ -141,19 +141,25 @@
       <% if @page.created_at < "2019-02-01"%>
         <p>
           <em>
-            Note: Episodes from 2018 and earlier may show the incorrect publish date due to an MTGCast server error. Also, episodes published before mid-September 2019 will not include download count information while episodes before mid-February 2020 will not have accurate individual/aggregate feed download splits.
+            Note: Episodes from 2018 and earlier may show the incorrect publish date due to an MTGCast server error. Also, episodes published before mid-September 2019 will not include download count information while episodes before mid-February 2020 will not have accurate individual/aggregate feed download splits. Additionally, episodes published before February 2021 will not have accurate audience insight data.
           </em>
         </p>
       <% elsif @page.created_at < "2019-10-01"%>
         <p>
           <em>
-            Note: Episodes published before mid-September 2019 will not include download count information while episodes before mid-February 2020 will not have accurate individual/aggregate feed download splits.
+            Note: Episodes published before mid-September 2019 will not include download count information while episodes before mid-February 2020 will not have accurate individual/aggregate feed download splits. Additionally, episodes published before February 2021 will not have accurate audience insight data.
           </em>
         </p>
       <% elsif @page.created_at < "2020-03-01"%>
         <p>
           <em>
-            Note: Episodes published before mid-February 2020 will not have accurate individual/aggregate feed download splits.
+            Note: Episodes published before mid-February 2020 will not have accurate individual/aggregate feed download splits, while episodes published before February 2021 will not have accurate audience insight data.
+          </em>
+        </p>
+      <% elsif @page.created_at < "2021-02-01"%>
+        <p>
+          <em>
+            Note: Episodes published before February 2021 will not have accurate audience insight data.
           </em>
         </p>
       <% end %>
