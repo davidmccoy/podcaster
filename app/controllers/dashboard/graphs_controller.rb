@@ -74,11 +74,11 @@ class Dashboard::GraphsController < ApplicationController
   end
 
   def start_date
-    (current_user&.admin? && filter_params[:start_date].to_time.beginning_of_day) || Time.zone.today.beginning_of_day - 7.days
+    (current_user&.admin? && filter_params[:start_date]&.to_time&.beginning_of_day) || Time.zone.today.beginning_of_day - 7.days
   end
 
   def end_date
-    (current_user&.admin? && filter_params[:end_date].to_time.end_of_day) || Time.zone.today.end_of_day
+    (current_user&.admin? && filter_params[:end_date]&.to_time&.end_of_day) || Time.zone.today.end_of_day
   end
 
   def feed
