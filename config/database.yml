@@ -31,9 +31,8 @@ production:
     database: podcaster_production
     username: podcaster
     password: <%= ENV['PODCASTER_DATABASE_PASSWORD'] %>
-  primary:
+  secondary:
     <<: *default
     database: podcaster_secondary_production
-    username: podcaster
-    password: <%= ENV['PODCASTER_SECONDARY_DATABASE_PASSWORD'] %>
+    url: <%= ENV['HEROKU_POSTGRESQL_CYAN_URL'] %>
     migrations_paths: db/secondary_migrate
