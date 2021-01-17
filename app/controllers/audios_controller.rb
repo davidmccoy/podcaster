@@ -61,7 +61,7 @@ class AudiosController < ApplicationController
 
   def record_download
     @download = Download.create!(
-      audio_post_id: @post.id,
+      audio_post_id: @post.postable_id,
       page_id: @page.id,
       user_id: current_user&.id,
       ip: request.ip,
