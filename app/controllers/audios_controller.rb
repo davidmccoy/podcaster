@@ -78,7 +78,7 @@ class AudiosController < ApplicationController
       user_agent: request.user_agent,
       referrer: request.referrer,
       referring_domain: request.origin,
-      feed_source: feed_params[:source],
+      feed_source: feed_source,
       params: request.params,
     )
   end
