@@ -81,7 +81,6 @@ class AudiosController < ApplicationController
       feed_source: feed_params[:source],
       params: request.params,
     )
-    binding.pry
   end
 
   def update_download_count
