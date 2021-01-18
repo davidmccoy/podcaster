@@ -1,4 +1,4 @@
 Geocoder.configure(
   ip_lookup: :ipinfo_io,
-  api_key: ''
+  api_key: ENV['APINFO_API_KEY']
 )
