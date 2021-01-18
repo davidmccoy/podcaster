@@ -22,7 +22,7 @@ class ProcessDownloadWorker
     user_agent = @download.user_agent
     client = DeviceDetector.new(user_agent)
 
-    # external API call
+    # checks redis, external API call on cache miss
     location = Geocoder.search(@download.ip).first
 
     @download.update(
