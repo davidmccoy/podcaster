@@ -87,7 +87,6 @@ gem 'sentry-raven'
 # User agent parsing
 gem 'device_detector'
 gem 'geocoder'
-gem 'maxminddb'
 
 # Data viz
 gem 'chartkick'
