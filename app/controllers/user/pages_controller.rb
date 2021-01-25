@@ -1,6 +1,6 @@
 #
 class User::PagesController < ApplicationController
-  before_action :set_page, except: [:index, :new, :create]
+  before_action :set_page, except: [:index, :new, :create, :upload]
   before_action :authorize_page
 
   def index
@@ -11,7 +11,7 @@ class User::PagesController < ApplicationController
     @pages = current_user.pages
 
     if @pages.length == 1
-      redirect_to new_page_post_path(@pages.first)
+      redirect_to new_page_dashboard_audio_post_path(@pages.first)
     elsif @pages.length > 1
       redirect_to user_pages_path
     else

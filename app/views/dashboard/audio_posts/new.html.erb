@@ -4,12 +4,15 @@
   <script src="https://transloadit.edgly.net/releases/uppy/v0.28.0/dist/uppy.min.js"></script>
 <% end %>
 <div class="row">
-  <%= render 'pages/sidebar' %>
+  <%= render 'dashboard/sidebar' %>
   <div class="page-admin">
     <% unless @page.externally_hosted %>
-      <h2>Create Post</h2>
+      <h2>Create Episode</h2>
+      <p>
+        A standard podcast episodes&mdash;an audio file and some accompanying text/links/images&mdash;that will be included in an RSS feed and available for download from any podcast player.
+      </p>
       <div class="admin-post-container">
-        <%= form_with model: @post, url: page_posts_path(@page, @post), method: 'post', html: { class: 'needs-validation', novalidate: true } do |form| %>
+        <%= form_with model: @post, url: page_dashboard_audio_posts_path(@page, @post), method: 'post', html: { class: 'needs-validation', novalidate: true } do |form| %>
           <div class="form-group required">
             <%= form.label 'postable_attributes[title]', 'Title', class: 'control-label' %>
             <%= form.text_field 'postable_attributes[title]', autofocus: true, required: true, class: 'form-control edit-post-title', onblur: 'onTitleBlur()'%>

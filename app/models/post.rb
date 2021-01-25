@@ -1,8 +1,11 @@
-# polymorphic class allowing for multiple post types
+# polymorphic class that uses delegated types to support multiple post types
 class Post < ApplicationRecord
+  # NOTE: this scope and the `publish_time`` attribute are duplicated from the postable models
+  # since it is difficult to delegate a scope to a polymorphic association. something like
+  # joins(:postable).merge(Postable.published) won't work since `Postable` isn't an actual class.
   scope :published, -> { where('publish_time < ?', Time.now).order(publish_time: :desc) }
 
-  belongs_to :postable, polymorphic: true, dependent: :destroy
+  delegated_type :postable, types: %w[ AudioPost TextPost ]
   belongs_to :page
 
   accepts_nested_attributes_for :postable

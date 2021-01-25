@@ -25,7 +25,7 @@
                 <%= link_to page.name, page_path(page) %>
               </td>
               <td class="view">
-                <%= link_to 'Manage', page_posts_path(page), class: 'btn btn-sm btn-light' %>
+                <%= link_to 'Manage', page_dashboard_audio_posts_path(page), class: 'btn btn-sm btn-light' %>
               </td>
               <td class="view">
                 <%= link_to 'View', page_path(page), class: 'btn btn-sm btn-light' %>
@@ -34,7 +34,7 @@
                 <% if page.externally_hosted %>
                  <em>(Externally hosted)</em>
                 <% else %>
-                  <%= link_to '+ Episode', new_page_post_path(page), class: 'btn btn-sm btn-primary' %>
+                  <%= link_to '+ Episode', new_page_dashboard_audio_post_path(page), class: 'btn btn-sm btn-primary' %>
                 <% end %>
               </td>
             </tr>

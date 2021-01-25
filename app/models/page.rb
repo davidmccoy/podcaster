@@ -3,7 +3,8 @@ class Page < ApplicationRecord
   belongs_to :user, optional: true
   has_many :posts, dependent: :destroy
   has_one :latest_post, -> { where('publish_time < ?', Time.now).order(publish_time: :desc) }, class_name: 'Post'
-  has_many :podcast_episodes, through: :posts, source: :postable, source_type: 'PodcastEpisode'
+  has_many :audio_posts, through: :posts, source: :postable, source_type: 'AudioPost'
+  has_many :text_posts, through: :posts, source: :postable, source_type: 'TextPost'
   has_many :attachments, as: :attachable, dependent: :destroy
   has_many :images, -> { where(attachments: { type: 'Image' }) }, foreign_key: :attachable_id
   has_one :logo, -> { where(attachments: { type: 'Logo' }) }, foreign_key: :attachable_id

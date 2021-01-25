@@ -2,15 +2,15 @@
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
 #
-# This file is the source Rails uses to define your schema when running `rails
-# db:schema:load`. When creating a new database, `rails db:schema:load` tends to
+# This file is the source Rails uses to define your schema when running `bin/rails
+# db:schema:load`. When creating a new database, `bin/rails db:schema:load` tends to
 # be faster and is potentially less error prone than running all of your
 # migrations from scratch. Old migrations may fail to apply correctly if those
 # migrations use external dependencies or application code.
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_13_150506) do
+ActiveRecord::Schema.define(version: 2021_01_03_030137) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -43,7 +43,14 @@ ActiveRecord::Schema.define(version: 2020_09_13_150506) do
     t.bigint "byte_size", null: false
     t.string "checksum", null: false
     t.datetime "created_at", null: false
+    t.string "service_name", null: false
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
+  end
+
+  create_table "active_storage_variant_records", force: :cascade do |t|
+    t.bigint "blob_id", null: false
+    t.string "variation_digest", null: false
+    t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
   create_table "attachments", force: :cascade do |t|
@@ -56,6 +63,29 @@ ActiveRecord::Schema.define(version: 2020_09_13_150506) do
     t.datetime "updated_at", null: false
     t.index ["attachable_type", "attachable_id"], name: "index_attachments_on_attachable_type_and_attachable_id"
     t.index ["label"], name: "index_attachments_on_label"
+  end
+
+  create_table "audio_posts", force: :cascade do |t|
+    t.string "title", null: false
+    t.text "description"
+    t.string "filename"
+    t.string "external_file_url"
+    t.string "external_date"
+    t.integer "external_unique_downloads"
+    t.integer "external_total_downloads"
+    t.datetime "date"
+    t.boolean "file_migrated", default: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "total_downloads", default: 0
+    t.bigint "individual_downloads", default: 0
+    t.bigint "aggregate_feed_downloads", default: 0
+    t.boolean "imported", default: false
+    t.text "guid"
+    t.text "import_errors"
+    t.datetime "publish_time"
+    t.index ["file_migrated"], name: "index_audio_posts_on_file_migrated"
+    t.index ["guid"], name: "index_audio_posts_on_guid"
   end
 
   create_table "categories", force: :cascade do |t|
@@ -103,28 +133,6 @@ ActiveRecord::Schema.define(version: 2020_09_13_150506) do
     t.index ["user_id"], name: "index_pages_on_user_id"
   end
 
-  create_table "podcast_episodes", force: :cascade do |t|
-    t.string "title", null: false
-    t.text "description"
-    t.string "filename"
-    t.string "external_file_url"
-    t.string "external_date"
-    t.integer "external_unique_downloads"
-    t.integer "external_total_downloads"
-    t.datetime "date"
-    t.boolean "file_migrated", default: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.bigint "total_downloads", default: 0
-    t.bigint "individual_downloads", default: 0
-    t.bigint "aggregate_feed_downloads", default: 0
-    t.boolean "imported", default: false
-    t.text "guid"
-    t.text "import_errors"
-    t.index ["file_migrated"], name: "index_podcast_episodes_on_file_migrated"
-    t.index ["guid"], name: "index_podcast_episodes_on_guid"
-  end
-
   create_table "posts", force: :cascade do |t|
     t.integer "page_id"
     t.string "postable_type"
@@ -136,6 +144,13 @@ ActiveRecord::Schema.define(version: 2020_09_13_150506) do
     t.index ["page_id"], name: "index_posts_on_page_id"
     t.index ["postable_type", "postable_id"], name: "index_posts_on_postable_type_and_postable_id"
     t.index ["slug"], name: "index_posts_on_slug"
+  end
+
+  create_table "text_posts", force: :cascade do |t|
+    t.string "title", null: false
+    t.datetime "publish_time"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "users", force: :cascade do |t|
@@ -160,4 +175,5 @@ ActiveRecord::Schema.define(version: 2020_09_13_150506) do
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
 end

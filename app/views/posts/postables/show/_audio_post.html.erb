@@ -1,0 +1,98 @@
+<div class="row">
+  <div class="hero-container">
+    <div class="spacer">
+    </div>
+  </div>
+  <div class="hero-container page-info">
+    <div class="hero-page-image">
+      <div class="page-image no-border" style="background-image: url(<%= @logo_url %>)">
+      </div>
+    </div>
+    <div class="hero-episode-container">
+      <div class="page-name-container">
+        <h1>
+          <%= post.postable.title %>
+        </h1>
+        <p>
+          By <%= link_to @page.name, page_path(@page) %><br />
+        </p>
+        <p>
+          <%= 'Scheduled for: ' if post.publish_time > Time.zone.now %>
+          <%= post.publish_time.localtime.strftime('%A, %B %d, %Y') %>
+        </p>
+        <% if current_user && policy(@page).edit? %>
+          <p>
+            <span style="margin-right:1rem;">
+              <em><%= post.postable.total_downloads %> downloads</em>
+            </span>
+            <%= link_to "Edit Episode", edit_page_dashboard_audio_post_path(@page, post), class: 'btn btn-sm btn-light' %>
+          </p>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-8 offset-lg-2 col-md-12">
+    <div class="post-body-container">
+      <div>
+        <% if post.postable.podcast_episode&.file&.metadata&.dig('mime_type') %>
+          <p>
+            <audio id="player" controls controlsList="nodownload">
+              <source src="<%= post.postable.podcast_episode.url %>" type="<%= post.postable.podcast_episode&.file&.metadata&.dig('mime_type') %>">
+              Sorry, your browser doesn't support this audio file.
+            </audio>
+          </p>
+          <p>
+            <em><%= link_to '(Download this episode)', page_post_audio_path(@page.slug, post.slug, post.postable.podcast_episode) %></em>
+          </p>
+        <% elsif post.postable.imported && !post.postable.podcast_episode %>
+          <% if current_user && policy(@page).edit? && post.postable.import_errors %>
+            <p>
+              <%= render 'shared/icons/exclamation_circle', color: 'red', size: '1.5rem' %>
+              <em><strong>There was an issue importing this audio file: "<%= post.postable.import_errors %>."</strong></em>
+            </p>
+          <% else %>
+            <audio id="player" controls controlsList="nodownload"></audio>
+            <p>
+              <em><strong>This file is being processed.</strong></em>
+            </p>
+          <% end %>
+        <% end %>
+      </div>
+      <%= post.postable.content %>
+    </div>
+  </div>
+</div>
+
+<% # imported audio files are processed asynchronously and may not be available %>
+<% if post.postable.podcast_episode %>
+  <script>
+    var hasPressedPlay = false;
+    var recordPlayUrl = '<%= page_post_audio_record_play_url(@page.slug, post.slug, post.postable.podcast_episode) %>'
+
+    // add csrf token to ajax requests
+    $.ajaxPrefilter(function(options, originalOptions, xhr) {
+      if (!options.crossDomain) {
+        token = $('meta[name="csrf-token"]').attr('content');
+        if (token) xhr.setRequestHeader('X-CSRF-Token', token);
+      }
+    });
+
+    // log play
+    $('#player').on('play', function() {
+      if (this.currentTime === 0) {
+        $.ajax({
+          method: 'POST',
+          url: recordPlayUrl,
+          data: {
+            audio: {
+              id: <%= post.postable.podcast_episode.id %>,
+              play: true,
+            },
+            source: 'individual'
+          }
+        })
+        hasPressedPlay = true;
+      }
+    })
+  </script>
+<% end %>

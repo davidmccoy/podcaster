@@ -6,10 +6,6 @@
 
 }
 
-hr {
-  width: 100%;
-}
-
 .page-container {
   display: flex;
   flex-direction: row;
@@ -473,7 +469,7 @@ hr {
     padding: 0 2rem 0 2rem;
     margin-left: 200px;
     overflow: auto;
-    height: calc(100vh - 73px);
+    height: calc(100vh - 74px);
   }
 
   .header-container {

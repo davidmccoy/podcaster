@@ -1,0 +1,54 @@
+<div class="row">
+  <%= render 'dashboard/sidebar' %>
+  <div class="page-admin">
+    <h2>All Posts</h2>
+    <p>
+      Posts are shown alongside your podcast's episodes on your show page but aren't included in your RSS feed.
+    </p>
+    <% unless @posts.empty? %>
+      <table class="table table-outer-border">
+        <thead>
+          <tr>
+            <th>
+              Episode
+            </th>
+            <th>
+              Date Published
+            </th>
+            <th>
+            </th>
+            <th>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @posts.each do |post| %>
+            <% next unless post.postable %>
+            <tr>
+              <td>
+                <%= link_to post.postable.title, page_text_post_path(@page, post) %>
+              </td>
+              <td>
+                <%= post.publish_time.strftime('%-m/%-d/%Y') %>
+                <%= '(Scheduled)' if post.publish_time > Time.zone.now %>
+              </td>
+              <td class="view text-center">
+                <%= link_to 'View', page_text_post_path(@page, post), class: 'btn btn-sm btn-primary' %>
+              </td>
+              <td class="view text-center">
+                <%= link_to 'Edit', edit_page_dashboard_text_post_path(@page, post), class: 'btn btn-sm btn-light' %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    <% else %>
+      <p>
+        You haven't made any posts. <%= link_to 'Create one now', new_page_dashboard_text_post_path(@page) %>.
+      </p>
+    <% end %>
+    <div class="pagination-container">
+      <%= will_paginate @posts %>
+    </div>
+  </div>
+</div>

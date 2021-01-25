@@ -1,20 +1,20 @@
 xml.item do
-  xml.guid({:isPermaLink => "false"}, post.url)
-  xml.title post.title
-  xml.pubDate post.publish_time.to_s(:rfc822)
-  xml.link post.url
-  xml.itunes :duration, post.postable.audio.first&.file&.metadata&.dig('length')
-  xml.itunes :author, post.page.name
+  xml.guid({:isPermaLink => "false"}, episode.url)
+  xml.title episode.formatted_title
+  xml.pubDate episode.publish_time.to_s(:rfc822)
+  xml.link episode.url
+  xml.itunes :duration, episode.audio.first&.file&.metadata&.dig('length')
+  xml.itunes :author, episode.page.name
   xml.itunes :explicit, 'no'
   xml.itunes :summary do
-    (xml.cdata!(post.postable.content.to_s) unless post.postable.content == nil)
+    (xml.cdata!(episode.content.to_s) unless episode.content == nil)
   end
-  xml.itunes :subtitle, truncate(post.postable.content.to_plain_text, :length => 150)
+  xml.itunes :subtitle, truncate(episode.content.to_plain_text, :length => 150)
   xml.description do
-    (xml.cdata!(post.postable.content.to_s) unless post.postable.content == nil)
+    (xml.cdata!(episode.content.to_s) unless episode.content == nil)
   end
-  xml.enclosure :url => post.media_url(syndicated),
-    :length => post.postable.audio.first&.file&.metadata&.dig('size'),
-    :type => post.postable.audio.first&.file&.metadata&.dig('mime_type')
+  xml.enclosure :url => episode.media_url(syndicated),
+    :length => episode.audio.first&.file&.metadata&.dig('size'),
+    :type => episode.audio.first&.file&.metadata&.dig('mime_type')
   xml.itunes :image, href: @image
 end

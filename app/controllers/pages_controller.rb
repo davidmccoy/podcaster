@@ -69,46 +69,20 @@ class PagesController < ApplicationController
 
     if @page.save
       flash[:notice] = 'Welcome to MTGCast! Don\'t forget to add a description and category!'
-      redirect_to page_settings_path(@page)
+      redirect_to page_dashboard_settings_path(@page)
     else
       flash[:alert] = 'Failed to created podcast.'
       render :new
     end
   end
 
-  def settings; end
-
-  def edit; end
-
-  def update
-    if @page.update(page_params)
-      flash[:notice] = 'Successfully updated podcast.'
-      redirect_to page_settings_path(@page)
-    else
-      flash[:alert] = 'Failed to update podcast.'
-      render :edit
-    end
-  end
-
-  def delete; end
-
-  def destroy
-    if @page.destroy
-      flash[:notice] = 'Successfully deleted podcast.'
-      redirect_to user_pages_path
-    else
-      flash[:alert] = 'Failed to delete podcast.'
-      redirect_to page_delete_path(@page_)
-    end
-  end
-
   def feed
-    @posts = @page.posts
+    @episodes = @page.audio_posts
                   .published
-                  .includes(postable: [:audio, :rich_text_content])
+                  .includes(:audio, :rich_text_content, :post)
                   .limit(50)
-                  .select { |post| post.postable.audio.any? }
-                  # this select is gross but necessary for posts without audiof
+                  .select { |episode| episode.audio.any? }
+                  # this select is gross but necessary for episodes without audio
 
     @image =
       if @page.logo
@@ -125,8 +99,8 @@ class PagesController < ApplicationController
         'admin@mtgcast.fm'
       end
     @date =
-      if @page.posts.published.first
-        @page.posts.published.first.publish_time.to_s(:rfc822)
+      if @episodes.first
+        @episodes.first.publish_time.to_s(:rfc822)
       else
         Time.now.to_s(:rfc822)
       end
@@ -135,13 +109,13 @@ class PagesController < ApplicationController
 
   def mtgcast
     @image = ActionController::Base.helpers.asset_path('mtgcast-logo-itunes.png', host: root_url)
-    @posts = Post.published
-                 .includes(:page)
-                 .preload(postable: [:audio, :rich_text_content])
+    @episodes = AudioPost.published
+                 .includes(post: :page)
+                 .preload(:audio, :rich_text_content)
                  .where(pages: { included_in_aggregate_feed: true }).limit(100)
     @date =
-      if @posts.first
-        @posts.first.publish_time.to_s(:rfc822)
+      if @episodes.first
+        @episodes.first.publish_time.to_s(:rfc822)
       else
         Time.now.to_s(:rfc822)
       end

@@ -1,0 +1,34 @@
+<div class="post-container">
+  <div class="post-left">
+    <%= link_to page_post_path(@page, post) do %>
+      <% if current_user && policy(@page).edit? %>
+        <% if !post.postable.podcast_episode  && post.postable.import_errors %>
+          <% render 'shared/icons/exclamation_circle', color: 'red', size: '50px' %>
+        <% else %>
+          <div class="play-button-container">
+          </div>
+        <% end %>
+      <% else %>
+        <div class="play-button-container">
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+  <div class="post-right">
+    <div class="post-info-container">
+      <p style="margin-bottom: 0.5rem;font-size: 0.75rem;">
+        Episode
+      </p>
+      <h4>
+        <%= link_to post.postable.title, page_post_path(@page, post) %>
+      </h4>
+      <p>
+        <%= 'Scheduled For: ' if post.publish_time > Time.now %>
+        <%= post.publish_time.localtime.strftime('%B %-m, %Y') %>
+      </p>
+      <p>
+        <%= simple_format(truncate(post.postable.content.to_plain_text, length: 150)) %>
+      </p>
+    </div>
+  </div>
+</div>

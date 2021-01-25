@@ -1,0 +1,82 @@
+<div class="row">
+  <%= render 'dashboard/sidebar' %>
+  <div class="page-admin">
+    <% unless @page.externally_hosted %>
+      <h2>Create Post</h2>
+      <p>
+        This post will be shown alongside your podcast's episodes on your show page but won't included in your podcast RSS feed.
+      </p>
+      <div class="admin-post-container">
+        <%= form_with model: @post, url: page_dashboard_text_posts_path(@page, @post), method: 'post', html: { class: 'needs-validation', novalidate: true } do |form| %>
+          <div class="form-group required">
+            <%= form.label 'postable_attributes[title]', 'Title', class: 'control-label' %>
+            <%= form.text_field 'postable_attributes[title]', autofocus: true, required: true, class: 'form-control edit-post-title', onblur: 'onTitleBlur()'%>
+            <div class="slug-container">
+              <span id="slug"></span>
+            </div>
+          </div>
+          <div class="form-group required">
+            <%= form.rich_text_area 'postable_attributes[content]', class: 'full-height' %>
+          </div>
+          <div class="form-group required hidden" style="display: none;">
+            <%= form.hidden_field :slug, required: true, class: 'form-control' %>
+          </div>
+          <div class="form-group required">
+            <%= form.label :publish_time, 'Publish Time', class: 'control-label' %> <em><span id="timezone"></span></em>
+            <br />
+            <%= form.select :publish_time_month, [['01–Jan', 'January'], ['02–Feb', 'February'], ['03–Mar', 'March'], ['04–Apr', 'April'], ['05–May', 'May'], ['06–Jun', 'June'], ['07–Jul', 'July'], ['08–Aug', 'August'], ['09–Sep', 'September'], ['10–Oct', 'October'], ['11–Nov', 'November'], ['12–Dec', 'December'],], {}, { :class => 'form-control publish-time month' } %>
+            <%= form.text_field :publish_time_day, min: 1, max: 31, required: true, class: 'form-control publish-time day' %>,
+            <%= form.text_field :publish_time_year, min: 1, required: true, class: 'form-control publish-time year' %> at
+            <%= form.text_field :publish_time_hour, min: 0, max: 24, required: true, class: 'form-control publish-time hour' %> :
+            <%= form.text_field :publish_time_minute, min: 1, max: 59, required: true, class: 'form-control publish-time minute' %>
+            <%= form.hidden_field :publish_time_zone, value: nil %>
+          </div>
+          <%= form.submit 'Create', class: 'btn btn-primary hidden', id: 'post-save' %>
+        <% end %>
+      </div>
+    <% else %>
+      <h2>Create Post</h2>
+      <p>
+        <em style="color:#9a2001;">This podcast is hosted outside of MTGCast</em>
+      </p>
+      <p>
+        You cannot upload new episodes to an externally hosted podcast. Instead, MTGCast will check your current RSS feed for any new episodes and import them.
+      </p>
+    <% end %>
+  </div>
+</div>
+<script>
+
+  function onTitleBlur() {
+    var slugInput = $('input[name="post[slug]"]')[0];
+    var slugDisplay = $('#slug')[0];
+    var postTitle = $('input[name="post[postable_attributes[title]]"]')[0];
+    var parameterizedPostTitle = postTitle.value.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,'');
+    var siteAndPostSlug = "https://www.mtgcast.com/podcasts/<%= @post.page.slug %>/"
+
+    slugInput.value =  parameterizedPostTitle + "-<%= SecureRandom.hex(5) %>";
+    slugDisplay.innerHTML = siteAndPostSlug + slugInput.value;
+  }
+
+  function setTime() {
+    // var tzoffset = (new Date()).getTimezoneOffset() * 60000;
+    var date = new Date,
+        month = date.toLocaleString('default', { month: 'long' }),
+        day = String(date.getDate()).padStart(2, '0'),
+        year = date.getFullYear(),
+        hour = String(date.getHours()).padStart(2, '0'),
+        minute = String(date.getMinutes()).padStart(2, '0'),
+        zone = date.getTimezoneOffset() / 60;
+
+    $('select[name="post[publish_time_month]"]').val(month);
+    $('input[name="post[publish_time_day]"]').val(day);
+    $('input[name="post[publish_time_year]"]').val(year);
+    $('input[name="post[publish_time_hour]"]').val(hour);
+    $('input[name="post[publish_time_minute]"]').val(minute);
+    $('input[name="post[publish_time_zone]"]').val(zone);
+  }
+
+  $(document).on('ready turbolinks:load', function() {
+    setTime();
+  })
+</script>

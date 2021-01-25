@@ -1,0 +1,31 @@
+<li class="nav-item">
+  <a
+    class="nav-link collapsed text-truncate"
+    href="#episodes-submenu"
+    data-toggle="collapse"
+    data-target="#episodes-submenu"
+  >
+    <i class="fa fa-table"></i>
+    <span class="d-sm-inline">Episodes</span>
+  </a>
+  <div
+    class="collapse submenu <%= "show" if episodes_paths?(@page) %>"
+    id="episodes-submenu"
+    aria-expanded="<%= episodes_paths?(@page) ? "true" : "false" %>"
+  >
+    <ul class="flex-column pl-3 nav <%= "active" if current_page? page_dashboard_audio_posts_path(@page) %>">
+      <li class="nav-item">
+        <a class="nav-link" href="<%= page_dashboard_audio_posts_path(@page) %>">
+          <span>All Episodes</span>
+        </a>
+      </li>
+    </ul>
+    <ul class="flex-column pl-3 nav <%= "active" if current_page? new_page_dashboard_audio_post_path(@page) %>">
+      <li class="nav-item">
+        <a class="nav-link" href="<%= new_page_dashboard_audio_post_path(@page) %>">
+          <span>Add New</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+</li>
