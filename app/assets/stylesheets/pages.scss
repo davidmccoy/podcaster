@@ -1,9 +1,12 @@
 .pages-container {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: flex-start;
+  gap: 1rem;
   margin: 1rem 0rem 1rem;
-
+  hr {
+    width: 100%;
+  }
 }
 
 .page-container {
@@ -278,10 +281,11 @@
     width: 100%;
     form {
       display: flex;
-      flex-direction: column;
-      justify-content: space-between;
+      flex-wrap: wrap;
+      justify-content: flex-start;
+      gap: 1rem;
     }
-    .term-container, .categories-container {
+    .term-container, .categories-container, .sort-container {
       width: 100%;
       margin: 0 0 1rem;
     }
@@ -346,7 +350,7 @@
     }
   }
   .page-container {
-    width: 48%;
+    width: calc(100%/2 - (1rem * 0.5));
     display: flex;
     flex-direction: column;
     margin-bottom: 3rem;
@@ -425,7 +429,7 @@
 
 @media (min-width: 768px) {
   .page-container {
-    width: 48%;
+    width: calc(100%/3 - (1rem * (2/3)));
   }
   .hero-container {
     .hero-episode-container {
@@ -453,7 +457,7 @@
 
 @media (min-width: 992px) {
   .page-container {
-    width: 48%;
+    width: calc(100%/3 - (1rem * (2/3)));
   }
   .hero-container {
     .hero-episode-container {
@@ -467,29 +471,30 @@
 
   .page-admin {
     padding: 0 2rem 0 2rem;
-    margin-left: 200px;
+    margin-left: 220px;
     overflow: auto;
     height: calc(100vh - 74px);
+
+    .content {
+      margin-bottom: 1rem;
+    }
   }
 
   .header-container {
-    .reveal-search {
-      display: none;
-    }
     .search-form-container {
-      display: block;
+      display: none;
       form {
         flex-direction: row;
       }
-      .categories-container {
-        width: 48%;
+      .categories-container, .sort-container {
+        width: calc(100%/3 - (1rem * (2/3)));
         margin: 0;
         .form-control {
           width: 100%;
         }
       }
       .term-container {
-        width: 48%;
+        width: calc(100%/3 - (1rem * (2/3)));
         margin: 0;
       }
     }
@@ -498,7 +503,7 @@
 
 @media (min-width: 1200px) {
   .page-container {
-    width: 31%;
+    width: calc(100%/4 - (1rem * 0.75));
     &.blank {
       display: inherit;
       box-shadow: none;
@@ -508,10 +513,32 @@
   .header-container {
     .search-form-container {
       .categories-container {
-        width: 31%;
+        width: calc(100%/4 - (1rem * 0.75));
+      }
+      .sort-container {
+        width: calc(100%/4 - (1rem * 0.75));
       }
       .term-container {
-        width: 65.5%;
+        width: calc((100%/4 - (1rem * 0.25)) * 2);
+      }
+    }
+  }
+}
+
+@media (min-width: 1600px) {
+  .page-container {
+    width: calc(100%/5 - (1rem * 0.8));
+  }
+  .header-container {
+    .search-form-container {
+      .categories-container {
+        width: calc(100%/5 - (1rem * 0.8));
+      }
+      .sort-container {
+        width: calc(100%/5 - (1rem * 0.8));
+      }
+      .term-container {
+        width: calc((100%/5 - (1rem * 0.15)) * 3);
       }
     }
   }

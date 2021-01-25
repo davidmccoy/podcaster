@@ -1,6 +1,7 @@
 # Only accessible by page admins
 class Dashboard::TextPostsController < ApplicationController
   before_action :set_page
+  before_action :authorize_page
   before_action :set_post, only: [:edit, :update, :destroy]
 
   def index

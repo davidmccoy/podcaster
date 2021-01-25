@@ -4,7 +4,7 @@
   top: 0;
   left: 0;
   height: calc(100vh - 74px);
-  width: 200px;
+  width: 220px;
   margin: -1rem 0;
   padding-top: 1rem;
   border-right: 1px solid $gray-200;
@@ -15,6 +15,10 @@
     border-bottom: 1px solid $gray-200;
     background: $gray-100;
     ul {
+      li a {
+        margin-left: 13px;
+      }
+
       &:hover {
         background: $gray-200;
 
@@ -37,6 +41,13 @@
     a {
       color: $blue;
     }
+  }
+
+  .sidebar-icon {
+    height: 1rem;
+    width: 1rem;
+    margin-bottom: 3px;
+    margin-right: 0.5rem;
   }
 }
 

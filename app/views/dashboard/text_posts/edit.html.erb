@@ -1,38 +1,40 @@
 <div class="row">
   <%= render 'dashboard/sidebar' %>
   <div class="page-admin">
-    <h2>Edit Post</h2>
-    <div class="admin-post-container">
-      <%= form_with model: @post, url: page_dashboard_text_post_path(@page, @post), method: 'put' do |form| %>
-        <%= form.hidden_field :postable_type, value: @post.postable_type %>
-        <%= form.fields_for(:postable) do |postable_form| %>
-          <div class="form-group required">
-            <%= postable_form.label :title, 'Title', class: 'control-label' %>
-            <%= postable_form.text_field :title, required: true, class: 'form-control edit-post-title', value: @post.postable.title %>
-            <div class="slug-container">
-              <span><%= link_to "#{page_post_url(@page, @post)}", page_post_path(@page, @post) %></span>
+    <div class="content">
+      <h2>Edit Post</h2>
+      <div class="admin-post-container">
+        <%= form_with model: @post, url: page_dashboard_text_post_path(@page, @post), method: 'put' do |form| %>
+          <%= form.hidden_field :postable_type, value: @post.postable_type %>
+          <%= form.fields_for(:postable) do |postable_form| %>
+            <div class="form-group required">
+              <%= postable_form.label :title, 'Title', class: 'control-label' %>
+              <%= postable_form.text_field :title, required: true, class: 'form-control edit-post-title', value: @post.postable.title %>
+              <div class="slug-container">
+                <span><%= link_to "#{page_post_url(@page, @post)}", page_post_path(@page, @post) %></span>
+              </div>
             </div>
-          </div>
-          <div class="form-group required">
-            <%= postable_form.hidden_field :id, value: @post.postable.id %>
-            <%= postable_form.rich_text_area :content, class: 'full-height' %>
-          </div>
-          <div class="form-group required">
-            <%= form.label :publish_time, 'Publish Time', class: 'control-label' %> <em><span id="timezone"></span></em>
-            <br />
-            <%= form.select :publish_time_month, options_for_select([['01–Jan', 'January'], ['02–Feb', 'February'], ['03–Mar', 'March'], ['04–Apr', 'April'], ['05–May', 'May'], ['06–Jun', 'June'], ['07–Jul', 'July'], ['08–Aug', 'August'], ['09–Sep', 'September'], ['10–Oct', 'October'], ['11–Nov', 'November'], ['12–Dec', 'December']]), {}, { class: 'form-control publish-time month' } %>
-            <%= form.text_field :publish_time_day, min: 1, max: 31, required: true, class: 'form-control publish-time day' %>,
-            <%= form.text_field :publish_time_year, min: 1, required: true, class: 'form-control publish-time year' %> at
-            <%= form.text_field :publish_time_hour, min: 0, max: 24, required: true, class: 'form-control publish-time hour' %> :
-            <%= form.text_field :publish_time_minute, min: 1, max: 59, required: true, class: 'form-control publish-time minute' %>
-            <%= form.hidden_field :publish_time_zone, value: nil %>
+            <div class="form-group required">
+              <%= postable_form.hidden_field :id, value: @post.postable.id %>
+              <%= postable_form.rich_text_area :content, class: 'full-height' %>
+            </div>
+            <div class="form-group required">
+              <%= form.label :publish_time, 'Publish Time', class: 'control-label' %> <em><span id="timezone"></span></em>
+              <br />
+              <%= form.select :publish_time_month, options_for_select([['01–Jan', 'January'], ['02–Feb', 'February'], ['03–Mar', 'March'], ['04–Apr', 'April'], ['05–May', 'May'], ['06–Jun', 'June'], ['07–Jul', 'July'], ['08–Aug', 'August'], ['09–Sep', 'September'], ['10–Oct', 'October'], ['11–Nov', 'November'], ['12–Dec', 'December']]), {}, { class: 'form-control publish-time month' } %>
+              <%= form.text_field :publish_time_day, min: 1, max: 31, required: true, class: 'form-control publish-time day' %>,
+              <%= form.text_field :publish_time_year, min: 1, required: true, class: 'form-control publish-time year' %> at
+              <%= form.text_field :publish_time_hour, min: 0, max: 24, required: true, class: 'form-control publish-time hour' %> :
+              <%= form.text_field :publish_time_minute, min: 1, max: 59, required: true, class: 'form-control publish-time minute' %>
+              <%= form.hidden_field :publish_time_zone, value: nil %>
+            </div>
+          <% end %>
+          <div class="actions">
+            <%= form.submit 'Save', class: 'btn btn-primary', id: 'post-save' %>
+            <%= link_to 'Delete Post', page_dashboard_text_post_path(@page, @post), class: 'btn btn-danger btn-delete',  method: "delete", data: { confirm: "Are you sure you want to delete this post?" } %>
           </div>
         <% end %>
-        <div class="actions">
-          <%= form.submit 'Save', class: 'btn btn-primary', id: 'post-save' %>
-          <%= link_to 'Delete Post', page_dashboard_text_post_path(@page, @post), class: 'btn btn-danger btn-delete',  method: "delete", data: { confirm: "Are you sure you want to delete this post?" } %>
-        </div>
-      <% end %>
+      </div>
     </div>
   </div>
 </div>

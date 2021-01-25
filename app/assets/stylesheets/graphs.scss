@@ -1,0 +1,28 @@
+.blur {
+  .upgrade-container {
+    position: relative;
+    .upgrade-button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      z-index: 100;
+      display: none;
+    }
+    &:hover {
+      .upgrade-button {
+        display: flex;
+      }
+    }
+  }
+  canvas {
+    pointer-events: none;
+    filter: blur(10px);
+  }
+}

@@ -2,7 +2,7 @@
 class Dashboard::AudioPostsController < ApplicationController
   before_action :set_page
   before_action :set_post, except: [:index, :new, :create]
-  before_action :authorize_post, except: [:show]
+  before_action :authorize_post
 
   def index
     @posts = @page.posts

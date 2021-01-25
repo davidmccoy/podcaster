@@ -15,6 +15,14 @@ module SidebarHelper
       )
   end
 
+  def analytics_paths?(page)
+    page && page.persisted? &&
+      (
+        current_page?(page_dashboard_analytics_audience_path(page)) ||
+        current_page?(page_dashboard_analytics_downloads_path(page))
+      )
+  end
+
   def page_settings_paths?(page)
     page && page.persisted? &&
       (

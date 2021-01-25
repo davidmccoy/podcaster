@@ -9,6 +9,7 @@ class AudioPost < ApplicationRecord
   has_many :attachments, as: :attachable, dependent: :destroy
   has_many :audio, -> { where(attachments: { type: 'Audio' }) },
            foreign_key: :attachable_id
+  has_many :downloads
 
   has_rich_text :content
 

@@ -5,7 +5,7 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
-ruby '2.6.4'
+ruby '2.6.6'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 6.1.0'
@@ -62,6 +62,7 @@ gem 'figaro'
 # Files upload
 gem 'shrine', '~> 2.11'
 gem 'aws-sdk-s3'
+gem 'aws-sdk-elastictranscoder'
 gem 'ffprober'
 gem 'uppy-s3_multipart', '~> 0.2'
 gem 'image_processing', '~> 1.0'
@@ -84,6 +85,14 @@ gem 'feedjira'
 # Error reporting
 gem 'sentry-raven'
 
+# User agent parsing
+gem 'device_detector'
+gem 'geocoder'
+
+# Data viz
+gem 'chartkick'
+gem 'groupdate'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   # gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
@@ -100,6 +109,8 @@ group :development do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
+
+  gem 'faker'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
