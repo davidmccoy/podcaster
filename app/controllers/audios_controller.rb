@@ -63,7 +63,7 @@ class AudiosController < ApplicationController
   # additional `blob_id` param that supercedes our `source` param. this is a crude attempt
   # to handle these instances.
   def determine_source_feed
-    feed_params[:source] || request.params['blob_id']&.split('?')[1]&.split('=')[1]
+    feed_params[:source] || request.params['blob_id']&.split('?')&.second&.split('=')&.second
   end
 
   def record_download
