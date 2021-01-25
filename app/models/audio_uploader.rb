@@ -45,6 +45,19 @@ class AudioUploader < Shrine
     end
   end
 
+  add_metadata :bit_rate do |io, context|
+    next unless context[:action] == :store
+    p 'finding bit rate'
+    if io.class == AudioUploader::UploadedFile
+      file = Ffprober::Parser.from_file(io.download.path)
+    else
+      file = Ffprober::Parser.from_file(io.download)
+    end
+
+    file.json[:streams][0][:bit_rate].to_i
+  end
+
+
   # Generate a custom s3 key
   def generate_location(io, context = {})
     extension   = ".#{io.extension}" if io.is_a?(UploadedFile) && io.extension

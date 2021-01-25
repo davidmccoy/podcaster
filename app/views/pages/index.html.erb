@@ -1,3 +1,6 @@
+<% content_for :head do %>
+  <link rel="alternate" type="application/rss+xml" href="<%= feed_url %>" />
+<% end %>
 <div class="row">
   <div class="col-lg-10 offset-lg-1">
     <div class="header-container">
@@ -9,12 +12,26 @@
           <%= render 'shared/icons/magnifying_glass', color: 'black', size: '1.5rem' %>
         </div>
       </div>
-      <div class="search-form-container">
+      <div class="search-form-container" style="<%= 'display:block;' unless (params[:category].blank? && params[:sort_by].blank? && params[:term].blank?)%>">
         <%= form_with url: pages_url, method: 'get', data: { remote: false } do |form| %>
           <div class="categories-container">
-            <%= select_tag 'category', grouped_options_for_select(categories_for_select, params[:category]), include_blank: "All Categories", class: "form-control categories" %>
+            <%= label_tag :category, 'Category', class: 'control-label', style: 'display:block;' %>
+            <%= select_tag 'category',
+              grouped_options_for_select(categories_for_select, params[:category]),
+              include_blank: "All Categories",
+              class: "form-control categories"
+            %>
+          </div>
+          <div class="sort-container">
+            <%= label_tag :sort_by, 'Sort By', class: 'control-label', style: 'display:block;' %>
+            <%= select_tag 'sort_by',
+              options_for_select([ ['Name', 'title'], ['Recently Published', 'recently_published'] ], params[:sort_by] || 'recently_published'),
+              include_blank: "Sort By",
+              class: "form-control categories"
+            %>
           </div>
           <div class="term-container">
+            <%= label_tag :term, 'Term', class: 'control-label', style: 'display:block;' %>
             <%= form.text_field :term, class: 'form-control', value: params[:term] %>
             <%= form.submit 'Search', name: nil, class: 'btn btn-blue' %>
           </div>
@@ -49,23 +66,22 @@
             </div>
             <div class="page-info-container">
               <hr>
-              <h5>
-                <%= link_to page.latest_post&.postable&.title, page_post_path(page, page.latest_post)%>
-              </h5>
-              <p style="font-size:0.8rem;">
-                <em><%= page.latest_post&.publish_time&.localtime&.strftime('%B %-m, %Y') %></em>
-              </p>
-              <p>
-                <%= simple_format(truncate(page.latest_post&.postable.content.to_plain_text, length: 150))%>
-              </p>
+              <% if page.latest_post %>
+                <h5>
+                  <%= link_to page.latest_post&.postable&.title, page_post_path(page, page.latest_post)%>
+                </h5>
+                <p style="font-size:0.8rem;">
+                  <em><%= page.latest_post&.publish_time&.localtime&.strftime('%B %-m, %Y') %></em>
+                </p>
+                <p>
+                  <%= simple_format(truncate(page.latest_post&.postable.content.to_plain_text, length: 150))%>
+                </p>
+              <% else %>
+              <% end %>
             </div>
             <p class="page-read-more home">
               <%= link_to 'See more episodes', page_path(page) %>
             </p>
-          </div>
-        <% end %>
-        <% (3 - (@pages.length % 3)).times do %>
-          <div class="page-container blank">
           </div>
         <% end %>
       <% else %>

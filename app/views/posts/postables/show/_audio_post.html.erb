@@ -67,7 +67,7 @@
 <% if post.postable.podcast_episode %>
   <script>
     var hasPressedPlay = false;
-    var recordPlayUrl = '<%= page_post_audio_record_play_url(@page.slug, post.slug, post.postable.podcast_episode) %>'
+    var recordPlayUrl = '<%= page_post_audio_embedded_play_url(@page.slug, post.slug, post.postable.podcast_episode) %>'
 
     // add csrf token to ajax requests
     $.ajaxPrefilter(function(options, originalOptions, xhr) {

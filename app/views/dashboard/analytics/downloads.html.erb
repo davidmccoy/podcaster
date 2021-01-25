@@ -1,0 +1,84 @@
+<div class="row">
+  <%= render 'dashboard/sidebar' %>
+  <div class="page-admin">
+    <div class="content">
+      <h2>All Downloads</h2>
+      <% unless @posts.empty? %>
+        <p>
+          MTGCast tracks every download of each episode and breaks them down into three categories: <em>Individual</em>, <em>Aggregate</em>, and <em>Total</em>.
+        </p>
+        <p>
+          <em>Individual</em> represents the downloads from <%= link_to 'your unique RSS feed', page_feed_path(@page) %> as well as the plays initiated from each episode's embedded audio player. <em>Aggregate</em> represents the downloads from MTGCast's aggregate feed, while <em>Total</em> combines the <em>Individual</em> and <em>Aggregate</em> counts.
+        </p>
+        <table class="table table-outer-border">
+          <thead>
+            <tr>
+              <th>
+                Episode
+              </th>
+              <th>
+                Date Published
+              </th>
+              <th>
+                Individual
+              </th>
+              <th>
+                Aggregate
+              </th>
+              <th>
+                Total
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @posts.each do |post| %>
+              <tr>
+                <td>
+                  <%= link_to post.postable.title, page_post_path(@page, post) %>
+                </td>
+                <td>
+                  <%= post.publish_time.strftime('%m/%d/%Y') %>
+                </td>
+                <td class="view text-center">
+                  <%= post.postable.individual_downloads %>
+                </td>
+                <td class="view text-center">
+                  <%= post.postable.aggregate_feed_downloads %>
+                </td>
+                <td class="view text-center">
+                  <%= post.postable.total_downloads %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      <% else %>
+        <p>
+          <strong>You haven't uploaded any episodes.</strong>
+        </p>
+      <% end %>
+      <div class="pagination-container">
+        <%= will_paginate @posts %>
+      </div>
+      <% if @page.created_at < "2019-02-01"%>
+        <p>
+          <em>
+            Note: Episodes from 2018 and earlier may show the incorrect publish date due to an MTGCast server error. Also, episodes published before mid-September 2019 will not include download count information while episodes before mid-February 2020 will not have accurate individual/aggregate feed download splits.
+          </em>
+        </p>
+      <% elsif @page.created_at < "2019-10-01"%>
+        <p>
+          <em>
+            Note: Episodes published before mid-September 2019 will not include download count information while episodes before mid-February 2020 will not have accurate individual/aggregate feed download splits.
+          </em>
+        </p>
+      <% elsif @page.created_at < "2020-03-01"%>
+        <p>
+          <em>
+            Note: Episodes published before mid-February 2020 will not have accurate individual/aggregate feed download splits.
+          </em>
+        </p>
+      <% end %>
+    </div>
+  </div>
+</div>

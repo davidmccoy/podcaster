@@ -41,7 +41,7 @@ class ImportRssFeedWorker
       # or enqueue a worker to import audio to s3
       if page.externally_hosted
         Audio.new.tap do |a|
-          a.attachable_type = 'AudiotPost'
+          a.attachable_type = 'AudioPost'
           a.attachable_id = post.postable_id
           a.label = 'podcast_episode'
           a.file_data = {

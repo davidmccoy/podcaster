@@ -1,6 +1,7 @@
 # For CRUDing the Page --> Category connection
 class Dashboard::PageCategoriesController < ApplicationController
   before_action :set_page
+  before_action :authorize_page
 
   # TODO: this is a super hacky create action. should be separated out into create and destroy.
   # we're restricting pages to a single category for now but, since we expect to support

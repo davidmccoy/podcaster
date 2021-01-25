@@ -7,41 +7,43 @@
 <div class="row">
   <%= render 'dashboard/sidebar' %>
   <div class="page-admin">
-    <h2>Logo</h2>
-    <hr>
-    <div class="page-settings-section">
-      <p>
-        Podcast cover images/logos are typically 1400px by 1400px square images.
-      </p>
-      <div class="page-settings-container">
-        <div class="edit-page-image">
-          <p>
-            <strong>Current:</strong>
-          </p>
-          <% if @page.logo %>
-            <%= image_tag @page.logo.file[:medium].url %>
-          <% else %>
-            <%= image_tag 'mtgcast-logo-itunes.png' %>
-          <% end %>
-        </div>
-        <div>
-          <p>
-            <strong>New:</strong>
-          </p>
-          <%= form_with model: @logo, url: page_dashboard_logo_path, method: 'POST', html: { class: 'needs-validation', novalidate: true } do |form| %>
-            <div class="form-group required">
-              <%= form.hidden_field "logo[file]", class: 'upload-hidden' %>
-              <%= form.file_field "logo[file]", class: 'upload-file' %>
-            </div>
-            <div>
-              <p>
-                <img class="upload-preview" style="margin-bottom: 1rem;" />
-              </p>
-            </div>
-            <div class="actions">
-              <%= form.submit 'Update', class: 'btn btn-primary hidden', style: 'display: none;', disabled: 'disabled', id: 'post-save' %>
-            </div>
-          <% end %>
+    <div class="content">
+      <h2>Logo</h2>
+      <hr>
+      <div class="page-settings-section">
+        <p>
+          Podcast cover images/logos are typically 1400px by 1400px square images.
+        </p>
+        <div class="page-settings-container">
+          <div class="edit-page-image">
+            <p>
+              <strong>Current:</strong>
+            </p>
+            <% if @page.logo %>
+              <%= image_tag @page.logo.file[:medium].url %>
+            <% else %>
+              <%= image_tag 'mtgcast-logo-itunes.png' %>
+            <% end %>
+          </div>
+          <div>
+            <p>
+              <strong>New:</strong>
+            </p>
+            <%= form_with model: @logo, url: page_dashboard_logo_path, method: 'POST', html: { class: 'needs-validation', novalidate: true } do |form| %>
+              <div class="form-group required">
+                <%= form.hidden_field "logo[file]", class: 'upload-hidden' %>
+                <%= form.file_field "logo[file]", class: 'upload-file' %>
+              </div>
+              <div>
+                <p>
+                  <img class="upload-preview" style="margin-bottom: 1rem;" />
+                </p>
+              </div>
+              <div class="actions">
+                <%= form.submit 'Update', class: 'btn btn-primary hidden', style: 'display: none;', disabled: 'disabled', id: 'post-save' %>
+              </div>
+            <% end %>
+          </div>
         </div>
       </div>
     </div>

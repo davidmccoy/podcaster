@@ -15,7 +15,8 @@ module ApplicationHelper
       (current_page?(page_dashboard_audio_posts_url(page)) ||
         current_page?(page_dashboard_text_posts_url(page)) ||
         current_page?(new_page_dashboard_audio_post_url(page)) ||
-        current_page?(page_dashboard_stats_path(page)) ||
+        current_page?(page_dashboard_analytics_audience_path(page)) ||
+        current_page?(page_dashboard_analytics_downloads_path(page)) ||
         current_page?(page_dashboard_settings_path(page)) ||
         current_page?(new_page_dashboard_logo_path(page)) ||
         current_page?(edit_page_dashboard_logo_path(page)) ||

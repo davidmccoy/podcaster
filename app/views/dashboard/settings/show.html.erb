@@ -1,107 +1,117 @@
 <div class="row">
   <%= render 'dashboard/sidebar' %>
   <div class="page-admin">
-    <h2>Settings</h2>
-    <hr>
-    <div class="page-settings-section">
-      <h4>Podcast Information</h4>
-      <p>
-        <%= link_to 'Edit', edit_page_dashboard_settings_path(@page), class: 'btn btn-sm btn-light' %>
-      </p>
-      <p>
-        Basic information about your podcast.
-      </p>
-      <p>
-        <strong>Name:</strong>
-      </p>
-      <p>
-        <input disabled="disabled" class="form-control" type="text" value="<%= @page.name %>" name="page[name]">
-      </p>
-      <p>
-        <strong>Description:</strong>
-      </p>
-      <p>
-        <div class="trix-content-disabled">
-          <%= @page.description %>
-        </div>
-      </p>
-      <p>
-        <strong>Category:</strong>
-      </p>
-      <p>
-        <input disabled="disabled" class="form-control" type="text" value="<%= @page.categories.pluck(:name).join(', ') %>" name="page[category]">
-      </p>
-      <p>
-        <strong>RSS Feed:</strong>
-      </p>
-      <p>
-        <%= link_to page_feed_path(@page), target: '_blank' do %>
-          <%= Rails.application.routes.url_helpers.page_feed_url(@page) %>
+    <div class="content">
+      <h2>Settings</h2>
+      <hr>
+      <div class="page-settings-section">
+        <h4>Podcast Information</h4>
+        <p>
+          <%= link_to 'Edit', edit_page_dashboard_settings_path(@page), class: 'btn btn-sm btn-light' %>
+        </p>
+        <p>
+          Basic information about your podcast.
+        </p>
+        <p>
+          <strong>Name:</strong>
+        </p>
+        <p>
+          <input disabled="disabled" class="form-control" type="text" value="<%= @page.name %>" name="page[name]">
+        </p>
+        <p>
+          <strong>Description:</strong>
+        </p>
+        <p>
+          <div class="trix-content-disabled">
+            <%= @page.description %>
+          </div>
+        </p>
+        <p>
+          <strong>Category:</strong>
+        </p>
+        <p>
+          <input disabled="disabled" class="form-control" type="text" value="<%= @page.categories.pluck(:name).join(', ') %>" name="page[category]">
+        </p>
+        <p>
+          <strong>RSS Feed:</strong>
+        </p>
+        <p>
+          <%= link_to page_feed_path(@page), target: '_blank' do %>
+            <%= Rails.application.routes.url_helpers.page_feed_url(@page) %>
+          <% end %>
+        </p>
+        <% if @page.externally_hosted %>
+          <p>
+            <strong>Externally Hosted:</strong>
+          </p>
+          <p>
+            Yes
+          </p>
         <% end %>
-      </p>
-    </div>
-    <hr>
-    <div class="page-settings-section">
-      <h4>Logo</h4>
-      <% if @page.logo %>
-        <p>
-          <%= link_to 'Change Logo', edit_page_dashboard_logo_path(@page), class: 'btn btn-sm btn-light' %>
-        </p>
-        <p>
-          The image that will appear on MTGCast and in your RSS feed. Podcast cover images/logos are typically 1400px by 1400px square images.
-        </p>
-        <div class="logo-container">
-          <%= image_tag @page.logo.url(:large) %>
-        </div>
-      <% else %>
-        <p>
-          <%= link_to 'Add Logo', new_page_dashboard_logo_path(@page), class: 'btn btn-sm btn-light' %>
-        </p>
-        <p>
-          The image that will appear on MTGCast and in your RSS feed. Podcast cover images/logos are typically 1400px by 1400px square images.
-        </p>
-        <div class="logo-container">
-          <%= image_tag 'mtgcast-logo-itunes.png' %>
-        </div>
-      <% end %>
-    </div>
-    <hr>
-    <div class="page-settings-section">
-      <h4>The MTGCast Aggregate Feed</h4>
-      <% if @page.included_in_aggregate_feed == false %>
-        <p>
-          MTGCast maintains an aggregate RSS feed that combines the episodes from the best MTG podcasts. Please <%= link_to 'email us', 'mailto:mtgcast@hipstersofthecoast.com' %> to request the inclusion of this podcast in our aggregate feed.
-        </p>
-      <% end %>
-      <p>
-        <strong>Included in Aggregate Feed:</strong> <span class="<%= @page.included_in_aggregate_feed ? 'success' : 'danger' %>"><%= @page.included_in_aggregate_feed.to_s.capitalize %></span>
-      </p>
-    </div>
-    <hr>
-    <div class="page-settings-section">
-      <h4>Delete <%= @page.name %></h4>
-      <p>
-        If you would like to remove <%= @page.name %> from MTGCast, please use the button below. This action cannot be undone.
-      </p>
-      <p>
-        <%= link_to 'Delete Podcast', delete_page_dashboard_settings_path(@page), class: 'btn btn-danger' %>
-      </p>
-    </div>
-     <hr>
-    <div class="page-settings-section">
-      <h4>Support MTGCast</h4>
-      <p>
-        MTGCast will always provide a free way for content creators to host their Magic podcasts. But building and operating a podcast hosting service isn't cheap.
-      </p>
-      <p>
-        If you'd like to support MTGCast, you can  <a href="https://paypal.me/mtgcast" target="_blank">donate via PayPal</a>. Any amount helps and 100% of the funds will go towards defraying the costs of running the site.
-      </p>
-      <p>
-        <%= link_to 'https://paypal.me/mtgcast', target: '_blank', class: 'btn btn-outline-blue' do %>
-          <%= image_tag "paypal-logo.png", class: 'paypal-logo' %>
-          Donate on PayPal
+      </div>
+      <hr>
+      <div class="page-settings-section">
+        <h4>Logo</h4>
+        <% if @page.logo %>
+          <p>
+            <%= link_to 'Change Logo', edit_page_dashboard_logo_path(@page), class: 'btn btn-sm btn-light' %>
+          </p>
+          <p>
+            The image that will appear on MTGCast and in your RSS feed. Podcast cover images/logos are typically 1400px by 1400px square images.
+          </p>
+          <div class="logo-container">
+            <%= image_tag @page.logo.url(:large) %>
+          </div>
+        <% else %>
+          <p>
+            <%= link_to 'Add Logo', new_page_dashboard_logo_path(@page), class: 'btn btn-sm btn-light' %>
+          </p>
+          <p>
+            The image that will appear on MTGCast and in your RSS feed. Podcast cover images/logos are typically 1400px by 1400px square images.
+          </p>
+          <div class="logo-container">
+            <%= image_tag 'mtgcast-logo-itunes.png' %>
+          </div>
         <% end %>
-      </p>
+      </div>
+      <hr>
+      <div class="page-settings-section">
+        <h4>The MTGCast Aggregate Feed</h4>
+        <% if @page.included_in_aggregate_feed == false %>
+          <p>
+            MTGCast maintains an aggregate RSS feed that combines the episodes from the best MTG podcasts. Please <%= link_to 'email us', 'mailto:mtgcast@hipstersofthecoast.com' %> to request the inclusion of this podcast in our aggregate feed.
+          </p>
+        <% end %>
+        <p>
+          <strong>Included in Aggregate Feed:</strong> <span class="<%= @page.included_in_aggregate_feed ? 'success' : 'danger' %>"><%= @page.included_in_aggregate_feed.to_s.capitalize %></span>
+        </p>
+      </div>
+      <hr>
+      <div class="page-settings-section">
+        <h4>Delete <%= @page.name %></h4>
+        <p>
+          If you would like to remove <%= @page.name %> from MTGCast, please use the button below. This action cannot be undone.
+        </p>
+        <p>
+          <%= link_to 'Delete Podcast', delete_page_dashboard_settings_path(@page), class: 'btn btn-danger' %>
+        </p>
+      </div>
+      <hr>
+      <div class="page-settings-section">
+        <h4>Support MTGCast</h4>
+        <p>
+          MTGCast will always provide a free way for content creators to host their Magic podcasts. But building and operating a podcast hosting service isn't cheap.
+        </p>
+        <p>
+          If you'd like to support MTGCast, you can  <a href="https://paypal.me/mtgcast" target="_blank">donate via PayPal</a>. Any amount helps and 100% of the funds will go towards defraying the costs of running the site.
+        </p>
+        <p>
+          <%= link_to 'https://paypal.me/mtgcast', target: '_blank', class: 'btn btn-outline-blue' do %>
+            <%= image_tag "paypal-logo.png", class: 'paypal-logo' %>
+            Donate on PayPal
+          <% end %>
+        </p>
+      </div>
     </div>
   </div>
 </div>

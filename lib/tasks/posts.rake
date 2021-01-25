@@ -26,7 +26,7 @@ namespace :posts do
     end
   end
 
-    task migrate_to_audio_posts: :environment do
+  task migrate_to_audio_posts: :environment do
     posts = Post.where(postable_type: "PodcastEpisode")
     posts.find_each do |post|
       post.update(postable_type: "AudioPost")

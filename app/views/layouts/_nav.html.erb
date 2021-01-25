@@ -59,7 +59,11 @@
                 <li><%= link_to 'All Posts', page_dashboard_text_posts_path(@page), class: 'dropdown-item' %></li>
                 <li><%= link_to 'Add New', new_page_dashboard_text_post_path(@page), class: 'dropdown-item' %></li>
               </ul>
-              <%= link_to 'Analytics', page_dashboard_stats_path(@page), class: 'dropdown-item' %>
+              <%= link_to 'Analytics', page_dashboard_analytics_audience_path(@page), class: 'dropdown-item' %>
+              <ul class="nested-submenu">
+                <li><%= link_to 'Audience Insights', page_dashboard_analytics_audience_path(@page), class: 'dropdown-item' %></li>
+                <li><%= link_to 'All Downloads', page_dashboard_analytics_downloads_path(@page), class: 'dropdown-item' %></li>
+              </ul>
               <%= link_to 'Settings', page_dashboard_settings_path(@page), class: 'dropdown-item' %>
             </div>
           </li>
