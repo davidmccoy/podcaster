@@ -62,6 +62,7 @@ gem 'figaro'
 # Files upload
 gem 'shrine', '~> 2.11'
 gem 'aws-sdk-s3'
+gem 'aws-sdk-elastictranscoder'
 gem 'ffprober'
 gem 'uppy-s3_multipart', '~> 0.2'
 gem 'image_processing', '~> 1.0'

@@ -72,6 +72,9 @@ GEM
       aws-partitions (~> 1, >= 1.239.0)
       aws-sigv4 (~> 1.1)
       jmespath (~> 1.0)
+    aws-sdk-elastictranscoder (1.27.0)
+      aws-sdk-core (~> 3, >= 3.109.0)
+      aws-sigv4 (~> 1.1)
     aws-sdk-kms (1.40.0)
       aws-sdk-core (~> 3, >= 3.109.0)
       aws-sigv4 (~> 1.1)
@@ -340,6 +343,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  aws-sdk-elastictranscoder
   aws-sdk-s3
   bootstrap (~> 4.3.1)
   browser-timezone-rails
