@@ -30,6 +30,7 @@ class ImportRssFeedWorker
           content: entry.summary,
           imported: true,
           guid: entry.entry_id,
+          publish_time: entry.published,
         }
       }
 
