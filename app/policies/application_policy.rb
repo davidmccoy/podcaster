@@ -53,7 +53,7 @@ class ApplicationPolicy
   end
 
   def admin?
-    @user.admin == true
+    @user&.admin == true
   end
 
   def user_not_authorized

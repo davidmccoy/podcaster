@@ -2,8 +2,7 @@
 class PostsController < ApplicationController
   before_action :set_page
   before_action :set_post, except: [:index]
-  # TODO: are unpublished posts visable?
-  # before_action :authorize_post, except: [:show]
+  before_action :authorize_post
 
   def index
     @posts = @page.posts.published.includes(:postable)

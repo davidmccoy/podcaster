@@ -1,11 +1,15 @@
 class PostPolicy <  ApplicationPolicy
+  def initialize(user, record)
+    @user = user
+    @record = record
+  end
 
   def index?
     @user == record.page.user || admin?
   end
 
   def show?
-    true
+    @user == record.page.user || admin? || record.publish_time < Time.zone.now
   end
 
   def new?

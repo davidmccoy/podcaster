@@ -3,7 +3,10 @@ class AudioPostsController < ApplicationController
   before_action :set_page
 
   def index
-    @posts = @page.posts.where(postable_type: "AudioPost").includes(:postable)
+    @posts = @page.posts
+              .published
+              .includes(:postable)
+              .where(postable_type: "AudioPost")
               .order(publish_time: :desc)
               .paginate(page: params[:page], per_page: 20)
 
