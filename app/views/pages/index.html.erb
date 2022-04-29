@@ -71,7 +71,7 @@
                   <%= link_to page.latest_post&.postable&.title, page_post_path(page, page.latest_post)%>
                 </h5>
                 <p style="font-size:0.8rem;">
-                  <em><%= page.latest_post&.publish_time&.localtime&.strftime('%B %-m, %Y') %></em>
+                  <em><%= page.latest_post&.publish_time&.localtime&.strftime('%B %d, %Y') %></em>
                 </p>
                 <p>
                   <%= simple_format(truncate(page.latest_post&.postable.content.to_plain_text, length: 150))%>
