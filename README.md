@@ -13,7 +13,9 @@
 ## Installation
 
 - Clone this repo
-- Run `bundle install` to install the Ruby dependencies 
+- Install Ruby 2.6.6 (e.g. `rbenv install 2.6.6`)
+-
+- Run `bundle install` to install the Ruby dependencies
 - Run `yarn install` to install the Javascript dependencies
 - Get `application.yml` file from Keybase and put it in the `config/` directory
 - Create a database
