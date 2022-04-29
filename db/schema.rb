@@ -19,7 +19,7 @@ ActiveRecord::Schema.define(version: 2021_01_03_030137) do
     t.string "name", null: false
     t.text "body"
     t.string "record_type", null: false
-    t.bigint "record_id", null: false
+    t.integer "record_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["record_type", "record_id", "name"], name: "index_action_text_rich_texts_uniqueness", unique: true
@@ -48,7 +48,7 @@ ActiveRecord::Schema.define(version: 2021_01_03_030137) do
   end
 
   create_table "active_storage_variant_records", force: :cascade do |t|
-    t.bigint "blob_id", null: false
+    t.integer "blob_id", null: false
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
@@ -61,7 +61,7 @@ ActiveRecord::Schema.define(version: 2021_01_03_030137) do
     t.integer "label"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["attachable_type", "attachable_id"], name: "index_attachments_on_attachable_type_and_attachable_id"
+    t.index ["attachable_type", "attachable_id"], name: "index_attachments_on_attachable"
     t.index ["label"], name: "index_attachments_on_label"
   end
 
@@ -95,8 +95,8 @@ ActiveRecord::Schema.define(version: 2021_01_03_030137) do
   end
 
   create_table "category_pages", force: :cascade do |t|
-    t.bigint "page_id"
-    t.bigint "category_id"
+    t.integer "page_id"
+    t.integer "category_id"
     t.index ["category_id"], name: "index_category_pages_on_category_id"
     t.index ["page_id"], name: "index_category_pages_on_page_id"
   end
@@ -142,7 +142,7 @@ ActiveRecord::Schema.define(version: 2021_01_03_030137) do
     t.datetime "publish_time"
     t.string "slug"
     t.index ["page_id"], name: "index_posts_on_page_id"
-    t.index ["postable_type", "postable_id"], name: "index_posts_on_postable_type_and_postable_id"
+    t.index ["postable_type", "postable_id"], name: "index_posts_on_postable"
     t.index ["slug"], name: "index_posts_on_slug"
   end
 
