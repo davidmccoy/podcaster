@@ -23,6 +23,7 @@ class Dashboard::GraphsController < ApplicationController
   def devices
     render json: @page.downloads
                       .where(created_at: start_date..end_date, feed_source: feed)
+                      .where.not(browser: nil)
                       .group(:browser)
                       .order('count_id desc')
                       .limit(5) # we should include excluded records as "other"
@@ -32,6 +33,7 @@ class Dashboard::GraphsController < ApplicationController
   def platforms
     render json: @page.downloads
                       .where(created_at: start_date..end_date, feed_source: feed)
+                      .where.not(device_type: nil)
                       .group(:device_type)
                       .order('count_id desc')
                       .limit(5) # we should include excluded records as "other"
@@ -41,6 +43,7 @@ class Dashboard::GraphsController < ApplicationController
   def referrers
     render json: @page.downloads
                       .where(created_at: start_date..end_date, feed_source: feed)
+                      .where.not(referring_domain: nil)
                       .group(:referring_domain)
                       .order('count_id desc')
                       .limit(5) # we should include excluded records as "other"
