@@ -13,6 +13,7 @@ class Dashboard::GraphsController < ApplicationController
   def episodes
     render json: @page.downloads
                       .where(created_at: start_date..end_date, feed_source: feed)
+                      .where.not(browser: nil)
                       .group(:audio_post_id)
                       .order('count_id desc')
                       .limit(5) # we should include excluded records as "other"
@@ -53,6 +54,7 @@ class Dashboard::GraphsController < ApplicationController
   def countries
     render json: @page.downloads
                       .where(created_at: start_date..end_date, feed_source: feed)
+                      .where.not(browser: nil)
                       .group(:country)
                       .order('count_id desc')
                       .limit(5) # we should include excluded records as "other"
