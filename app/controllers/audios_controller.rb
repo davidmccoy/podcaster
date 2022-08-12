@@ -16,11 +16,16 @@ class AudiosController < ApplicationController
   #   }))
   # end
 
+  # TODO: this also triggers when "Save As..." is clicked, even if the download
+  # is never initiated.
   def show
-    # TODO: this also triggers when "Save As..." is clicked, even if the download
-    # is never initiated.
-    record_download
-    update_download_count
+    # initial requests from embedded HTML 5 audio player on page load have range headers
+    # requesting just the first byte. we ignore these and capture the embedded play below.
+    unless minimal_byte_range
+      record_download
+      update_download_count
+    end
+
     redirect_to @audio.url
   end
 
@@ -59,6 +64,10 @@ class AudiosController < ApplicationController
     params.permit(:source)
   end
 
+  def minimal_byte_range
+    request.headers["range"] == "bytes=0-" || request.headers["range"] == "bytes=0-1"
+  end
+
   # for some reason requests through podcast apps (apple podcasts, castro, etc) come with an
   # additional `blob_id` param that supercedes our `source` param. this is a crude attempt
   # to handle these instances.
@@ -68,7 +77,6 @@ class AudiosController < ApplicationController
 
   def record_download
     feed_source = determine_source_feed
-    p "******* #{feed_source} *******"
     p request.params
     @download = Download.create!(
       audio_post_id: @post.postable_id,
