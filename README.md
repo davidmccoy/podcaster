@@ -13,7 +13,7 @@
 ## Installation
 
 - Clone this repo
-- Install Ruby 2.6.6 (e.g. `rbenv install 2.6.6`)
+- Install Ruby 2.7.5 (e.g. `rbenv install 2.7.5`)
 -
 - Run `bundle install` to install the Ruby dependencies
 - Run `yarn install` to install the Javascript dependencies
