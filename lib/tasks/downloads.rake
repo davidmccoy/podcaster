@@ -1,4 +1,17 @@
 namespace :downloads do
+  desc 'recalculates download count for posts'
+
+  task recalculate: :environment do
+    pages = Page.includes(:audio_posts).all
+
+    pages.find_each do |page|
+      page.audio_posts.find_each do |post|
+        downloads = post.downloads.where.not(browser: nil).count
+        post.update(total_downloads: downloads)
+      end
+    end
+  end
+
   desc 'creates fake downloads for testing'
 
   task generate: :environment do
