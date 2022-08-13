@@ -5,7 +5,7 @@
       <h2>Audience Insights <span style="color:#495057;display: inline-block;text-align: center;vertical-align: middle;background-color: transparent;padding:0.35rem 0.65rem 0.25rem;border: 1px solid #495057;font-size: 1.063rem;line-height: 1.5;border-radius: 0.25rem;margin-left: 0.5rem;">BETA</span></h2>
       <% unless @posts.empty? %>
         <p>
-          MTGCast tracks every download of each episode and analyzes them to provide high-level audience data, like a general location and device type. Please note that these audience insights are a beta feature&mdash;while the top-level download data will remain the same, the more interpretive data (like listening devices and platforms) are still subject to refinement.
+          MTGCast tracks every download of each episode and analyzes them to provide high-level audience data, like a general location and device type. Please note that these audience insights are a beta feature&mdash;while the top-level data will remain the same, the more interpretive data (like listening devices and platforms) are still subject to refinement.
         </p>
         <p>
           We then break them down into three categories: <em>Individual</em>, <em>Aggregate</em>, and <em>Total</em>. <em>Individual</em> represents the downloads from <%= link_to 'your unique RSS feed', page_feed_path(@page) %> as well as the plays initiated from each episode's embedded audio player. <em>Aggregate</em> represents the downloads from MTGCast's aggregate feed, while <em>Total</em> combines the <em>Individual</em> and <em>Aggregate</em> counts.

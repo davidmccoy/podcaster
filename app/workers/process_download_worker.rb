@@ -43,6 +43,7 @@ class ProcessDownloadWorker
   end
 
   def increment_total_downloads
+    return unless @download.browser
     @podcast_episode.increment(:total_downloads)
   end
 
