@@ -47,6 +47,7 @@
         You are currently hosting your audio files on a third-party service rather than storing them on MTGCast servers. Podcasts that host their files elsewhere cannot post episodes directly to MTGCast&mdash;instead, we continuously read from your external RSS feed and automatically import them.
       </p>
       <%= form_with model: @page, url: page_dashboard_settings_path(@page), method: 'put', html: { class: 'needs-validation', novalidate: true, remote: false } do |form| %>
+        <%= hidden_field_tag 'page[external_rss_error]', false %>
         <div class="form-group required">
           <%= form.label :name, 'External RSS Feed Address', class: 'control-label' %>
           <%= form.text_field :external_rss, required: true, class: 'form-control'%>

@@ -9,10 +9,10 @@ class Dashboard::SettingsController < Dashboard::BaseController
 
   def update
     if @page.update(page_params)
-      flash[:notice] = 'Successfully updated podcast.'
+      flash[:notice] = message
       redirect_to edit_page_dashboard_settings_path(@page)
     else
-      flash[:alert] = 'Failed to update podcast.'
+      flash[:alert] = "Failed to update podcast."
       render :edit
     end
   end
@@ -21,10 +21,10 @@ class Dashboard::SettingsController < Dashboard::BaseController
 
   def destroy
     if @page.destroy
-      flash[:notice] = 'Successfully deleted podcast.'
+      flash[:notice] = "Successfully deleted podcast."
       redirect_to user_pages_path
     else
-      flash[:alert] = 'Failed to delete podcast.'
+      flash[:alert] = "Failed to delete podcast."
       redirect_to page_delete_path(@page_)
     end
   end
@@ -37,6 +37,15 @@ class Dashboard::SettingsController < Dashboard::BaseController
       :description,
       :externally_hosted,
       :external_rss,
+      :external_rss_error,
     )
+  end
+
+  def message
+    if page_params.include?(:external_rss)
+      "We are processing your new external RSS feed location. Check back later for updates."
+    else
+      "Successfully updated podcast."
+    end
   end
 end
