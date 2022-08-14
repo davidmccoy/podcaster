@@ -64,7 +64,7 @@
           </div>
         <% end %>
 
-        <%= yield %>
+        <%= content_for?(:content) ? yield(:content) : yield %>
       </div>
     </div>
     <% unless page_management_path?(@page, @post) %>

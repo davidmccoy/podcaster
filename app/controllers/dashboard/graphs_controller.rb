@@ -1,5 +1,5 @@
 # Only accessible by page admins
-class Dashboard::GraphsController < ApplicationController
+class Dashboard::GraphsController < Dashboard::BaseController
   before_action :set_page
   before_action :authorize_page
 

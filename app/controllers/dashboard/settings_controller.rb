@@ -1,5 +1,5 @@
 # Only accessible by page admins
-class Dashboard::SettingsController < ApplicationController
+class Dashboard::SettingsController < Dashboard::BaseController
   before_action :set_page
   before_action :authorize_page
 
@@ -32,6 +32,11 @@ class Dashboard::SettingsController < ApplicationController
   private
 
   def page_params
-    params.require(:page).permit(:name, :description, :externally_hosted)
+    params.require(:page).permit(
+      :name,
+      :description,
+      :externally_hosted,
+      :external_rss,
+    )
   end
 end

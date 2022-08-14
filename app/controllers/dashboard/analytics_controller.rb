@@ -1,5 +1,5 @@
 #
-class Dashboard::AnalyticsController < ApplicationController
+class Dashboard::AnalyticsController < Dashboard::BaseController
   before_action :set_page
   before_action :authorize_page
 

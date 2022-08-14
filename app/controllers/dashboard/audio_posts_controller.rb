@@ -1,5 +1,5 @@
 # Only accessible by page admins
-class Dashboard::AudioPostsController < ApplicationController
+class Dashboard::AudioPostsController < Dashboard::BaseController
   before_action :set_page
   before_action :set_post, except: [:index, :new, :create]
   before_action :authorize_post
