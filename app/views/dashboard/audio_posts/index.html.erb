@@ -4,7 +4,7 @@
     These are standard podcast episodes&mdash;an audio file and some accompanying text/links/images&mdash;that are then included in an RSS feed and available for download from any podcast player.
   </p>
   <% unless @posts.empty? %>
-    <table class="table table-outer-border">
+    <table class="table table-outer-border table-hover">
       <thead>
         <tr>
           <th>
@@ -29,7 +29,7 @@
         <% @posts.each do |post| %>
           <% next unless post.postable %>
           <tr>
-            <td>
+            <td class="bold">
               <% if !post.postable.podcast_episode && post.postable.import_errors %>
                 <div class="error-icon-container" data-toggle="tooltip" data-placement="top" title="No audio file">
                   <%= render 'shared/icons/exclamation_circle', color: 'red', size: '1.5rem' %>

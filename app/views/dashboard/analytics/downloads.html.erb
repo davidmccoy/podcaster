@@ -10,7 +10,7 @@
     <p>
       Please note that download numbers are always subject to change. MTGCast analyzes downloads and attempts to filter out duplicate downloads, bots, etc, and that algorithm is constantly evolving.
     </p>
-    <table class="table table-outer-border">
+    <table class="table table-outer-border table-hover">
       <thead>
         <tr>
           <th>
@@ -33,7 +33,7 @@
       <tbody>
         <% @posts.each do |post| %>
           <tr>
-            <td>
+            <td class="bold">
               <%= link_to post.postable.title, page_post_path(@page, post) %>
             </td>
             <td>

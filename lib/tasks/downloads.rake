@@ -6,8 +6,20 @@ namespace :downloads do
 
     pages.find_each do |page|
       page.audio_posts.find_each do |post|
-        downloads = post.downloads.where.not(browser: nil).count
-        post.update(total_downloads: downloads)
+        individual_downloads = post.downloads
+          .where(feed_source: "individual")
+          .where.not(browser: nil)
+          .count
+        aggregate_feed_downloads = post.downloads
+          .where(feed_source: "aggregate_feed")
+          .where.not(browser: nil)
+          .count
+
+        post.update(
+          individual_downloads: individual_downloads,
+          aggregate_feed_downloads: aggregate_feed_downloads,
+          total_downloads: individual_downloads + aggregate_feed_downloads,
+        )
       end
     end
   end

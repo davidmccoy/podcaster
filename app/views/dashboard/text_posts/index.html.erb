@@ -4,7 +4,7 @@
     Posts are text-based posts without an associated audiot file. (I.e., blog posts.) They are shown alongside your podcast's episodes on your show's MTGCast page but aren't included in your RSS feed.
   </p>
   <% unless @posts.empty? %>
-    <table class="table table-outer-border">
+    <table class="table table-outer-border table-hover">
       <thead>
         <tr>
           <th>
@@ -23,7 +23,7 @@
         <% @posts.each do |post| %>
           <% next unless post.postable %>
           <tr>
-            <td>
+            <td class="bold">
               <%= link_to post.postable.title, page_text_post_path(@page, post) %>
             </td>
             <td>
