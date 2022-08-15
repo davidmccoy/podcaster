@@ -14,9 +14,6 @@ class CheckExternalRssFeedsWorker
   private
 
   def externally_hosted_pages
-    Page.where(
-      externally_hosted: true,
-      external_rss_error: false,
-    )
+    Page.where(externally_hosted: true)
   end
 end

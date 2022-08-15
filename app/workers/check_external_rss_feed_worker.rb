@@ -24,7 +24,7 @@ class CheckExternalRssFeedWorker
     rss_guids = feed.entries.map { |entry| entry.entry_id }
 
     # find all guids of episodes in the database
-    post_guids = page.posts.map { |post| post.postable.guid }
+    post_guids = page.audio_posts.map { |post| post.guid }
 
     # find the guids that exist on the RSS feed but not in the database
     new_guids = rss_guids - post_guids
@@ -80,7 +80,7 @@ class CheckExternalRssFeedWorker
     # missing_guids = post_guids - rss_guids
 
     # # find the episodes in the database to soft delete by guid
-    # missing_posts = page.posts.select { |post| missing_entries.include? post.postable.guid }
+    # missing_posts = page.audio_posts.select { |post| missing_entries.include? post.guid }
 
     # # soft delete all missing episodes
     # missing_posts.soft_delete_all

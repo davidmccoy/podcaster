@@ -9,7 +9,8 @@ class Dashboard::SettingsController < Dashboard::BaseController
 
   def update
     if @page.update(page_params)
-      flash[:notice] = message
+      flash[:notice] = "Successfully updated podcast."
+      handle_new_external_rss
       redirect_to edit_page_dashboard_settings_path(@page)
     else
       flash[:alert] = "Failed to update podcast."
@@ -41,11 +42,11 @@ class Dashboard::SettingsController < Dashboard::BaseController
     )
   end
 
-  def message
-    if page_params.include?(:external_rss)
+  def handle_new_external_rss
+    return unless page_params.include?(:external_rss)
+
+    flash[:notice] =
       "We are processing your new external RSS feed location. Check back later for updates."
-    else
-      "Successfully updated podcast."
-    end
+    ::CheckExternalRssFeedWorker.perform_async(@page.id)
   end
 end
