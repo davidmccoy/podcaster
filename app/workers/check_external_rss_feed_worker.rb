@@ -6,14 +6,25 @@ class CheckExternalRssFeedWorker
     page = Page.includes(posts: :postable).find(page_id)
 
     # fetch and parse the RSS feed
-    xml = HTTParty.get(page.external_rss).body
-    feed = Feedjira.parse(xml)
+    response =  HTTParty.get(page.external_rss)
+    xml = response.body
+
+    begin
+      feed = Feedjira.parse(xml)
+    rescue Feedjira::NoParserAvailable
+      p "Error: Feedjira::NoParserAvailable for Page id: #{page_id}"
+      response = HTTParty.get(page.external_rss)
+      page.update(
+        external_rss_error: true,
+        external_rss_error_message: "#{response.code}: #{response.message}",
+      )
+    end
 
     # find all unique identifiers in the feed
     rss_guids = feed.entries.map { |entry| entry.entry_id }
 
     # find all guids of episodes in the database
-    post_guids = page.posts.map { |post| post.postable.guid }
+    post_guids = page.audio_posts.map { |post| post.guid }
 
     # find the guids that exist on the RSS feed but not in the database
     new_guids = rss_guids - post_guids
@@ -69,7 +80,7 @@ class CheckExternalRssFeedWorker
     # missing_guids = post_guids - rss_guids
 
     # # find the episodes in the database to soft delete by guid
-    # missing_posts = page.posts.select { |post| missing_entries.include? post.postable.guid }
+    # missing_posts = page.audio_posts.select { |post| missing_entries.include? post.guid }
 
     # # soft delete all missing episodes
     # missing_posts.soft_delete_all

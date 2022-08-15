@@ -3,10 +3,11 @@
   "private": true,
   "dependencies": {
     "@rails/actiontext": "^6.1.0",
-    "@rails/webpacker": "^4.0.7",
+    "@rails/webpacker": "^5.4.3",
     "chart.js": "^2.9.4",
     "chartkick": "^3.2.1",
-    "trix": "^1.2.0"
+    "trix": "^1.2.0",
+    "yarn": "^1.22.18"
   },
   "devDependencies": {
     "webpack-dev-server": "^3.8.0"

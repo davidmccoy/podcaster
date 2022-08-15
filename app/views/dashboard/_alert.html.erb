@@ -1,0 +1,8 @@
+<% if @page.external_rss_error %>
+  <div class="alert inline fade show alert-danger alert-dismissible" role="alert">
+    <p class="mb-0">There is a problem syncing with your external RSS feed (<%= @page.external_rss_error_message%>). Please visit your <%= link_to "settings", edit_page_dashboard_settings_path(@page), class: "alert-link"%> and ensure the URL is correct.</p>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+<% end %>

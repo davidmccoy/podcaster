@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_03_030137) do
+ActiveRecord::Schema.define(version: 2022_08_14_191349) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -128,6 +128,8 @@ ActiveRecord::Schema.define(version: 2021_01_03_030137) do
     t.boolean "included_in_aggregate_feed", default: false
     t.boolean "externally_hosted", default: false
     t.text "external_rss"
+    t.boolean "external_rss_error", default: false
+    t.string "external_rss_error_message"
     t.index ["included_in_aggregate_feed"], name: "index_pages_on_included_in_aggregate_feed"
     t.index ["slug"], name: "index_pages_on_slug"
     t.index ["user_id"], name: "index_pages_on_user_id"

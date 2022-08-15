@@ -1,5 +1,5 @@
 # Only accessible by page admins
-class Dashboard::PostsController < ApplicationController
+class Dashboard::PostsController < Dashboard::BaseController
   before_action :set_page
   before_action :authorize_post
 

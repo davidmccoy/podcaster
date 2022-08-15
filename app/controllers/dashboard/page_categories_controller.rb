@@ -1,5 +1,5 @@
 # For CRUDing the Page --> Category connection
-class Dashboard::PageCategoriesController < ApplicationController
+class Dashboard::PageCategoriesController < Dashboard::BaseController
   before_action :set_page
   before_action :authorize_page
 

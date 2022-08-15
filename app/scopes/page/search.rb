@@ -22,7 +22,7 @@ class Page::Search
     else
       # our default sort is by latest episode
       records = records.joins('INNER JOIN posts ON posts.page_id = pages.id')
-        .where('posts.publish_time < ?', Time.zone.now)
+        .where('posts.postable_type = ? and posts.publish_time < ?', 'AudioPost', Time.zone.now)
         .group('pages.id')
         .order('max(posts.publish_time) DESC')
     end

@@ -1,171 +1,142 @@
-<div class="row">
-  <%= render 'dashboard/sidebar' %>
-  <div class="page-admin">
-    <div class="content">
-      <h2>Audience Insights <span style="color:#495057;display: inline-block;text-align: center;vertical-align: middle;background-color: transparent;padding:0.35rem 0.65rem 0.25rem;border: 1px solid #495057;font-size: 1.063rem;line-height: 1.5;border-radius: 0.25rem;margin-left: 0.5rem;">BETA</span></h2>
-      <% unless @posts.empty? %>
+<div class="content">
+  <h2>Audience Insights <span style="color:#495057;display: inline-block;text-align: center;vertical-align: middle;background-color: transparent;padding:0.35rem 0.65rem 0.25rem;border: 1px solid #495057;font-size: 1.063rem;line-height: 1.5;border-radius: 0.25rem;margin-left: 0.5rem;">BETA</span></h2>
+  <% unless @posts.empty? %>
+    <p>
+      MTGCast tracks every download of each episode and analyzes them to provide high-level audience data, like a general location and device type. Please note that these audience insights are a beta feature&mdash;while the top-level data will remain the same, the more interpretive data (like listening devices and platforms) are still subject to refinement.
+    </p>
+    <p>
+      We then break them down into three categories: <em>Individual</em>, <em>Aggregate</em>, and <em>Total</em>. <em>Individual</em> represents the downloads from <%= link_to 'your unique RSS feed', page_feed_path(@page) %> as well as the plays initiated from each episode's embedded audio player. <em>Aggregate</em> represents the downloads from MTGCast's aggregate feed, while <em>Total</em> combines the <em>Individual</em> and <em>Aggregate</em> counts.
+    </p>
+    <br />
+    <%= form_tag page_dashboard_analytics_audience_path(@page), method: :get do %>
+      <div style="display:flex; align-items:end;">
+        <div class="col-md-3" style="margin-left:-15px;">
+          <%= label_tag :start_date, 'Start Date', class: 'control-label' %>
+          <%= date_field_tag :start_date, params[:start_date] || Time.zone.today - 7.days, class: 'form-control', disabled: !current_user&.admin? %>
+        </div>
+        <div class="col-md-3">
+          <%= label_tag :end_date, 'End Date', class: 'control-label' %>
+          <%= date_field_tag :end_date, params[:end_date] || Time.zone.today, class: 'form-control', disabled: !current_user&.admin? %>
+        </div>
+        <div class="col-md-3">
+          <%= label_tag :feed, 'Feed', class: 'control-label' %>
+          <%= select_tag :feed, options_for_select([ ['Individual', 'individual'], ['Aggregate', 'aggregate_feed'], 'Both' ], params[:feed] || 'Both'), class: 'form-control', disabled: !current_user&.admin? %>
+        </div>
+        <div class="col-md-3">
+          <%= submit_tag 'Filter', class: 'btn btn-light', disabled: !current_user&.admin? %>
+          <% unless current_user.admin? %>
+            <%= image_tag 'help-circle.svg', data: {toggle: 'modal', target: '#paidFeatureModal'}, style: 'margin-left: 1rem; cursor: pointer;' %>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+    <br />
+    <h4>Total Downloads</h4>
+    <p>
+      All downloads of all episode of your podcast.
+    </p>
+    <%= column_chart downloads_page_dashboard_graphs_path(@page, start_date: params[:start_date], end_date: params[:end_date], feed: params[:feed]) %>
+    <br />
+    <br />
+    <hr>
+    <br />
+    <br />
+    <div style="display:flex;">
+      <div class="col-lg-6 <%= 'blur' unless current_user&.admin %>">
+        <h4>Episodes <%= image_tag 'help-circle.svg', data: {toggle: 'modal', target: '#paidFeatureModal'}, style: 'cursor: pointer;' unless current_user&.admin %></h4>
         <p>
-          MTGCast tracks every download of each episode and analyzes them to provide high-level audience data, like a general location and device type. Please note that these audience insights are a beta feature&mdash;while the top-level download data will remain the same, the more interpretive data (like listening devices and platforms) are still subject to refinement.
+          Your top episodes by total downloads.
         </p>
-        <p>
-          We then break them down into three categories: <em>Individual</em>, <em>Aggregate</em>, and <em>Total</em>. <em>Individual</em> represents the downloads from <%= link_to 'your unique RSS feed', page_feed_path(@page) %> as well as the plays initiated from each episode's embedded audio player. <em>Aggregate</em> represents the downloads from MTGCast's aggregate feed, while <em>Total</em> combines the <em>Individual</em> and <em>Aggregate</em> counts.
-        </p>
-        <br />
-        <%= form_tag page_dashboard_analytics_audience_path(@page), method: :get do %>
-          <div style="display:flex; align-items:end;">
-            <div class="col-md-3" style="margin-left:-15px;">
-              <%= label_tag :start_date, 'Start Date', class: 'control-label' %>
-              <%= date_field_tag :start_date, params[:start_date] || Time.zone.today - 7.days, class: 'form-control', disabled: !current_user&.admin? %>
+        <% if current_user&.admin %>
+          <%= bar_chart episodes_page_dashboard_graphs_path(@page, start_date: params[:start_date], end_date: params[:end_date], feed: params[:feed]), xtitle: "Downloads", messages: {empty: "No data"} %>
+        <% else %>
+          <div class="upgrade-container">
+            <div class="upgrade-button">
+              <%= link_to "Upgrade", root_path, class: 'btn btn-primary' %>
             </div>
-            <div class="col-md-3">
-              <%= label_tag :end_date, 'End Date', class: 'control-label' %>
-              <%= date_field_tag :end_date, params[:end_date] || Time.zone.today, class: 'form-control', disabled: !current_user&.admin? %>
-            </div>
-            <div class="col-md-3">
-              <%= label_tag :feed, 'Feed', class: 'control-label' %>
-              <%= select_tag :feed, options_for_select([ ['Individual', 'individual'], ['Aggregate', 'aggregate_feed'], 'Both' ], params[:feed] || 'Both'), class: 'form-control', disabled: !current_user&.admin? %>
-            </div>
-            <div class="col-md-3">
-              <%= submit_tag 'Filter', class: 'btn btn-light', disabled: !current_user&.admin? %>
-              <% unless current_user.admin? %>
-                <%= image_tag 'help-circle.svg', data: {toggle: 'modal', target: '#paidFeatureModal'}, style: 'margin-left: 1rem; cursor: pointer;' %>
-              <% end %>
-            </div>
+            <%= bar_chart dummy_page_dashboard_graphs_path(@page, start_date: params[:start_date], end_date: params[:end_date], feed: params[:feed]), xtitle: "Downloads" %>
           </div>
         <% end %>
-        <br />
-        <h4>Total Downloads</h4>
+      </div>
+      <div class="col-lg-6 <%= 'blur' unless current_user&.admin %>">
+        <h4>Listening Devices <%= image_tag 'help-circle.svg', data: {toggle: 'modal', target: '#paidFeatureModal'}, style: 'cursor: pointer;' unless current_user&.admin %></h4>
         <p>
-          All downloads of all episode of your podcast.
+          Your audience's most used listening devices (by total downloads). A listening device can range from a phone to a desktop web browser.
         </p>
-        <%= column_chart downloads_page_dashboard_graphs_path(@page, start_date: params[:start_date], end_date: params[:end_date], feed: params[:feed]) %>
-        <br />
-        <br />
-        <hr>
-        <br />
-        <br />
-        <div style="display:flex;">
-          <div class="col-lg-6 <%= 'blur' unless current_user&.admin %>">
-            <h4>Episodes <%= image_tag 'help-circle.svg', data: {toggle: 'modal', target: '#paidFeatureModal'}, style: 'cursor: pointer;' unless current_user&.admin %></h4>
-            <p>
-              Your top episodes by total downloads.
-            </p>
-            <% if current_user&.admin %>
-              <%= bar_chart episodes_page_dashboard_graphs_path(@page, start_date: params[:start_date], end_date: params[:end_date], feed: params[:feed]), xtitle: "Downloads", messages: {empty: "No data"} %>
-            <% else %>
-              <div class="upgrade-container">
-                <div class="upgrade-button">
-                  <%= link_to "Upgrade", root_path, class: 'btn btn-primary' %>
-                </div>
-                <%= bar_chart dummy_page_dashboard_graphs_path(@page, start_date: params[:start_date], end_date: params[:end_date], feed: params[:feed]), xtitle: "Downloads" %>
-              </div>
-            <% end %>
+        <% if current_user&.admin %>
+          <%= bar_chart devices_page_dashboard_graphs_path(@page, start_date: params[:start_date], end_date: params[:end_date], feed: params[:feed]), xtitle: "Downloads" %>
+        <% else %>
+          <div class="upgrade-container">
+            <div class="upgrade-button">
+              <%= link_to "Upgrade", root_path, class: 'btn btn-primary' %>
+            </div>
+            <%= bar_chart dummy_page_dashboard_graphs_path(@page, start_date: params[:start_date], end_date: params[:end_date], feed: params[:feed]), xtitle: "Downloads" %>
           </div>
-          <div class="col-lg-6 <%= 'blur' unless current_user&.admin %>">
-            <h4>Listening Devices <%= image_tag 'help-circle.svg', data: {toggle: 'modal', target: '#paidFeatureModal'}, style: 'cursor: pointer;' unless current_user&.admin %></h4>
-            <p>
-              Your audience's most used listening devices (by total downloads). A listening device can range from a phone to a desktop web browser.
-            </p>
-            <% if current_user&.admin %>
-              <%= bar_chart devices_page_dashboard_graphs_path(@page, start_date: params[:start_date], end_date: params[:end_date], feed: params[:feed]), xtitle: "Downloads" %>
-            <% else %>
-              <div class="upgrade-container">
-                <div class="upgrade-button">
-                  <%= link_to "Upgrade", root_path, class: 'btn btn-primary' %>
-                </div>
-                <%= bar_chart dummy_page_dashboard_graphs_path(@page, start_date: params[:start_date], end_date: params[:end_date], feed: params[:feed]), xtitle: "Downloads" %>
-              </div>
-            <% end %>
-          </div>
-        </div>
-        <br />
-        <br />
-        <hr>
-        <br />
-        <br />
-        <div style="display:flex;">
-          <div class="col-lg-4 <%= 'blur' unless current_user&.admin %>">
-            <h4>Platforms <%= image_tag 'help-circle.svg', data: {toggle: 'modal', target: '#paidFeatureModal'}, style: 'cursor: pointer;' unless current_user&.admin %></h4>
-            <p>
-              The most common platforms where your episodes received downloads.
-            </p>
-            <% if current_user&.admin %>
-              <%= bar_chart platforms_page_dashboard_graphs_path(@page, start_date: params[:start_date], end_date: params[:end_date], feed: params[:feed]), xtitle: "Downloads" %>
-            <% else %>
-              <div class="upgrade-container">
-                <div class="upgrade-button">
-                  <%= link_to "Upgrade", root_path, class: 'btn btn-primary' %>
-                </div>
-                <%= bar_chart dummy_page_dashboard_graphs_path(@page, start_date: params[:start_date], end_date: params[:end_date], feed: params[:feed]), xtitle: "Downloads" %>
-              </div>
-            <% end %>
-          </div>
-          <div class="col-lg-4 <%= 'blur' unless current_user&.admin %>">
-            <h4>Top Referrers <%= image_tag 'help-circle.svg', data: {toggle: 'modal', target: '#paidFeatureModal'}, style: 'cursor: pointer;' unless current_user&.admin %></h4>
-            <p>
-              The sites that referred downloads of your podcast.
-            </p>
-            <% if current_user&.admin %>
-              <%= bar_chart referrers_page_dashboard_graphs_path(@page, start_date: params[:start_date], end_date: params[:end_date], feed: params[:feed]), xtitle: "Downloads" %>
-            <% else %>
-              <div class="upgrade-container">
-                <div class="upgrade-button">
-                  <%= link_to "Upgrade", root_path, class: 'btn btn-primary' %>
-                </div>
-                <%= bar_chart dummy_page_dashboard_graphs_path(@page, start_date: params[:start_date], end_date: params[:end_date], feed: params[:feed]), xtitle: "Downloads" %>
-              </div>
-            <% end %>
-          </div>
-          <div class="col-lg-4 <%= 'blur' unless current_user&.admin %>">
-            <h4>Top Countries <%= image_tag 'help-circle.svg', data: {toggle: 'modal', target: '#paidFeatureModal'}, style: 'cursor: pointer;' unless current_user&.admin %></h4>
-            <p>
-              The top countries where your your audience listened from.
-            </p>
-            <% if current_user&.admin %>
-              <%= bar_chart countries_page_dashboard_graphs_path(@page, start_date: params[:start_date], end_date: params[:end_date], feed: params[:feed]), xtitle: "Downloads" %>
-            <% else %>
-              <div class="upgrade-container">
-                <div class="upgrade-button">
-                  <%= link_to "Upgrade", root_path, class: 'btn btn-primary' %>
-                </div>
-                <%= bar_chart dummy_page_dashboard_graphs_path(@page, start_date: params[:start_date], end_date: params[:end_date], feed: params[:feed]), xtitle: "Downloads" %>
-              </div>
-            <% end %>
-          </div>
-        </div>
-      <% else %>
-        <p>
-          <strong>You haven't uploaded any episodes.</strong>
-        </p>
-      <% end %>
-      <% if @page.created_at < "2019-02-01"%>
-        <p>
-          <em>
-            Note: Episodes from 2018 and earlier may show the incorrect publish date due to an MTGCast server error. Also, episodes published before mid-September 2019 will not include download count information while episodes before mid-February 2020 will not have accurate individual/aggregate feed download splits. Additionally, episodes published before February 2021 will not have accurate audience insight data.
-          </em>
-        </p>
-      <% elsif @page.created_at < "2019-10-01"%>
-        <p>
-          <em>
-            Note: Episodes published before mid-September 2019 will not include download count information while episodes before mid-February 2020 will not have accurate individual/aggregate feed download splits. Additionally, episodes published before February 2021 will not have accurate audience insight data.
-          </em>
-        </p>
-      <% elsif @page.created_at < "2020-03-01"%>
-        <p>
-          <em>
-            Note: Episodes published before mid-February 2020 will not have accurate individual/aggregate feed download splits, while episodes published before February 2021 will not have accurate audience insight data.
-          </em>
-        </p>
-      <% elsif @page.created_at < "2021-02-01"%>
-        <p>
-          <em>
-            Note: Episodes published before February 2021 will not have accurate audience insight data.
-          </em>
-        </p>
-      <% end %>
+        <% end %>
+      </div>
     </div>
-  </div>
+    <br />
+    <br />
+    <hr>
+    <br />
+    <br />
+    <div style="display:flex;">
+      <div class="col-lg-4 <%= 'blur' unless current_user&.admin %>">
+        <h4>Platforms <%= image_tag 'help-circle.svg', data: {toggle: 'modal', target: '#paidFeatureModal'}, style: 'cursor: pointer;' unless current_user&.admin %></h4>
+        <p>
+          The most common platforms where your episodes received downloads.
+        </p>
+        <% if current_user&.admin %>
+          <%= bar_chart platforms_page_dashboard_graphs_path(@page, start_date: params[:start_date], end_date: params[:end_date], feed: params[:feed]), xtitle: "Downloads" %>
+        <% else %>
+          <div class="upgrade-container">
+            <div class="upgrade-button">
+              <%= link_to "Upgrade", root_path, class: 'btn btn-primary' %>
+            </div>
+            <%= bar_chart dummy_page_dashboard_graphs_path(@page, start_date: params[:start_date], end_date: params[:end_date], feed: params[:feed]), xtitle: "Downloads" %>
+          </div>
+        <% end %>
+      </div>
+      <div class="col-lg-4 <%= 'blur' unless current_user&.admin %>">
+        <h4>Top Referrers <%= image_tag 'help-circle.svg', data: {toggle: 'modal', target: '#paidFeatureModal'}, style: 'cursor: pointer;' unless current_user&.admin %></h4>
+        <p>
+          The sites that referred downloads of your podcast.
+        </p>
+        <% if current_user&.admin %>
+          <%= bar_chart referrers_page_dashboard_graphs_path(@page, start_date: params[:start_date], end_date: params[:end_date], feed: params[:feed]), xtitle: "Downloads" %>
+        <% else %>
+          <div class="upgrade-container">
+            <div class="upgrade-button">
+              <%= link_to "Upgrade", root_path, class: 'btn btn-primary' %>
+            </div>
+            <%= bar_chart dummy_page_dashboard_graphs_path(@page, start_date: params[:start_date], end_date: params[:end_date], feed: params[:feed]), xtitle: "Downloads" %>
+          </div>
+        <% end %>
+      </div>
+      <div class="col-lg-4 <%= 'blur' unless current_user&.admin %>">
+        <h4>Top Countries <%= image_tag 'help-circle.svg', data: {toggle: 'modal', target: '#paidFeatureModal'}, style: 'cursor: pointer;' unless current_user&.admin %></h4>
+        <p>
+          The top countries where your your audience listened from.
+        </p>
+        <% if current_user&.admin %>
+          <%= bar_chart countries_page_dashboard_graphs_path(@page, start_date: params[:start_date], end_date: params[:end_date], feed: params[:feed]), xtitle: "Downloads" %>
+        <% else %>
+          <div class="upgrade-container">
+            <div class="upgrade-button">
+              <%= link_to "Upgrade", root_path, class: 'btn btn-primary' %>
+            </div>
+            <%= bar_chart dummy_page_dashboard_graphs_path(@page, start_date: params[:start_date], end_date: params[:end_date], feed: params[:feed]), xtitle: "Downloads" %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  <% else %>
+    <p>
+      <strong>You haven't uploaded any episodes.</strong>
+    </p>
+  <% end %>
 </div>
+
 <% unless current_user.admin? %>
   <div class="modal fade" id="paidFeatureModal" tabindex="-1" role="dialog" aria-labelledby="paidFeatureModal" aria-hidden="true">
     <div class="modal-dialog" role="document">

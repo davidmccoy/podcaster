@@ -1,11 +1,12 @@
 # Only accessible by page admins
-class Dashboard::GraphsController < ApplicationController
+class Dashboard::GraphsController < Dashboard::BaseController
   before_action :set_page
   before_action :authorize_page
 
   def downloads
     render json: @page.downloads
                       .where(created_at: start_date..end_date, feed_source: feed)
+                      .where.not(browser: nil)
                       .group_by_day(:created_at)
                       .count
   end
@@ -13,6 +14,7 @@ class Dashboard::GraphsController < ApplicationController
   def episodes
     render json: @page.downloads
                       .where(created_at: start_date..end_date, feed_source: feed)
+                      .where.not(browser: nil)
                       .group(:audio_post_id)
                       .order('count_id desc')
                       .limit(5) # we should include excluded records as "other"
@@ -53,6 +55,7 @@ class Dashboard::GraphsController < ApplicationController
   def countries
     render json: @page.downloads
                       .where(created_at: start_date..end_date, feed_source: feed)
+                      .where.not(browser: nil)
                       .group(:country)
                       .order('count_id desc')
                       .limit(5) # we should include excluded records as "other"

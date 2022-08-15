@@ -332,6 +332,13 @@
   padding: 0 1rem;
 }
 
+.downloads-counter {
+  position: relative;
+  .more-info-tooltip {
+    display: none;
+  }
+}
+
 @media (min-width: 550px) {
   td {
     &.view {
@@ -497,6 +504,16 @@
         width: calc(100%/3 - (1rem * (2/3)));
         margin: 0;
       }
+    }
+  }
+  .downloads-counter {
+    position: relative;
+    .more-info-tooltip {
+      display: block;
+      position: absolute;
+      right: -11px;
+      width: 18px;
+      top: 15px;
     }
   }
 }

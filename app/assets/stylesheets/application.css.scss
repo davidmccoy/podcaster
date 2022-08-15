@@ -1,3 +1,4 @@
+@import "font_faces";
 @import "variables";
 @import "bootstrap";
 @import "nav";
@@ -69,6 +70,10 @@ strong {
     color: #9a2001;
     background: #ffc9bc;
   }
+  &.inline {
+    position: relative;
+    top: 0;
+  }
 }
 
 .navbar-collapse {
@@ -135,6 +140,17 @@ p.lines {
 
 table.table {
   font-size: 1rem;
+  th {
+    font-weight: 300;
+  }
+  .bold {
+    font-weight: 700;
+    a {
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
 }
 
 .page-name-link {

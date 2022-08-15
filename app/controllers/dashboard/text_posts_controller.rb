@@ -1,5 +1,5 @@
 # Only accessible by page admins
-class Dashboard::TextPostsController < ApplicationController
+class Dashboard::TextPostsController < Dashboard::BaseController
   before_action :set_page
   before_action :authorize_page
   before_action :set_post, only: [:edit, :update, :destroy]

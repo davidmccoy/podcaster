@@ -20,6 +20,7 @@ require 'sidekiq/web'
   end
 
   resources :users
+  resource :blog
 
   get 'podcasts/recover', to: 'pages#recover'
   post 'podcasts/recover', to: 'pages#send_recovery_email'
