@@ -64,7 +64,7 @@ gem 'shrine', '~> 2.11'
 gem 'aws-sdk-s3'
 gem 'aws-sdk-elastictranscoder'
 gem 'ffprober'
-gem 'uppy-s3_multipart', '~> 0.2'
+gem "uppy-s3_multipart", "~> 1.0"
 gem 'image_processing', '~> 1.0'
 
 # Get client timezones
