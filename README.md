@@ -9,6 +9,7 @@
 - Yarn
 - Redis
 - FFMPEG
+- Imagemagick
 
 ## Installation
 
@@ -45,3 +46,15 @@ Sync staging s3 buckets with production s3 buckets. (Images and audio are stored
 aws s3 sync s3://mtgcast-images s3://mtgcast-images-staging
 aws s3 sync s3://mtgcast-podcasts s3://mtgcast-podcasts-staging
 ```
+
+
+
+## Errors
+
+### `bin/webpack-dev-server` ssl error:
+
+workaround:
+
+export NODE_OPTIONS=--openssl-legacy-provider
+
+https://github.com/webpack/webpack/issues/14532

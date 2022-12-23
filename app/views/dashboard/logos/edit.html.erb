@@ -1,7 +1,5 @@
 <% content_for :head do %>
-  <script src="https://unpkg.com/babel-polyfill@6.26.0/dist/polyfill.min.js"></script>
-  <script src="https://unpkg.com/whatwg-fetch@2.0.3/fetch.js"></script>
-  <script src="https://transloadit.edgly.net/releases/uppy/v0.28.0/dist/uppy.min.js"></script>
+  <%= javascript_pack_tag 'uppy' %>
 <% end %>
 
 <div class="content">
@@ -17,7 +15,7 @@
           <strong>Current:</strong>
         </p>
         <% if @page.logo %>
-          <%= image_tag @page.logo.file[:medium].url %>
+          <%= image_tag @page.logo?.file[:medium]?.url %>
         <% else %>
           <%= image_tag 'mtgcast-logo-itunes.png' %>
         <% end %>
@@ -29,7 +27,7 @@
         <%= form_with model: @logo, url: page_dashboard_logo_path, method: 'PUT', html: { class: 'needs-validation', novalidate: true } do |form| %>
           <div class="form-group required">
             <%= form.hidden_field :file, class: 'upload-hidden' %>
-            <%= form.file_field :file, class: 'upload-file' %>
+            <%= form.file_field :file, class: 'upload-logo-file' %>
           </div>
           <div>
             <p>
@@ -44,93 +42,3 @@
     </div>
   </div>
 </div>
-
-<script>
-  function fileUpload(fileInput) {
-    var imagePreview = document.querySelector('.upload-preview');
-    var saveButton = document.getElementById('post-save');
-
-    fileInput.style.display = 'none' // uppy will add its own file input
-
-    var uppy = Uppy.Core({
-        id: fileInput.id,
-        autoProceed: true,
-      })
-      .use(Uppy.FileInput, {
-        target: fileInput.parentNode,
-        pretty: true,
-        locale: {
-          strings: {
-            chooseFiles: 'Select File'
-          }
-        }
-      })
-      .use(Uppy.Informer, {
-        target: fileInput.parentNode,
-      })
-      .use(Uppy.ProgressBar, {
-        target: imagePreview.parentNode,
-      })
-      .use(Uppy.ThumbnailGenerator, {
-        thumbnailWidth: 400,
-      })
-
-    uppy.use(Uppy.AwsS3Multipart, {
-      serverUrl: '/', // will call Shrine's presign endpoint on `/s3/params`
-    })
-
-    uppy.on('file-added', (file) => {
-      $('.hidden').show();
-
-      var fileUploadPercentage = document.querySelector('.uppy-ProgressBar-percentage');
-      fileUploadPercentage.style.display = 'block';
-
-      var fileUploadButton = document.querySelector('.uppy-FileInput-btn');
-      fileUploadButton.style.display = 'none';
-    })
-
-    uppy.on('upload-success', function (file, response, uploadURL) {
-      saveButton.disabled = false;
-
-      var fileUploadPercentage = document.querySelector('.uppy-ProgressBar-percentage');
-      fileUploadPercentage.style.display = 'none';
-
-      // construct uploaded file data in the format that Shrine expects
-      var uploadedFileData = JSON.stringify({
-        id: uploadURL.match(/\/cache\/([^\?]+)/)[1], // object key without prefix
-        storage: 'cache',
-        metadata: {
-          size:      file.size,
-          filename:  file.name,
-          mime_type: file.type,
-        }
-      })
-
-      // set hidden field value to the uploaded file data so that it's submitted with the form as the attachment
-      var hiddenInput = fileInput.parentNode.querySelector('.upload-hidden')
-      hiddenInput.value = uploadedFileData
-    })
-
-    uppy.on('thumbnail:generated', function (file, preview) {
-      imagePreview.src = preview
-    })
-
-    return uppy
-  }
-
-  var uppyAvailable = false;
-  function uppySetup() {
-    if (typeof Uppy !== "undefined" && uppyAvailable === false) {
-      uppyAvailable = true;
-      document.querySelectorAll('.upload-file').forEach(function (fileInput) {
-        fileUpload(fileInput)
-      })
-    } else {
-      setTimeout(uppySetup, 250);
-    }
-  }
-
-  $(document).on('ready turbolinks:load', function() {
-    uppySetup();
-  })
-</script>

@@ -55,19 +55,3 @@ textarea {
 .admin-post-container {
   margin-bottom: 1rem;
 }
-
-.index {
-  .table {
-    th {
-      font-weight: 300;
-    }
-    .bold {
-      font-weight: 700;
-      a {
-        &:hover {
-          text-decoration: underline;
-        }
-      }
-    }
-  }
-}

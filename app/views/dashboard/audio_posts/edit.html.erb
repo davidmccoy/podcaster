@@ -1,8 +1,7 @@
 <% content_for :head do %>
-  <script src="https://unpkg.com/babel-polyfill@6.26.0/dist/polyfill.min.js"></script>
-  <script src="https://unpkg.com/whatwg-fetch@2.0.3/fetch.js"></script>
-  <script src="https://transloadit.edgly.net/releases/uppy/v0.28.0/dist/uppy.min.js"></script>
+  <%= javascript_pack_tag 'uppy' %>
 <% end %>
+
 <div class="content">
   <h2>Edit Episode</h2>
   <div class="admin-post-container">
@@ -76,110 +75,6 @@
 </div>
 
 <script>
-  function fileUpload(fileInput) {
-    var saveButton = document.getElementById('post-save'),
-        noAudioWarning = document.getElementById('no-audio-warning');
-
-    fileInput.style.display = 'none' // uppy will add its own file input
-
-    uppy = Uppy.Core({
-        id: fileInput.id,
-        autoProceed: true,
-        restrictions: {
-          maxFileSize: (1000*1024*1024),
-          maxNumberOfFiles: 1,
-          minNumberOfFiles: 1,
-          allowedFileTypes: ['audio/wav', 'audio/mpeg', 'audio/mp3', 'audio/mp4', 'audio/aac', 'audio/aacp']
-        }
-      })
-      .use(Uppy.FileInput, {
-        target: fileInput.parentNode,
-        pretty: true,
-        locale: {
-          strings: {
-            chooseFiles: 'Select File'
-          }
-        }
-      })
-      .use(Uppy.Informer, {
-        target: fileInput.parentNode,
-      })
-      .use(Uppy.ProgressBar, {
-        target: fileInput.parentNode,
-      })
-
-    uppy.use(Uppy.AwsS3Multipart, {
-      serverUrl: '/', // will call Shrine's presign endpoint on `/s3/params`
-    })
-
-    uppy.on('file-added', (file) => {
-      $('trix-editor.full-height').height(window.innerHeight * 0.87)
-      $('.hidden').show();
-
-      var fileUploadPercentage = document.querySelector('.uppy-ProgressBar-percentage');
-      fileUploadPercentage.style.display = 'block';
-
-      var fileUploadButton = document.querySelector('.uppy-FileInput-btn');
-      fileUploadButton.style.display = 'none';
-    })
-
-
-
-    uppy.on('upload-success', function (file, data, uploadURL) {
-      saveButton.disabled = false;
-      $(noAudioWarning).hide();
-
-      var fileUploadButton = document.querySelector('.uppy-FileInput-btn');
-      fileUploadButton.innerHTML = 'File Uploaded';
-
-      // fileUploadButton.disabled = true
-
-      var fileUploadContainer = document.querySelector('.uppy-FileInput-container');
-
-      var fileInputContainer = document.querySelector('.file-input-container');
-
-      var fileUploadPercentage = document.querySelector('.uppy-ProgressBar-percentage');
-      fileUploadPercentage.style.display = 'none';
-
-      var fileNameParagraph = document.createElement('div');
-      fileNameParagraph.innerHTML = '<p><strong>Audio file:</strong> <em>' + file.name + '</em></div>'
-
-      fileUploadContainer.style.display = 'none'
-      fileInputContainer.append(fileNameParagraph)
-
-      var audio = document.getElementById('audio').innerHTML = '<audio id="audio-player" controls="controls" preload="auto" src="' + uploadURL + '" type="audio/mpeg">';
-
-      // construct uploaded file data in the format that Shrine expects
-      var uploadedFileData = JSON.stringify({
-        id: uploadURL.match(/\/cache\/([^\?]+)/)[1], // extract key without prefix
-        storage: 'cache',
-        metadata: {
-          size:      file.size,
-          filename:  file.name,
-          mime_type: file.type
-        }
-      })
-
-      // set hidden field value to the uploaded file data so that it's submitted with the form as the attachment
-      var hiddenInput = fileInput.parentNode.querySelector('.upload-hidden')
-      hiddenInput.value = uploadedFileData
-    })
-
-    return uppy
-  }
-
-  var uppyAvailable = false;
-  function uppySetup() {
-    if (typeof Uppy !== "undefined" && uppyAvailable === false) {
-      uppyAvailable = true;
-      document.querySelectorAll('.upload-file').forEach(function (fileInput) {
-        fileUpload(fileInput)
-      })
-    } else {
-      setTimeout(uppySetup, 250);
-    }
-  }
-
   function removeAudio() {
     var player = document.getElementById('player'),
         filename = document.getElementById('filename'),
@@ -191,8 +86,6 @@
   }
 
   $(document).on('ready turbolinks:load', function() {
-    uppySetup();
-
     $(document.getElementById('remove-audio')).on("click", removeAudio);
 
     var date = new Date('<%= @post.publish_time.utc.iso8601 %>'),

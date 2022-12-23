@@ -370,6 +370,11 @@
         display: block;
       }
     }
+    a {
+      &:hover {
+        text-decoration: underline;
+      }
+    }
   }
 
   .page-image-container {
