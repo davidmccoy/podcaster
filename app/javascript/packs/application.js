@@ -15,9 +15,11 @@
 // const images = require.context('../images', true)
 // const imagePath = (name) => images(name, true)
 
-console.log('Hello World from Webpacker')
-
 require("trix")
 require("@rails/actiontext")
 require("chartkick")
 require("chart.js")
+require("@uppy/core/dist/style.css")
+require("@uppy/progress-bar/dist/style.css")
+require("@uppy/informer/dist/style.css")
+require("@uppy/file-input/dist/style.css")
