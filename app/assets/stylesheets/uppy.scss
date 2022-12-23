@@ -40,9 +40,9 @@
 
 .uppy-ProgressBar-percentage {
   top: auto;
-  left: auto;
+  left: auto !important;
   right: -50px;
-  color: black;
+  color: black !important;
 }
 
 .uppy.uppy-Informer {
