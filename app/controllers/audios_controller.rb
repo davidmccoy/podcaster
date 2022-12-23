@@ -88,6 +88,7 @@ class AudiosController < ApplicationController
       referring_domain: request.origin,
       feed_source: feed_source,
       params: request.params,
+      byte_range: request.headers["range"],
     )
   end
 

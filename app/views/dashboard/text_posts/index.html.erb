@@ -1,7 +1,7 @@
 <div class="content">
   <h2>All Posts</h2>
   <p>
-    Posts are text-based posts without an associated audiot file. (I.e., blog posts.) They are shown alongside your podcast's episodes on your show's MTGCast page but aren't included in your RSS feed.
+    Posts are text-based posts without an associated audio file&mdash;i.e., blog posts. They are shown alongside your podcast's episodes on your show's MTGCast page but aren't included in your RSS feed.
   </p>
   <% unless @posts.empty? %>
     <table class="table table-outer-border table-hover">
@@ -31,7 +31,7 @@
               <%= '(Scheduled)' if post.publish_time > Time.zone.now %>
             </td>
             <td class="view text-center">
-              <%= link_to 'View', page_text_post_path(@page, post), class: 'btn btn-sm btn-primary' %>
+              <%= link_to 'View', page_post_path(@page, post), class: 'btn btn-sm btn-primary' %>
             </td>
             <td class="view text-center">
               <%= link_to 'Edit', edit_page_dashboard_text_post_path(@page, post), class: 'btn btn-sm btn-light' %>
