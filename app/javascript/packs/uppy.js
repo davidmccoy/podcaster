@@ -5,7 +5,6 @@ import ProgressBar from '@uppy/progress-bar'
 import FileInput from '@uppy/file-input'
 
 document.addEventListener('turbolinks:load', () => {
-  console.log('**** wow')
   document.querySelectorAll('.upload-file').forEach(function (fileInput) {
     fileUpload(fileInput)
   })
@@ -14,7 +13,6 @@ document.addEventListener('turbolinks:load', () => {
 function fileUpload(fileInput) {
   // Don't allow a Post to save without an uploaded file
   const saveButton = document.getElementById('post-save')
-
 
   fileInput.style.display = 'none' // uppy will add its own file input
 
