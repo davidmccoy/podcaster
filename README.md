@@ -9,6 +9,7 @@
 - Yarn
 - Redis
 - FFMPEG
+- Imagemagick
 
 ## Installation
 

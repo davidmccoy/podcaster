@@ -16,7 +16,7 @@ class ImageUploader < Shrine
   # Custom validations
   Attacher.validate do
     validate_max_size 10*1024*1024, message: 'is too large (max is 10 MB)'
-    validate_mime_type_inclusion %w[image/jpeg image/pjpeg image/png image/gif], message: 'must be a .jpg, .png, or .gif'
+    validate_mime_type_inclusion %w[image/jpeg image/jpeg image/png image/gif], message: 'must be a .jpg, .png, or .gif'
   end
 
   # process multiple versions of an uploaded image
