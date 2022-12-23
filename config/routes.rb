@@ -1,7 +1,10 @@
 require 'sidekiq/web'
 
  Rails.application.routes.draw do
-  mount Sidekiq::Web, at: '/sidekiq'
+  authenticate :user, lambda { |u| u.admin? } do
+    mount Sidekiq::Web => '/sidekiq'
+  end
+
   mount Shrine.uppy_s3_multipart(:cache) => "/s3"
 
   root 'home#index'
