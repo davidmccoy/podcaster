@@ -23,3 +23,6 @@ require("@uppy/core/dist/style.css")
 require("@uppy/progress-bar/dist/style.css")
 require("@uppy/informer/dist/style.css")
 require("@uppy/file-input/dist/style.css")
+
+require("packs/uppy")
+require("packs/tiptap")
