@@ -9,8 +9,8 @@
 @import "uppy";
 @import "stacktable";
 @import "pagination";
-@import "actiontext";
-@import "trix/dist/trix";
+@import 'actiontext.css';
+@import "trix/dist/trix.css";
 @import "sidebar";
 @import "settings";
 @import "icons";
@@ -291,4 +291,3 @@ html {
     }
   }
 }
-@import 'actiontext.css';
