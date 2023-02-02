@@ -2,7 +2,7 @@
   "name": "podcaster",
   "private": true,
   "dependencies": {
-    "@rails/actiontext": "^6.1.0",
+    "@rails/actiontext": "^7.0.4-2",
     "@rails/webpacker": "^5.4.3",
     "@uppy/aws-s3-multipart": "^3.0.1",
     "@uppy/core": "^3.0.1",
@@ -12,7 +12,7 @@
     "@uppy/thumbnail-generator": "^3.0.2",
     "chart.js": "^2.9.4",
     "chartkick": "^3.2.1",
-    "trix": "^1.2.0",
+    "trix": "^2.0.4",
     "yarn": "^1.22.19"
   },
   "devDependencies": {

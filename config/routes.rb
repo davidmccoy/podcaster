@@ -31,7 +31,7 @@ require 'sidekiq/web'
   resources :imports
   resources :pages, param: :slug, path: 'podcasts' do
 
-    get '/feed', to: 'pages#feed'
+    get '/feed', to: 'pages#feed', format: 'rss'
     resources :posts, param: :slug, only: [:show] do
       resources :audios, path: 'audio' do
         post 'embedded_play', to: 'audios#embedded_play'
@@ -71,7 +71,7 @@ require 'sidekiq/web'
 
   # ***|| routes for old rss feeds ||***
   # in home controller --> '/?feed=podcast'
-  get '/feed', to: 'pages#mtgcast'
+  get '/feed', to: 'pages#mtgcast_feed', format: 'rss'
   get '/topics/mtgcast-podcast-shows/retired-and-archived-podcast-shows/:podcast/feed', to: 'old_feeds#redirect'
   get '/topics/mtgcast-podcast-shows/active-podcast-shows/:podcast/feed', to: 'old_feeds#redirect'
 end
