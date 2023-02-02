@@ -10,8 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_08_14_191349) do
-
+ActiveRecord::Schema[7.0].define(version: 2023_02_02_150730) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -20,8 +19,8 @@ ActiveRecord::Schema.define(version: 2022_08_14_191349) do
     t.text "body"
     t.string "record_type", null: false
     t.bigint "record_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["record_type", "record_id", "name"], name: "index_action_text_rich_texts_uniqueness", unique: true
   end
 
@@ -30,7 +29,7 @@ ActiveRecord::Schema.define(version: 2022_08_14_191349) do
     t.string "record_type", null: false
     t.bigint "record_id", null: false
     t.bigint "blob_id", null: false
-    t.datetime "created_at", null: false
+    t.datetime "created_at", precision: nil, null: false
     t.index ["blob_id"], name: "index_active_storage_attachments_on_blob_id"
     t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
   end
@@ -41,8 +40,8 @@ ActiveRecord::Schema.define(version: 2022_08_14_191349) do
     t.string "content_type"
     t.text "metadata"
     t.bigint "byte_size", null: false
-    t.string "checksum", null: false
-    t.datetime "created_at", null: false
+    t.string "checksum"
+    t.datetime "created_at", precision: nil, null: false
     t.string "service_name", null: false
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
   end
@@ -59,8 +58,8 @@ ActiveRecord::Schema.define(version: 2022_08_14_191349) do
     t.bigint "attachable_id"
     t.text "file_data"
     t.integer "label"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["attachable_type", "attachable_id"], name: "index_attachments_on_attachable_type_and_attachable_id"
     t.index ["label"], name: "index_attachments_on_label"
   end
@@ -73,25 +72,25 @@ ActiveRecord::Schema.define(version: 2022_08_14_191349) do
     t.string "external_date"
     t.integer "external_unique_downloads"
     t.integer "external_total_downloads"
-    t.datetime "date"
+    t.datetime "date", precision: nil
     t.boolean "file_migrated", default: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.bigint "total_downloads", default: 0
     t.bigint "individual_downloads", default: 0
     t.bigint "aggregate_feed_downloads", default: 0
     t.boolean "imported", default: false
     t.text "guid"
     t.text "import_errors"
-    t.datetime "publish_time"
+    t.datetime "publish_time", precision: nil
     t.index ["file_migrated"], name: "index_audio_posts_on_file_migrated"
     t.index ["guid"], name: "index_audio_posts_on_guid"
   end
 
   create_table "categories", force: :cascade do |t|
     t.string "name"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "category_pages", force: :cascade do |t|
@@ -110,7 +109,7 @@ ActiveRecord::Schema.define(version: 2022_08_14_191349) do
     t.integer "blubrry_total_downloads"
     t.string "title"
     t.string "artist"
-    t.datetime "date"
+    t.datetime "date", precision: nil
     t.boolean "file_migrated", default: false
     t.text "description"
     t.index ["blubrry_filename"], name: "index_episodes_on_blubrry_filename"
@@ -122,8 +121,8 @@ ActiveRecord::Schema.define(version: 2022_08_14_191349) do
   create_table "pages", force: :cascade do |t|
     t.integer "user_id"
     t.string "name", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.string "slug"
     t.boolean "included_in_aggregate_feed", default: false
     t.boolean "externally_hosted", default: false
@@ -139,9 +138,9 @@ ActiveRecord::Schema.define(version: 2022_08_14_191349) do
     t.integer "page_id"
     t.string "postable_type"
     t.bigint "postable_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.datetime "publish_time"
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
+    t.datetime "publish_time", precision: nil
     t.string "slug"
     t.index ["page_id"], name: "index_posts_on_page_id"
     t.index ["postable_type", "postable_id"], name: "index_posts_on_postable_type_and_postable_id"
@@ -150,9 +149,9 @@ ActiveRecord::Schema.define(version: 2022_08_14_191349) do
 
   create_table "text_posts", force: :cascade do |t|
     t.string "title", null: false
-    t.datetime "publish_time"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "publish_time", precision: nil
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|
@@ -161,15 +160,15 @@ ActiveRecord::Schema.define(version: 2022_08_14_191349) do
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
-    t.datetime "reset_password_sent_at"
-    t.datetime "remember_created_at"
+    t.datetime "reset_password_sent_at", precision: nil
+    t.datetime "remember_created_at", precision: nil
     t.integer "sign_in_count", default: 0, null: false
-    t.datetime "current_sign_in_at"
-    t.datetime "last_sign_in_at"
+    t.datetime "current_sign_in_at", precision: nil
+    t.datetime "last_sign_in_at", precision: nil
     t.inet "current_sign_in_ip"
     t.inet "last_sign_in_ip"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.boolean "admin", default: false
     t.boolean "multiple_podcasts", default: false
     t.index ["email"], name: "index_users_on_email", unique: true
