@@ -55,10 +55,10 @@ textarea {
   .play-button-container {
     width: 100%;
     height: 100%;
-    background: asset-data-url("play-button.png");
+    background: url("play-button.png");
     background-size: cover;
     &:hover {
-      background: asset-data-url("play-button-hover.png");
+      background: url("play-button-hover.png");
       background-size: cover;
     }
   }
