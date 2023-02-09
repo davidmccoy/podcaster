@@ -17,9 +17,9 @@
       <%= yield(:head) %>
     <% end %>
 
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= stylesheet_link_tag    'application_styles', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'application', defer: true %>
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbo-track': 'reload' %>
+    <%= stylesheet_link_tag    'application_styles', media: 'all', 'data-turbo-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbo-track': 'reload', defer: true %>
 
 
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
@@ -52,16 +52,12 @@
         <% if alert %>
           <div class="alert alert-danger alert-dismissible fade show col-sm-6 offset-sm-3" role="alert">
             <span><%= alert %></span>
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
           </div>
         <% elsif notice %>
           <div class="alert alert-success alert-dismissible fade show col-sm-6 offset-sm-3" role="alert">
             <span><%= notice %></span>
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
           </div>
         <% end %>
 

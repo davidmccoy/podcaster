@@ -20,12 +20,10 @@ gem 'uglifier', '>= 1.3.0'
 
 # Use CoffeeScript for .coffee assets and views
 gem 'coffee-rails', '~> 4.2'
-# Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
-gem 'turbolinks', '~> 5'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.5'
 # Use Redis adapter to run Action Cable in production
-# gem 'redis', '~> 4.0'
+gem 'redis', '~> 4.0'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
@@ -36,6 +34,7 @@ gem 'jsbundling-rails'
 gem 'cssbundling-rails'
 gem 'sassc-rails'
 gem 'sprockets-rails'
+gem 'turbo-rails'
 
 gem 'httparty'
 
@@ -46,7 +45,6 @@ gem "pundit"
 # For background jobs
 gem 'sidekiq'
 gem 'sidekiq-scheduler'
-gem 'redis'
 
 # To read mp3 metadata
 gem 'id3tag', '~> 0.11.0'

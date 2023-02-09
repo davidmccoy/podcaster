@@ -1,7 +1,3 @@
-<% content_for :head do %>
-  <%#= javascript_pack_tag 'uppy' %>
-<% end %>
-
 <div class="content">
   <% unless @page.externally_hosted %>
     <h2>Create Episode</h2>
@@ -59,9 +55,9 @@
 
 <script>
   function onTitleBlur() {
-    var slugInput = $('input[name="post[slug]"]')[0];
-    var slugDisplay = $('#slug')[0];
-    var postTitle = $('input[name="post[postable_attributes[title]]"]')[0];
+    var slugInput = document.querySelector('input[name="post[slug]"]');
+    var slugDisplay = document.getElementById('slug');
+    var postTitle = document.querySelector('input[name="post[postable_attributes[title]]"]');
     var parameterizedPostTitle = postTitle.value.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,'');
     var siteAndPostSlug = "https://www.mtgcast.com/podcasts/<%= @post.page.slug %>/"
 
@@ -79,17 +75,17 @@
         minute = String(date.getMinutes()).padStart(2, '0'),
         zone = date.getTimezoneOffset() / 60;
 
-    $('select[name="post[publish_time_month]"]').val(month);
-    $('input[name="post[publish_time_day]"]').val(day);
-    $('input[name="post[publish_time_year]"]').val(year);
-    $('input[name="post[publish_time_hour]"]').val(hour);
-    $('input[name="post[publish_time_minute]"]').val(minute);
-    $('input[name="post[publish_time_zone]"]').val(zone);
+    if (document.querySelector('select[name="post[publish_time_month]"]')) {
+      document.querySelector('select[name="post[publish_time_month]"]').value = month;
+      document.querySelector('input[name="post[publish_time_day]"]').value = day;
+      document.querySelector('input[name="post[publish_time_year]"]').value = year;
+      document.querySelector('input[name="post[publish_time_hour]"]').value = hour;
+      document.querySelector('input[name="post[publish_time_minute]"]').value = minute;
+      document.querySelector('input[name="post[publish_time_zone]"]').value = zone;
+    }
   }
 
-  document.addEventListener('ready turbolinks:load', () => {
-    // uppySetup();
+  document.addEventListener('turbo:load', () => {
     setTime();
-    console.log("set time")
   })
 </script>

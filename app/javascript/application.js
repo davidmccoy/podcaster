@@ -19,6 +19,7 @@ import "./jquery"
 import * as bootstrap from "bootstrap"
 import "trix";
 import "@rails/actiontext";
+import "@hotwired/turbo-rails"
 import "chartkick";
 import "chart.js";
 import "@uppy/core/dist/style.css";
@@ -48,20 +49,18 @@ import "./stacktable"
       }, false);
     });
 
-    $('trix-editor.full-height').height(window.innerHeight * 0.87)
+    document.querySelectorAll('trix-editor.full-height').forEach((editor) => {
+      editor.style.height = `${window.innerHeight * 0.87}px`;
+    })
   }
 
-  window.addEventListener('turbolinks:load', postFormSetup, false);
+  window.addEventListener('turbo:load', postFormSetup, false);
   window.addEventListener('load', postFormSetup, false);
-
-  $(function () {
-    $('[data-toggle="tooltip"]').tooltip()
-  })
 })();
 
-// fade success messages
-window.setTimeout(function() {
-  $(".alert-success").fadeTo(500, 0).slideUp(500, function(){
-    $(this).remove();
-  });
-}, 4000);
+document.addEventListener('turbo:load', () => {
+  var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+      return new bootstrap.Tooltip(tooltipTriggerEl)
+    })
+})

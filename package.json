@@ -2,6 +2,7 @@
   "name": "podcaster",
   "private": true,
   "dependencies": {
+    "@hotwired/turbo-rails": "^7.2.5",
     "@popperjs/core": "^2.11.6",
     "@rails/actiontext": "^7.0.4-2",
     "@uppy/aws-s3-multipart": "^3.0.1",
