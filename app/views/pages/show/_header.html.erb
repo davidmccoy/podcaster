@@ -1,0 +1,46 @@
+<div class="hero-container">
+  <div class="spacer"></div>
+</div>
+<div class="hero-container page-info">
+  <div class="hero-page-image">
+    <div class="page-image no-border" style="background-image: url(<%= logo_url %>)">
+    </div>
+  </div>
+  <div class="hero-episode-container">
+    <div class="page-name-container">
+      <h1>
+        <%= page.name %>
+      </h1>
+      <% if current_user && policy(page).edit? %>
+        <div class="page-admin-button-container">
+          <%= link_to 'Manage Podcast', page_dashboard_audio_posts_path(page), class: 'btn btn-sm btn-light' %>
+          <% unless page.externally_hosted %>
+            <%= link_to '+ Episode', new_page_dashboard_audio_post_path(page), class: 'btn btn-sm btn-primary' %>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+    <div class="page-description-container <%= 'shortened' if shortened %>">
+      <div class="page-description">
+        <p>
+          <%= page.description %>
+        </p>
+      </div>
+      <% if shortened %>
+        <div class="show-more-container">
+          <button class="show-more btn btn-sm btn-light" id="show-more">
+            Show more
+          </button>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.getElementById('show-more').addEventListener('click', (element) => {
+    document.getElementsByClassName('page-description-container')[0].classList.remove('shortened');
+    document.getElementsByClassName('page-description')[0].style.height = 'auto';
+    document.getElementsByClassName('show-more-container')[0].style.display = 'none';
+  })
+</script>

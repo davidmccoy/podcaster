@@ -1,5 +1,5 @@
 <% content_for :head do %>
-  <%= javascript_pack_tag 'uppy' %>
+  <%#= javascript_pack_tag 'uppy' %>
 <% end %>
 
 <div class="content">
@@ -87,8 +87,9 @@
     $('input[name="post[publish_time_zone]"]').val(zone);
   }
 
-  $(document).on('ready turbolinks:load', function() {
+  document.addEventListener('ready turbolinks:load', () => {
     // uppySetup();
     setTime();
+    console.log("set time")
   })
 </script>

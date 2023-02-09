@@ -1,3 +1,5 @@
+@import "variables";
+
 textarea {
   &.form-control {
     height: 250px;
@@ -24,6 +26,15 @@ textarea {
 
 .posts-container {
   margin: 1rem 0;
+
+  .nav-pills {
+    .nav-link {
+      color: $gray-700;
+      &.active {
+        color: $white;
+      }
+    }
+  }
 }
 
 .post-container {
