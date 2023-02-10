@@ -9,5 +9,4 @@ module.exports = {
       stage: 3
     }),
   ],
-  whitelistPatterns: [/trix-*/],
 }
