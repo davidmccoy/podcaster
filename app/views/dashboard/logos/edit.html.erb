@@ -14,8 +14,8 @@
         <p>
           <strong>Current:</strong>
         </p>
-        <% if @page.logo && @page.logo.file[:medium] && @page.logo.file[:medium].url %>
-          <%= image_tag @page.logo.file[:medium].url %>
+        <% if @page.logo && @page.logo.file(:medium) && @page.logo.file(:medium).url %>
+          <%= image_tag @page.logo.file(:medium).url %>
         <% else %>
           <%= image_tag 'mtgcast-logo-itunes.png' %>
         <% end %>

@@ -84,22 +84,24 @@
 
       const player = document.getElementById('player');
       // log play
-      player.addEventListener('play', (event) => {
-        if (event.target.currentTime === 0) {
-          $.ajax({
-            method: 'POST',
-            url: recordPlayUrl,
-            data: {
-              audio: {
-                id: <%= post.postable.podcast_episode.id %>,
-                play: true,
-              },
-              source: 'individual'
-            }
-          })
-          hasPressedPlay = true;
-        }
-      })
+      if (player) {
+        player.addEventListener('play', (event) => {
+          if (event.target.currentTime === 0) {
+            $.ajax({
+              method: 'POST',
+              url: recordPlayUrl,
+              data: {
+                audio: {
+                  id: <%= post.postable.podcast_episode.id %>,
+                  play: true,
+                },
+                source: 'individual'
+              }
+            })
+            hasPressedPlay = true;
+          }
+        })
+      }
     })
   </script>
 <% end %>

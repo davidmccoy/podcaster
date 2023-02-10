@@ -5,7 +5,7 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
-ruby '2.7.5'
+ruby '3.1.3'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 7.0.0'
@@ -56,7 +56,7 @@ gem 'gibbon'
 gem 'figaro'
 
 # Files upload
-gem 'shrine', '~> 2.11'
+gem 'shrine', '~> 3.4.0'
 gem 'aws-sdk-s3'
 gem 'aws-sdk-elastictranscoder'
 gem 'ffprober'
@@ -67,7 +67,7 @@ gem 'image_processing', '~> 1.0'
 gem 'browser-timezone-rails'
 
 # Pagination
-gem 'will_paginate', '~> 3.1.7'
+gem 'will_paginate', '~> 3.3'
 
 # Monitoring
 gem 'scout_apm'
@@ -94,7 +94,7 @@ group :development, :test do
   # gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   # Adds support for Capybara system testing and selenium driver
   gem 'capybara', '~> 2.13'
-  gem 'pry'
+  gem 'pry-remote'
   gem 'selenium-webdriver'
 end
 
