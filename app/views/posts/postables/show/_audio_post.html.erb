@@ -72,30 +72,34 @@
     var hasPressedPlay = false;
     var recordPlayUrl = '<%= page_post_audio_embedded_play_url(@page.slug, post.slug, post.postable.podcast_episode) %>'
 
-    // add csrf token to ajax requests
-    $.ajaxPrefilter(function(options, originalOptions, xhr) {
-      if (!options.crossDomain) {
-        token = $('meta[name="csrf-token"]').attr('content');
-        if (token) xhr.setRequestHeader('X-CSRF-Token', token);
-      }
-    });
 
-    // log play
-    $('#player').on('play', function() {
-      if (this.currentTime === 0) {
-        $.ajax({
-          method: 'POST',
-          url: recordPlayUrl,
-          data: {
-            audio: {
-              id: <%= post.postable.podcast_episode.id %>,
-              play: true,
-            },
-            source: 'individual'
-          }
-        })
-        hasPressedPlay = true;
-      }
+    document.addEventListener('turbo:load', () => {
+      // add csrf token to ajax requests
+      $.ajaxPrefilter(function(options, originalOptions, xhr) {
+        if (!options.crossDomain) {
+          token = $('meta[name="csrf-token"]').attr('content');
+          if (token) xhr.setRequestHeader('X-CSRF-Token', token);
+        }
+      });
+
+      const player = document.getElementById('player');
+      // log play
+      player.addEventListener('play', (event) => {
+        if (event.target.currentTime === 0) {
+          $.ajax({
+            method: 'POST',
+            url: recordPlayUrl,
+            data: {
+              audio: {
+                id: <%= post.postable.podcast_episode.id %>,
+                play: true,
+              },
+              source: 'individual'
+            }
+          })
+          hasPressedPlay = true;
+        }
+      })
     })
   </script>
 <% end %>

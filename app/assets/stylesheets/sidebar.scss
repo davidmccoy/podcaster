@@ -23,19 +23,12 @@
 
       &:hover {
         background: $gray-200;
-
-        li a {
-          background: $gray-200;
-        }
       }
     }
   }
 
   .nav-link {
     color: $gray-700;
-    &:hover {
-      background: $gray-200;
-    }
   }
 
   .active {

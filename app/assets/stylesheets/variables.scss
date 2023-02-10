@@ -115,7 +115,7 @@ $font-family-serif:      Georgia, Cambria, "Times New Roman", Times, serif;
 .btn {
   // border-radius: 1.078em;
   font-family: $font-family-sans-serif;
-  font-size: 0.875em;
+  font-size: 1rem;
 
   // &-lg {
   //   border-radius: 2.688em;
@@ -159,7 +159,7 @@ blockquote {
 }
 
 footer {
-  font-size: 0.875em;
+  font-size: 1rem;
 }
 
 .lead {
@@ -254,10 +254,13 @@ table,
 }
 
 .dropdown-menu {
-  font-size: 0.875em;
+  font-size: 1rem;
   .dropdown-item {
     font-weight: inherit;
     color: $gray-700;
+    &:active {
+      color: $white;
+    }
   }
 }
 
