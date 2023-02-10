@@ -1,4 +1,5 @@
 @import "trix/dist/trix";
+@import "variables";
 
 // We need to override trix.css’s image gallery styles to accommodate the
 // <action-text-attachment> element we wrap around attachments. Otherwise,
