@@ -20,8 +20,8 @@ class CheckExternalRssFeedWorker
       )
     end
 
-    if !feed.entries
-      p "Error: No RSS entries for Page id: #{page_id}"
+    if !feed
+      p "Error: No RSS feed for Page id: #{page_id}"
       return
     end
 
