@@ -18,6 +18,7 @@ class CheckExternalRssFeedWorker
         external_rss_error: true,
         external_rss_error_message: "#{response.code}: #{response.message}",
       )
+      return
     end
 
     if !feed
