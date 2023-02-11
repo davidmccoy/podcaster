@@ -20,6 +20,11 @@ class CheckExternalRssFeedWorker
       )
     end
 
+    if !feed.entries
+      p "Error: No RSS entries for Page id: #{page_id}"
+      return
+    end
+
     # find all unique identifiers in the feed
     rss_guids = feed.entries.map { |entry| entry.entry_id }
 
