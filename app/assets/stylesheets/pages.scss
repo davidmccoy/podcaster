@@ -334,6 +334,9 @@
 
 .slug-container {
   min-height: 17px;
+  a {
+    color: $gray-700;
+  }
 }
 
 .page-admin {
