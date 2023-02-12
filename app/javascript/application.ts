@@ -28,6 +28,8 @@ import "@uppy/informer/dist/style.css";
 import "@uppy/file-input/dist/style.css";
 import "./uppy"
 
+import "./components/editor"
+
 
 import "./stacktable"
 
@@ -50,6 +52,10 @@ import "./stacktable"
     });
 
     document.querySelectorAll('trix-editor.full-height').forEach((editor) => {
+      editor.style.height = `${window.innerHeight * 0.87}px`;
+    })
+
+    document.querySelectorAll('.editor').forEach((editor) => {
       editor.style.height = `${window.innerHeight * 0.87}px`;
     })
   }
