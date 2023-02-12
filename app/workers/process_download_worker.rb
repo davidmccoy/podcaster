@@ -29,11 +29,11 @@ class ProcessDownloadWorker
       browser: client.name,
       os: client.os_name,
       device_type: client.device_type,
-      country: location.country,
-      region: location.region,
-      city: location.city,
-      latitude: location.latitude,
-      longitude: location.longitude,
+      country: location?.country,
+      region: location?.region,
+      city: location?.city,
+      latitude: location?.latitude,
+      longitude: location?.longitude,
     )
   end
 
