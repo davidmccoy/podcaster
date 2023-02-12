@@ -1,5 +1,5 @@
 <% content_for :head do %>
-  <%= javascript_pack_tag 'uppy' %>
+  <%#= javascript_pack_tag 'uppy' %>
 <% end %>
 
 <div class="content">
@@ -15,7 +15,7 @@
           <strong>Current:</strong>
         </p>
         <% if @page.logo %>
-          <%= image_tag @page.logo.file[:medium].url %>
+          <%= image_tag @page.logo.file(:medium).url %>
         <% else %>
           <%= image_tag 'mtgcast-logo-itunes.png' %>
         <% end %>

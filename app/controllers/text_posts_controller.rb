@@ -13,5 +13,7 @@ class TextPostsController < ApplicationController
       else
         ActionController::Base.helpers.image_path('mtgcast-logo-itunes.png')
       end
+
+      @shortened = @page.description&.to_plain_text&.length > 300
   end
 end

@@ -5,7 +5,7 @@
       <%= link_to '+ Podcast', new_page_path(@user), class: 'btn btn-sm btn-light' %>
     </p>
     <% unless @pages.empty? %>
-      <table class="table table-outer-border">
+      <table class="table table-outer-border pages-table">
         <thead style="display: none">
           <tr>
             <th>
@@ -52,5 +52,7 @@
   </div>
 </div>
 <script>
-  $('.table').stacktable();
+  document.addEventListener('turbo:load', () => {
+    $('.table').stacktable();
+  })
 </script>

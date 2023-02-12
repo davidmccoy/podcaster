@@ -35,7 +35,7 @@
 </div>
 
 <script>
-  $(document).on('ready turbolinks:load', function() {
+  document.addEventListener('turbo:load', () => {
     var date = new Date('<%= @post.publish_time.utc.iso8601 %>'),
         month = date.toLocaleString('default', { month: 'long' }),
         day = String(date.getDate()).padStart(2, '0'),
@@ -44,11 +44,13 @@
         minute = String(date.getMinutes()).padStart(2, '0'),
         zone = date.getTimezoneOffset() / 60;
 
-    $('select[name="post[publish_time_month]"]').val(month);
-    $('input[name="post[publish_time_day]"]').val(day);
-    $('input[name="post[publish_time_year]"]').val(year);
-    $('input[name="post[publish_time_hour]"]').val(hour);
-    $('input[name="post[publish_time_minute]"]').val(minute);
-    $('input[name="post[publish_time_zone]"]').val(zone);
+    if (document.querySelector('select[name="post[publish_time_month]"]')) {
+      document.querySelector('select[name="post[publish_time_month]"]').value = month;
+      document.querySelector('input[name="post[publish_time_day]"]').value = day;
+      document.querySelector('input[name="post[publish_time_year]"]').value = year;
+      document.querySelector('input[name="post[publish_time_hour]"]').value = hour;
+      document.querySelector('input[name="post[publish_time_minute]"]').value = minute;
+      document.querySelector('input[name="post[publish_time_zone]"]').value = zone;
+    }
   })
 </script>

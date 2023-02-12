@@ -36,14 +36,24 @@ Shrine.storages = {
   external: Shrine::Storage::S3.new(**external_options),
 }
 
+Shrine.logger = Rails.logger
+
 # === shrine plugins
 Shrine.plugin :activerecord
 Shrine.plugin :cached_attachment_data
 Shrine.plugin :restore_cached_data
-Shrine.plugin :logging, logger: Rails.logger
+Shrine.plugin :instrumentation
 Shrine.plugin :uppy_s3_multipart
 Shrine.plugin :backgrounding
+Shrine.plugin :derivatives,
+  create_on_promote: true,
+  versions_compatibility: true  # handle old column format, remove after migrating
 
 # makes all uploaders use background jobs
-Shrine::Attacher.promote { |data| PromoteFromCacheWorker.perform_async(data) }
-Shrine::Attacher.delete { |data| DeleteFromS3Worker.perform_async(data) }
+Shrine::Attacher.promote_block do
+  PromoteFromCacheWorker.perform_async(self.class.name, record.class.name, record.id, name.to_s, file_data)
+end
+
+Shrine::Attacher.destroy_block do
+  DeleteFromS3Worker.perform_async(self.class.name, data)
+end

@@ -1,5 +1,7 @@
+@import 'variables';
+
 .hero-container.home {
-  background-image: asset-data-url("podcasting-hero.jpg");
+  background-image: asset-url("podcasting-hero.jpg");
   background-size: cover;
   background-position: center top;
   background-color: rgba(33,37,41,0.8);
@@ -30,6 +32,7 @@
 
 .homepage-section-container {
   width: 100%;
+  padding: 0;
 }
 
 .homepage-section {
@@ -115,6 +118,9 @@
 
       .final-cta {
         text-align: center;
+        .btn {
+          font-size: 1rem;
+        }
       }
     }
 

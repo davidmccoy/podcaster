@@ -18,39 +18,3 @@
 //= require popper
 //= require bootstrap
 //= require_tree .
-
-// validate forms on submission
-(function() {
-  'use strict';
-
-  const postFormSetup = () => {
-    // Fetch all the forms we want to apply custom Bootstrap validation styles to
-    var forms = document.getElementsByClassName('needs-validation');
-    // Loop over them and prevent submission
-    var validation = Array.prototype.filter.call(forms, function(form) {
-      form.addEventListener('submit', function(event) {
-        if (form.checkValidity() === false) {
-          event.preventDefault();
-          event.stopPropagation();
-        }
-        form.classList.add('was-validated');
-      }, false);
-    });
-
-    $('trix-editor.full-height').height(window.innerHeight * 0.87)
-  }
-
-  window.addEventListener('turbolinks:load', postFormSetup, false);
-  window.addEventListener('load', postFormSetup, false);
-
-  $(function () {
-    $('[data-toggle="tooltip"]').tooltip()
-  })
-})();
-
-// fade success messages
-window.setTimeout(function() {
-  $(".alert-success").fadeTo(500, 0).slideUp(500, function(){
-    $(this).remove();
-  });
-}, 4000);

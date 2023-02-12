@@ -26,7 +26,7 @@ class AudiosController < ApplicationController
       update_download_count
     end
 
-    redirect_to @audio.url
+    redirect_to @audio.url, allow_other_host: true
   end
 
   # TODO: i don't think these are used any more

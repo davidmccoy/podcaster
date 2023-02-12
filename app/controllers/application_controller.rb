@@ -1,16 +1,10 @@
 class ApplicationController < ActionController::Base
-  include Pundit
+  include Pundit::Authorization
   protect_from_forgery with: :exception
   before_action :configure_permitted_parameters, if: :devise_controller?
 
-  rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
-
-  rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
-
-  private
-
   # use Pundit to redirect after failed auth
-  def user_not_authorized
+  rescue_from Pundit::NotAuthorizedError do |exception|
     if current_user
       flash[:alert] = "You are not authorized to perform this action."
       redirect_to(request.referrer || root_path) and return
@@ -19,9 +13,11 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def record_not_found
-    render 'errors/not_found' # Assuming you have a template named 'record_not_found'
+  rescue_from ActiveRecord::RecordNotFound do |exception|
+    render 'errors/not_found'
   end
+
+  private
 
   # ======= customize devise ======= #
 

@@ -1,8 +1,10 @@
+@import 'variables';
+
 .page-item {
   .page-link {
     color: $blue;
   }
-  &.active { 
+  &.active {
     .page-link {
       background-color: $blue;
       border-color: $blue;

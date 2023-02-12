@@ -18,6 +18,12 @@ class CheckExternalRssFeedWorker
         external_rss_error: true,
         external_rss_error_message: "#{response.code}: #{response.message}",
       )
+      return
+    end
+
+    if !feed
+      p "Error: No RSS feed for Page id: #{page_id}"
+      return
     end
 
     # find all unique identifiers in the feed
