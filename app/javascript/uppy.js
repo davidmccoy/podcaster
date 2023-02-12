@@ -5,7 +5,7 @@ import ProgressBar from '@uppy/progress-bar'
 import FileInput from '@uppy/file-input'
 import ThumbnailGenerator from '@uppy/thumbnail-generator'
 
-document.addEventListener('turbolinks:load', () => {
+document.addEventListener('turbo:load', () => {
   document.querySelectorAll('.upload-file').forEach(function (fileInput) {
     audioFileUpload(fileInput)
   })

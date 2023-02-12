@@ -5,8 +5,6 @@ class AudioUploader < Shrine
   plugin :determine_mime_type, analyzer: :marcel
   plugin :add_metadata
   plugin :restore_cached_data
-  plugin :processing
-  plugin :refresh_metadata
   plugin :pretty_location
   plugin :remote_url, max_size: 1000*1024*1024
 
@@ -16,46 +14,74 @@ class AudioUploader < Shrine
     validate_mime_type_inclusion %w[audio/ogg audio/mpeg audio/wav audio/x-wav audio/aac audio/aacp audio/mp4], message: 'must be an .mp3, .wav, .aac, .m4a, or .ogg'
   end
 
-  process(:store) do |io, context|
-    io.refresh_metadata!(context)
-    io
-  end
-
-  # Save content length in HH:MM:SS
-  add_metadata :length do |io, context|
-    next unless context[:action] == :store
-    p 'finding length'
+  add_metadata do |io|
     length = 0
+    bitrate = 0
     file = nil
+
     if io.class == AudioUploader::UploadedFile
       file = Ffprober::Parser.from_file(io.download.path)
     else
       file = Ffprober::Parser.from_file(io.download)
     end
+
+    p 'finding length'
     length = file.json[:streams][0][:duration].to_i
 
     hours   = length / 3600
     minutes = length / 60 % 60
     seconds = length % 60
 
-    if hours.zero?
+    formatted_length = if hours.zero?
       format('%d:%02d', minutes, seconds)
     else
       format('%d:%02d:%02d', hours, minutes, seconds)
     end
-  end
 
-  add_metadata :bit_rate do |io, context|
-    next unless context[:action] == :store
     p 'finding bit rate'
-    if io.class == AudioUploader::UploadedFile
-      file = Ffprober::Parser.from_file(io.download.path)
-    else
-      file = Ffprober::Parser.from_file(io.download)
-    end
+    bitrate = file.json[:streams][0][:bit_rate].to_i
 
-    file.json[:streams][0][:bit_rate].to_i
+    {
+      "length" => formatted_length,
+      "bitrate" => bitrate,
+    }
   end
+
+  # # Save content length in HH:MM:SS
+  # add_metadata :length do |io|
+  #   # next unless context[:action] == :store
+  #   p 'finding length'
+  #   length = 0
+  #   file = nil
+  #   if io.class == AudioUploader::UploadedFile
+  #     file = Ffprober::Parser.from_file(io.download.path)
+  #   else
+  #     file = Ffprober::Parser.from_file(io.download)
+  #   end
+  #   length = file.json[:streams][0][:duration].to_i
+
+  #   hours   = length / 3600
+  #   minutes = length / 60 % 60
+  #   seconds = length % 60
+
+  #   if hours.zero?
+  #     format('%d:%02d', minutes, seconds)
+  #   else
+  #     format('%d:%02d:%02d', hours, minutes, seconds)
+  #   end
+  # end
+
+  # add_metadata :bit_rate do |io|
+  #   # next unless context[:action] == :store
+  #   p 'finding bit rate'
+  #   if io.class == AudioUploader::UploadedFile
+  #     file = Ffprober::Parser.from_file(io.download.path)
+  #   else
+  #     file = Ffprober::Parser.from_file(io.download)
+  #   end
+
+  #   file.json[:streams][0][:bit_rate].to_i
+  # end
 
 
   # Generate a custom s3 key

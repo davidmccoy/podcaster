@@ -10,9 +10,10 @@ development:
   - mailers
   - low
   - bottom
-:schedule:
-  check_external_rss_feeds:
-    cron: '0 0 * * * *'   # Runs every hour
-    queue: bottom
-    description: 'Loops through externally-hosted RSS feeds for new episodes'
-    class: CheckExternalRssFeedsWorker
+:scheduler:
+  :schedule:
+    check_external_rss_feeds:
+      cron: '0 * * * *'   # Runs every hour
+      queue: bottom
+      description: 'Loops through externally-hosted RSS feeds for new episodes'
+      class: CheckExternalRssFeedsWorker

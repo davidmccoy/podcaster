@@ -47,7 +47,7 @@
           <div class="page-container">
             <div class="page-image-container">
               <%= link_to page_path(page) do %>
-                <div class="page-image" style="background-image: url(<%= page.logo ?  page.logo.file[:medium].url : @default_logo %>)">
+                <div class="page-image" style="background-image: url(<%= page.logo ?  page.logo.file(:medium).url : @default_logo %>)">
                 </div>
               <% end %>
             </div>

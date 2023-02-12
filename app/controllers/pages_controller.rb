@@ -1,7 +1,7 @@
 #
 class PagesController < ApplicationController
-  before_action :set_page, except: [:index, :new, :create, :mtgcast, :recover, :send_recovery_email]
-  before_action :authorize_page, except: [:index, :show, :feed, :mtgcast]
+  before_action :set_page, except: [:index, :new, :create, :mtgcast_feed, :recover, :send_recovery_email]
+  before_action :authorize_page, except: [:index, :show, :feed, :mtgcast_feed]
 
   def index
     @pages = Page::Search.new(Page.all, query_params, params).all
@@ -67,10 +67,10 @@ class PagesController < ApplicationController
       else
         Time.now.to_s(:rfc822)
       end
-    render template: 'pages/feed.rss.builder', layout: false
+    # render template: 'pages/feed.xml.builder', layout: false
   end
 
-  def mtgcast
+  def mtgcast_feed
     @image = ActionController::Base.helpers.asset_path('mtgcast-logo-itunes.png', host: root_url)
     @episodes = AudioPost.published
                  .includes(post: :page)
@@ -82,7 +82,7 @@ class PagesController < ApplicationController
       else
         Time.now.to_s(:rfc822)
       end
-    render template: 'pages/mtgcast_feed.rss.builder', layout: false
+    # render template: 'pages/mtgcast_feed.rss.builder', formats: [:rss], layout: false
   end
 
   def recover

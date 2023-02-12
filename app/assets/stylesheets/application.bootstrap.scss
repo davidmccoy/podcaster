@@ -1,7 +1,8 @@
 @import "font_faces";
 @import "variables";
-@import "bootstrap";
-@import "nav";
+@import 'bootstrap/scss/bootstrap';
+@import 'bootstrap-icons/font/bootstrap-icons';
+@import "nav.scss";
 @import "home";
 @import "pages";
 @import "posts";
@@ -9,15 +10,13 @@
 @import "uppy";
 @import "stacktable";
 @import "pagination";
-@import "actiontext";
-@import "trix/dist/trix";
+@import 'actiontext';
 @import "sidebar";
 @import "settings";
 @import "icons";
 @import "trix_editor";
 @import "errors";
 @import "graphs";
-
 
 audio {
   width: 100%;
@@ -37,8 +36,17 @@ strong {
   margin-left: -16px;
 }
 
+.pl-3 {
+  padding-left: 1rem;
+}
+
+.form-group {
+  margin-bottom: 1rem;
+}
+
 .control-label {
   font-weight: bold;
+  margin-bottom: 0.5rem;
 }
 
 .content-block {

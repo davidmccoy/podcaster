@@ -5,16 +5,14 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
-ruby '2.7.5'
+ruby '3.1.3'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 6.1.5.1'
+gem 'rails', '~> 7.0.4.2'
 # Use postgresql as the database for Active Record
 gem 'pg', '~> 1.1'
 # Use Puma as the app server
 gem 'puma', '~> 3.7'
-# Use SCSS for stylesheets
-gem 'sass-rails', '~> 6.0'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
 # See https://github.com/rails/execjs#readme for more supported runtimes
@@ -22,21 +20,23 @@ gem 'uglifier', '>= 1.3.0'
 
 # Use CoffeeScript for .coffee assets and views
 gem 'coffee-rails', '~> 4.2'
-# Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
-gem 'turbolinks', '~> 5'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.5'
 # Use Redis adapter to run Action Cable in production
-# gem 'redis', '~> 4.0'
+gem 'redis', '~> 4.0'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
+gem 'jsbundling-rails'
+gem 'cssbundling-rails'
+gem 'sassc-rails'
+gem 'sprockets-rails'
+gem 'turbo-rails'
+
 gem 'httparty'
-gem 'jquery-rails'
-gem "webpacker"
 
 # User control and authorization
 gem 'devise'
@@ -45,13 +45,9 @@ gem "pundit"
 # For background jobs
 gem 'sidekiq'
 gem 'sidekiq-scheduler'
-gem 'redis'
 
 # To read mp3 metadata
 gem 'id3tag', '~> 0.11.0'
-
-# Styling
-gem 'bootstrap', '~> 4.3.1'
 
 # Mailchimp integration
 gem 'gibbon'
@@ -60,7 +56,7 @@ gem 'gibbon'
 gem 'figaro'
 
 # Files upload
-gem 'shrine', '~> 2.11'
+gem 'shrine', '~> 3.4.0'
 gem 'aws-sdk-s3'
 gem 'aws-sdk-elastictranscoder'
 gem 'ffprober'
@@ -71,7 +67,7 @@ gem 'image_processing', '~> 1.0'
 gem 'browser-timezone-rails'
 
 # Pagination
-gem 'will_paginate', '~> 3.1.7'
+gem 'will_paginate', '~> 3.3'
 
 # Monitoring
 gem 'scout_apm'
@@ -98,7 +94,7 @@ group :development, :test do
   # gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   # Adds support for Capybara system testing and selenium driver
   gem 'capybara', '~> 2.13'
-  gem 'pry'
+  gem 'pry-remote'
   gem 'selenium-webdriver'
 end
 
