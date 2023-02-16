@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_02_02_150730) do
+ActiveRecord::Schema[7.0].define(version: 2023_02_15_223343) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -83,6 +83,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_02_150730) do
     t.text "guid"
     t.text "import_errors"
     t.datetime "publish_time", precision: nil
+    t.text "body"
     t.index ["file_migrated"], name: "index_audio_posts_on_file_migrated"
     t.index ["guid"], name: "index_audio_posts_on_guid"
   end
@@ -152,6 +153,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_02_150730) do
     t.datetime "publish_time", precision: nil
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.text "body"
   end
 
   create_table "users", force: :cascade do |t|

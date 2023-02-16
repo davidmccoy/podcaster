@@ -1,7 +1,9 @@
 <% content_for :content do %>
   <div class="row">
-    <%= render 'dashboard/sidebar' %>
-    <div class="page-admin">
+    <div class="collapse show col-2" id="sidebar">
+      <%= render 'dashboard/sidebar' %>
+    </div>
+    <div class="page-admin col-10">
       <%= render 'dashboard/alert' %>
       <%= yield %>
     </div>

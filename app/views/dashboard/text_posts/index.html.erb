@@ -24,7 +24,7 @@
           <% next unless post.postable %>
           <tr>
             <td class="bold">
-              <%= link_to post.postable.title, page_text_post_path(@page, post) %>
+              <%= link_to post.postable.title, page_post_path(@page, post) %>
             </td>
             <td>
               <%= post.publish_time.strftime('%-m/%-d/%Y') %>

@@ -90,7 +90,8 @@ class Dashboard::AudioPostsController < Dashboard::BaseController
               :id,
               :title,
               :description,
-              :content
+              :content,
+              :body,
             ]
           )
   end

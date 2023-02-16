@@ -1,5 +1,7 @@
 # polymorphic class allowing for multiple post types
 class AudioPost < ApplicationRecord
+  before_save :sanitize_body
+
   # NOTE: we need to specify `audio_posts.publish_time` in order to avoid ambiguous
   # column reference errors
   scope :published, -> { where('audio_posts.publish_time < ?', Time.now).order(publish_time: :desc) }
@@ -18,5 +20,11 @@ class AudioPost < ApplicationRecord
   # TODO: this is a really bad name
   def podcast_episode
     attachments.find_by(label: 'podcast_episode')
+  end
+
+  private
+
+  def sanitize_body
+    self.body = Post::Sanitizer.new.sanitize(body)
   end
 end

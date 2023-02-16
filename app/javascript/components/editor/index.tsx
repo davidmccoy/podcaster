@@ -1,7 +1,6 @@
 import * as React from "react";
 import ReactDOM from "react-dom/client"
 import Editor from "./Editor";
-import Header from "./Header"
 
 interface AppProps {
   arg: string;
@@ -10,14 +9,15 @@ interface AppProps {
 const App = ({ arg }: AppProps) => {
   return (
     <div className="editor">
-      <Header />
       <Editor />
     </div>
   );
 };
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("turbo:load", () => {
   const rootEl = document.getElementById("editor");
-  const root = ReactDOM.createRoot(rootEl)
-  root.render(<App arg="Rails 7 with ESBuild" />);
+  if (rootEl) {
+    const root = ReactDOM.createRoot(rootEl)
+    root.render(<App arg="Rails 7 with ESBuild" />);
+  }
 });

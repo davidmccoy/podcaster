@@ -8,14 +8,16 @@ textarea {
 
 .publish-time {
   display: inline-block;
+  font-size: 0.8rem;
+  padding: 0.5rem;
   &.month {
-    width: 110px;
+    width: auto;
   }
   &.year {
-    width: 80px;
+    width: 48px;
   }
   &.day, &.hour, &.minute {
-    width: 60px;
+    width: 35px;
   }
 }
 
@@ -66,4 +68,23 @@ textarea {
 
 .admin-post-container {
   margin-bottom: 1rem;
+
+  #post-form {
+    display: grid;
+    grid-template-rows: repeat(1, 1fr);
+    grid-template-columns: repeat(12, 1fr);
+    gap: 2rem;
+  }
+
+  .post-editor-container {
+    grid-column: auto/span 9;
+  }
+
+  .post-info-container {
+    grid-column: auto/span 3;
+  }
+
+  .editor-form-group {
+    margin-bottom: 0;
+  }
 }

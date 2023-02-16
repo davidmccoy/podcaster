@@ -1,3 +1,9 @@
+@import "variables";
+
+.ProseMirror-container {
+  height: 100%;
+}
+
 .ProseMirror {
   overflow: auto;
   height: 100%;
@@ -37,6 +43,7 @@
 
 .ProseMirror img {
   max-width: 100%;
+  margin-bottom: .75em
 }
 
 .ProseMirror p.is-editor-empty:first-child::before {
@@ -50,16 +57,21 @@
 
 .editor {
   background-color: #fff;
-  border: 3px solid #0d0d0d;
+  border: 1px solid $gray-200;
   border-radius: 0.75rem;
   color: #0d0d0d;
   display: flex;
   flex-direction: column;
+  &:focus-within {
+    border-color: #febf8a;
+    box-shadow: 0 0 0 0.25rem rgba(253, 126, 20, 0.25);
+  }
+
 }
 
 .editor__header {
   align-items: center;
-  border-bottom: 3px solid #0d0d0d;
+  border-bottom: 1px solid $gray-200;
   display: flex;
   flex: 0 0 auto;
   flex-wrap: wrap;
@@ -68,7 +80,7 @@
 
 .editor__body {
   height: 100%;
-  overflow: scroll;
+  overflow: auto;
 }
 
 .menu-item {

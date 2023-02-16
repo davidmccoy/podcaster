@@ -15,13 +15,15 @@ document.addEventListener('turbo:load', () => {
   })
 })
 
+let uppy;
+
 const audioFileUpload = (fileInput) => {
   // Don't allow a Post to save without an uploaded file
   const saveButton = document.getElementById('post-save')
 
   fileInput.style.display = 'none' // uppy will add its own file input
 
-  let uppy = new Uppy({
+  uppy = new Uppy({
     id: fileInput.id,
     autoProceed: true,
     restrictions: {
@@ -186,3 +188,7 @@ const logoFileUpload = (fileInput) => {
 
   return uppy
 }
+
+document.addEventListener('turbo:before-cache', function () {
+  if (uppy) uppy.close();
+})

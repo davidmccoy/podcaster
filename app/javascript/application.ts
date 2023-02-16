@@ -50,14 +50,6 @@ import "./stacktable"
         form.classList.add('was-validated');
       }, false);
     });
-
-    document.querySelectorAll('trix-editor.full-height').forEach((editor) => {
-      editor.style.height = `${window.innerHeight * 0.87}px`;
-    })
-
-    document.querySelectorAll('.editor').forEach((editor) => {
-      editor.style.height = `${window.innerHeight * 0.87}px`;
-    })
   }
 
   window.addEventListener('turbo:load', postFormSetup, false);
