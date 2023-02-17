@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useState }   from "react";
 import { useEditor, EditorContent } from '@tiptap/react';
 
 import StarterKit from '@tiptap/starter-kit';
@@ -11,6 +11,10 @@ import TaskItem from '@tiptap/extension-task-item';
 
 import useWindowDimensions from '../../windowDimensions';
 import Menu from './Menu';
+
+import { DashboardModal } from '@uppy/react'
+import Uppy from '@uppy/core';
+import AwsS3Multipart from '@uppy/aws-s3-multipart'
 
 const styleToClassName = [
   ['bold', 'bold'],
@@ -108,12 +112,37 @@ const Editor = () => {
     }
   })
 
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
+  const uppy = new Uppy()
+    .use(AwsS3Multipart, { companionUrl: '/' })
+
+  uppy.on('upload-success', (_file, response) => {
+    editor.chain().focus().setImage({ src: response.body.location }).run()
+  });
+
+  uppy.on('complete', () => {
+    handleClose();
+  })
+
   return (
     <div>
-      <Menu editor={editor} />
+      <Menu
+        editor={editor}
+        handleUploadModalShow={handleShow}
+      />
       <div className='editor__body' style={{height: height * 0.865}}>
         <EditorContent editor={editor} className={'ProseMirror-container'}/>
       </div>
+      <DashboardModal
+        uppy={uppy}
+        closeModalOnClickOutside
+        open={show}
+        onRequestClose={handleClose}
+      />
     </div>
   )
 }

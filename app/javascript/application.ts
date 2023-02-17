@@ -26,6 +26,7 @@ import "@uppy/core/dist/style.css";
 import "@uppy/progress-bar/dist/style.css";
 import "@uppy/informer/dist/style.css";
 import "@uppy/file-input/dist/style.css";
+import '@uppy/dashboard/dist/style.css'
 import "./uppy"
 
 import "./components/editor"
