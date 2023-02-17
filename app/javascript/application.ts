@@ -26,7 +26,10 @@ import "@uppy/core/dist/style.css";
 import "@uppy/progress-bar/dist/style.css";
 import "@uppy/informer/dist/style.css";
 import "@uppy/file-input/dist/style.css";
+import '@uppy/dashboard/dist/style.css'
 import "./uppy"
+
+import "./components/editor"
 
 
 import "./stacktable"
@@ -48,10 +51,6 @@ import "./stacktable"
         form.classList.add('was-validated');
       }, false);
     });
-
-    document.querySelectorAll('trix-editor.full-height').forEach((editor) => {
-      editor.style.height = `${window.innerHeight * 0.87}px`;
-    })
   }
 
   window.addEventListener('turbo:load', postFormSetup, false);

@@ -49,7 +49,7 @@ class CheckExternalRssFeedWorker
         slug: "#{entry.title.parameterize}-#{SecureRandom.hex(5)}",
         postable_attributes: {
           title: entry.title,
-          content: entry.summary,
+          body: entry.summary,
           imported: true,
           guid: entry.entry_id,
           publish_time: entry.published,

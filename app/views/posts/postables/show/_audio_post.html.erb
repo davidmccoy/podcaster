@@ -61,7 +61,7 @@
           <% end %>
         <% end %>
       </div>
-      <%= post.postable.content %>
+      <%= Post::Sanitizer.new.sanitize(post.postable.body) || post.postable.content %>
     </div>
   </div>
 </div>

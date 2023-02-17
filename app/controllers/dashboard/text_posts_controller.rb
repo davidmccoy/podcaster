@@ -69,7 +69,8 @@ class Dashboard::TextPostsController < Dashboard::BaseController
               :id,
               :title,
               :description,
-              :content
+              :content,
+              :body,
             ]
           )
   end

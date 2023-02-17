@@ -30,7 +30,7 @@
   </div>
   <div class="col-lg-8 offset-lg-2 col-md-12">
     <div class="post-body-container">
-      <%= @post.postable.content %>
+      <%= Post::Sanitizer.new.sanitize(@post.postable.body) || @post.postable.content %>
     </div>
   </div>
 </div>

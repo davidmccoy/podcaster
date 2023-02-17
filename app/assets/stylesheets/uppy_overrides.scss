@@ -1,0 +1,25 @@
+@import "variables";
+
+.uppy-Root {
+  font-family: "Roboto";
+  a {
+    color: $blue;
+  }
+}
+
+.uppy-Dashboard-browse, .uppy-DashboardContent-back, .uppy-DashboardContent-addMore {
+  color: $blue;
+}
+
+.uppy-Dashboard-AddFiles-info {
+  display: none !important;
+}
+
+.uppy-StatusBar.is-waiting {
+  .uppy-StatusBar-actionBtn--upload {
+    background-color: $primary;
+    &:hover {
+      background-color: lighten($primary, 10%);
+    }
+  }
+}

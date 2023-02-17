@@ -66,6 +66,12 @@
   }
 }
 
+.page-name-container {
+  a {
+    text-decoration: none;
+  }
+}
+
 .page-settings-container {
   display: flex;
   justify-content: space-between;
@@ -158,6 +164,11 @@
 
 .post-body-container {
   margin-bottom: 2rem;
+
+  img {
+    max-width: 100%;
+    margin-bottom: 1rem;
+  }
 }
 
 .hero-container {
@@ -340,7 +351,6 @@
 }
 
 .page-admin {
-  width: 100%;
   padding: 0 1rem;
   flex-shrink: 1;
 
@@ -509,7 +519,6 @@
 
   .page-admin {
     padding: 0 2rem 0 2rem;
-    margin-left: 220px;
     overflow: auto;
     height: calc(100vh - 74px);
 
