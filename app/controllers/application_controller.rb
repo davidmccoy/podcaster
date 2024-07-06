@@ -60,7 +60,7 @@ class ApplicationController < ActionController::Base
 
   # TODO: this should scope by the page
   def set_post
-    @post = Post.includes(:postable).find_by_slug(params[:post_slug]) || Post.includes(:postable).find_by_slug(params[:slug])
+    @post = Post.includes(:postable).find_by_slug(params[:post_slug]) || Post.includes(:postable).find_by_slug(params[:audio_post_slug]) || Post.includes(:postable).find_by_slug(params[:slug])
     raise ActiveRecord::RecordNotFound unless @post
   end
 

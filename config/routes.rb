@@ -44,7 +44,9 @@ require 'sidekiq/web'
 
     namespace 'dashboard' do
       resources :text_posts, param: :slug, path: "posts"
-      resources :audio_posts, param: :slug, path: "episodes"
+      resources :audio_posts, param: :slug, path: "episodes" do
+        get 'download'
+      end
       get 'analytics/audience', to: 'analytics#audience'
       get 'analytics/downloads', to: 'analytics#downloads'
       resource :graphs do
