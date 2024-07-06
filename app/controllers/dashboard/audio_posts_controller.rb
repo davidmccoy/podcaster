@@ -76,6 +76,26 @@ class Dashboard::AudioPostsController < Dashboard::BaseController
     end
   end
 
+  def download
+    file = @post.postable.podcast_episode&.file
+    file_io = file.download
+    file_content = file_io.read
+
+    if file_content.empty?
+      render plain: "File not found or empty", status: :not_found
+      return
+    end
+
+    mime_type = file.mime_type || 'application/octet-stream'
+    # Fall back to the post's title and convert to snake case
+    filename = file.original_filename || @post.postable.title.downcase.gsub(/[^a-z0-9]+/, '_').gsub(/^_|_$/, '')
+
+    send_data file_content,
+              filename: filename,
+              type: mime_type,
+              disposition: 'attachment'
+  end
+
   private
 
   def post_params

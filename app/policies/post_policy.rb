@@ -31,4 +31,8 @@ class PostPolicy <  ApplicationPolicy
   def destroy?
     edit?
   end
+
+  def download?
+    edit?
+  end
 end

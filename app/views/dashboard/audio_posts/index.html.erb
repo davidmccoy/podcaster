@@ -23,6 +23,8 @@
           </th>
           <th>
           </th>
+          <th>
+          </th>
         </tr>
       </thead>
       <tbody>
@@ -49,6 +51,9 @@
             </td>
             <td class="view text-center">
               <%= link_to 'Edit', edit_page_dashboard_audio_post_path(@page, post), class: 'btn btn-sm btn-light' %>
+            </td>
+            <td>
+              <%= link_to 'Download', page_dashboard_audio_post_download_path(@page, post), download: true %>
             </td>
           </tr>
         <% end %>
